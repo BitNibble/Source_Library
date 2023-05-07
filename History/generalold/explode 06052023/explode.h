@@ -4,7 +4,7 @@ Author: Sergio Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: all
-Date: 07052023
+Date: 06052023
 Comment:
 	Pin Analysis
 ************************************************************************/
@@ -20,17 +20,21 @@ Comment:
 typedef struct {
 	unsigned int XI;
 	unsigned int XF;
+}expldparam;
+
+typedef struct {
 	unsigned int HL;
 	unsigned int LH;
 	unsigned int HH;
 	unsigned int LL;
-}explodesignal;
+}expldsign;
 
 struct expld{
 	// Variable
-	explodesignal sig;
+	expldparam par;
+	expldsign sig;
 	// PROTOTYPES VTABLE
-	void (*update)(explodesignal* sig, uint8_t x); // preamble in (while loop)
+	void (*update)(struct expld *self, uint8_t x); // preamble in (while loop)
 };
 
 typedef struct expld EXPLODE;
