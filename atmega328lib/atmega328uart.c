@@ -33,7 +33,6 @@ Comment:
 #if defined(__AVR_ATmega48__) ||defined(__AVR_ATmega88__) || defined(__AVR_ATmega168__) || \
       defined(__AVR_ATmega48P__) ||defined(__AVR_ATmega88P__) || defined(__AVR_ATmega168P__) || \
       defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__)
-	 #define ATMEGA_328_USART
 	 // USART, RX Complete Handler
 	 #define UART_RX_COMPLETE		USART_RX_vect
 	 // USART, UDR Empty Handler
@@ -181,11 +180,11 @@ UARTvar uart_getch(void)
 }
 UARTvar* uart_gets(void)
 {
-	return rxbuff.raw(&rxbuff.pos);
+	return rxbuff.raw(&rxbuff.par);
 }
 void uart_rxflush(void)
 {
-	rxbuff.flush(&rxbuff.pos);
+	rxbuff.flush(&rxbuff.par);
 }
 void uart_write(UARTvar data)
 {
@@ -219,7 +218,7 @@ ISR(UART_RX_COMPLETE)
     UART_LastRxError = (usr & (_BV(FE0) | _BV(DOR0)));
 	
 	UART_Rx = uartmega328.usart.reg->udr0;
-	rxbuff.push(&rxbuff.pos, UART_Rx);
+	rxbuff.push(&rxbuff.par, UART_Rx);
 }
 
 ISR(UART_UDR_EMPTY)
