@@ -4,7 +4,7 @@ Author: Sergio Manuel Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: Atmega32U4 by ETT ET-BASE
-Date: 09052023
+Date: 12052023
 Comment: 
 	Virtual Image Atmega 32U4 mapping.
 *********************************************************************/
@@ -61,6 +61,7 @@ typedef struct {
 // CPU Register (CPU)
 typedef struct {
 	Atmega32U4CPURegister_TypeDef* reg;
+	Atmega32U4ClockSelect_TypeDef* clk;
 } Atmega32U4CPURegister;
 
 // EEPROM (EEPROM)

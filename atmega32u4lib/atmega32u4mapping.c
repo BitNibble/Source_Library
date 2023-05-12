@@ -4,7 +4,7 @@ Author: Sergio Manuel Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: Atmega32U4 by ETT ET-BASE
-Date: 09052023
+Date: 12052023
 Comment:
 	Virtual Image Atmega 32U4 mapping and linking.
 *********************************************************************/
@@ -39,6 +39,7 @@ ATMEGA32U4 ATMEGA32U4enable(void){
 	ret.boot_load.reg = (Atmega32U4Bootloader_TypeDef*) Atmega32U4Bootloader_Address;
 	// CPU
 	ret.cpu.reg = (Atmega32U4CPURegister_TypeDef*) Atmega32U4CPURegister_Address;
+	ret.cpu.clk = (Atmega32U4ClockSelect_TypeDef*) Atmega32U4ClockSelect_Address;
 	// EEPROM
 	ret.eeprom.reg = (Atmega32U4Eeprom_TypeDef*) Atmega32U4Eeprom_Address;
 	#if defined(_ATMEGAEEPROM_H_)
