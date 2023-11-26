@@ -4,7 +4,7 @@ Author: Sergio Manuel Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: Atmega328 by ETT ET-BASE
-Date: 26112023
+Date: 13052023
 Comment:
 	Virtual Image Atmega 328.
 	In Search of Perfection
@@ -21,7 +21,7 @@ Comment:
 #define Atmega328AnalogToDigitalConverter_Address 0x0078
 #define Atmega328CPURegister_Address 0x0053
 #define Atmega328Eeprom_Address 0x003F
-#define Atmega328ExternalInterrupt_Address 0x003B
+#define Atmega328ExternalInterrupts_Address 0x003B
 #define Atmega328PORTB_Address 0x0023
 #define Atmega328PORTC_Address 0x0026
 #define Atmega328PORTD_Address 0x0029
@@ -35,13 +35,11 @@ Comment:
 // AUXILIAR
 #define Atmega328TimerGeneralControlRegister_Address 0x0043
 #define Atmega328TimerInterruptFlag_Address 0x0035
-#define Atmega328TimerInterruptMask_Address 0x006E;
+#define Atmega328TimerMask_Address 0x006E;
 #define Atmega328TimerCompareRegister0_Address 0x0047
 #define Atmega328TimerCompareRegister1_Address 0x0086
 #define Atmega328TimerCompareRegister2_Address 0x00B3
 #define Atmega328CpuGeneralPurposeIoRegister_Address 0x003E
-#define Atmega328ExternalInterruptFlag_Address 0x003B
-#define Atmega328ExternalInterruptMask_Address 0x003D
 
 /*** Global Variable ***/
 // HLbyte
@@ -87,6 +85,8 @@ typedef struct {
 // Analog Comparator (AC)
 typedef struct {
 	uint8_t acsr; // 0x50
+	uint8_t fill[46]; // (0x7F - 0x50) - 1
+	uint8_t didr1; // 0x7F
 } Atmega328AnalogComparator_TypeDef;
 
 // Analog to Digital Converter (ADC)
@@ -97,7 +97,6 @@ typedef struct {
 	uint8_t admux; // 0x7C
 	uint8_t fill; // (0x7E - 0x7C) - 1
 	uint8_t didr0; // 0x7E
-	uint8_t didr1; // 0x7F
 } Atmega328AnalogToDigitalConverter_TypeDef;
 
 // CPU Register (CPU)
@@ -120,7 +119,7 @@ typedef struct {
 
 typedef struct {
 	uint8_t gpior0; // 0x3E
-	uint8_t fill[11]; // (0x4A - 0x3E) - 1
+	uint8_t fill1[11]; // (0x4A - 0x3E) - 1
 	uint8_t gpior1; // 0x4A
 	uint8_t gpior2; // 0x4B
 } Atmega328CpuGeneralPurposeIoRegister_TypeDef;
@@ -134,22 +133,17 @@ typedef struct {
 
 // External Interrupts (EXINT)
 typedef struct {
+	uint8_t pcifr; // 0x3B
+	uint8_t eifr; // 0x3C
+	uint8_t eimsk; // 0x3D
+	uint8_t fill1[42]; // (0x68 - 0x3D) - 1
 	uint8_t pcicr; // 0x68
 	uint8_t eicra; // 0x69
-	uint8_t fill; // (0x6B - 0x69) - 1
+	uint8_t fill2; // (0x6B - 0x69) - 1
 	uint8_t pcmsk0; // 0x6B
 	uint8_t pcmsk1; // 0x6C
 	uint8_t pcmsk2; // 0x6D
-} Atmega328ExternalInterrupt_TypeDef;
-
-typedef struct {
-	uint8_t pcifr; // 0x3B
-	uint8_t eifr; // 0x3C
-} Atmega328ExternalInterruptFlag_TypeDef;
-
-typedef struct {
-	uint8_t eimsk; // 0x3D
-} Atmega328ExternalInterruptMask_TypeDef;
+} Atmega328ExternalInterrupts_TypeDef;
 
 // I/O Port (PORTB)
 typedef struct {
@@ -179,7 +173,7 @@ typedef struct {
 	uint8_t spdr; // 0x4E
 } Atmega328SerialPeripherialInterface_TypeDef;
 
-// TIMER COMMON
+// TIMER
 typedef struct {
 	uint8_t gtccr; // 0x43
 } Atmega328TimerGeneralControlRegister_TypeDef;
@@ -194,7 +188,7 @@ typedef struct {
 	uint8_t timsk0; // 0x6E
 	uint8_t timsk1; // 0x6F
 	uint8_t timsk2; // 0x70
-} Atmega328TimerInterruptMask_TypeDef;
+} Atmega328TimerMask_TypeDef;
 
 // Timer/Counter, 16-bit (TC1)
 typedef struct {

@@ -4,7 +4,7 @@ Author: Sergio Manuel Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: Atmega328 by ETT ET-BASE
-Date: 26112023
+Date: 13052023
 Comment: 
 	Virtual Image Atmega 328 mapping.
 *********************************************************************/
@@ -69,13 +69,11 @@ typedef struct {
 
 // External Interrupts (EXINT)
 typedef struct {
-	Atmega328ExternalInterrupt_TypeDef* reg;
-	Atmega328ExternalInterruptFlag_TypeDef* iflag;
-	Atmega328ExternalInterruptMask_TypeDef* imask;
+	Atmega328ExternalInterrupts_TypeDef* reg;
 	#if defined(_ATMEGA328INTERRUPT_H_)
 		INTERRUPT (*enable)(void);
 	#endif
-} Atmega328ExternalInterrupt;
+} Atmega328ExternalInterrupts;
 
 // I/O Port (PORTB)
 typedef struct {
@@ -105,16 +103,10 @@ typedef struct {
 	Atmega328TimerCounter1_TypeDef* reg;
 	Atmega328TimerGeneralControlRegister_TypeDef* gcr;
 	Atmega328TimerInterruptFlag_TypeDef* iflag;
-	Atmega328TimerInterruptMask_TypeDef* imask;
+	Atmega328TimerMask_TypeDef* imask;
 	Atmega328TimerCompareRegister1_TypeDef* comp;
 	#if defined(_ATMEGA328TIMER_H_)
 		TIMER_COUNTER1 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
-		void (*compoutmodeA)(unsigned char compoutmode);
-		void (*compoutmodeB)(unsigned char compoutmode);
-		void (*compareA)(uint16_t compare);
-		void (*compareB)(uint16_t compare);
-		void (*start)(unsigned int prescaler);
-		void (*stop)(void);
 	#endif
 } Atmega328TimerCounter1;
 
@@ -123,16 +115,10 @@ typedef struct {
 	Atmega328TimerCounter0_TypeDef* reg;
 	Atmega328TimerGeneralControlRegister_TypeDef* gcr;
 	Atmega328TimerInterruptFlag_TypeDef* iflag;
-	Atmega328TimerInterruptMask_TypeDef* imask;
+	Atmega328TimerMask_TypeDef* imask;
 	Atmega328TimerCompareRegister0_TypeDef* comp;
 	#if defined(_ATMEGA328TIMER_H_)
 		TIMER_COUNTER0 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
-		void (*compoutmodeA)(unsigned char compoutmode);
-		void (*compoutmodeB)(unsigned char compoutmode);
-		void (*compareA)(unsigned char compare);
-		void (*compareB)(unsigned char compare);
-		void (*start)(unsigned int prescaler);
-		void (*stop)(void);
 	#endif
 } Atmega328TimerCounter0;
 
@@ -141,16 +127,10 @@ typedef struct {
 	Atmega328TimerCounter2_TypeDef* reg;
 	Atmega328TimerGeneralControlRegister_TypeDef* gcr;
 	Atmega328TimerInterruptFlag_TypeDef* iflag;
-	Atmega328TimerInterruptMask_TypeDef* imask;
+	Atmega328TimerMask_TypeDef* imask;
 	Atmega328TimerCompareRegister2_TypeDef* comp;
 	#if defined(_ATMEGA328TIMER_H_)
 		TIMER_COUNTER2 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
-		void (*compoutmodeA)(unsigned char compoutmode);
-		void (*compoutmodeB)(unsigned char compoutmode);
-		void (*compareA)(unsigned char compare);
-		void (*compareB)(unsigned char compare);
-		void (*start)(unsigned int prescaler);
-		void (*stop)(void);
 	#endif
 } Atmega328TimerCounter2;
 
@@ -191,7 +171,7 @@ typedef struct {
 	Atmega328AnalogToDigitalConverter adc;
 	Atmega328CPURegister cpu;
 	Atmega328Eeprom eeprom;
-	Atmega328ExternalInterrupt exint;
+	Atmega328ExternalInterrupts exint;
 	Atmega328PORTB portb;
 	Atmega328PORTC portc;
 	Atmega328PORTD portd;
@@ -202,7 +182,7 @@ typedef struct {
 	Atmega328TwoWireSerialInterface twi;
 	Atmega328Usart usart;
 	Atmega328WatchdogTimer wdt;
-	//		General Function Pointer
+	//		Function Pointer
 	uint16_t (*readhlbyte)(HighLowByte reg);
 	uint16_t (*readlhbyte)(HighLowByte reg);
 	HighLowByte (*writehlbyte)(uint16_t val);
