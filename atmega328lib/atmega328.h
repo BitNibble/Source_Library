@@ -21,7 +21,7 @@ Comment:
 #define Atmega328AnalogToDigitalConverter_Address 0x0078
 #define Atmega328CPURegister_Address 0x0053
 #define Atmega328Eeprom_Address 0x003F
-#define Atmega328ExternalInterrupt_Address 0x003B
+#define Atmega328ExternalInterrupt_Address 0x0068
 #define Atmega328PORTB_Address 0x0023
 #define Atmega328PORTC_Address 0x0026
 #define Atmega328PORTD_Address 0x0029
@@ -233,7 +233,7 @@ typedef struct {
 typedef struct {
 	uint8_t ocr2a; // 0xB3
 	uint8_t ocr2b; // 0xB4
-	uint8_t fill4; // (0xB6 - 0xB4) - 1
+	uint8_t fill; // (0xB6 - 0xB4) - 1
 	uint8_t assr; // 0xB6
 } Atmega328TimerCompareRegister2_TypeDef;
 

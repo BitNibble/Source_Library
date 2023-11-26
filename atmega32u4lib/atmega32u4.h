@@ -21,7 +21,7 @@ Comment:
 #define Atmega32U4Bootloader_Address 0x0057
 #define Atmega32U4CPURegister_Address 0x003E
 #define Atmega32U4Eeprom_Address 0x003F
-#define Atmega32U4ExternalInterrupt_Address 0x003B
+#define Atmega32U4ExternalInterrupt_Address 0x0068
 #define Atmega32U4PORTB_Address 0x0023
 #define Atmega32U4PORTC_Address 0x0026
 #define Atmega32U4PORTD_Address 0x0029
@@ -117,14 +117,14 @@ typedef struct {
 	uint8_t smcr; // 0x53
 	uint8_t mcusr; // 0x54
 	uint8_t mcucr; // 0x55
-	uint8_t fill3[5]; // (0x5B - 0x55) - 1
+	uint8_t fill1[5]; // (0x5B - 0x55) - 1
 	uint8_t rampz; // 0x5B
 	uint8_t eind; // 0x5C
 	HighLowByte sp; // 0x5D 0x5E
 	uint8_t sreg; // 0x5F
-	uint8_t fill4; // (0x61 - 0x5F) - 1
+	uint8_t fill2; // (0x61 - 0x5F) - 1
 	uint8_t clkpr; // 0x61
-	uint8_t fill5[2]; // (0x64 - 0x61) - 1
+	uint8_t fill3[2]; // (0x64 - 0x61) - 1
 	uint8_t prr0; // 0x64
 	uint8_t prr1; // 0x65
 	uint8_t osccal; // 0x66
@@ -267,7 +267,7 @@ typedef struct {
 	uint8_t tccr1a; // 0x80
 	uint8_t tccr1b; // 0x81
 	uint8_t tccr1c; // 0x82
-	uint8_t fill3; // (0x84 - 0x82) - 1
+	uint8_t fill; // (0x84 - 0x82) - 1
 	HighLowByte tcnt1; // 0x84 0x85
 } Atmega32U4TimerCounter1_TypeDef;
 
@@ -283,7 +283,7 @@ typedef struct {
 	uint8_t tccr3a; // 0x90
 	uint8_t tccr3b; // 0x91
 	uint8_t tccr3c; // 0x92
-	uint8_t fill3; // (0x94 - 0x92) - 1
+	uint8_t fill; // (0x94 - 0x92) - 1
 	HighLowByte tcnt3; // 0x94 0x95
 } Atmega32U4TimerCounter3_TypeDef;
 
