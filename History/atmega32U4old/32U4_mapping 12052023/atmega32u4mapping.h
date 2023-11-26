@@ -4,7 +4,7 @@ Author: Sergio Manuel Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: Atmega32U4 by ETT ET-BASE
-Date: 26112023
+Date: 12052023
 Comment: 
 	Virtual Image Atmega 32U4 mapping.
 *********************************************************************/
@@ -61,7 +61,6 @@ typedef struct {
 // CPU Register (CPU)
 typedef struct {
 	Atmega32U4CPURegister_TypeDef* reg;
-	Atmega32U4CpuGeneralPurposeIoRegister_TypeDef* gpio;
 	Atmega32U4CpuClockSelect_TypeDef* clk;
 } Atmega32U4CPURegister;
 
@@ -75,13 +74,11 @@ typedef struct {
 
 // External Interrupts (EXINT)
 typedef struct {
-	Atmega32U4ExternalInterrupt_TypeDef* reg;
-	Atmega32U4ExternalInterruptFlag_TypeDef* iflag;
-	Atmega32U4ExternalInterruptMask_TypeDef* imask;
+	Atmega32U4ExternalInterrupts_TypeDef* reg;
 	#if defined(_ATMEGA32U4INTERRUPT_H_)
 		INTERRUPT (*enable)(void);
 	#endif
-} Atmega32U4ExternalInterrupt;
+} Atmega32U4ExternalInterrupts;
 
 // I/O Port (PORTB)
 typedef struct {
@@ -130,7 +127,7 @@ typedef struct {
 typedef struct {
 	Atmega32U4TimerCounter4_TypeDef* reg;
 	Atmega32U4TimerCompareRegister4_TypeDef* comp;
-	Atmega32U4TimerInterruptMask_TypeDef* imask;
+	Atmega32U4TimerMask_TypeDef* imask;
 	Atmega32U4TimerInterruptFlag_TypeDef* iflag;
 	#if defined(_ATMEGA32U4TIMER_H_)
 		TIMER_COUNTER4 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
@@ -141,7 +138,7 @@ typedef struct {
 typedef struct {
 	Atmega32U4TimerCounter1_TypeDef* reg;
 	Atmega32U4TimerCompareRegister1_TypeDef* comp;
-	Atmega32U4TimerInterruptMask_TypeDef* imask;
+	Atmega32U4TimerMask_TypeDef* imask;
 	Atmega32U4TimerInterruptFlag_TypeDef* iflag;
 	#if defined(_ATMEGA32U4TIMER_H_)
 		TIMER_COUNTER1 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
@@ -152,7 +149,7 @@ typedef struct {
 typedef struct {
 	Atmega32U4TimerCounter3_TypeDef* reg;
 	Atmega32U4TimerCompareRegister3_TypeDef* comp;
-	Atmega32U4TimerInterruptMask_TypeDef* imask;
+	Atmega32U4TimerMask_TypeDef* imask;
 	Atmega32U4TimerInterruptFlag_TypeDef* iflag;
 	#if defined(_ATMEGA32U4TIMER_H_)
 		TIMER_COUNTER3 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
@@ -163,7 +160,7 @@ typedef struct {
 typedef struct {
 	Atmega32U4TimerCounter0_TypeDef* reg;
 	Atmega32U4TimerCompareRegister0_TypeDef* comp;
-	Atmega32U4TimerInterruptMask_TypeDef* imask;
+	Atmega32U4TimerMask_TypeDef* imask;
 	Atmega32U4TimerInterruptFlag_TypeDef* iflag;
 	#if defined(_ATMEGA32U4TIMER_H_)
 		TIMER_COUNTER0 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
@@ -208,7 +205,7 @@ typedef struct {
 	Atmega32U4Bootloader boot_load;
 	Atmega32U4CPURegister cpu;
 	Atmega32U4Eeprom eeprom;
-	Atmega32U4ExternalInterrupt exint;
+	Atmega32U4ExternalInterrupts exint;
 	Atmega32U4PORTB portb;
 	Atmega32U4PORTC portc;
 	Atmega32U4PORTD portd;

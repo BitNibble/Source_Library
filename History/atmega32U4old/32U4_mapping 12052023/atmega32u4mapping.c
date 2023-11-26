@@ -4,7 +4,7 @@ Author: Sergio Manuel Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: Atmega32U4 by ETT ET-BASE
-Date: 26112023
+Date: 12052023
 Comment:
 	Virtual Image Atmega 32U4 mapping and linking.
 *********************************************************************/
@@ -39,7 +39,6 @@ ATMEGA32U4 ATMEGA32U4enable(void){
 	ret.boot_load.reg = (Atmega32U4Bootloader_TypeDef*) Atmega32U4Bootloader_Address;
 	// CPU
 	ret.cpu.reg = (Atmega32U4CPURegister_TypeDef*) Atmega32U4CPURegister_Address;
-	ret.cpu.gpio = (Atmega32U4CpuGeneralPurposeIoRegister_TypeDef*) Atmega32U4CpuGeneralPurposeIoRegister_Address;
 	ret.cpu.clk = (Atmega32U4CpuClockSelect_TypeDef*) Atmega32U4CpuClockSelect_Address;
 	// EEPROM
 	ret.eeprom.reg = (Atmega32U4Eeprom_TypeDef*) Atmega32U4Eeprom_Address;
@@ -47,9 +46,7 @@ ATMEGA32U4 ATMEGA32U4enable(void){
 		ret.eeprom.enable = EEPROMenable;
 	#endif
 	// EXINT
-	ret.exint.reg = (Atmega32U4ExternalInterrupt_TypeDef*) Atmega32U4ExternalInterrupt_Address;
-	ret.exint.iflag = (Atmega32U4ExternalInterruptFlag_TypeDef*) Atmega32U4ExternalInterruptFlag_Address;
-	ret.exint.imask = (Atmega32U4ExternalInterruptMask_TypeDef*) Atmega32U4ExternalInterruptMask_Address;
+	ret.exint.reg = (Atmega32U4ExternalInterrupts_TypeDef*) Atmega32U4ExternalInterrupts_Address;
 	#if defined(_ATMEGA32U4INTERRUPT_H_)
 		ret.exint.enable = INTERRUPTenable;
 	#endif
@@ -75,7 +72,7 @@ ATMEGA32U4 ATMEGA32U4enable(void){
 	// TC4
 	ret.tc4.reg = (Atmega32U4TimerCounter4_TypeDef*) Atmega32U4TimerCounter4_Address;
 	ret.tc4.comp = (Atmega32U4TimerCompareRegister4_TypeDef*) Atmega32U4TimerCompareRegister4_Address;
-	ret.tc4.imask = (Atmega32U4TimerInterruptMask_TypeDef*) Atmega32U4TimerInterruptMask_Address;
+	ret.tc4.imask = (Atmega32U4TimerMask_TypeDef*) Atmega32U4TimerMask_Address;
 	ret.tc4.iflag = (Atmega32U4TimerInterruptFlag_TypeDef*) Atmega32U4TimerInterruptFlag_Address;
 	#if defined(_ATMEGA32U4TIMER_H_)
 		ret.tc4.enable = TIMER_COUNTER4enable;
@@ -83,7 +80,7 @@ ATMEGA32U4 ATMEGA32U4enable(void){
 	// TC1
 	ret.tc1.reg = (Atmega32U4TimerCounter1_TypeDef*) Atmega32U4TimerCounter1_Address;
 	ret.tc1.comp = (Atmega32U4TimerCompareRegister1_TypeDef*) Atmega32U4TimerCompareRegister1_Address;
-	ret.tc1.imask = (Atmega32U4TimerInterruptMask_TypeDef*) Atmega32U4TimerInterruptMask_Address;
+	ret.tc1.imask = (Atmega32U4TimerMask_TypeDef*) Atmega32U4TimerMask_Address;
 	ret.tc1.iflag = (Atmega32U4TimerInterruptFlag_TypeDef*) Atmega32U4TimerInterruptFlag_Address;
 	#if defined(_ATMEGA32U4TIMER_H_)
 		ret.tc1.enable = TIMER_COUNTER1enable;
@@ -91,7 +88,7 @@ ATMEGA32U4 ATMEGA32U4enable(void){
 	// TC3
 	ret.tc3.reg = (Atmega32U4TimerCounter3_TypeDef*) Atmega32U4TimerCounter3_Address;
 	ret.tc3.comp = (Atmega32U4TimerCompareRegister3_TypeDef*) Atmega32U4TimerCompareRegister3_Address;
-	ret.tc3.imask = (Atmega32U4TimerInterruptMask_TypeDef*) Atmega32U4TimerInterruptMask_Address;
+	ret.tc3.imask = (Atmega32U4TimerMask_TypeDef*) Atmega32U4TimerMask_Address;
 	ret.tc3.iflag = (Atmega32U4TimerInterruptFlag_TypeDef*) Atmega32U4TimerInterruptFlag_Address;
 	#if defined(_ATMEGA32U4TIMER_H_)
 		ret.tc3.enable = TIMER_COUNTER3enable;
@@ -99,7 +96,7 @@ ATMEGA32U4 ATMEGA32U4enable(void){
 	// TC0
 	ret.tc0.reg = (Atmega32U4TimerCounter0_TypeDef*) Atmega32U4TimerCounter0_Address;
 	ret.tc0.comp = (Atmega32U4TimerCompareRegister0_TypeDef*) Atmega32U4TimerCompareRegister0_Address;
-	ret.tc0.imask = (Atmega32U4TimerInterruptMask_TypeDef*) Atmega32U4TimerInterruptMask_Address;
+	ret.tc0.imask = (Atmega32U4TimerMask_TypeDef*) Atmega32U4TimerMask_Address;
 	ret.tc0.iflag = (Atmega32U4TimerInterruptFlag_TypeDef*) Atmega32U4TimerInterruptFlag_Address;
 	#if defined(_ATMEGA32U4TIMER_H_)
 		ret.tc0.enable = TIMER_COUNTER0enable;
@@ -189,9 +186,9 @@ uint16_t ATMEGA32U4_SwapByte(uint16_t num)
 /***EOF***/
 
 /******
-1ï¿½ Sequence
-2ï¿½ Scope
-3ï¿½ Pointer and Variable
-4ï¿½ Casting
+1º Sequence
+2º Scope
+3º Pointer and Variable
+4º Casting
 ******/
 

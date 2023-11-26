@@ -4,7 +4,7 @@ Author: Sergio Manuel Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: Atmega32U4 by ETT ET-BASE
-Date: 26112023
+Date: 12052023
 Comment: 
 	Virtual Image Atmega 32U4.
 ************************************************************************/
@@ -21,7 +21,7 @@ Comment:
 #define Atmega32U4Bootloader_Address 0x0057
 #define Atmega32U4CPURegister_Address 0x003E
 #define Atmega32U4Eeprom_Address 0x003F
-#define Atmega32U4ExternalInterrupt_Address 0x003B
+#define Atmega32U4ExternalInterrupts_Address 0x003B
 #define Atmega32U4PORTB_Address 0x0023
 #define Atmega32U4PORTC_Address 0x0026
 #define Atmega32U4PORTD_Address 0x0029
@@ -40,15 +40,12 @@ Comment:
 #define Atmega32U4WatchdogTimer_Address 0x0060
 // AUXILIAR
 #define Atmega32U4TimerInterruptFlag_Address 0x0035
-#define Atmega32U4TimerInterruptMask_Address 0x006E;
+#define Atmega32U4TimerMask_Address 0x006E;
 #define Atmega32U4TimerCompareRegister0_Address 0x0047
 #define Atmega32U4TimerCompareRegister1_Address 0x0086
 #define Atmega32U4TimerCompareRegister3_Address 0x0096
 #define Atmega32U4TimerCompareRegister4_Address 0x00CF
 #define Atmega32U4CpuClockSelect_Address 0x00C5
-#define Atmega32U4CpuGeneralPurposeIoRegister_Address 0x003E;
-#define Atmega32U4ExternalInterruptFlag_Address 0x003B
-#define Atmega32U4ExternalInterruptMask_Address 0x003D
 
 /*** Global Variable ***/
 // HLbyte
@@ -94,6 +91,10 @@ typedef struct {
 // Analog Comparator (AC)
 typedef struct {
 	uint8_t acsr; // 0x50
+	uint8_t fill1[42]; // (0x7B - 0x50) - 1
+	uint8_t adcsrb; // 0x7B
+	uint8_t fill2[3]; // (0x7F - 0x7B) - 1
+	uint8_t didr1; // 0x7F
 } Atmega32U4AnalogComparator_TypeDef;
 
 // Analog to Digital Converter (ADC)
@@ -104,7 +105,6 @@ typedef struct {
 	uint8_t admux; // 0x7C
 	uint8_t didr2; // 0x7D
 	uint8_t didr0; // 0x7E
-	uint8_t didr1; // 0x7F
 } Atmega32U4AnalogToDigitalConverter_TypeDef;
 
 // Bootloader (BOOT_LOAD)
@@ -114,6 +114,11 @@ typedef struct {
 
 // CPU Register (CPU)
 typedef struct {
+	uint8_t gpior0; // 0x3E
+	uint8_t fill1[11]; // (0x4A - 0x3E) - 1
+	uint8_t gpior1; // 0x4A
+	uint8_t gpior2; // 0x4B
+	uint8_t fill2[7]; // (0x53 0x4B) - 1
 	uint8_t smcr; // 0x53
 	uint8_t mcusr; // 0x54
 	uint8_t mcucr; // 0x55
@@ -132,13 +137,6 @@ typedef struct {
 } Atmega32U4CPURegister_TypeDef;
 
 typedef struct {
-	uint8_t gpior0; // 0x3E
-	uint8_t fill[11]; // (0x4A - 0x3E) - 1
-	uint8_t gpior1; // 0x4A
-	uint8_t gpior2; // 0x4B
-} Atmega32U4CpuGeneralPurposeIoRegister_TypeDef;
-
-typedef struct {
 	uint8_t clksel0; // 0xC5
 	uint8_t clksel1; // 0xC6
 	uint8_t clksta; // 0xC7
@@ -153,20 +151,15 @@ typedef struct {
 
 // External Interrupts (EXINT)
 typedef struct {
+	uint8_t pcifr; // 0x3B
+	uint8_t eifr; // 0x3C
+	uint8_t eimsk; // 0x3D
+	uint8_t fill1[42]; // (0x68 - 0x3D) - 1
 	uint8_t pcicr; // 0x68
 	uint8_t eicra; // 0x69
 	uint8_t eicrb; // 0x6A
 	uint8_t pcmsk0; // 0x6B
-} Atmega32U4ExternalInterrupt_TypeDef;
-
-typedef struct {
-	uint8_t pcifr; // 0x3B
-	uint8_t eifr; // 0x3C
-} Atmega32U4ExternalInterruptFlag_TypeDef;
-
-typedef struct {
-	uint8_t eimsk; // 0x3D
-} Atmega32U4ExternalInterruptMask_TypeDef;
+} Atmega32U4ExternalInterrupts_TypeDef;
 
 // I/O Port (PORTB)
 typedef struct {
@@ -206,7 +199,7 @@ typedef struct {
 // JTAG Interface (JTAG)
 typedef struct {
 	uint8_t ocdr; // 0x51
-	uint8_t fill[2]; // (0x54 - 0x51) - 1
+	uint8_t fill1[2]; // (0x54 - 0x51) - 1
 	uint8_t mcusr; // 0x54
 	uint8_t mcucr; // 0x55
 } Atmega32U4JtagInterface_TypeDef;
@@ -214,7 +207,7 @@ typedef struct {
 // Phase Locked Loop (PLL)
 typedef struct {
 	uint8_t pllcsr; // 0x49
-	uint8_t fill[2]; // (0x52 - 0x49) - 1
+	uint8_t fill1[2]; // (0x52 - 0x49) - 1
 	uint8_t pllfrq; // 0x52
 } Atmega32U4PhaseLockedLoop_TypeDef;
 
@@ -240,7 +233,7 @@ typedef struct {
 	uint8_t fill; // 0x70
 	uint8_t timsk2; // 0x71
 	uint8_t timsk3; // 0x72
-} Atmega32U4TimerInterruptMask_TypeDef;
+} Atmega32U4TimerMask_TypeDef;
 
 // Timer/Counter, 10-bit (TC4)
 typedef struct {
