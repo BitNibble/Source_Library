@@ -17,9 +17,9 @@ Comment:
 #include <avr/interrupt.h>
 #include <stdlib.h>
 #include <inttypes.h>
-// Comment out modules not being used
 // RAW IMAGE
 #include "atmega32U4.h"
+// Comment out modules not being used
 // MODULES
 //#include "atmega32U4analog.h"
 #include "atmegaeeprom.h"
@@ -231,6 +231,11 @@ typedef struct {
 	HighLowByte (*writehlbyte)(uint16_t val);
 	HighLowByte (*writelhbyte)(uint16_t val);
 	uint16_t (*swapbyte)(uint16_t num);
+	uint8_t (*byte_mask)(uint8_t target, uint8_t mask);
+	void (*byte_set)(uint8_t* target, uint8_t set);
+	void (*byte_clear)(uint8_t* target, uint8_t clear);
+	uint8_t (*byte_shiftright)(uint8_t target, uint8_t shift);
+	uint8_t (*byte_shiftleft)(uint8_t target, uint8_t shift);
 }ATMEGA32U4;
 
 /*** Global Header ***/

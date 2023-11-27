@@ -22,6 +22,11 @@ uint16_t ATMEGA32U4_ReadLHByte(HighLowByte reg);
 HighLowByte ATMEGA32U4_WriteHLByte(uint16_t val);
 HighLowByte ATMEGA32U4_WriteLHByte(uint16_t val);
 uint16_t ATMEGA32U4_SwapByte(uint16_t num);
+uint8_t Atmega32U4_ByteMask(uint8_t target, uint8_t mask);
+void Atmega32U4_ByteSet(uint8_t* target, uint8_t set);
+void Atmega32U4_ByteClear(uint8_t* target, uint8_t clear);
+uint8_t Atmega32U4_ByteShiftright(uint8_t target, uint8_t shift);
+uint8_t Atmega32U4_ByteShiftleft(uint8_t target, uint8_t shift);
 
 /*** File Procedure & Function ***/
 ATMEGA32U4 ATMEGA32U4enable(void){
@@ -118,12 +123,17 @@ ATMEGA32U4 ATMEGA32U4enable(void){
 	ret.usb_device.reg = (Atmega32U4UsbDeviceRegister_TypeDef*) Atmega32U4UsbDeviceRegister_Address;
 	// WDT
 	ret.wdt.reg = (Atmega32U4WatchdogTimer_TypeDef*) Atmega32U4WatchdogTimer_Address;
-	// func
+	// General Func
 	ret.readhlbyte = ATMEGA32U4_ReadHLByte;
 	ret.readlhbyte = ATMEGA32U4_ReadLHByte;
 	ret.writehlbyte = ATMEGA32U4_WriteHLByte;
 	ret.writelhbyte = ATMEGA32U4_WriteLHByte;
 	ret.swapbyte = ATMEGA32U4_SwapByte;
+	ret.byte_mask = Atmega32U4_ByteMask;
+	ret.byte_set = Atmega32U4_ByteSet;
+	ret.byte_clear = Atmega32U4_ByteClear;
+	ret.byte_shiftright = Atmega32U4_ByteShiftright;
+	ret.byte_shiftleft = Atmega32U4_ByteShiftleft;
 	return ret;
 }
 
@@ -155,6 +165,31 @@ uint16_t ATMEGA32U4_SwapByte(uint16_t num)
 	uint16_t tp;
 	tp = (num << 8);
 	return (num >> 8) | tp;
+}
+
+uint8_t Atmega32U4_ByteMask(uint8_t target, uint8_t mask)
+{
+	return target & mask;
+}
+
+void Atmega32U4_ByteSet(uint8_t* target, uint8_t set)
+{
+	*target |= set;
+}
+
+void Atmega32U4_ByteClear(uint8_t* target, uint8_t clear)
+{
+	*target &= ~clear;
+}
+
+uint8_t Atmega32U4_ByteShiftright(uint8_t target, uint8_t shift)
+{
+	return target >> shift;
+}
+
+uint8_t Atmega32U4_ByteShiftleft(uint8_t target, uint8_t shift)
+{
+	return target << shift;
 }
 
 /*** File Interrupt ***/
