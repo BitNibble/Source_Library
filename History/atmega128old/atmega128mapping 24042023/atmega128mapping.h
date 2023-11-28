@@ -4,7 +4,7 @@ Author: Sergio Manuel Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: Atmega128 by ETT ET-BASE
-Date: 28112023
+Date: 06122022
 Comment: 
 	Virtual Image Atmega 128 mapping.
 **********************************************************/
@@ -135,7 +135,6 @@ typedef struct {
 // Timer/Counter, 16-bit (TC1)
 typedef struct {
 	Atmega128TimerCounter1_TypeDef* reg;
-	Atmega128OtherRegisters_TypeDef* misc;
 	#if defined(_ATMEGA128TIMER_H_)
 		TIMER_COUNTER1 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
 	#endif
@@ -144,7 +143,6 @@ typedef struct {
 // Timer/Counter, 16-bit (TC3)
 typedef struct {
 	Atmega128TimerCounter3_TypeDef* reg;
-	Atmega128OtherRegisters_TypeDef* misc;
 	#if defined(_ATMEGA128TIMER_H_)
 		TIMER_COUNTER3 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
 	#endif
@@ -161,7 +159,6 @@ typedef struct {
 // Timer/Counter, 8-bit A sync (TC0)
 typedef struct {
 	Atmega128TimerCounter0_TypeDef* reg;
-	Atmega128OtherRegisters_TypeDef* misc;
 	#if defined(_ATMEGA128TIMER_H_)
 		TIMER_COUNTER0 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
 	#endif

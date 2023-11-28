@@ -4,7 +4,7 @@ Author: Sergio Manuel Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: Atmega128 by ETT ET-BASE
-Date: 28/11/2023
+Date: 24/04/2023
 Comment:
 	Virtual Image Atmega 128.
 ************************************************************************/
@@ -37,10 +37,10 @@ Comment:
 #define Atmega128JtagInterface_Address 0x0042
 #define Atmega128OtherRegisters_Address 0x0040
 #define Atmega128SerialPeripherialInterface_Address 0x002D
-#define Atmega128TimerCounter1_Address 0x0046
-#define Atmega128TimerCounter3_Address 0x007C
+#define Atmega128TimerCounter1_Address 0x0040
+#define Atmega128TimerCounter3_Address 0x0040
 #define Atmega128TimerCounter2_Address 0x0043
-#define Atmega128TimerCounter0_Address 0X0050
+#define Atmega128TimerCounter0_Address 0X0040
 #define Atmega128TwoWireSerialInterface_Address 0x0070
 #define Atmega128Usart0_Address 0x0029
 #define Atmega128Usart1_Address 0x0098
@@ -93,6 +93,8 @@ typedef struct {
 // Analog Comparator (AC)
 typedef struct {
 	uint8_t acsr; // 0x28
+	uint8_t fill[23]; // (0x40 - 0x28) - 1
+	uint8_t sfior; // 0x40
 } Atmega128AnalogComparator_TypeDef;
 
 // Analog to Digital Converter (ADC)
@@ -210,6 +212,8 @@ typedef struct {
 
 // Timer/Counter, 16-bit (TC1)
 typedef struct {
+	uint8_t sfior; // 0x40
+	uint8_t fill1[5]; // (46 - 40) - 1
 	HighLowByte icr1; // 0x46 0x47
 	HighLowByte ocr1b; // 0x48 0x49
 	HighLowByte ocr1a; // 0x4A 0x4B
@@ -229,6 +233,8 @@ typedef struct {
 
 // Timer/Counter, 16-bit (TC3)
 typedef struct {
+	uint8_t sfior; // 0x40
+	uint8_t fill1[59]; // (7C - 40) - 1
 	uint8_t etifr; // 0x7C
 	uint8_t etimsk; // 0x7D
 	uint8_t fill2[2]; // (80 - 7D) - 1
@@ -254,6 +260,8 @@ typedef struct {
 
 // Timer/Counter, 8-bit A sync (TC0)
 typedef struct {
+	uint8_t sfior; // 0x40
+	uint8_t fill1[15]; // (50 - 40) - 1
 	uint8_t assr; // 0x50
 	uint8_t ocr0; // 0x51
 	uint8_t tcnt0; // 0x52
@@ -339,10 +347,6 @@ typedef struct { // IVSEL = 0
 } Atmega128InterruptVectors_TypeDef;
 
 #endif
-
-/***
-MASK FLAG CONTROL STATUS
-***/
 
 /***EOF***/
 

@@ -4,7 +4,7 @@ Author: Sergio Manuel Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: Atmega128 by ETT ET-BASE
-Date: 28112023
+Date: 06122022
 Comment:
 	Virtual Image Atmega 128 mapping.
 **********************************************************/
@@ -70,13 +70,11 @@ ATMEGA128 ATMEGA128enable(void){
 	#endif
 	// TC1
 	ret.tc1.reg = (Atmega128TimerCounter1_TypeDef*) Atmega128TimerCounter1_Address;
-	ret.tc1.misc = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
 	#if defined(_ATMEGA128TIMER_H_)
 		ret.tc1.enable = TIMER_COUNTER1enable;
 	#endif
 	// TC3
 	ret.tc3.reg = (Atmega128TimerCounter3_TypeDef*) Atmega128TimerCounter3_Address;
-	ret.tc3.misc = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
 	#if defined(_ATMEGA128TIMER_H_)
 		ret.tc3.enable = TIMER_COUNTER3enable;
 	#endif
@@ -87,7 +85,6 @@ ATMEGA128 ATMEGA128enable(void){
 	#endif
 	// TC0
 	ret.tc0.reg = (Atmega128TimerCounter0_TypeDef*) Atmega128TimerCounter0_Address;
-	ret.tc0.misc = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
 	#if defined(_ATMEGA128TIMER_H_)
 		ret.tc0.enable = TIMER_COUNTER0enable;
 	#endif
