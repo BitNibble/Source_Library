@@ -27,7 +27,9 @@ ATMEGA128 ATMEGA128enable(void){
 	ATMEGA128 ret;
 	// Assign
 	ret.gpwr.reg = (Atmega128GPWR_TypeDef*) Atmega128GPWR_Address;
+	// AC
 	ret.ac.reg = (Atmega128AnalogComparator_TypeDef*) Atmega128AnalogComparator_Address;
+	ret.ac.misc = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
 	// ADC
 	ret.adc.reg = (Atmega128AnalogToDigitalConverter_TypeDef*) Atmega128AnalogToDigitalConverter_Address;
 	#if defined(_ATMEGA128ANALOG_H_)
@@ -109,8 +111,7 @@ ATMEGA128 ATMEGA128enable(void){
 	ret.wdt.reg = (Atmega128WatchdogTimer_TypeDef*) Atmega128WatchdogTimer_Address;
 	// FLASH
 	// ret.isr.reg = (Atmega128InterruptVectors_TypeDef*) Atmega128InterruptVectors_Address;
-	// func
-
+	// General Func
 	ret.readhlbyte = ReadHLByte;
 	ret.readlhbyte = ReadLHByte;
 	ret.writehlbyte = WriteHLByte;

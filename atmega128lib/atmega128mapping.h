@@ -16,10 +16,10 @@ Comment:
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
 #include <inttypes.h>
-// Comment out modules not being used
 // RAW IMAGE
 #include "atmega128.h"
 // MODULES
+// Comment out modules not being used
 #include "atmega128analog.h"
 #include "atmegaeeprom.h"
 #include "atmega128interrupt.h"
@@ -43,6 +43,7 @@ typedef struct {
 // Analog Comparator (AC)
 typedef struct {
 	Atmega128AnalogComparator_TypeDef* reg;
+	Atmega128OtherRegisters_TypeDef* misc;
 }Atmega128AnalogComparator;
 
 // Analog to Digital Converter (ADC)

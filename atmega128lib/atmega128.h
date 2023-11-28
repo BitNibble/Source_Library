@@ -216,13 +216,13 @@ typedef struct {
 	HighLowByte tcnt1; // 0x4C 0x4D
 	uint8_t tccr1b; // 0x4E
 	uint8_t tccr1a; // 0x4F
-	uint8_t fill2[6]; // (56 - 4F) - 1
+	uint8_t fill1[6]; // (56 - 4F) - 1
 	uint8_t tifr; // 0x56
 	uint8_t timsk; // 0x57
-	uint8_t fill3[32]; // (78 - 57) - 1
+	uint8_t fill2[32]; // (78 - 57) - 1
 	HighLowByte ocr1c; // 0x78 0x79
 	uint8_t tccr1c; // 0x7A
-	uint8_t fill4; // (7C - 7A) - 1
+	uint8_t fill3; // (7C - 7A) - 1
 	uint8_t etifr; // 0x7C
 	uint8_t etimsk; // 0x7D
 } Atmega128TimerCounter1_TypeDef;
@@ -231,7 +231,7 @@ typedef struct {
 typedef struct {
 	uint8_t etifr; // 0x7C
 	uint8_t etimsk; // 0x7D
-	uint8_t fill2[2]; // (80 - 7D) - 1
+	uint8_t fill[2]; // (80 - 7D) - 1
 	HighLowByte icr3; // 0x80 0x81
 	HighLowByte ocr3c; // 0x82 0x83
 	HighLowByte ocr3b; // 0x84 0x85
@@ -258,7 +258,7 @@ typedef struct {
 	uint8_t ocr0; // 0x51
 	uint8_t tcnt0; // 0x52
 	uint8_t tccr0; // 0x53
-	uint8_t fill2[2]; // (56 - 53) - 1
+	uint8_t fill[2]; // (56 - 53) - 1
 	uint8_t tifr; // 0x56
 	uint8_t timsk; // 0x57
 } Atmega128TimerCounter0_TypeDef;
