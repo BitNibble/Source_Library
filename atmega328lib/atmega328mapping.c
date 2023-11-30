@@ -4,7 +4,7 @@ Author: Sergio Manuel Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: Atmega328 by ETT ET-BASE
-Date: 26112023
+Date: 30112023
 Comment:
 	Virtual Image Atmega 328 mapping and linking.
 *********************************************************************/
@@ -37,6 +37,7 @@ ATMEGA328 ATMEGA328enable(void){
 	ret.gpwr.reg = (Atmega328GPWR_TypeDef*) Atmega328GPWR_Address;
 	// AC
 	ret.ac.reg = (Atmega328AnalogComparator_TypeDef*) Atmega328AnalogComparator_Address;
+	ret.ac.didr1 = (Atmega328AnalogComparatorDid_TypeDef*) Atmega328AnalogComparatorDid_Address;
 	// ADC
 	ret.adc.reg = (Atmega328AnalogToDigitalConverter_TypeDef*) Atmega328AnalogToDigitalConverter_Address;
 	#if defined(_ATMEGA328ANALOG_H_)

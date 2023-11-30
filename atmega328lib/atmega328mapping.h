@@ -4,7 +4,7 @@ Author: Sergio Manuel Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: Atmega328 by ETT ET-BASE
-Date: 26112023
+Date: 30112023
 Comment: 
 	Virtual Image Atmega 328 mapping.
 *********************************************************************/
@@ -17,10 +17,10 @@ Comment:
 #include <avr/interrupt.h>
 #include <stdlib.h>
 #include <inttypes.h>
-// Comment out modules not being used
 // RAW IMAGE
 #include "atmega328.h"
 // MODULES
+// Comment out modules not being used
 #include "atmega328analog.h"
 #include "atmegaeeprom.h"
 #include "atmega328interrupt.h"
@@ -43,6 +43,7 @@ typedef struct {
 // Analog Comparator (AC)
 typedef struct {
 	Atmega328AnalogComparator_TypeDef* reg;
+	Atmega328AnalogComparatorDid_TypeDef* didr1;
 }Atmega328AnalogComparator;
 
 // Analog to Digital Converter (ADC)
