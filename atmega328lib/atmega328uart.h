@@ -4,7 +4,7 @@ Author: Sergio Manuel Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: Atmega328 ETT ET-BASE
-Date: 24042023
+Date: 01122023
 Comment:
 	stable
 ************************************************************************/
@@ -22,7 +22,7 @@ Comment:
 	#define GLOBAL_INTERRUPT_ENABLE 7
 #endif
 #ifndef UART_RX_BUFFER_SIZE
-	#define UART_RX_BUFFER_SIZE 16
+	#define UART_RX_BUFFER_SIZE 32
 #endif
 #define UARTvar char
 // Parity choices

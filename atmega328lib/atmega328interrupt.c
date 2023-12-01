@@ -4,7 +4,7 @@ Author: Sergio Manuel Santos
 		<sergio.salazar.santos@gmail.com>
 Hardware: ATmega328
 License: GNU General Public License        
-Date: 25042023
+Date: 01122023
 Comment:
 
 *************************************************************************/
@@ -29,7 +29,7 @@ Comment:
 #endif
 
 /*** File Variable ***/
-ATMEGA328 interruptmega328;
+//ATMEGA328 atmega328;
 
 /*** File Header ***/
 void INTERRUPT_set(uint8_t channel, uint8_t sense);
@@ -40,10 +40,10 @@ uint8_t INTERRUPT_reset_status(void);
 INTERRUPT INTERRUPTenable(void)
 // setup blank
 {
-	interruptmega328 = ATMEGA328enable();
+	atmega328 = ATMEGA328enable();
 	struct intrpt interrupt;
 	// Pre-Processor Case 1
-	interruptmega328.exint.reg->eimsk = 0X00;
+	atmega328.exint.imask->eimsk = 0X00;
 	
 	interrupt.set = INTERRUPT_set;
 	interrupt.off = INTERRUPT_off;
@@ -54,26 +54,26 @@ INTERRUPT INTERRUPTenable(void)
 uint8_t INTERRUPT_reset_status(void)
 {
 	uint8_t reset, ret = 0;
-	reset = (interruptmega328.cpu.reg->mcusr & MCU_Control_Status_Register_Mask);
+	reset = (atmega328.cpu.reg->mcusr & MCU_Control_Status_Register_Mask);
 	switch(reset){
 		case 1: // Power-On Reset Flag
 			ret = 0;
-			interruptmega328.cpu.reg->mcusr &= ~(1 << PORF);
+			atmega328.cpu.reg->mcusr &= ~(1 << PORF);
 			break;
 		case 2: // External Reset Flag
-			interruptmega328.cpu.reg->mcusr &= ~(1 << EXTRF);
+			atmega328.cpu.reg->mcusr &= ~(1 << EXTRF);
 			ret = 1;
 			break;
 		case 4: // Brown-out Reset Flag
-			interruptmega328.cpu.reg->mcusr &= ~(1 << BORF);
+			atmega328.cpu.reg->mcusr &= ~(1 << BORF);
 			ret = 2;
 			break;
 		case 8: // Watchdog Reset Flag
-			interruptmega328.cpu.reg->mcusr &= ~(1 << WDRF);
+			atmega328.cpu.reg->mcusr &= ~(1 << WDRF);
 			ret = 3;
 			break;
 		default: // clear all status
-			interruptmega328.cpu.reg->mcusr &= ~(MCU_Control_Status_Register_Mask);
+			atmega328.cpu.reg->mcusr &= ~(MCU_Control_Status_Register_Mask);
 			break;
 	}
 	return ret;
@@ -82,57 +82,57 @@ void INTERRUPT_set(uint8_t channel, uint8_t sense)
 {
 	switch( channel ){
 		case 0: 
-			interruptmega328.exint.reg->eimsk &= ~(1 << INT0);
-			interruptmega328.exint.reg->eicra &= ~((1 << ISC01) | (1 << ISC00));
+			atmega328.exint.imask->eimsk &= ~(1 << INT0);
+			atmega328.exint.reg->eicra &= ~((1 << ISC01) | (1 << ISC00));
 			switch(sense){
 				case 0: // The low level of INT0 generates an interrupt request.
 				case 1: // Any logical change on INT0 generates an interrupt request.
 					break;
 				case 2: // The falling edge of INT0 generates an interrupt request.
-					interruptmega328.exint.reg->eicra |= (1 << ISC01);
+					atmega328.exint.reg->eicra |= (1 << ISC01);
 					break;
 				case 3: // The rising edge of INT0 generates an interrupt request.
-					interruptmega328.exint.reg->eicra |= ((1 << ISC01) | (1 << ISC00));
+					atmega328.exint.reg->eicra |= ((1 << ISC01) | (1 << ISC00));
 					break;
 				default: // The low level of INT0 generates an interrupt request.
 					break;
 			}
-			interruptmega328.exint.reg->eimsk |= (1 << INT0);
+			atmega328.exint.imask->eimsk |= (1 << INT0);
 			break;
 		case 1:
-			interruptmega328.exint.reg->eimsk &= ~(1 << INT1);
-			interruptmega328.exint.reg->eicra &= ~((1 << ISC11) | (1 << ISC10));
+			atmega328.exint.imask->eimsk &= ~(1 << INT1);
+			atmega328.exint.reg->eicra &= ~((1 << ISC11) | (1 << ISC10));
 			switch(sense){
 				case 0: // The low level of INT1 generates an interrupt request.
 				case 1: // Any logical change on INT1 generates an interrupt request.
 					break;
 				case 2: // The falling edge of INT1 generates an interrupt request.
-					interruptmega328.exint.reg->eicra |= (1 << ISC11);
+					atmega328.exint.reg->eicra |= (1 << ISC11);
 					break;
 				case 3: // The rising edge of INT1 generates an interrupt request.
-					interruptmega328.exint.reg->eicra |= ((1 << ISC11) | (1 << ISC10));
+					atmega328.exint.reg->eicra |= ((1 << ISC11) | (1 << ISC10));
 					break;
 				default: // The low level of INT1 generates an interrupt request.
 					break;
 			}
-			interruptmega328.exint.reg->eimsk |= (1 << INT1);
+			atmega328.exint.imask->eimsk |= (1 << INT1);
 			break;
 		default:
-			interruptmega328.exint.reg->eimsk = 0X00;
+			atmega328.exint.imask->eimsk = 0X00;
 			break;
 	}
 }
 void INTERRUPT_off(uint8_t channel)
 {
 	switch( channel ){
-		case 0: // desable
-			interruptmega328.exint.reg->eimsk &= ~(1 << INT0);
+		case 0: // disable
+			atmega328.exint.imask->eimsk &= ~(1 << INT0);
 			break;
-		case 1: // desable
-			interruptmega328.exint.reg->eimsk &= ~(1 << INT1);
+		case 1: // disable
+			atmega328.exint.imask->eimsk &= ~(1 << INT1);
 			break;
 		default: // all disable
-			interruptmega328.exint.reg->eimsk = 0X00;
+			atmega328.exint.imask->eimsk = 0X00;
 			break;
 	}
 }
