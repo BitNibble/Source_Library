@@ -182,6 +182,8 @@ typedef struct {
 	Atmega328InterruptVectors_TypeDef* reg;
 } Atmega328InterruptVectors;
 
+/*******************************************************************/
+/*******************************************************************/
 // ATMEGA 328 IMAGE
 typedef struct {
 	//		Parameter
