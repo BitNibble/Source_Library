@@ -32,6 +32,7 @@ EXPLODE EXPLODEenable( void )
 	explode.par.XF = 0;
 	// function pointers
 	explode.update = EXPLODEupdate;
+	
 	return explode; // return copy
 }
 // boot (preamble in while loop)

@@ -102,6 +102,7 @@ HX711 HX711enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t
 	hx711.get_readflag=HX711_get_readflag;
 	hx711.get_cal=HX711_get_cal;
 	STATUS_REGISTER = tSREG;
+	
 	// returns a copy
 	return hx711;
 }

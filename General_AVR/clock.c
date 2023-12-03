@@ -52,6 +52,7 @@ CLOCK CLOCKenable(uint8_t hour, uint8_t minute, uint8_t second)
 	clock.alarm_reset = CLOCK_alarm_reset;
 	clock.alarm_stop = CLOCK_alarm_stop;
 	clock.show = CLOCK_show;
+	
 	return clock;
 }
 void CLOCK_set(uint8_t hour, uint8_t minute, uint8_t second)

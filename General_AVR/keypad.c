@@ -83,6 +83,7 @@ KEYPAD KEYPADenable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8
 	//
 	*keypad_PORT |= (1 << KEYPADLINE_1) | (1 << KEYPADLINE_2) | (1 << KEYPADLINE_3) | (1 << KEYPADLINE_4);
 	// Going to use pull down method.
+	
 	return keypad;
 }
 char KEYPAD_getkey(void)

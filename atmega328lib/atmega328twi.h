@@ -45,6 +45,7 @@ struct twowire{
 	uint8_t (*status)(void);
 };
 typedef struct twowire TWI;
+
 /*** Global Header ***/
 TWI TWIenable(uint8_t atmega_ID, uint8_t prescaler);
 

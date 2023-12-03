@@ -63,6 +63,7 @@ LFSM LFSMenable(EEPROM* eeprom, const uint16_t sizeeeprom)
 	r.setoutput = LFSMsetoutput;
 	r.getpage = LFSMgetpage;
 	r.setpage = LFSMsetpage;
+	
 	return r;
 }
 // uint8_t LFSMread(struct lfsm *r, uint8_t input)

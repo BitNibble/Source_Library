@@ -77,12 +77,6 @@ ATMEGA328 ATMEGA328enable(void){
 	atmega328.tc1.comp = (Atmega328TimerCompareRegister1_TypeDef*) Atmega328TimerCompareRegister1_Address;
 	#if defined(_ATMEGA328TIMER_H_)
 		atmega328.tc1.enable = TIMER_COUNTER1enable;
-		atmega328.tc1.compoutmodeA = TIMER_COUNTER1_compoutmodeA;
-		atmega328.tc1.compoutmodeB = TIMER_COUNTER1_compoutmodeB;
-		atmega328.tc1.compareA = TIMER_COUNTER1_compareA;
-		atmega328.tc1.compareB = TIMER_COUNTER1_compareB;
-		atmega328.tc1.start = TIMER_COUNTER1_start;
-		atmega328.tc1.stop = TIMER_COUNTER1_stop;
 	#endif
 	// TC0
 	atmega328.tc0.reg = (Atmega328TimerCounter0_TypeDef*) Atmega328TimerCounter0_Address;
@@ -92,12 +86,6 @@ ATMEGA328 ATMEGA328enable(void){
 	atmega328.tc0.comp = (Atmega328TimerCompareRegister0_TypeDef*) Atmega328TimerCompareRegister0_Address;
 	#if defined(_ATMEGA328TIMER_H_)
 		atmega328.tc0.enable = TIMER_COUNTER0enable;
-		atmega328.tc0.compoutmodeA = TIMER_COUNTER0_compoutmodeA;
-		atmega328.tc0.compoutmodeB = TIMER_COUNTER0_compoutmodeB;
-		atmega328.tc0.compareA = TIMER_COUNTER0_compareA;
-		atmega328.tc0.compareB = TIMER_COUNTER0_compareB;
-		atmega328.tc0.start = TIMER_COUNTER0_start;
-		atmega328.tc0.stop = TIMER_COUNTER0_stop;
 	#endif
 	// TC2
 	atmega328.tc2.reg = (Atmega328TimerCounter2_TypeDef*) Atmega328TimerCounter2_Address;
@@ -107,12 +95,6 @@ ATMEGA328 ATMEGA328enable(void){
 	atmega328.tc2.comp = (Atmega328TimerCompareRegister2_TypeDef*) Atmega328TimerCompareRegister2_Address;
 	#if defined(_ATMEGA328TIMER_H_)
 		atmega328.tc2.enable = TIMER_COUNTER2enable;
-		atmega328.tc2.compoutmodeA = TIMER_COUNTER2_compoutmodeA;
-		atmega328.tc2.compoutmodeB = TIMER_COUNTER2_compoutmodeB;
-		atmega328.tc2.compareA = TIMER_COUNTER2_compareA;
-		atmega328.tc2.compareB = TIMER_COUNTER2_compareB;
-		atmega328.tc2.start = TIMER_COUNTER2_start;
-		atmega328.tc2.stop = TIMER_COUNTER2_stop;
 	#endif
 	// TWI
 	atmega328.twi.reg = (Atmega328TwoWireSerialInterface_TypeDef*) Atmega328TwoWireSerialInterface_Address;
@@ -137,6 +119,7 @@ ATMEGA328 ATMEGA328enable(void){
 	atmega328.byte_clear = Atmega328_ByteClear;
 	atmega328.byte_shiftright = Atmega328_ByteShiftright;
 	atmega328.byte_shiftleft = Atmega328_ByteShiftleft;
+	
 	return atmega328;
 }
 

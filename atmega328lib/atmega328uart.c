@@ -12,11 +12,6 @@ Comment:
 #include "atmega328mapping.h"
 #include "buffer.h"
 #include <util/delay.h>
-//#include <stdio.h>
-//#include <stdlib.h>
-//#include <string.h>
-//#include <stdarg.h>
-//#include <math.h>
 
 /*** File Constant & Macro ***/
 // test if the size of the circular buffers fits into SRAM
@@ -163,6 +158,8 @@ UART UARTenable(unsigned int baudrate, unsigned int FDbits, unsigned int Stopbit
 	#endif
 	atmega328.cpu.reg->sreg = tSREG;
 	atmega328.cpu.reg->sreg |= (1 << GLOBAL_INTERRUPT_ENABLE);
+	
+	atmega328.usart.run = uart;
 	return uart;
 }
 

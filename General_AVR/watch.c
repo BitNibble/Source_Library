@@ -51,6 +51,7 @@ WATCH WATCHenable(void)
 	watch.increment = WATCH_increment;
 	watch.decrement = WATCH_decrement;
 	watch.show = WATCH_show;
+	
 	return watch;
 }
 uint8_t WATCH_start_delay(uint8_t n_delay, uint16_t seconds){ // One shot

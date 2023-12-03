@@ -25,26 +25,26 @@ static unsigned char timer1_state;
 static unsigned char timer2_state;
 
 /*** File Header ***/
-//void TIMER_COUNTER0_compoutmodeA(unsigned char compoutmode);
-//void TIMER_COUNTER0_compoutmodeB(unsigned char compoutmode);
-//void TIMER_COUNTER0_compareA(unsigned char compare);
-//void TIMER_COUNTER0_compareB(unsigned char compare);
-//void TIMER_COUNTER0_start(unsigned int prescaler);
-//void TIMER_COUNTER0_stop(void);
+void TIMER_COUNTER0_compoutmodeA(unsigned char compoutmode);
+void TIMER_COUNTER0_compoutmodeB(unsigned char compoutmode);
+void TIMER_COUNTER0_compareA(unsigned char compare);
+void TIMER_COUNTER0_compareB(unsigned char compare);
+void TIMER_COUNTER0_start(unsigned int prescaler);
+void TIMER_COUNTER0_stop(void);
 
-//void TIMER_COUNTER1_compoutmodeA(unsigned char compoutmode);
-//void TIMER_COUNTER1_compoutmodeB(unsigned char compoutmode);
-//void TIMER_COUNTER1_compareA(uint16_t compare);
-//void TIMER_COUNTER1_compareB(uint16_t compare);
-//void TIMER_COUNTER1_start(unsigned int prescaler);
-//void TIMER_COUNTER1_stop(void);
+void TIMER_COUNTER1_compoutmodeA(unsigned char compoutmode);
+void TIMER_COUNTER1_compoutmodeB(unsigned char compoutmode);
+void TIMER_COUNTER1_compareA(uint16_t compare);
+void TIMER_COUNTER1_compareB(uint16_t compare);
+void TIMER_COUNTER1_start(unsigned int prescaler);
+void TIMER_COUNTER1_stop(void);
 
-//void TIMER_COUNTER2_compoutmodeA(unsigned char compoutmode);
-//void TIMER_COUNTER2_compoutmodeB(unsigned char compoutmode);
-//void TIMER_COUNTER2_compareA(unsigned char compare);
-//void TIMER_COUNTER2_compareB(unsigned char compare);
-//void TIMER_COUNTER2_start(unsigned int prescaler);
-//void TIMER_COUNTER2_stop(void);
+void TIMER_COUNTER2_compoutmodeA(unsigned char compoutmode);
+void TIMER_COUNTER2_compoutmodeB(unsigned char compoutmode);
+void TIMER_COUNTER2_compareA(unsigned char compare);
+void TIMER_COUNTER2_compareB(unsigned char compare);
+void TIMER_COUNTER2_start(unsigned int prescaler);
+void TIMER_COUNTER2_stop(void);
 
 /*** Procedure & Function ***/
 TIMER_COUNTER0 TIMER_COUNTER0enable(unsigned char wavegenmode, unsigned char interrupt)
@@ -122,6 +122,8 @@ TIMER_COUNTER0 TIMER_COUNTER0enable(unsigned char wavegenmode, unsigned char int
 	timer0.compareB = TIMER_COUNTER0_compareB;
 	timer0.start = TIMER_COUNTER0_start;
 	timer0.stop = TIMER_COUNTER0_stop;
+	
+	atmega328.tc0.run = timer0;
 	return timer0;
 }
 void TIMER_COUNTER0_start(unsigned int prescaler)
@@ -379,6 +381,8 @@ TIMER_COUNTER1 TIMER_COUNTER1enable(unsigned char wavegenmode, unsigned char int
 	timer1.compareB = TIMER_COUNTER1_compareB;
 	timer1.start = TIMER_COUNTER1_start;
 	timer1.stop = TIMER_COUNTER1_stop;
+	
+	atmega328.tc1.run = timer1;
 	return timer1;
 }
 void TIMER_COUNTER1_start(unsigned int prescaler)
@@ -566,6 +570,8 @@ TIMER_COUNTER2 TIMER_COUNTER2enable(unsigned char wavegenmode, unsigned char int
 	timer2.compareB = TIMER_COUNTER2_compareB;
 	timer2.start = TIMER_COUNTER2_start;
 	timer2.stop = TIMER_COUNTER2_stop;
+	
+	atmega328.tc2.run = timer2;
 	return timer2;
 }
 void TIMER_COUNTER2_start(unsigned int prescaler)
@@ -698,6 +704,7 @@ void TIMER_COUNTER2_stop(void)
 // ISR(TIMER1_CAPT_vect){}
 // ISR(TIMER1_COMPA_vect){}
 // ISR(TIMER1_COMPB_vect){}
+// ISR(TIMER1_COMPC_vect){}
 // ISR(TIMER1_OVF_vect){}
 // ISR(TIMER0_COMPA_vect){}
 // ISR(TIMER0_COMPB_vect){}

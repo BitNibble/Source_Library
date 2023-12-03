@@ -49,6 +49,7 @@ INTERRUPT INTERRUPTenable(void)
 	interrupt.off = INTERRUPT_off;
 	interrupt.reset_status = INTERRUPT_reset_status;
 	
+	atmega328.exint.run = interrupt;
 	return interrupt;
 }
 uint8_t INTERRUPT_reset_status(void)
@@ -76,6 +77,7 @@ uint8_t INTERRUPT_reset_status(void)
 			atmega328.cpu.reg->mcusr &= ~(MCU_Control_Status_Register_Mask);
 			break;
 	}
+	
 	return ret;
 }
 void INTERRUPT_set(uint8_t channel, uint8_t sense)

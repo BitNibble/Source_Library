@@ -35,6 +35,7 @@ BUFF BUFFenable( uint8_t size_buff, BUFFvar* buff )
 	ret.push = BUFF_push;
 	ret.raw = BUFF_raw;
 	ret.flush = BUFF_flush;
+	
 	return ret; // return copy
 }
 

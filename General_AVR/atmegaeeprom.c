@@ -4,12 +4,12 @@ Author: Sergio Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: ATmega
-Date: 04122022
+Date: 001122023
 Comment:
    Very Stable
 *************************************************************************/
 /*** File Library ***/
-#include "atmegaeeprom.h"
+#include "atmega328mapping.h"
 
 /*** File Constant & Macro ***/
 
@@ -35,6 +35,8 @@ EEPROM EEPROMenable(void){
 	eprom.read_block = eeprom_read_block;
 	eprom.write_block = eeprom_write_block;
 	eprom.update_block = eeprom_update_block;
+	
+	atmega328.eeprom.run = eprom;
 	return eprom;
 }
 

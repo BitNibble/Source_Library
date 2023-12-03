@@ -125,6 +125,7 @@ FUNC FUNCenable( void )
 	func.getnumv2 = FUNCgetnumv2;
 	func.readint = FUNCreadint;
 	*****************************/
+	
 	return func;
 }
 // mayia

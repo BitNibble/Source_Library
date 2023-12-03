@@ -19,6 +19,10 @@ Comment:
 #include <inttypes.h>
 // RAW IMAGE
 #include "atmega328.h"
+
+/*********************************************************/
+/******************** USER Includes **********************/
+/*********************************************************/
 // MODULES
 // Comment out modules not being used
 #include "atmega328analog.h"
@@ -28,6 +32,7 @@ Comment:
 #include "atmega328twi.h"
 //#include "atmega328spi.h"
 #include "atmega328uart.h"
+/*********************************************************/
 
 /*** Global Variable ***/
 //		PARAMETER
@@ -50,6 +55,7 @@ typedef struct {
 typedef struct {
 	Atmega328AnalogToDigitalConverter_TypeDef* reg;
 	#if defined(_ATMEGA328ANALOG_H_)
+		ANALOG run;
 		ANALOG (*enable)( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... );
 	#endif
 } Atmega328AnalogToDigitalConverter;
@@ -64,6 +70,7 @@ typedef struct {
 typedef struct {
 	Atmega328Eeprom_TypeDef* reg;
 	#if defined(_ATMEGAEEPROM_H_)
+		EEPROM run;
 		EEPROM (*enable)(void);
 	#endif
 } Atmega328Eeprom;
@@ -74,6 +81,7 @@ typedef struct {
 	Atmega328ExternalInterruptFlag_TypeDef* iflag;
 	Atmega328ExternalInterruptMask_TypeDef* imask;
 	#if defined(_ATMEGA328INTERRUPT_H_)
+		INTERRUPT run;
 		INTERRUPT (*enable)(void);
 	#endif
 } Atmega328ExternalInterrupt;
@@ -97,6 +105,7 @@ typedef struct {
 typedef struct {
 	Atmega328SerialPeripherialInterface_TypeDef* reg;
 	#if defined(_ATMEGA328SPI_H_)
+		SPI run;
 		SPI (*enable)(uint8_t master_slave_select, uint8_t data_order,  uint8_t data_modes, uint8_t prescaler);
 	#endif
 } Atmega328SerialPeripherialInterface;
@@ -109,13 +118,8 @@ typedef struct {
 	Atmega328TimerInterruptMask_TypeDef* imask;
 	Atmega328TimerCompareRegister1_TypeDef* comp;
 	#if defined(_ATMEGA328TIMER_H_)
+		TIMER_COUNTER1 run;
 		TIMER_COUNTER1 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
-		void (*compoutmodeA)(unsigned char compoutmode);
-		void (*compoutmodeB)(unsigned char compoutmode);
-		void (*compareA)(uint16_t compare);
-		void (*compareB)(uint16_t compare);
-		void (*start)(unsigned int prescaler);
-		void (*stop)(void);
 	#endif
 } Atmega328TimerCounter1;
 
@@ -127,13 +131,8 @@ typedef struct {
 	Atmega328TimerInterruptMask_TypeDef* imask;
 	Atmega328TimerCompareRegister0_TypeDef* comp;
 	#if defined(_ATMEGA328TIMER_H_)
+		TIMER_COUNTER0 run;
 		TIMER_COUNTER0 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
-		void (*compoutmodeA)(unsigned char compoutmode);
-		void (*compoutmodeB)(unsigned char compoutmode);
-		void (*compareA)(unsigned char compare);
-		void (*compareB)(unsigned char compare);
-		void (*start)(unsigned int prescaler);
-		void (*stop)(void);
 	#endif
 } Atmega328TimerCounter0;
 
@@ -145,13 +144,8 @@ typedef struct {
 	Atmega328TimerInterruptMask_TypeDef* imask;
 	Atmega328TimerCompareRegister2_TypeDef* comp;
 	#if defined(_ATMEGA328TIMER_H_)
+		TIMER_COUNTER2 run;
 		TIMER_COUNTER2 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
-		void (*compoutmodeA)(unsigned char compoutmode);
-		void (*compoutmodeB)(unsigned char compoutmode);
-		void (*compareA)(unsigned char compare);
-		void (*compareB)(unsigned char compare);
-		void (*start)(unsigned int prescaler);
-		void (*stop)(void);
 	#endif
 } Atmega328TimerCounter2;
 
@@ -159,6 +153,7 @@ typedef struct {
 typedef struct {
 	Atmega328TwoWireSerialInterface_TypeDef* reg;
 	#if defined(_ATMEGA328TWI_H_)
+		TWI run;
 		TWI (*enable)(uint8_t atmega_ID, uint8_t prescaler);
 	#endif
 } Atmega328TwoWireSerialInterface;
@@ -167,6 +162,7 @@ typedef struct {
 typedef struct {
 	Atmega328Usart_TypeDef* reg;
 	#if defined(_ATMEGA328UART_H_)
+		UART run;
 		UART (*enable)(unsigned int baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 	#endif
 } Atmega328Usart;
