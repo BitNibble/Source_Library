@@ -222,9 +222,9 @@ uint8_t Atmega328_ByteShiftleft(uint8_t target, uint8_t shift)
 /***EOF***/
 
 /******
-1� Sequence
-2� Scope
-3� Pointer and Variable
-4� Casting
+1º Sequence
+2º Scope
+3º Pointer and Variable
+4º Casting
 ******/
 

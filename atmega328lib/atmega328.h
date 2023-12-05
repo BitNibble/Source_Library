@@ -138,7 +138,7 @@ typedef struct {
 // CPU Register (CPU)
 typedef struct {
 	uint8_t par; // 0x3E [gpior0]
-} Atmega32U4CpuGeneralPurposeIoRegister0_TypeDef;
+} Atmega328CpuGeneralPurposeIoRegister0_TypeDef;
 
 // EEPROM (EEPROM)
 typedef struct {
@@ -168,12 +168,12 @@ typedef struct {
 // CPU Register (CPU)
 typedef struct {
 	uint8_t par; // 0x4A [gpior1]
-} Atmega32U4CpuGeneralPurposeIoRegister1_TypeDef;
+} Atmega328CpuGeneralPurposeIoRegister1_TypeDef;
 
 // CPU Register (CPU)
 typedef struct {
 	uint8_t par; // 0x4B [gpior2]
-} Atmega32U4CpuGeneralPurposeIoRegister2_TypeDef;
+} Atmega328CpuGeneralPurposeIoRegister2_TypeDef;
 
 // Serial Peripheral Interface (SPI)
 typedef struct {

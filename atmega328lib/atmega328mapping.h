@@ -7,6 +7,7 @@ Hardware: Atmega328 by ETT ET-BASE
 Date: 01122023
 Comment: 
 	Virtual Image Atmega 328 mapping.
+	In search of perfection.
 *********************************************************************/
 #ifndef _ATMEGA328MAPPING_H_
 	#define _ATMEGA328MAPPING_H_
@@ -25,11 +26,11 @@ Comment:
 /*********************************************************/
 // MODULES
 // Comment out modules not being used
-#include "atmega328analog.h"
-#include "atmegaeeprom.h"
-#include "atmega328interrupt.h"
+//#include "atmega328analog.h"
+//#include "atmegaeeprom.h"
+//#include "atmega328interrupt.h"
 #include "atmega328timer.h"
-#include "atmega328twi.h"
+//#include "atmega328twi.h"
 //#include "atmega328spi.h"
 #include "atmega328uart.h"
 /*********************************************************/
