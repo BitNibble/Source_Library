@@ -22,17 +22,51 @@ Comment:
 #include "atmega328.h"
 
 /*********************************************************/
+/****************** Include Switches  ********************/
+/*********************************************************/
+// To be Selected by the User
+// MODULES
+#define _TIMER_MODULE_
+#define _UART_MODULE_
+/*********************************************************/
 /******************** USER Includes **********************/
 /*********************************************************/
 // MODULES
-// Comment out modules not being used
-//#include "atmega328analog.h"
-//#include "atmegaeeprom.h"
-//#include "atmega328interrupt.h"
-#include "atmega328timer.h"
-//#include "atmega328twi.h"
-//#include "atmega328spi.h"
-#include "atmega328uart.h"
+#ifdef _ANALOG_MODULE_
+	#include "atmega328analog.h"
+//#else
+//	#warning "NO ANALOG MODULE"
+#endif
+#ifdef _EEPROM_MODULE_
+	#include "atmegaeeprom.h"
+//#else
+//	#warning "NO EEPROM MODULE"
+#endif
+#ifdef _INTERRUPT_MODULE_
+	#include "atmega328interrupt.h"
+//#else
+//	#warning "NO INTERRUPT MODULE"
+#endif
+#ifdef _TIMER_MODULE_
+	#include "atmega328timer.h"
+//#else
+//	#warning "NO TIMER MODULE"
+#endif
+#ifdef _TWI_MODULE_
+	#include "atmega328twi.h"
+//#else
+//	#warning "NO TWI MODULE"
+#endif
+#ifdef _SPI_MODULE_
+	#include "atmega328spi.h"
+//#else
+//	#warning "NO SPI MODULE"
+#endif
+#ifdef _UART_MODULE_
+	#include "atmega328uart.h"
+//#else
+//	#warning "NO UART MODULE"
+#endif
 /*********************************************************/
 
 /*** Global Variable ***/
@@ -220,18 +254,6 @@ ATMEGA328 ATMEGA328enable(void);
 
 /*** Global Variable ***/
 ATMEGA328 atmega328;
-
-// Experiment A
-//void (*timer2_compa)(void);
-//void (*timer2_compb)(void);
-//void (*timer2_ovf)(void);
-//void (*timer1_capt)(void);
-//void (*timer1_compa)(void);
-//void (*timer1_compb)(void);
-//void (*timer1_ovf)(void);
-//void (*timer0_compa)(void);
-//void (*timer0_compb)(void);
-//void (*timer0_ovf)(void);
 
 #endif
 
