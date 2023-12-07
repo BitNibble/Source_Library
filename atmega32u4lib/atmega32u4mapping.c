@@ -29,6 +29,7 @@ uint8_t Atmega32U4_ByteShiftright(uint8_t target, uint8_t shift);
 uint8_t Atmega32U4_ByteShiftleft(uint8_t target, uint8_t shift);
 /******/
 void Atmega32U4ClockPrescalerSelect(volatile uint8_t prescaler);
+void Atmega32U4MoveInterruptsToBoot(void);
 
 /*** File Procedure & Function ***/
 ATMEGA32U4 ATMEGA32U4enable(void){
@@ -154,6 +155,7 @@ ATMEGA32U4 ATMEGA32U4enable(void){
 	atmega32u4.byte_shiftleft = Atmega32U4_ByteShiftleft;
 	/******/
 	atmega32u4.Clock_Prescaler_Select = Atmega32U4ClockPrescalerSelect;
+	atmega32u4.Move_Interrupts_To_Boot = Atmega32U4MoveInterruptsToBoot;
 	return atmega32u4;
 }
 
@@ -216,13 +218,25 @@ uint8_t Atmega32U4_ByteShiftleft(uint8_t target, uint8_t shift)
 void Atmega32U4ClockPrescalerSelect(volatile uint8_t prescaler)
 {
 	volatile uint8_t sreg;
-	volatile uint8_t* clkpr = &CLKPR;
 	prescaler &= 0x0F;
 	sreg = atmega32u4.cpu.reg->sreg;
 	atmega32u4.cpu.reg->sreg &= ~(1 << 7);
 	
-	*clkpr = (1 << CLKPCE);
-	*clkpr = prescaler;
+	CLKPR = (1 << CLKPCE);
+	CLKPR = prescaler;
+	
+	atmega32u4.cpu.reg->sreg = sreg;
+}
+void Atmega32U4MoveInterruptsToBoot(void)
+{
+	volatile uint8_t sreg;
+	sreg = atmega32u4.cpu.reg->sreg;
+	atmega32u4.cpu.reg->sreg &= ~(1 << 7);
+	
+	/* Enable change of Interrupt Vectors */
+	MCUCR = (1<<IVCE);
+	/* Move interrupts to Boot Flash section */
+	MCUCR = (1<<IVSEL);
 	
 	atmega32u4.cpu.reg->sreg = sreg;
 }

@@ -250,6 +250,7 @@ typedef struct {
 	uint8_t (*byte_shiftleft)(uint8_t target, uint8_t shift);
 	/******/
 	void (*Clock_Prescaler_Select)(volatile uint8_t prescaler);
+	void (*Move_Interrupts_To_Boot)(void);
 }ATMEGA328;
 
 /*** Global Header ***/

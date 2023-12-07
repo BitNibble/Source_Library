@@ -31,6 +31,7 @@ uint8_t Atmega328_ByteShiftright(uint8_t target, uint8_t shift);
 uint8_t Atmega328_ByteShiftleft(uint8_t target, uint8_t shift);
 /******/
 void Atmega328ClockPrescalerSelect(volatile uint8_t prescaler);
+void Atmega328MoveInterruptsToBoot(void);
 
 /*** File Procedure & Function ***/
 ATMEGA328 ATMEGA328enable(void){
@@ -123,6 +124,7 @@ ATMEGA328 ATMEGA328enable(void){
 	atmega328.byte_shiftleft = Atmega328_ByteShiftleft;
 	/******/
 	atmega328.Clock_Prescaler_Select = Atmega328ClockPrescalerSelect;
+	atmega328.Move_Interrupts_To_Boot = Atmega328MoveInterruptsToBoot;
 	
 	return atmega328;
 }
@@ -193,6 +195,19 @@ void Atmega328ClockPrescalerSelect(volatile uint8_t prescaler)
 	
 	*clkpr = (1 << CLKPCE);
 	*clkpr = prescaler;
+	
+	atmega328.cpu.reg->sreg = sreg;
+}
+void Atmega328MoveInterruptsToBoot(void)
+{
+	volatile uint8_t sreg;
+	sreg = atmega328.cpu.reg->sreg;
+	atmega328.cpu.reg->sreg &= ~(1 << 7);
+	
+	/* Enable change of Interrupt Vectors */
+	MCUCR = (1<<IVCE);
+	/* Move interrupts to Boot Flash section */
+	MCUCR = (1<<IVSEL);
 	
 	atmega328.cpu.reg->sreg = sreg;
 }

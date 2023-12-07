@@ -26,7 +26,7 @@ Comment:
 // MODULES
 // Comment out modules not being used
 //#include "atmega32U4analog.h"
-//#include "atmegaeeprom.h"
+#include "atmegaeeprom.h"
 //#include "atmega32U4interrupt.h"
 //#include "atmega32U4timer.h"
 //#include "atmega32U4twi.h"
@@ -270,6 +270,7 @@ typedef struct {
 	uint8_t (*byte_shiftleft)(uint8_t target, uint8_t shift);
 	/******/
 	void (*Clock_Prescaler_Select)(volatile uint8_t prescaler);
+	void (*Move_Interrupts_To_Boot)(void);
 }ATMEGA32U4;
 
 /*** Global Header ***/
