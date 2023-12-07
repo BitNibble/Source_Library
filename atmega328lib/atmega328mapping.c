@@ -207,18 +207,6 @@ uint8_t Atmega328_ByteShiftleft(uint8_t target, uint8_t shift)
 // ISR(TWI_vect){}
 // ISR(SPM_READY_vect){}
 
-// Experiment A
-//ISR(TIMER2_COMPA_vect){if(timer2_compa)timer2_compa();}
-//ISR(TIMER2_COMPB_vect){if(timer2_compb)timer2_compb();}
-//ISR(TIMER2_OVF_vect){if(timer2_ovf)timer2_ovf();}
-//ISR(TIMER1_CAPT_vect){if(timer1_capt)timer1_capt();}
-//ISR(TIMER1_COMPA_vect){if(timer1_compa)timer1_compa();}
-//ISR(TIMER1_COMPB_vect){if(timer1_compb)timer1_compb();}
-//ISR(TIMER1_OVF_vect){if(timer1_ovf)timer1_ovf();}
-//ISR(TIMER0_COMPA_vect){if(timer0_compa)timer0_compa();}
-//ISR(TIMER0_COMPB_vect){if(timer0_compb)timer0_compb();}
-//ISR(TIMER0_OVF_vect){if(timer0_ovf)timer0_ovf();}
-
 /***EOF***/
 
 /******
