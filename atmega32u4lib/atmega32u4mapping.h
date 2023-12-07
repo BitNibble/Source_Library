@@ -4,7 +4,7 @@ Author: Sergio Manuel Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: Atmega32U4 by ETT ET-BASE
-Date: 30112023
+Date: 03122023
 Comment: 
 	Virtual Image Atmega 32U4 mapping.
 *********************************************************************/
@@ -19,15 +19,20 @@ Comment:
 #include <inttypes.h>
 // RAW IMAGE
 #include "atmega32U4.h"
+
+/*********************************************************/
+/******************** User includes **********************/
+/*********************************************************/
 // MODULES
 // Comment out modules not being used
 //#include "atmega32U4analog.h"
-#include "atmegaeeprom.h"
+//#include "atmegaeeprom.h"
 //#include "atmega32U4interrupt.h"
 //#include "atmega32U4timer.h"
 //#include "atmega32U4twi.h"
 //#include "atmega32U4spi.h"
 //#include "atmega32U4uart.h"
+/*********************************************************/
 
 /*** Global Variable ***/
 //		PARAMETER
@@ -71,6 +76,7 @@ typedef struct {
 	Atmega32U4ExternalInterruptMask_TypeDef* imask;
 	Atmega32U4ExternalInterrupt_TypeDef* reg;
 	#if defined(_ATMEGA32U4INTERRUPT_H_)
+		INTERRUPT run;
 		INTERRUPT (*enable)(void);
 	#endif
 } Atmega32U4ExternalInterrupt;
@@ -93,6 +99,7 @@ typedef struct {
 typedef struct {
 	Atmega32U4Eeprom_TypeDef* reg;
 	#if defined(_ATMEGAEEPROM_H_)
+		EEPROM run;
 		EEPROM (*enable)(void);
 	#endif
 } Atmega32U4Eeprom;
@@ -105,6 +112,7 @@ typedef struct {
 	Atmega32U4TimerCompareRegister0_TypeDef* comp;
 	Atmega32U4TimerInterruptMask_TypeDef* imask;
 	#if defined(_ATMEGA32U4TIMER_H_)
+		TIMER_COUNTER0 run;
 		TIMER_COUNTER0 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
 	#endif
 } Atmega32U4TimerCounter0;
@@ -119,6 +127,7 @@ typedef struct {
 typedef struct {
 	Atmega32U4SerialPeripherialInterface_TypeDef* reg;
 	#if defined(_ATMEGA32U4SPI_H_)
+		SPI run;
 		SPI (*enable)(uint8_t master_slave_select, uint8_t data_order,  uint8_t data_modes, uint8_t prescaler);
 	#endif
 } Atmega32U4SerialPeripherialInterface;
@@ -151,6 +160,7 @@ typedef struct {
 typedef struct {
 	Atmega32U4AnalogToDigitalConverter_TypeDef* reg;
 	#if defined(_ATMEGA32U4ANALOG_H_)
+		ANALOG run;
 		ANALOG (*enable)( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... );
 	#endif
 } Atmega32U4AnalogToDigitalConverter;
@@ -163,6 +173,7 @@ typedef struct {
 	Atmega32U4TimerCounter1_TypeDef* reg;
 	Atmega32U4TimerCompareRegister1_TypeDef* comp;
 	#if defined(_ATMEGA32U4TIMER_H_)
+		TIMER_COUNTER1 run;
 		TIMER_COUNTER1 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
 	#endif
 } Atmega32U4TimerCounter1;
@@ -175,6 +186,7 @@ typedef struct {
 	Atmega32U4TimerCounter3_TypeDef* reg;
 	Atmega32U4TimerCompareRegister3_TypeDef* comp;
 	#if defined(_ATMEGA32U4TIMER_H_)
+		TIMER_COUNTER3 run;
 		TIMER_COUNTER3 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
 	#endif
 } Atmega32U4TimerCounter3;
@@ -183,6 +195,7 @@ typedef struct {
 typedef struct {
 	Atmega32U4TwoWireSerialInterface_TypeDef* reg;
 	#if defined(_ATMEGA32U4TWI_H_)
+		TWI run;
 		TWI (*enable)(uint8_t atmega_ID, uint8_t prescaler);
 	#endif
 } Atmega32U4TwoWireSerialInterface;
@@ -195,6 +208,7 @@ typedef struct {
 	Atmega32U4TimerCounter4_TypeDef* reg;
 	Atmega32U4TimerCompareRegister4_TypeDef* comp;
 	#if defined(_ATMEGA32U4TIMER_H_)
+		TIMER_COUNTER4 run;
 		TIMER_COUNTER4 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
 	#endif
 } Atmega32U4TimerCounter4;
@@ -203,6 +217,7 @@ typedef struct {
 typedef struct {
 	Atmega32U4Usart1_TypeDef* reg;
 	#if defined(_ATMEGA32U4UART_H_)
+		UART run;
 		UART (*enable)(unsigned int baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 	#endif
 } Atmega32U4Usart1;
@@ -212,6 +227,8 @@ typedef struct {
 	Atmega32U4UsbDeviceRegister_TypeDef* reg;
 } Atmega32U4UsbDeviceRegister;
 
+/*******************************************************************/
+/*******************************************************************/
 // ATMEGA 32U4 IMAGE
 typedef struct {
 	//		Parameter
@@ -251,10 +268,15 @@ typedef struct {
 	void (*byte_clear)(uint8_t* target, uint8_t clear);
 	uint8_t (*byte_shiftright)(uint8_t target, uint8_t shift);
 	uint8_t (*byte_shiftleft)(uint8_t target, uint8_t shift);
+	/******/
+	void (*Clock_Prescaler_Select)(volatile uint8_t prescaler);
 }ATMEGA32U4;
 
 /*** Global Header ***/
 ATMEGA32U4 ATMEGA32U4enable(void);
+
+/***Global Variable***/
+ATMEGA32U4 atmega32u4;
 
 #endif
 

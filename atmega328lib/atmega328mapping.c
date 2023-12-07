@@ -4,7 +4,7 @@ Author: Sergio Manuel Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: Atmega328 by ETT ET-BASE
-Date: 01122023
+Date: 07122023
 Comment:
 	Virtual Image Atmega 328 mapping and linking.
 *********************************************************************/
@@ -29,6 +29,8 @@ void Atmega328_ByteSet(uint8_t* target, uint8_t set);
 void Atmega328_ByteClear(uint8_t* target, uint8_t clear);
 uint8_t Atmega328_ByteShiftright(uint8_t target, uint8_t shift);
 uint8_t Atmega328_ByteShiftleft(uint8_t target, uint8_t shift);
+/******/
+void Atmega328ClockPrescalerSelect(volatile uint8_t prescaler);
 
 /*** File Procedure & Function ***/
 ATMEGA328 ATMEGA328enable(void){
@@ -119,6 +121,8 @@ ATMEGA328 ATMEGA328enable(void){
 	atmega328.byte_clear = Atmega328_ByteClear;
 	atmega328.byte_shiftright = Atmega328_ByteShiftright;
 	atmega328.byte_shiftleft = Atmega328_ByteShiftleft;
+	/******/
+	atmega328.Clock_Prescaler_Select = Atmega328ClockPrescalerSelect;
 	
 	return atmega328;
 }
@@ -176,6 +180,21 @@ uint8_t Atmega328_ByteShiftright(uint8_t target, uint8_t shift)
 uint8_t Atmega328_ByteShiftleft(uint8_t target, uint8_t shift)
 {
 	return target << shift;
+}
+
+/******/
+void Atmega328ClockPrescalerSelect(volatile uint8_t prescaler)
+{
+	volatile uint8_t sreg;
+	volatile uint8_t* clkpr = &CLKPR;
+	prescaler &= 0x0F;
+	sreg = atmega328.cpu.reg->sreg;
+	atmega328.cpu.reg->sreg &= ~(1 << 7);
+	
+	*clkpr = (1 << CLKPCE);
+	*clkpr = prescaler;
+	
+	atmega328.cpu.reg->sreg = sreg;
 }
 
 /*** File Interrupt ***/

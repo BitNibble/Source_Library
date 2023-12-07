@@ -4,7 +4,7 @@ Author: Sergio Manuel Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: Atmega32U4 by ETT ET-BASE
-Date: 30112023
+Date: 03122023
 Comment:
 	Virtual Image Atmega 32U4 mapping and linking.
 *********************************************************************/
@@ -14,7 +14,7 @@ Comment:
 /*** File Define & Macro ***/
 
 /***File Variable***/
-ATMEGA32U4 ret;
+//ATMEGA32U4 atmega32u4;
 
 /***File Header***/
 uint16_t ATMEGA32U4_ReadHLByte(HighLowByte reg);
@@ -27,130 +27,134 @@ void Atmega32U4_ByteSet(uint8_t* target, uint8_t set);
 void Atmega32U4_ByteClear(uint8_t* target, uint8_t clear);
 uint8_t Atmega32U4_ByteShiftright(uint8_t target, uint8_t shift);
 uint8_t Atmega32U4_ByteShiftleft(uint8_t target, uint8_t shift);
+/******/
+void Atmega32U4ClockPrescalerSelect(volatile uint8_t prescaler);
 
 /*** File Procedure & Function ***/
 ATMEGA32U4 ATMEGA32U4enable(void){
 	// Assign
 	// GPWR
-	ret.gpwr.reg = (Atmega32U4GPWR_TypeDef*) Atmega32U4GPWR_Address;
+	atmega32u4.gpwr.reg = (Atmega32U4GPWR_TypeDef*) Atmega32U4GPWR_Address;
 	// PORTB
-	ret.portb.reg = (Atmega32U4PORTB_TypeDef*) Atmega32U4PORTB_Address;
+	atmega32u4.portb.reg = (Atmega32U4PORTB_TypeDef*) Atmega32U4PORTB_Address;
 	// PORTC
-	ret.portc.reg = (Atmega32U4PORTC_TypeDef*) Atmega32U4PORTC_Address;
+	atmega32u4.portc.reg = (Atmega32U4PORTC_TypeDef*) Atmega32U4PORTC_Address;
 	// PORTD
-	ret.portd.reg = (Atmega32U4PORTD_TypeDef*) Atmega32U4PORTD_Address;
+	atmega32u4.portd.reg = (Atmega32U4PORTD_TypeDef*) Atmega32U4PORTD_Address;
 	// PORTE
-	ret.porte.reg = (Atmega32U4PORTE_TypeDef*) Atmega32U4PORTE_Address;
+	atmega32u4.porte.reg = (Atmega32U4PORTE_TypeDef*) Atmega32U4PORTE_Address;
 	// PORTF
-	ret.portf.reg = (Atmega32U4PORTF_TypeDef*) Atmega32U4PORTF_Address;
+	atmega32u4.portf.reg = (Atmega32U4PORTF_TypeDef*) Atmega32U4PORTF_Address;
 	// EXINT
-	ret.exint.reg = (Atmega32U4ExternalInterrupt_TypeDef*) Atmega32U4ExternalInterrupt_Address;
-	ret.exint.iflag = (Atmega32U4ExternalInterruptFlag_TypeDef*) Atmega32U4ExternalInterruptFlag_Address;
-	ret.exint.imask = (Atmega32U4ExternalInterruptMask_TypeDef*) Atmega32U4ExternalInterruptMask_Address;
+	atmega32u4.exint.reg = (Atmega32U4ExternalInterrupt_TypeDef*) Atmega32U4ExternalInterrupt_Address;
+	atmega32u4.exint.iflag = (Atmega32U4ExternalInterruptFlag_TypeDef*) Atmega32U4ExternalInterruptFlag_Address;
+	atmega32u4.exint.imask = (Atmega32U4ExternalInterruptMask_TypeDef*) Atmega32U4ExternalInterruptMask_Address;
 	#if defined(_ATMEGA32U4INTERRUPT_H_)
-		ret.exint.enable = INTERRUPTenable;
+		atmega32u4.exint.enable = INTERRUPTenable;
 	#endif
 	// CPU
-	ret.cpu.gpior0 = (Atmega32U4CpuGeneralPurposeIoRegister0_TypeDef*) Atmega32U4CpuGeneralPurposeIoRegister0_Address;
-	ret.cpu.gpior1 = (Atmega32U4CpuGeneralPurposeIoRegister1_TypeDef*) Atmega32U4CpuGeneralPurposeIoRegister1_Address;
-	ret.cpu.gpior2 = (Atmega32U4CpuGeneralPurposeIoRegister2_TypeDef*) Atmega32U4CpuGeneralPurposeIoRegister2_Address;
-	ret.cpu.reg = (Atmega32U4CPURegister_TypeDef*) Atmega32U4CPURegister_Address;
-	//ret.cpu.smcr = (Atmega32U4CPURegisterSleep_TypeDef*) Atmega32U4CPURegisterSleep_Address;
-	//ret.cpu.mcusr = (Atmega32U4CPURegisterStatus_TypeDef*) Atmega32U4CPURegisterStatus_Address;
-	//ret.cpu.mcucr = (Atmega32U4CPURegisterControl_TypeDef*) Atmega32U4CPURegisterControl_Address;
-	//ret.cpu.state = (Atmega32U4CPURegisterState_TypeDef*) Atmega32U4CPURegisterState_Address;
-	//ret.cpu.power = (Atmega32U4CPURegisterPower_TypeDef*) Atmega32U4CPURegisterPower_Address;
-	ret.cpu.clk = (Atmega32U4CpuClockSelect_TypeDef*) Atmega32U4CpuClockSelect_Address;
+	atmega32u4.cpu.gpior0 = (Atmega32U4CpuGeneralPurposeIoRegister0_TypeDef*) Atmega32U4CpuGeneralPurposeIoRegister0_Address;
+	atmega32u4.cpu.gpior1 = (Atmega32U4CpuGeneralPurposeIoRegister1_TypeDef*) Atmega32U4CpuGeneralPurposeIoRegister1_Address;
+	atmega32u4.cpu.gpior2 = (Atmega32U4CpuGeneralPurposeIoRegister2_TypeDef*) Atmega32U4CpuGeneralPurposeIoRegister2_Address;
+	atmega32u4.cpu.reg = (Atmega32U4CPURegister_TypeDef*) Atmega32U4CPURegister_Address;
+	//atmega32u4.cpu.smcr = (Atmega32U4CPURegisterSleep_TypeDef*) Atmega32U4CPURegisterSleep_Address;
+	//atmega32u4.cpu.mcusr = (Atmega32U4CPURegisterStatus_TypeDef*) Atmega32U4CPURegisterStatus_Address;
+	//atmega32u4.cpu.mcucr = (Atmega32U4CPURegisterControl_TypeDef*) Atmega32U4CPURegisterControl_Address;
+	//atmega32u4.cpu.state = (Atmega32U4CPURegisterState_TypeDef*) Atmega32U4CPURegisterState_Address;
+	//atmega32u4.cpu.power = (Atmega32U4CPURegisterPower_TypeDef*) Atmega32U4CPURegisterPower_Address;
+	atmega32u4.cpu.clk = (Atmega32U4CpuClockSelect_TypeDef*) Atmega32U4CpuClockSelect_Address;
 	// EEPROM
-	ret.eeprom.reg = (Atmega32U4Eeprom_TypeDef*) Atmega32U4Eeprom_Address;
+	atmega32u4.eeprom.reg = (Atmega32U4Eeprom_TypeDef*) Atmega32U4Eeprom_Address;
 	#if defined(_ATMEGAEEPROM_H_)
-		ret.eeprom.enable = EEPROMenable;
+		atmega32u4.eeprom.enable = EEPROMenable;
 	#endif
 	// TC0
-	ret.tc0.iflag = (Atmega32U4TimerInterruptFlag_TypeDef*) Atmega32U4TimerInterruptFlag_Address;
-	ret.tc0.gcr = (Atmega3U4TimerGeneralControlRegister_TypeDef*) Atmega3U4TimerGeneralControlRegister_Address;
-	ret.tc0.reg = (Atmega32U4TimerCounter0_TypeDef*) Atmega32U4TimerCounter0_Address;
-	ret.tc0.comp = (Atmega32U4TimerCompareRegister0_TypeDef*) Atmega32U4TimerCompareRegister0_Address;
-	ret.tc0.imask = (Atmega32U4TimerInterruptMask_TypeDef*) Atmega32U4TimerInterruptMask_Address;
+	atmega32u4.tc0.iflag = (Atmega32U4TimerInterruptFlag_TypeDef*) Atmega32U4TimerInterruptFlag_Address;
+	atmega32u4.tc0.gcr = (Atmega3U4TimerGeneralControlRegister_TypeDef*) Atmega3U4TimerGeneralControlRegister_Address;
+	atmega32u4.tc0.reg = (Atmega32U4TimerCounter0_TypeDef*) Atmega32U4TimerCounter0_Address;
+	atmega32u4.tc0.comp = (Atmega32U4TimerCompareRegister0_TypeDef*) Atmega32U4TimerCompareRegister0_Address;
+	atmega32u4.tc0.imask = (Atmega32U4TimerInterruptMask_TypeDef*) Atmega32U4TimerInterruptMask_Address;
 	#if defined(_ATMEGA32U4TIMER_H_)
-		ret.tc0.enable = TIMER_COUNTER0enable;
+		atmega32u4.tc0.enable = TIMER_COUNTER0enable;
 	#endif
 	// PLL
-	ret.pll.pllcsr = (Atmega32U4PhaseLockedLoopControlStatus_TypeDef*) Atmega32U4PhaseLockedLoopControlStatus_Address;
-	ret.pll.pllfrq = (Atmega32U4PhaseLockedLoopFreq_TypeDef*) Atmega32U4PhaseLockedLoopFreq_Address;
+	atmega32u4.pll.pllcsr = (Atmega32U4PhaseLockedLoopControlStatus_TypeDef*) Atmega32U4PhaseLockedLoopControlStatus_Address;
+	atmega32u4.pll.pllfrq = (Atmega32U4PhaseLockedLoopFreq_TypeDef*) Atmega32U4PhaseLockedLoopFreq_Address;
 	// SPI
-	ret.spi.reg = (Atmega32U4SerialPeripherialInterface_TypeDef*) Atmega32U4SerialPeripherialInterface_Address;
+	atmega32u4.spi.reg = (Atmega32U4SerialPeripherialInterface_TypeDef*) Atmega32U4SerialPeripherialInterface_Address;
 	#if defined(_ATMEGA32U4SPI_H_)
-		ret.spi.enable = SPIenable;
+		atmega32u4.spi.enable = SPIenable;
 	#endif
 	// AC
-	ret.ac.acsr = (Atmega32U4AnalogComparator_TypeDef*) Atmega32U4AnalogComparator_Address;
-	ret.ac.adcsrb = (Atmega32U4AnalogComparatorCs_TypeDef*) Atmega32U4AnalogComparatorCs_Address;
-	ret.ac.didr1 = (Atmega32U4AnalogComparatorDid_TypeDef*) Atmega32U4AnalogComparatorDid_Address;
+	atmega32u4.ac.acsr = (Atmega32U4AnalogComparator_TypeDef*) Atmega32U4AnalogComparator_Address;
+	atmega32u4.ac.adcsrb = (Atmega32U4AnalogComparatorCs_TypeDef*) Atmega32U4AnalogComparatorCs_Address;
+	atmega32u4.ac.didr1 = (Atmega32U4AnalogComparatorDid_TypeDef*) Atmega32U4AnalogComparatorDid_Address;
 	// JTAG
-	ret.jtag.ocdr = (Atmega32U4JtagInterface_TypeDef*) Atmega32U4JtagInterface_Address;
-	ret.jtag.mcusr = (Atmega32U4CPURegisterStatus_TypeDef*) Atmega32U4CPURegisterStatus_Address;
-	ret.jtag.mcucr = (Atmega32U4CPURegisterControl_TypeDef*) Atmega32U4CPURegisterControl_Address;
+	atmega32u4.jtag.ocdr = (Atmega32U4JtagInterface_TypeDef*) Atmega32U4JtagInterface_Address;
+	atmega32u4.jtag.mcusr = (Atmega32U4CPURegisterStatus_TypeDef*) Atmega32U4CPURegisterStatus_Address;
+	atmega32u4.jtag.mcucr = (Atmega32U4CPURegisterControl_TypeDef*) Atmega32U4CPURegisterControl_Address;
 	// BOOT_LOAD
-	ret.boot_load.spmcsr = (Atmega32U4Bootloader_TypeDef*) Atmega32U4Bootloader_Address;
+	atmega32u4.boot_load.spmcsr = (Atmega32U4Bootloader_TypeDef*) Atmega32U4Bootloader_Address;
 	// WDT
-	ret.wdt.wdtcsr = (Atmega32U4WatchdogTimer_TypeDef*) Atmega32U4WatchdogTimer_Address;
+	atmega32u4.wdt.wdtcsr = (Atmega32U4WatchdogTimer_TypeDef*) Atmega32U4WatchdogTimer_Address;
 	// ADC
-	ret.adc.reg = (Atmega32U4AnalogToDigitalConverter_TypeDef*) Atmega32U4AnalogToDigitalConverter_Address;
+	atmega32u4.adc.reg = (Atmega32U4AnalogToDigitalConverter_TypeDef*) Atmega32U4AnalogToDigitalConverter_Address;
 	#if defined(_ATMEGA32U4ANALOG_H_)
-		ret.adc.enable = ANALOGenable;
+		atmega32u4.adc.enable = ANALOGenable;
 	#endif
 	// TC1
-	ret.tc1.iflag = (Atmega32U4TimerInterruptFlag_TypeDef*) Atmega32U4TimerInterruptFlag_Address;
-	ret.tc1.gcr = (Atmega3U4TimerGeneralControlRegister_TypeDef*) Atmega3U4TimerGeneralControlRegister_Address;
-	ret.tc1.imask = (Atmega32U4TimerInterruptMask_TypeDef*) Atmega32U4TimerInterruptMask_Address;
-	ret.tc1.reg = (Atmega32U4TimerCounter1_TypeDef*) Atmega32U4TimerCounter1_Address;
-	ret.tc1.comp = (Atmega32U4TimerCompareRegister1_TypeDef*) Atmega32U4TimerCompareRegister1_Address;
+	atmega32u4.tc1.iflag = (Atmega32U4TimerInterruptFlag_TypeDef*) Atmega32U4TimerInterruptFlag_Address;
+	atmega32u4.tc1.gcr = (Atmega3U4TimerGeneralControlRegister_TypeDef*) Atmega3U4TimerGeneralControlRegister_Address;
+	atmega32u4.tc1.imask = (Atmega32U4TimerInterruptMask_TypeDef*) Atmega32U4TimerInterruptMask_Address;
+	atmega32u4.tc1.reg = (Atmega32U4TimerCounter1_TypeDef*) Atmega32U4TimerCounter1_Address;
+	atmega32u4.tc1.comp = (Atmega32U4TimerCompareRegister1_TypeDef*) Atmega32U4TimerCompareRegister1_Address;
 	#if defined(_ATMEGA32U4TIMER_H_)
-		ret.tc1.enable = TIMER_COUNTER1enable;
+		atmega32u4.tc1.enable = TIMER_COUNTER1enable;
 	#endif
 	// TC3
-	ret.tc3.iflag = (Atmega32U4TimerInterruptFlag_TypeDef*) Atmega32U4TimerInterruptFlag_Address;
-	ret.tc3.gcr = (Atmega3U4TimerGeneralControlRegister_TypeDef*) Atmega3U4TimerGeneralControlRegister_Address;
-	ret.tc3.imask = (Atmega32U4TimerInterruptMask_TypeDef*) Atmega32U4TimerInterruptMask_Address;
-	ret.tc3.reg = (Atmega32U4TimerCounter3_TypeDef*) Atmega32U4TimerCounter3_Address;
-	ret.tc3.comp = (Atmega32U4TimerCompareRegister3_TypeDef*) Atmega32U4TimerCompareRegister3_Address;
+	atmega32u4.tc3.iflag = (Atmega32U4TimerInterruptFlag_TypeDef*) Atmega32U4TimerInterruptFlag_Address;
+	atmega32u4.tc3.gcr = (Atmega3U4TimerGeneralControlRegister_TypeDef*) Atmega3U4TimerGeneralControlRegister_Address;
+	atmega32u4.tc3.imask = (Atmega32U4TimerInterruptMask_TypeDef*) Atmega32U4TimerInterruptMask_Address;
+	atmega32u4.tc3.reg = (Atmega32U4TimerCounter3_TypeDef*) Atmega32U4TimerCounter3_Address;
+	atmega32u4.tc3.comp = (Atmega32U4TimerCompareRegister3_TypeDef*) Atmega32U4TimerCompareRegister3_Address;
 	#if defined(_ATMEGA32U4TIMER_H_)
-		ret.tc3.enable = TIMER_COUNTER3enable;
+		atmega32u4.tc3.enable = TIMER_COUNTER3enable;
 	#endif
 	// TWI
-	ret.twi.reg = (Atmega32U4TwoWireSerialInterface_TypeDef*) Atmega32U4TwoWireSerialInterface_Address;
+	atmega32u4.twi.reg = (Atmega32U4TwoWireSerialInterface_TypeDef*) Atmega32U4TwoWireSerialInterface_Address;
 	#if defined(_ATMEGA32U4TWI_H_)
-		ret.twi.enable = TWIenable;
+		atmega32u4.twi.enable = TWIenable;
 	#endif
 	// TC4
-	ret.tc4.iflag = (Atmega32U4TimerInterruptFlag_TypeDef*) Atmega32U4TimerInterruptFlag_Address;
-	ret.tc4.gcr = (Atmega3U4TimerGeneralControlRegister_TypeDef*) Atmega3U4TimerGeneralControlRegister_Address;
-	ret.tc4.imask = (Atmega32U4TimerInterruptMask_TypeDef*) Atmega32U4TimerInterruptMask_Address;
-	ret.tc4.reg = (Atmega32U4TimerCounter4_TypeDef*) Atmega32U4TimerCounter4_Address;
-	ret.tc4.comp = (Atmega32U4TimerCompareRegister4_TypeDef*) Atmega32U4TimerCompareRegister4_Address;
+	atmega32u4.tc4.iflag = (Atmega32U4TimerInterruptFlag_TypeDef*) Atmega32U4TimerInterruptFlag_Address;
+	atmega32u4.tc4.gcr = (Atmega3U4TimerGeneralControlRegister_TypeDef*) Atmega3U4TimerGeneralControlRegister_Address;
+	atmega32u4.tc4.imask = (Atmega32U4TimerInterruptMask_TypeDef*) Atmega32U4TimerInterruptMask_Address;
+	atmega32u4.tc4.reg = (Atmega32U4TimerCounter4_TypeDef*) Atmega32U4TimerCounter4_Address;
+	atmega32u4.tc4.comp = (Atmega32U4TimerCompareRegister4_TypeDef*) Atmega32U4TimerCompareRegister4_Address;
 	#if defined(_ATMEGA32U4TIMER_H_)
-		ret.tc4.enable = TIMER_COUNTER4enable;
+		atmega32u4.tc4.enable = TIMER_COUNTER4enable;
 	#endif
 	// USART1
-	ret.usart1.reg = (Atmega32U4Usart1_TypeDef*) Atmega32U4Usart1_Address;
+	atmega32u4.usart1.reg = (Atmega32U4Usart1_TypeDef*) Atmega32U4Usart1_Address;
 	#if defined(_ATMEGA32U4UART_H_)
-		ret.usart1.enable = UARTenable;
+		atmega32u4.usart1.enable = UARTenable;
 	#endif
 	// USB_DEVICE
-	ret.usb_device.reg = (Atmega32U4UsbDeviceRegister_TypeDef*) Atmega32U4UsbDeviceRegister_Address;
+	atmega32u4.usb_device.reg = (Atmega32U4UsbDeviceRegister_TypeDef*) Atmega32U4UsbDeviceRegister_Address;
 	// General Func
-	ret.readhlbyte = ATMEGA32U4_ReadHLByte;
-	ret.readlhbyte = ATMEGA32U4_ReadLHByte;
-	ret.writehlbyte = ATMEGA32U4_WriteHLByte;
-	ret.writelhbyte = ATMEGA32U4_WriteLHByte;
-	ret.swapbyte = ATMEGA32U4_SwapByte;
-	ret.byte_mask = Atmega32U4_ByteMask;
-	ret.byte_set = Atmega32U4_ByteSet;
-	ret.byte_clear = Atmega32U4_ByteClear;
-	ret.byte_shiftright = Atmega32U4_ByteShiftright;
-	ret.byte_shiftleft = Atmega32U4_ByteShiftleft;
-	return ret;
+	atmega32u4.readhlbyte = ATMEGA32U4_ReadHLByte;
+	atmega32u4.readlhbyte = ATMEGA32U4_ReadLHByte;
+	atmega32u4.writehlbyte = ATMEGA32U4_WriteHLByte;
+	atmega32u4.writelhbyte = ATMEGA32U4_WriteLHByte;
+	atmega32u4.swapbyte = ATMEGA32U4_SwapByte;
+	atmega32u4.byte_mask = Atmega32U4_ByteMask;
+	atmega32u4.byte_set = Atmega32U4_ByteSet;
+	atmega32u4.byte_clear = Atmega32U4_ByteClear;
+	atmega32u4.byte_shiftright = Atmega32U4_ByteShiftright;
+	atmega32u4.byte_shiftleft = Atmega32U4_ByteShiftleft;
+	/******/
+	atmega32u4.Clock_Prescaler_Select = Atmega32U4ClockPrescalerSelect;
+	return atmega32u4;
 }
 
 // COMMON
@@ -206,6 +210,21 @@ uint8_t Atmega32U4_ByteShiftright(uint8_t target, uint8_t shift)
 uint8_t Atmega32U4_ByteShiftleft(uint8_t target, uint8_t shift)
 {
 	return target << shift;
+}
+
+/******/
+void Atmega32U4ClockPrescalerSelect(volatile uint8_t prescaler)
+{
+	volatile uint8_t sreg;
+	volatile uint8_t* clkpr = &CLKPR;
+	prescaler &= 0x0F;
+	sreg = atmega32u4.cpu.reg->sreg;
+	atmega32u4.cpu.reg->sreg &= ~(1 << 7);
+	
+	*clkpr = (1 << CLKPCE);
+	*clkpr = prescaler;
+	
+	atmega32u4.cpu.reg->sreg = sreg;
 }
 
 /*** File Interrupt ***/

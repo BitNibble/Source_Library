@@ -4,7 +4,7 @@ Author: Sergio Manuel Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: Atmega328 by ETT ET-BASE
-Date: 01122023
+Date: 07122023
 Comment: 
 	Virtual Image Atmega 328 mapping.
 	In search of perfection.
@@ -28,6 +28,7 @@ Comment:
 // MODULES
 #define _TIMER_MODULE_
 #define _UART_MODULE_
+
 /*********************************************************/
 /******************** USER Includes **********************/
 /*********************************************************/
@@ -247,6 +248,8 @@ typedef struct {
 	void (*byte_clear)(uint8_t* target, uint8_t clear);
 	uint8_t (*byte_shiftright)(uint8_t target, uint8_t shift);
 	uint8_t (*byte_shiftleft)(uint8_t target, uint8_t shift);
+	/******/
+	void (*Clock_Prescaler_Select)(volatile uint8_t prescaler);
 }ATMEGA328;
 
 /*** Global Header ***/
