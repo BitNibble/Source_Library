@@ -7,7 +7,6 @@ Hardware: Atmega328 by ETT ET-BASE
 Date: 01122023
 Comment:
 	Virtual Image Atmega 328.
-	In Search of Perfection
 ************************************************************************/
 #ifndef _ATMEGA328_H_
 	#define _ATMEGA328_H_
@@ -42,6 +41,7 @@ Comment:
 #define Atmega328TimerCompareRegister0_Address 0x0047
 #define Atmega328CpuGeneralPurposeIoRegister1_Address 0x004A
 #define Atmega328CpuGeneralPurposeIoRegister2_Address 0x004B
+#define Atmega328ExternalInterruptPinChangeMask_Address 0x006B;
 #define Atmega328TimerInterruptMask_Address 0x006E;
 #define Atmega328AnalogComparatorDid_Address 0x007F
 #define Atmega328TimerCompareRegister1_Address 0x0086
@@ -129,14 +129,6 @@ typedef struct {
 
 // CPU Register (CPU)
 typedef struct {
-	volatile uint8_t r0; // 0x3E
-	uint8_t fill[11]; // (0x4A - 0x3E) - 1
-	volatile uint8_t r1; // 0x4A
-	volatile uint8_t r2; // 0x4B
-} Atmega328CpuGeneralPurposeIoRegister_TypeDef;
-
-// CPU Register (CPU)
-typedef struct {
 	volatile uint8_t par; // 0x3E [gpior0]
 } Atmega328CpuGeneralPurposeIoRegister0_TypeDef;
 
@@ -172,6 +164,14 @@ typedef struct {
 
 // CPU Register (CPU)
 typedef struct {
+	volatile uint8_t r0; // 0x3E
+	uint8_t fill[11]; // (0x4A - 0x3E) - 1
+	volatile uint8_t r1; // 0x4A
+	volatile uint8_t r2; // 0x4B
+} Atmega328CpuGeneralPurposeIoRegister_TypeDef;
+
+// CPU Register (CPU)
+typedef struct {
 	volatile uint8_t par; // 0x4B [gpior2]
 } Atmega328CpuGeneralPurposeIoRegister2_TypeDef;
 
@@ -186,6 +186,11 @@ typedef struct {
 typedef struct {
 	volatile uint8_t acsr; // 0x50 [acsr]
 } Atmega328AnalogComparator_TypeDef;
+
+// Watchdog Timer (WDT)
+typedef struct {
+	volatile uint8_t wdtcsr; // 0x60 [wdtcsr]
+} Atmega328WatchdogTimer_TypeDef;
 
 // CPU Register (CPU)
 typedef struct {
@@ -205,10 +210,12 @@ typedef struct {
 	volatile uint8_t osccal; // 0x66
 } Atmega328CPURegister_TypeDef;
 
-// Watchdog Timer (WDT)
+// External Interrupts (EXINT)
 typedef struct {
-	volatile uint8_t wdtcsr; // 0x60 [wdtcsr]
-} Atmega328WatchdogTimer_TypeDef;
+	volatile uint8_t pcmsk0; // 0x6B
+	volatile uint8_t pcmsk1; // 0x6C
+	volatile uint8_t pcmsk2; // 0x6D
+} Atmega328ExternalInterruptPinChangeMask_TypeDef;
 
 // External Interrupts (EXINT)
 typedef struct {

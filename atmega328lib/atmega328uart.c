@@ -159,7 +159,10 @@ UART UARTenable(unsigned int baudrate, unsigned int FDbits, unsigned int Stopbit
 	atmega328.cpu.reg->sreg = tSREG;
 	atmega328.cpu.reg->sreg |= (1 << GLOBAL_INTERRUPT_ENABLE);
 	
+#ifdef _UART_MODULE_
 	atmega328.usart.run = uart;
+#endif
+
 	return uart;
 }
 

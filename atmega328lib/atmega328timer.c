@@ -123,7 +123,10 @@ TIMER_COUNTER0 TIMER_COUNTER0enable(unsigned char wavegenmode, unsigned char int
 	timer0.start = TIMER_COUNTER0_start;
 	timer0.stop = TIMER_COUNTER0_stop;
 	
+#ifdef _TIMER_MODULE_
 	atmega328.tc0.run = timer0;
+#endif
+
 	return timer0;
 }
 void TIMER_COUNTER0_start(unsigned int prescaler)
@@ -382,7 +385,10 @@ TIMER_COUNTER1 TIMER_COUNTER1enable(unsigned char wavegenmode, unsigned char int
 	timer1.start = TIMER_COUNTER1_start;
 	timer1.stop = TIMER_COUNTER1_stop;
 	
+#ifdef _TIMER_MODULE_
 	atmega328.tc1.run = timer1;
+#endif
+
 	return timer1;
 }
 void TIMER_COUNTER1_start(unsigned int prescaler)
@@ -571,7 +577,10 @@ TIMER_COUNTER2 TIMER_COUNTER2enable(unsigned char wavegenmode, unsigned char int
 	timer2.start = TIMER_COUNTER2_start;
 	timer2.stop = TIMER_COUNTER2_stop;
 	
+#ifdef _TIMER_MODULE_
 	atmega328.tc2.run = timer2;
+#endif
+
 	return timer2;
 }
 void TIMER_COUNTER2_start(unsigned int prescaler)

@@ -132,7 +132,10 @@ ANALOG ANALOGenable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... )
 	atmega328.cpu.reg->sreg = tSREG;
 	atmega328.cpu.reg->sreg |= (1 << GLOBAL_INTERRUPT_ENABLE);
 	
+#ifdef _ANALOG_MODULE_
 	atmega328.adc.run = analog;
+#endif
+
 	return analog;
 }
 

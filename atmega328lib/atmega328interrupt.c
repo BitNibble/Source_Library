@@ -49,7 +49,10 @@ INTERRUPT INTERRUPTenable(void)
 	interrupt.off = INTERRUPT_off;
 	interrupt.reset_status = INTERRUPT_reset_status;
 	
+#ifdef _INTERRUPT_MODULE_
 	atmega328.exint.run = interrupt;
+#endif
+
 	return interrupt;
 }
 uint8_t INTERRUPT_reset_status(void)

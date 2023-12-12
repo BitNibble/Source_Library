@@ -94,7 +94,10 @@ TWI TWIenable(uint8_t atmega_ID,  uint8_t prescaler)
 	TWI_init(atmega_ID, prescaler);
 	atmega328.cpu.reg->sreg = tSREG;
 	
+#ifdef _TWI_MODULE_
 	atmega328.twi.run = ic;
+#endif
+
 	return ic;
 }
 // void TWI_Init(uint8_t device_id, uint8_t prescaler)

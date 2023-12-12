@@ -7,7 +7,6 @@ Hardware: Atmega328 by ETT ET-BASE
 Date: 07122023
 Comment: 
 	Virtual Image Atmega 328 mapping.
-	In search of perfection.
 *********************************************************************/
 #ifndef _ATMEGA328MAPPING_H_
 	#define _ATMEGA328MAPPING_H_
@@ -90,7 +89,7 @@ typedef struct {
 // Analog to Digital Converter (ADC)
 typedef struct {
 	Atmega328AnalogToDigitalConverter_TypeDef* reg;
-	#if defined(_ATMEGA328ANALOG_H_)
+	#if defined(_ANALOG_MODULE_)
 		ANALOG run;
 		ANALOG (*enable)( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... );
 	#endif
@@ -105,7 +104,7 @@ typedef struct {
 // EEPROM (EEPROM)
 typedef struct {
 	Atmega328Eeprom_TypeDef* reg;
-	#if defined(_ATMEGAEEPROM_H_)
+	#if defined(_EEPROM_MODULE_)
 		EEPROM run;
 		EEPROM (*enable)(void);
 	#endif
@@ -116,7 +115,7 @@ typedef struct {
 	Atmega328ExternalInterrupt_TypeDef* reg;
 	Atmega328ExternalInterruptFlag_TypeDef* iflag;
 	Atmega328ExternalInterruptMask_TypeDef* imask;
-	#if defined(_ATMEGA328INTERRUPT_H_)
+	#if defined(_INTERRUPT_MODULE_)
 		INTERRUPT run;
 		INTERRUPT (*enable)(void);
 	#endif
@@ -140,7 +139,7 @@ typedef struct {
 // Serial Peripheral Interface (SPI)
 typedef struct {
 	Atmega328SerialPeripherialInterface_TypeDef* reg;
-	#if defined(_ATMEGA328SPI_H_)
+	#if defined(_SPI_MODULE_)
 		SPI run;
 		SPI (*enable)(uint8_t master_slave_select, uint8_t data_order,  uint8_t data_modes, uint8_t prescaler);
 	#endif
@@ -153,7 +152,7 @@ typedef struct {
 	Atmega328TimerInterruptFlag_TypeDef* iflag;
 	Atmega328TimerInterruptMask_TypeDef* imask;
 	Atmega328TimerCompareRegister1_TypeDef* comp;
-	#if defined(_ATMEGA328TIMER_H_)
+	#if defined(_TIMER_MODULE_)
 		TIMER_COUNTER1 run;
 		TIMER_COUNTER1 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
 	#endif
@@ -166,7 +165,7 @@ typedef struct {
 	Atmega328TimerInterruptFlag_TypeDef* iflag;
 	Atmega328TimerInterruptMask_TypeDef* imask;
 	Atmega328TimerCompareRegister0_TypeDef* comp;
-	#if defined(_ATMEGA328TIMER_H_)
+	#if defined(_TIMER_MODULE_)
 		TIMER_COUNTER0 run;
 		TIMER_COUNTER0 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
 	#endif
@@ -179,7 +178,7 @@ typedef struct {
 	Atmega328TimerInterruptFlag_TypeDef* iflag;
 	Atmega328TimerInterruptMask_TypeDef* imask;
 	Atmega328TimerCompareRegister2_TypeDef* comp;
-	#if defined(_ATMEGA328TIMER_H_)
+	#if defined(_TIMER_MODULE_)
 		TIMER_COUNTER2 run;
 		TIMER_COUNTER2 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
 	#endif
@@ -188,7 +187,7 @@ typedef struct {
 // Two Wire Serial Interface (TWI)
 typedef struct {
 	Atmega328TwoWireSerialInterface_TypeDef* reg;
-	#if defined(_ATMEGA328TWI_H_)
+	#if defined(_TWI_MODULE_)
 		TWI run;
 		TWI (*enable)(uint8_t atmega_ID, uint8_t prescaler);
 	#endif
@@ -197,7 +196,7 @@ typedef struct {
 // USART (USART)
 typedef struct {
 	Atmega328Usart_TypeDef* reg;
-	#if defined(_ATMEGA328UART_H_)
+	#if defined(_UART_MODULE_)
 		UART run;
 		UART (*enable)(unsigned int baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 	#endif

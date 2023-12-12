@@ -271,6 +271,7 @@ typedef struct {
 	/******/
 	void (*Clock_Prescaler_Select)(volatile uint8_t prescaler);
 	void (*Move_Interrupts_To_Boot)(void);
+	void (*Move_Interrupts_To_Sram)(void);
 }ATMEGA32U4;
 
 /*** Global Header ***/
