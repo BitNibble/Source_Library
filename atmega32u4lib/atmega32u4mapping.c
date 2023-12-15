@@ -51,7 +51,7 @@ ATMEGA32U4 ATMEGA32U4enable(void){
 	atmega32u4.exint.reg = (Atmega32U4ExternalInterrupt_TypeDef*) Atmega32U4ExternalInterrupt_Address;
 	atmega32u4.exint.iflag = (Atmega32U4ExternalInterruptFlag_TypeDef*) Atmega32U4ExternalInterruptFlag_Address;
 	atmega32u4.exint.imask = (Atmega32U4ExternalInterruptMask_TypeDef*) Atmega32U4ExternalInterruptMask_Address;
-	#if defined(_ATMEGA32U4INTERRUPT_H_)
+	#if defined(_INTERRUPT_MODULE_)
 		atmega32u4.exint.enable = INTERRUPTenable;
 	#endif
 	// CPU
@@ -67,7 +67,7 @@ ATMEGA32U4 ATMEGA32U4enable(void){
 	atmega32u4.cpu.clk = (Atmega32U4CpuClockSelect_TypeDef*) Atmega32U4CpuClockSelect_Address;
 	// EEPROM
 	atmega32u4.eeprom.reg = (Atmega32U4Eeprom_TypeDef*) Atmega32U4Eeprom_Address;
-	#if defined(_ATMEGAEEPROM_H_)
+	#if defined(_EEPROM_MODULE_)
 		atmega32u4.eeprom.enable = EEPROMenable;
 	#endif
 	// TC0
@@ -76,7 +76,7 @@ ATMEGA32U4 ATMEGA32U4enable(void){
 	atmega32u4.tc0.reg = (Atmega32U4TimerCounter0_TypeDef*) Atmega32U4TimerCounter0_Address;
 	atmega32u4.tc0.comp = (Atmega32U4TimerCompareRegister0_TypeDef*) Atmega32U4TimerCompareRegister0_Address;
 	atmega32u4.tc0.imask = (Atmega32U4TimerInterruptMask_TypeDef*) Atmega32U4TimerInterruptMask_Address;
-	#if defined(_ATMEGA32U4TIMER_H_)
+	#if defined(_TIMER_MODULE_)
 		atmega32u4.tc0.enable = TIMER_COUNTER0enable;
 	#endif
 	// PLL
@@ -84,7 +84,7 @@ ATMEGA32U4 ATMEGA32U4enable(void){
 	atmega32u4.pll.pllfrq = (Atmega32U4PhaseLockedLoopFreq_TypeDef*) Atmega32U4PhaseLockedLoopFreq_Address;
 	// SPI
 	atmega32u4.spi.reg = (Atmega32U4SerialPeripherialInterface_TypeDef*) Atmega32U4SerialPeripherialInterface_Address;
-	#if defined(_ATMEGA32U4SPI_H_)
+	#if defined(_SPI_MODULE_)
 		atmega32u4.spi.enable = SPIenable;
 	#endif
 	// AC
@@ -101,7 +101,7 @@ ATMEGA32U4 ATMEGA32U4enable(void){
 	atmega32u4.wdt.wdtcsr = (Atmega32U4WatchdogTimer_TypeDef*) Atmega32U4WatchdogTimer_Address;
 	// ADC
 	atmega32u4.adc.reg = (Atmega32U4AnalogToDigitalConverter_TypeDef*) Atmega32U4AnalogToDigitalConverter_Address;
-	#if defined(_ATMEGA32U4ANALOG_H_)
+	#if defined(_ANALOG_MODULE_)
 		atmega32u4.adc.enable = ANALOGenable;
 	#endif
 	// TC1
@@ -110,7 +110,7 @@ ATMEGA32U4 ATMEGA32U4enable(void){
 	atmega32u4.tc1.imask = (Atmega32U4TimerInterruptMask_TypeDef*) Atmega32U4TimerInterruptMask_Address;
 	atmega32u4.tc1.reg = (Atmega32U4TimerCounter1_TypeDef*) Atmega32U4TimerCounter1_Address;
 	atmega32u4.tc1.comp = (Atmega32U4TimerCompareRegister1_TypeDef*) Atmega32U4TimerCompareRegister1_Address;
-	#if defined(_ATMEGA32U4TIMER_H_)
+	#if defined(_TIMER_MODULE_)
 		atmega32u4.tc1.enable = TIMER_COUNTER1enable;
 	#endif
 	// TC3
@@ -119,12 +119,12 @@ ATMEGA32U4 ATMEGA32U4enable(void){
 	atmega32u4.tc3.imask = (Atmega32U4TimerInterruptMask_TypeDef*) Atmega32U4TimerInterruptMask_Address;
 	atmega32u4.tc3.reg = (Atmega32U4TimerCounter3_TypeDef*) Atmega32U4TimerCounter3_Address;
 	atmega32u4.tc3.comp = (Atmega32U4TimerCompareRegister3_TypeDef*) Atmega32U4TimerCompareRegister3_Address;
-	#if defined(_ATMEGA32U4TIMER_H_)
+	#if defined(_TIMER_MODULE_)
 		atmega32u4.tc3.enable = TIMER_COUNTER3enable;
 	#endif
 	// TWI
 	atmega32u4.twi.reg = (Atmega32U4TwoWireSerialInterface_TypeDef*) Atmega32U4TwoWireSerialInterface_Address;
-	#if defined(_ATMEGA32U4TWI_H_)
+	#if defined(_TWI_MODULE_)
 		atmega32u4.twi.enable = TWIenable;
 	#endif
 	// TC4
@@ -133,12 +133,12 @@ ATMEGA32U4 ATMEGA32U4enable(void){
 	atmega32u4.tc4.imask = (Atmega32U4TimerInterruptMask_TypeDef*) Atmega32U4TimerInterruptMask_Address;
 	atmega32u4.tc4.reg = (Atmega32U4TimerCounter4_TypeDef*) Atmega32U4TimerCounter4_Address;
 	atmega32u4.tc4.comp = (Atmega32U4TimerCompareRegister4_TypeDef*) Atmega32U4TimerCompareRegister4_Address;
-	#if defined(_ATMEGA32U4TIMER_H_)
+	#if defined(_TIMER_MODULE_)
 		atmega32u4.tc4.enable = TIMER_COUNTER4enable;
 	#endif
 	// USART1
 	atmega32u4.usart1.reg = (Atmega32U4Usart1_TypeDef*) Atmega32U4Usart1_Address;
-	#if defined(_ATMEGA32U4UART_H_)
+	#if defined(_USART1_MODULE_)
 		atmega32u4.usart1.enable = UARTenable;
 	#endif
 	// USB_DEVICE
@@ -288,9 +288,9 @@ void Atmega32U4MoveInterruptsToSram(void)
 /***EOF***/
 
 /******
-1� Sequence
-2� Scope
-3� Pointer and Variable
-4� Casting
+1º Sequence
+2º Scope
+3º Pointer and Variable
+4º Casting
 ******/
 

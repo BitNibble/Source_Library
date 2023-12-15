@@ -21,17 +21,51 @@ Comment:
 #include "atmega32U4.h"
 
 /*********************************************************/
-/******************** User includes **********************/
+/****************** Include Switches  ********************/
+/*********************************************************/
+// To be Selected by the User
+// MODULES
+#define _EEPROM_MODULE_
+
+/*********************************************************/
+/******************** USER Includes **********************/
 /*********************************************************/
 // MODULES
-// Comment out modules not being used
-//#include "atmega32U4analog.h"
+#ifdef _ANALOG_MODULE_
+#include "atmega32u4analog.h"
+//#else
+//	#warning "NO ANALOG MODULE"
+#endif
+#ifdef _EEPROM_MODULE_
 #include "atmegaeeprom.h"
-//#include "atmega32U4interrupt.h"
-//#include "atmega32U4timer.h"
-//#include "atmega32U4twi.h"
-//#include "atmega32U4spi.h"
-//#include "atmega32U4uart.h"
+//#else
+//	#warning "NO EEPROM MODULE"
+#endif
+#ifdef _INTERRUPT_MODULE_
+#include "atmega32u4interrupt.h"
+//#else
+//	#warning "NO INTERRUPT MODULE"
+#endif
+#ifdef _TIMER_MODULE_
+#include "atmega32u4timer.h"
+//#else
+//	#warning "NO TIMER MODULE"
+#endif
+#ifdef _TWI_MODULE_
+#include "atmega32u4twi.h"
+//#else
+//	#warning "NO TWI MODULE"
+#endif
+#ifdef _SPI_MODULE_
+#include "atmega32u4spi.h"
+//#else
+//	#warning "NO SPI MODULE"
+#endif
+#ifdef _USART1_MODULE_
+#include "atmega32u4uart.h"
+//#else
+//	#warning "NO UART MODULE"
+#endif
 /*********************************************************/
 
 /*** Global Variable ***/
@@ -75,7 +109,7 @@ typedef struct {
 	Atmega32U4ExternalInterruptFlag_TypeDef* iflag;
 	Atmega32U4ExternalInterruptMask_TypeDef* imask;
 	Atmega32U4ExternalInterrupt_TypeDef* reg;
-	#if defined(_ATMEGA32U4INTERRUPT_H_)
+	#if defined(_INTERRUPT_MODULE_)
 		INTERRUPT run;
 		INTERRUPT (*enable)(void);
 	#endif
@@ -98,7 +132,7 @@ typedef struct {
 // EEPROM (EEPROM)
 typedef struct {
 	Atmega32U4Eeprom_TypeDef* reg;
-	#if defined(_ATMEGAEEPROM_H_)
+	#if defined(_EEPROM_MODULE_)
 		EEPROM run;
 		EEPROM (*enable)(void);
 	#endif
@@ -111,7 +145,7 @@ typedef struct {
 	Atmega32U4TimerCounter0_TypeDef* reg;
 	Atmega32U4TimerCompareRegister0_TypeDef* comp;
 	Atmega32U4TimerInterruptMask_TypeDef* imask;
-	#if defined(_ATMEGA32U4TIMER_H_)
+	#if defined(_TIMER_MODULE_)
 		TIMER_COUNTER0 run;
 		TIMER_COUNTER0 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
 	#endif
@@ -126,7 +160,7 @@ typedef struct {
 // Serial Peripheral Interface (SPI)
 typedef struct {
 	Atmega32U4SerialPeripherialInterface_TypeDef* reg;
-	#if defined(_ATMEGA32U4SPI_H_)
+	#if defined(_SPI_MODULE_)
 		SPI run;
 		SPI (*enable)(uint8_t master_slave_select, uint8_t data_order,  uint8_t data_modes, uint8_t prescaler);
 	#endif
@@ -159,7 +193,7 @@ typedef struct {
 // Analog to Digital Converter (ADC)
 typedef struct {
 	Atmega32U4AnalogToDigitalConverter_TypeDef* reg;
-	#if defined(_ATMEGA32U4ANALOG_H_)
+	#if defined(_ANALOG_MODULE_)
 		ANALOG run;
 		ANALOG (*enable)( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... );
 	#endif
@@ -172,7 +206,7 @@ typedef struct {
 	Atmega32U4TimerInterruptMask_TypeDef* imask;
 	Atmega32U4TimerCounter1_TypeDef* reg;
 	Atmega32U4TimerCompareRegister1_TypeDef* comp;
-	#if defined(_ATMEGA32U4TIMER_H_)
+	#if defined(_TIMER_MODULE_)
 		TIMER_COUNTER1 run;
 		TIMER_COUNTER1 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
 	#endif
@@ -185,7 +219,7 @@ typedef struct {
 	Atmega32U4TimerInterruptMask_TypeDef* imask;
 	Atmega32U4TimerCounter3_TypeDef* reg;
 	Atmega32U4TimerCompareRegister3_TypeDef* comp;
-	#if defined(_ATMEGA32U4TIMER_H_)
+	#if defined(_TIMER_MODULE_)
 		TIMER_COUNTER3 run;
 		TIMER_COUNTER3 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
 	#endif
@@ -194,7 +228,7 @@ typedef struct {
 // Two Wire Serial Interface (TWI)
 typedef struct {
 	Atmega32U4TwoWireSerialInterface_TypeDef* reg;
-	#if defined(_ATMEGA32U4TWI_H_)
+	#if defined(_TWI_MODULE_)
 		TWI run;
 		TWI (*enable)(uint8_t atmega_ID, uint8_t prescaler);
 	#endif
@@ -207,7 +241,7 @@ typedef struct {
 	Atmega32U4TimerInterruptMask_TypeDef* imask;
 	Atmega32U4TimerCounter4_TypeDef* reg;
 	Atmega32U4TimerCompareRegister4_TypeDef* comp;
-	#if defined(_ATMEGA32U4TIMER_H_)
+	#if defined(_TIMER_MODULE_)
 		TIMER_COUNTER4 run;
 		TIMER_COUNTER4 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
 	#endif
@@ -216,7 +250,7 @@ typedef struct {
 // USART (USART1)
 typedef struct {
 	Atmega32U4Usart1_TypeDef* reg;
-	#if defined(_ATMEGA32U4UART_H_)
+	#if defined(_USART1_MODULE_)
 		UART run;
 		UART (*enable)(unsigned int baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 	#endif
