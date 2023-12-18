@@ -14,6 +14,12 @@ Comment:
 /*** File Define & Macro ***/
 // STATIC RAM
 #define Atmega328InterruptVectors_Address 0x0100
+#ifndef DATA_SIZE
+	#define DATA_SIZE 32
+#endif
+#ifndef DATA_BITS
+	#define DATA_BITS 31
+#endif
 
 /*** File Variable ***/
 //ATMEGA328 atmega328;
@@ -29,6 +35,12 @@ void Atmega328_ByteSet(uint8_t* target, uint8_t set);
 void Atmega328_ByteClear(uint8_t* target, uint8_t clear);
 uint8_t Atmega328_ByteShiftright(uint8_t target, uint8_t shift);
 uint8_t Atmega328_ByteShiftleft(uint8_t target, uint8_t shift);
+/*** File Procedure & Function Definition***/
+uint8_t Atmega328_readreg(uint8_t reg, uint8_t size_block, uint8_t bit);
+void Atmega328_writereg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);
+void Atmega328_setreg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);
+void Atmega328_setbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);
+uint8_t Atmega328_getsetbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit);
 /******/
 void Atmega328ClockPrescalerSelect(volatile uint8_t prescaler);
 void Atmega328MoveInterruptsToBoot(void);
@@ -122,6 +134,11 @@ ATMEGA328 ATMEGA328enable(void){
 	atmega328.byte_clear = Atmega328_ByteClear;
 	atmega328.byte_shiftright = Atmega328_ByteShiftright;
 	atmega328.byte_shiftleft = Atmega328_ByteShiftleft;
+	atmega328.readreg = Atmega328_readreg;
+	atmega328.writereg = Atmega328_writereg;
+	atmega328.setreg = Atmega328_setreg;
+	atmega328.setbit = Atmega328_setbit;
+	atmega328.getsetbit = Atmega328_getsetbit;
 	/******/
 	atmega328.Clock_Prescaler_Select = Atmega328ClockPrescalerSelect;
 	atmega328.Move_Interrupts_To_Boot = Atmega328MoveInterruptsToBoot;
@@ -182,6 +199,56 @@ uint8_t Atmega328_ByteShiftright(uint8_t target, uint8_t shift)
 uint8_t Atmega328_ByteShiftleft(uint8_t target, uint8_t shift)
 {
 	return target << shift;
+}
+
+/*** File Procedure & Function Definition***/
+uint8_t Atmega328_readreg(uint8_t reg, uint8_t size_block, uint8_t bit)
+{
+	if(bit > DATA_BITS){ bit = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
+	uint8_t value = reg;
+	uint8_t mask = (unsigned int)((1 << size_block) - 1);
+	value &= (mask << bit);
+	value = (value >> bit);
+	return value;
+}
+void Atmega328_writereg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data)
+{
+	if(bit > DATA_BITS){ bit = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
+	uint8_t value = *reg;
+	uint8_t mask = (unsigned int)((1 << size_block) - 1);
+	data &= mask; value &= ~(mask << bit);
+	data = (data << bit);
+	value |= data;
+	*reg = value;
+}
+void Atmega328_setreg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data)
+{
+	if(bit > DATA_BITS){ bit = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
+	uint8_t value = data;
+	uint8_t mask = (unsigned int)((1 << size_block) - 1);
+	value &= mask;
+	*reg &= ~(mask << bit);
+	*reg |= (value << bit);
+}
+void Atmega328_setbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data)
+{
+	uint8_t n = 0;
+	if(bit > DATA_BITS){ n = bit/DATA_SIZE; bit = bit - (n * DATA_SIZE); } if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
+	uint8_t value = data;
+	uint8_t mask = (unsigned int)((1 << size_block) - 1);
+	value &= mask;
+	*(reg + n ) &= ~(mask << bit);
+	*(reg + n ) |= (value << bit);
+}
+uint8_t Atmega328_getsetbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit)
+{
+	uint8_t n = 0;
+	if(bit > DATA_BITS){ n = bit/DATA_SIZE; bit = bit - (n * DATA_SIZE); } if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
+	uint8_t value = *(reg + n );
+	uint8_t mask = (unsigned int)((1 << size_block) - 1);
+	value &= (mask << bit);
+	value = (value >> bit);
+	return value;
 }
 
 /******/
