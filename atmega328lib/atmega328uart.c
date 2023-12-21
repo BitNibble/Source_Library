@@ -10,6 +10,7 @@ Comment:
 *************************************************************************/
 /*** File Library ***/
 #include "atmega328mapping.h"
+#include "atmega328uart.h"
 #include "buffer.h"
 #include <util/delay.h>
 

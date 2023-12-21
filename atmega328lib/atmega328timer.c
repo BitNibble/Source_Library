@@ -10,6 +10,7 @@ Comment:
 *************************************************************************/
 /*** File library ***/
 #include "atmega328mapping.h"
+#include "atmega328timer.h"
 
 /*** File Constant & Macro ***/
 #if defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__)

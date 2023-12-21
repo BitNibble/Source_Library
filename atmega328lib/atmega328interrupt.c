@@ -10,6 +10,7 @@ Comment:
 *************************************************************************/
 /*** File Library ***/
 #include "atmega328mapping.h"
+#include "atmega328interrupt.h"
 #include <stdarg.h>
 
 /*** File Constant & Macro ***/

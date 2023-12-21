@@ -10,6 +10,7 @@ Comment:
 *************************************************************************/
 /*** File Library ***/
 #include "atmega328mapping.h"
+#include "atmegaeeprom.h"
 
 /*** File Constant & Macro ***/
 

@@ -10,6 +10,7 @@ Comment:
 ***************************************************************************************************/
 /*** File Library ***/
 #include "atmega328mapping.h"
+#include "atmega328twi.h"
 #include <util/delay.h>
 
 /*** File Define and Macro ***/

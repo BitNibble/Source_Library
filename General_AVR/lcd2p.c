@@ -64,10 +64,10 @@ LCD0 LCD0enable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatile uin
 	lcd0data_PIN = datapin;
 	lcd0data_PORT = dataport;
 	// initialize variables
-	*lcd0cmd_DDR = 0x00;
-	*lcd0cmd_PORT = 0xFF;
-	*lcd0data_DDR = 0x00;
-	*lcd0data_PORT = 0xFF;
+	*lcd0cmd_DDR &= ~((1 << RS) | (1 << RW) | (1 << EN) | (0 << NC));
+	*lcd0cmd_PORT |= (1 << RS) | (1 << RW) | (1 << EN) | (0 << NC);
+	*lcd0data_DDR &= ~((1 << DB4) | (1 << DB5) | (1 << DB6) | (1 << DB7));
+	*lcd0data_PORT |= (1 << DB4) | (1 << DB5) | (1 << DB6) | (1 << DB7);
 	lcd0_detect = *lcd0cmd_PIN & (1 << NC);
 	// Direccionar apontadores para PROTOTIPOS
 	lcd0.write = LCD0_write;
