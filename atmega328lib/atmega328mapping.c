@@ -14,12 +14,6 @@ Comment:
 /*** File Define & Macro ***/
 // STATIC RAM
 #define Atmega328InterruptVectors_Address 0x0100
-#ifndef DATA_SIZE
-	#define DATA_SIZE 32
-#endif
-#ifndef DATA_BITS
-	#define DATA_BITS 31
-#endif
 
 /*** File Variable ***/
 //ATMEGA328 atmega328;

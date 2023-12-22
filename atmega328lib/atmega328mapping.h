@@ -13,12 +13,20 @@ Comment:
 
 /*** Global Library ***/
 #include <avr/io.h>
+#include <avr/fuse.h>
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
 #include <stdlib.h>
 #include <inttypes.h>
 // RAW IMAGE
 #include "atmega328.h"
+
+#ifndef DATA_SIZE
+	#define DATA_SIZE 8
+#endif
+#ifndef DATA_BITS
+	#define DATA_BITS 7
+#endif
 
 /*********************************************************/
 /****************** Include Switches  ********************/
@@ -74,7 +82,8 @@ Comment:
 typedef struct {
 	HighLowByte HLbyte;
 }Atmega328Parameter;
-//		SECOND LAYER
+
+/*** SECOND LAYER ***/
 // GPWR
 typedef struct {
 	Atmega328GPWR_TypeDef* reg;
@@ -214,8 +223,9 @@ typedef struct {
 } Atmega328InterruptVectors;
 
 /*******************************************************************/
+/************************* ATMEGA 328 IMAGE ************************/
 /*******************************************************************/
-// ATMEGA 328 IMAGE
+
 typedef struct {
 	//		Parameter
 	Atmega328Parameter par;
