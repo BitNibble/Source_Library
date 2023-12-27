@@ -10,6 +10,7 @@ Comment:
 *************************************************************************/
 /*** File Library ***/
 #include "atmega32u4mapping.h"
+#include "atmegaeeprom.h"
 
 /*** File Constant & Macro ***/
 

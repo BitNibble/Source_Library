@@ -10,6 +10,7 @@ Comment:
 ***************************************************************************************************/
 /*** File Library ***/
 #include "atmega32u4mapping.h"
+#include "atmega32u4twi.h"
 #include <util/delay.h>
 
 /*** File Define and Macro ***/

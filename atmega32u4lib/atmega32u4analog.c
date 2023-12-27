@@ -10,6 +10,7 @@ Comment:
 *************************************************************************/
 /*** File Library ***/
 #include "atmega32u4mapping.h"
+#include "atmega32u4analog.h"
 #include <stdarg.h>
 
 /*** File Constant & Macro ***/
