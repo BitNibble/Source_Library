@@ -1,5 +1,5 @@
 /************************************************************************
-	HC05ATCOMMANDS
+	ESP01ATCOMMANDS
 Author: Sergio Santos 
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
@@ -8,8 +8,8 @@ Update: 29/12/2023
 Comment:
 	Stable
 ************************************************************************/
-#ifndef _HC05ATCOMMANDS_H_
-	#define _HC05ATCOMMANDS_H_
+#ifndef _ESP01ATCOMMANDS_H_
+	#define _ESP01ATCOMMANDS_H_
 
 /*** Global Library ***/
 #include <inttypes.h>
@@ -19,7 +19,7 @@ Comment:
 /*** Global Variable ***/
 
 /*** Global Header ***/
-char* HC05ATcmd(uint16_t num);
+char* ESP01ATcmd(uint16_t num);
 
 #endif
 

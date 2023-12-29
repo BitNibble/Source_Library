@@ -1,5 +1,5 @@
 /*************************************************************************
-	HC05ATCOMMANDS
+	ESP01ATCOMMANDS
 Author: Sergio Santos 
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
@@ -9,7 +9,7 @@ Comment:
 	Stable
 *************************************************************************/
 /*** File Library ***/
-#include "hc05atcommands.h"
+#include "esp01atcommands.h"
 #include <string.h>
 
 /*** File Constant & Macro ***/
@@ -21,7 +21,7 @@ char ATstr[72];
 /*** File Header ***/
 
 /*** Procedure & Function ***/
-char* HC05ATcmd(uint16_t num){
+char* ESP01ATcmd(uint16_t num){
 	switch(num)
 	{
 		/*** Query ***/
@@ -99,7 +99,7 @@ char* HC05ATcmd(uint16_t num){
 			strcpy(ATstr, "AT+CWMODE=3\r\n");
 		break;
 		case 30: // esp01
-			strcpy(ATstr, "AT+CWJAP=NOS-9C64,RUSXRCKL\r\n");
+			strcpy(ATstr, "AT+CWJAP="NOS-9C64","RUSXRCKL"\r\n");
 		break;
 		case 311: // esp01 configure the ESP8266 ESP-01 module as a Single server
 			strcpy(ATstr, "AT+CIPMUX=0\r\n");
