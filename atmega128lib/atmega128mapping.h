@@ -18,7 +18,7 @@ Comment:
 #include <avr/interrupt.h>
 #include <stdlib.h>
 #include <inttypes.h>
-// RAW IMAGE
+/*** RAW IMAGE ***/
 #include "atmega128.h"
 
 #ifndef DATA_SIZE
