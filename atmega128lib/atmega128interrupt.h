@@ -26,7 +26,6 @@ struct ntrrpt{
 	void (*on)(uint8_t channel);
 	uint8_t (*reset_status)(void);
 };
-
 typedef struct ntrrpt INTERRUPT;
 
 /*** Global Header ***/

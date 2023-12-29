@@ -80,7 +80,7 @@ TWI TWIenable(uint8_t atmega_ID,  uint8_t prescaler)
 	uint8_t tSREG;
 	TWI ic;
 	//inic file var
-	atmega328 = ATMEGA328enable();
+	ATMEGA328enable();
 	//inic local var
 	tSREG = atmega328.cpu.reg->sreg;
 	atmega328.cpu.reg->sreg &= ~(1<<GLOBAL_INTERRUPT_ENABLE);

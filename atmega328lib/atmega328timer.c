@@ -19,8 +19,6 @@ Comment:
 #endif
 
 /*** File Variable ***/
-//ATMEGA328 atmega328;
-
 static unsigned char timer0_state;
 static unsigned char timer1_state;
 static unsigned char timer2_state;
@@ -53,8 +51,8 @@ TIMER_COUNTER0 TIMER_COUNTER0enable(unsigned char wavegenmode, unsigned char int
 //	wavegen mode: Normal; PWM phase correct; Fast PWM; default-Normasl;
 //	interrupt: off; overflow; output compare; both; default - non.
 {
-	atmega328 = ATMEGA328enable();
-	TIMER_COUNTER0 timer0;
+	ATMEGA328enable();
+	TIMER_COUNTER0 tc0;
 	
 	timer0_state = 0;
 	atmega328.tc0.reg->tccr0a &= ~((1 << WGM01) | (1 << WGM00));
@@ -117,18 +115,18 @@ TIMER_COUNTER0 TIMER_COUNTER0enable(unsigned char wavegenmode, unsigned char int
 		default:
 		break;
 	}
-	timer0.compoutmodeA = TIMER_COUNTER0_compoutmodeA;
-	timer0.compoutmodeB = TIMER_COUNTER0_compoutmodeB;
-	timer0.compareA = TIMER_COUNTER0_compareA;
-	timer0.compareB = TIMER_COUNTER0_compareB;
-	timer0.start = TIMER_COUNTER0_start;
-	timer0.stop = TIMER_COUNTER0_stop;
+	tc0.compoutmodeA = TIMER_COUNTER0_compoutmodeA;
+	tc0.compoutmodeB = TIMER_COUNTER0_compoutmodeB;
+	tc0.compareA = TIMER_COUNTER0_compareA;
+	tc0.compareB = TIMER_COUNTER0_compareB;
+	tc0.start = TIMER_COUNTER0_start;
+	tc0.stop = TIMER_COUNTER0_stop;
 	
 #ifdef _TIMER_MODULE_
-	atmega328.tc0.run = timer0;
+	//atmega328.tc0.run = timer0;
 #endif
 
-	return timer0;
+	return tc0;
 }
 void TIMER_COUNTER0_start(unsigned int prescaler)
 //	PARAMETER SETTING
@@ -260,8 +258,8 @@ TIMER_COUNTER1 TIMER_COUNTER1enable(unsigned char wavegenmode, unsigned char int
 //	interrupt: off; overflow; output compare; both; default - non.
 //	for more information read data sheet.
 {
-	TIMER_COUNTER1 timer1;
-	atmega328 = ATMEGA328enable();
+	TIMER_COUNTER1 tc1;
+	ATMEGA328enable();
 	
 	timer1_state = 0;
 	atmega328.tc1.reg->tccr1a &= ~((1 << WGM11) | (1 << WGM10));
@@ -379,18 +377,18 @@ TIMER_COUNTER1 TIMER_COUNTER1enable(unsigned char wavegenmode, unsigned char int
 		break;
 	}
 	//
-	timer1.compoutmodeA = TIMER_COUNTER1_compoutmodeA;
-	timer1.compoutmodeB = TIMER_COUNTER1_compoutmodeB;
-	timer1.compareA = TIMER_COUNTER1_compareA;
-	timer1.compareB = TIMER_COUNTER1_compareB;
-	timer1.start = TIMER_COUNTER1_start;
-	timer1.stop = TIMER_COUNTER1_stop;
+	tc1.compoutmodeA = TIMER_COUNTER1_compoutmodeA;
+	tc1.compoutmodeB = TIMER_COUNTER1_compoutmodeB;
+	tc1.compareA = TIMER_COUNTER1_compareA;
+	tc1.compareB = TIMER_COUNTER1_compareB;
+	tc1.start = TIMER_COUNTER1_start;
+	tc1.stop = TIMER_COUNTER1_stop;
 	
 #ifdef _TIMER_MODULE_
-	atmega328.tc1.run = timer1;
+	//atmega328.tc1.run = timer1;
 #endif
 
-	return timer1;
+	return tc1;
 }
 void TIMER_COUNTER1_start(unsigned int prescaler)
 //	PARAMETER SETTING
@@ -511,8 +509,8 @@ TIMER_COUNTER2 TIMER_COUNTER2enable(unsigned char wavegenmode, unsigned char int
 //	wavegen mode: Normal; PWM phase correct; Fast PWM; default-Normasl;
 //	interrupt: off; overflow; output compare; both; default - non.
 {
-	TIMER_COUNTER2 timer2;
-	atmega328 = ATMEGA328enable();
+	TIMER_COUNTER2 tc2;
+	ATMEGA328enable();
 	
 	timer2_state = 0;
 	atmega328.tc2.reg->tccr2a &= ~((1 << WGM21) | (1 << WGM20));
@@ -571,18 +569,18 @@ TIMER_COUNTER2 TIMER_COUNTER2enable(unsigned char wavegenmode, unsigned char int
 		default:
 		break;
 	}
-	timer2.compoutmodeA = TIMER_COUNTER2_compoutmodeA;
-	timer2.compoutmodeB = TIMER_COUNTER2_compoutmodeB;
-	timer2.compareA = TIMER_COUNTER2_compareA;
-	timer2.compareB = TIMER_COUNTER2_compareB;
-	timer2.start = TIMER_COUNTER2_start;
-	timer2.stop = TIMER_COUNTER2_stop;
+	tc2.compoutmodeA = TIMER_COUNTER2_compoutmodeA;
+	tc2.compoutmodeB = TIMER_COUNTER2_compoutmodeB;
+	tc2.compareA = TIMER_COUNTER2_compareA;
+	tc2.compareB = TIMER_COUNTER2_compareB;
+	tc2.start = TIMER_COUNTER2_start;
+	tc2.stop = TIMER_COUNTER2_stop;
 	
 #ifdef _TIMER_MODULE_
-	atmega328.tc2.run = timer2;
+	//atmega328.tc2.run = timer2;
 #endif
 
-	return timer2;
+	return tc2;
 }
 void TIMER_COUNTER2_start(unsigned int prescaler)
 //	PARAMETER SETTING

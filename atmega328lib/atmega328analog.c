@@ -47,7 +47,7 @@ ANALOG ANALOGenable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... )
 // setup, and list of channels to be probed
 {
 	uint8_t tSREG;
-	atmega328 = ATMEGA328enable();
+	ATMEGA328enable();
 	va_list list;
 	int i;
 

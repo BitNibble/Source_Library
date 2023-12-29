@@ -41,7 +41,7 @@ uint8_t INTERRUPT_reset_status(void);
 INTERRUPT INTERRUPTenable(void)
 // setup blank
 {
-	atmega328 = ATMEGA328enable();
+	ATMEGA328enable();
 	struct intrpt interrupt;
 	// Pre-Processor Case 1
 	atmega328.exint.imask->eimsk = 0X00;

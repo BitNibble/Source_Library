@@ -162,7 +162,7 @@ typedef struct {
 	Atmega328TimerInterruptMask_TypeDef* imask;
 	Atmega328TimerCompareRegister1_TypeDef* comp;
 	#if defined(_TIMER_MODULE_)
-		TIMER_COUNTER1 run;
+		//TIMER_COUNTER1 run;
 		TIMER_COUNTER1 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
 	#endif
 } Atmega328TimerCounter1;
@@ -175,7 +175,7 @@ typedef struct {
 	Atmega328TimerInterruptMask_TypeDef* imask;
 	Atmega328TimerCompareRegister0_TypeDef* comp;
 	#if defined(_TIMER_MODULE_)
-		TIMER_COUNTER0 run;
+		//TIMER_COUNTER0 run;
 		TIMER_COUNTER0 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
 	#endif
 } Atmega328TimerCounter0;
@@ -188,7 +188,7 @@ typedef struct {
 	Atmega328TimerInterruptMask_TypeDef* imask;
 	Atmega328TimerCompareRegister2_TypeDef* comp;
 	#if defined(_TIMER_MODULE_)
-		TIMER_COUNTER2 run;
+		//TIMER_COUNTER2 run;
 		TIMER_COUNTER2 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
 	#endif
 } Atmega328TimerCounter2;
@@ -216,7 +216,7 @@ typedef struct {
 	Atmega328WatchdogTimer_TypeDef* reg;
 } Atmega328WatchdogTimer;
 
-//		STATIC RAM
+//		FLASH
 // Interrupt Vectors (ISR)
 typedef struct {
 	Atmega328InterruptVectors_TypeDef* reg;
@@ -267,11 +267,11 @@ typedef struct {
 	void (*Move_Interrupts_To_Boot)(void);
 }ATMEGA328;
 
-/*** Global Header ***/
-ATMEGA328 ATMEGA328enable(void);
-
 /*** Global Variable ***/
 ATMEGA328 atmega328;
+
+/*** Global Header ***/
+ATMEGA328 ATMEGA328enable(void);
 
 #endif
 

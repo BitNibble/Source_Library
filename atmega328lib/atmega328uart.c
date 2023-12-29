@@ -62,7 +62,7 @@ UART UARTenable(unsigned int baudrate, unsigned int FDbits, unsigned int Stopbit
 	tSREG = atmega328.cpu.reg->sreg;
 	atmega328.cpu.reg->sreg &= ~(1 << GLOBAL_INTERRUPT_ENABLE);
 	UART uart;
-	atmega328 = ATMEGA328enable();
+	ATMEGA328enable();
 	rxbuff = BUFFenable(UART_RX_BUFFER_SIZE, UART_RxBuf);
 	uart.par.ubrr = baudrate;
 	// Vtable

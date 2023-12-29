@@ -300,7 +300,7 @@ typedef struct {
 	volatile uint8_t udr0; // 0xC6
 } Atmega328Usart_TypeDef;
 
-/*** STATIC RAM ***/
+/*** FLASH ***/
 // Interrupt Vectors (ISR)
 typedef struct { // SRAM START = 0x0100 END = 0x0877 atmega328
 	HighLowByte RESET_vect; // 0x0000

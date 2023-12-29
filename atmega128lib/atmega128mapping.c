@@ -21,103 +21,129 @@ uint16_t ReadLHByte(HighLowByte reg);
 HighLowByte WriteHLByte(uint16_t val);
 HighLowByte WriteLHByte(uint16_t val);
 uint16_t SwapByte(uint16_t num);
+uint8_t ByteMask(uint8_t target, uint8_t mask);
+void ByteSet(uint8_t* target, uint8_t set);
+void ByteClear(uint8_t* target, uint8_t clear);
+uint8_t ByteShiftright(uint8_t target, uint8_t shift);
+uint8_t ByteShiftleft(uint8_t target, uint8_t shift);
+/*** File Procedure & Function Definition***/
+uint8_t readreg(uint8_t reg, uint8_t size_block, uint8_t bit);
+void writereg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);
+void setreg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);
+void setbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);
+uint8_t getsetbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit);
+/******/
+//void ClockPrescalerSelect(volatile uint8_t prescaler);
+void MoveInterruptsToBoot(void);
 
 /*** Procedure & Function ***/
 ATMEGA128 ATMEGA128enable(void){ 
-	ATMEGA128 ret;
 	// Assign
-	ret.gpwr.reg = (Atmega128GPWR_TypeDef*) Atmega128GPWR_Address;
+	// GPWR
+	atmega128.gpwr.reg = (Atmega128GPWR_TypeDef*) Atmega128GPWR_Address;
 	// AC
-	ret.ac.reg = (Atmega128AnalogComparator_TypeDef*) Atmega128AnalogComparator_Address;
-	ret.ac.misc = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
+	atmega128.ac.reg = (Atmega128AnalogComparator_TypeDef*) Atmega128AnalogComparator_Address;
+	atmega128.ac.misc = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
 	// ADC
-	ret.adc.reg = (Atmega128AnalogToDigitalConverter_TypeDef*) Atmega128AnalogToDigitalConverter_Address;
-	#if defined(_ATMEGA128ANALOG_H_)
-		ret.adc.enable = ANALOGenable;
+	atmega128.adc.reg = (Atmega128AnalogToDigitalConverter_TypeDef*) Atmega128AnalogToDigitalConverter_Address;
+	#if defined(_ANALOG_MODULE_)
+		atmega128.adc.enable = ANALOGenable;
 	#endif
-	ret.boot_load.reg = (Atmega128BootLoader_TypeDef*) Atmega128BootLoader_Address;
-	ret.cpu.reg = (Atmega128CPURegister_TypeDef*) Atmega128CPURegister_Address;
+	atmega128.boot_load.reg = (Atmega128BootLoader_TypeDef*) Atmega128BootLoader_Address;
+	atmega128.cpu.reg = (Atmega128CPURegister_TypeDef*) Atmega128CPURegister_Address;
 	// EEPROM
-	ret.eeprom.reg = (Atmega128Eeprom_TypeDef*) Atmega128Eeprom_Address;
-	#if defined(_EEPROM_H_)
-		ret.eeprom.enable = EEPROMenable;
+	atmega128.eeprom.reg = (Atmega128Eeprom_TypeDef*) Atmega128Eeprom_Address;
+	#if defined(_EEPROM_MODULE_)
+		atmega128.eeprom.enable = EEPROMenable;
 	#endif
 	// EXINT
-	ret.exint.reg = (Atmega128ExternalInterrupts_TypeDef*) Atmega128ExternalInterrupts_Address;
-	#if defined(_ATMEGA128INTERRUPT_H_)
-		ret.exint.enable = INTERRUPTenable;
+	atmega128.exint.reg = (Atmega128ExternalInterrupts_TypeDef*) Atmega128ExternalInterrupts_Address;
+	#if defined(_INTERRUPT_MODULE_)
+		atmega128.exint.enable = INTERRUPTenable;
 	#endif
 	// PORTA
-	ret.porta.reg = (Atmega128PORTA_TypeDef*) Atmega128PORTA_Address;
+	atmega128.porta.reg = (Atmega128PORTA_TypeDef*) Atmega128PORTA_Address;
 	// PORTB
-	ret.portb.reg = (Atmega128PORTB_TypeDef*) Atmega128PORTB_Address;
+	atmega128.portb.reg = (Atmega128PORTB_TypeDef*) Atmega128PORTB_Address;
 	// PORTC
-	ret.portc.reg = (Atmega128PORTC_TypeDef*) Atmega128PORTC_Address;
+	atmega128.portc.reg = (Atmega128PORTC_TypeDef*) Atmega128PORTC_Address;
 	// PORTD
-	ret.portd.reg = (Atmega128PORTD_TypeDef*) Atmega128PORTD_Address;
+	atmega128.portd.reg = (Atmega128PORTD_TypeDef*) Atmega128PORTD_Address;
 	// PORTE
-	ret.porte.reg = (Atmega128PORTE_TypeDef*) Atmega128PORTE_Address;
+	atmega128.porte.reg = (Atmega128PORTE_TypeDef*) Atmega128PORTE_Address;
 	// PORTF
-	ret.portf.reg = (Atmega128PORTF_TypeDef*) Atmega128PORTF_Address;
+	atmega128.portf.reg = (Atmega128PORTF_TypeDef*) Atmega128PORTF_Address;
 	// PORTG
-	ret.portg.reg = (Atmega128PORTG_TypeDef*) Atmega128PORTG_Address;
+	atmega128.portg.reg = (Atmega128PORTG_TypeDef*) Atmega128PORTG_Address;
 	// JTAG
-	ret.jtag.reg = (Atmega128JtagInterface_TypeDef*) Atmega128JtagInterface_Address;
+	atmega128.jtag.reg = (Atmega128JtagInterface_TypeDef*) Atmega128JtagInterface_Address;
 	// MISC
-	ret.misc.reg = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
+	atmega128.misc.reg = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
 	// SPI
-	ret.spi.reg = (Atmega128SerialPeripherialInterface_TypeDef*) Atmega128SerialPeripherialInterface_Address;
-	#if defined(_ATMEGA128SPI_H_)
-		ret.spi.enable = SPIenable;
+	atmega128.spi.reg = (Atmega128SerialPeripherialInterface_TypeDef*) Atmega128SerialPeripherialInterface_Address;
+	#if defined(_SPI_MODULE_)
+		atmega128.spi.enable = SPIenable;
 	#endif
 	// TC1
-	ret.tc1.reg = (Atmega128TimerCounter1_TypeDef*) Atmega128TimerCounter1_Address;
-	ret.tc1.misc = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
-	#if defined(_ATMEGA128TIMER_H_)
-		ret.tc1.enable = TIMER_COUNTER1enable;
+	atmega128.tc1.reg = (Atmega128TimerCounter1_TypeDef*) Atmega128TimerCounter1_Address;
+	atmega128.tc1.misc = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
+	#if defined(_TIMER_MODULE_)
+		atmega128.tc1.enable = TIMER_COUNTER1enable;
 	#endif
 	// TC3
-	ret.tc3.reg = (Atmega128TimerCounter3_TypeDef*) Atmega128TimerCounter3_Address;
-	ret.tc3.misc = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
-	#if defined(_ATMEGA128TIMER_H_)
-		ret.tc3.enable = TIMER_COUNTER3enable;
+	atmega128.tc3.reg = (Atmega128TimerCounter3_TypeDef*) Atmega128TimerCounter3_Address;
+	atmega128.tc3.misc = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
+	#if defined(_TIMER_MODULE_)
+		atmega128.tc3.enable = TIMER_COUNTER3enable;
 	#endif
 	// TC2
-	ret.tc2.reg = (Atmega128TimerCounter2_TypeDef*) Atmega128TimerCounter2_Address;
-	#if defined(_ATMEGA128TIMER_H_)
-		ret.tc2.enable = TIMER_COUNTER2enable;
+	atmega128.tc2.reg = (Atmega128TimerCounter2_TypeDef*) Atmega128TimerCounter2_Address;
+	#if defined(_TIMER_MODULE_)
+		atmega128.tc2.enable = TIMER_COUNTER2enable;
 	#endif
 	// TC0
-	ret.tc0.reg = (Atmega128TimerCounter0_TypeDef*) Atmega128TimerCounter0_Address;
-	ret.tc0.misc = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
-	#if defined(_ATMEGA128TIMER_H_)
-		ret.tc0.enable = TIMER_COUNTER0enable;
+	atmega128.tc0.reg = (Atmega128TimerCounter0_TypeDef*) Atmega128TimerCounter0_Address;
+	atmega128.tc0.misc = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
+	#if defined(_TIMER_MODULE_)
+		atmega128.tc0.enable = TIMER_COUNTER0enable;
 	#endif
 	// TWI
-	ret.twi.reg = (Atmega128TwoWireSerialInterface_TypeDef*) Atmega128TwoWireSerialInterface_Address;
-	#if defined(_ATMEGA128TWI_H_)
-		ret.twi.enable = TWIenable;
+	atmega128.twi.reg = (Atmega128TwoWireSerialInterface_TypeDef*) Atmega128TwoWireSerialInterface_Address;
+	#if defined(_TWI_MODULE_)
+		atmega128.twi.enable = TWIenable;
 	#endif
 	// USART0
-	ret.usart0.reg = (Atmega128Usart0_TypeDef*) Atmega128Usart0_Address;
-	#if defined(_ATMEGA128UART_H_)
-		ret.usart0.enable = UART0enable;
+	atmega128.usart0.reg = (Atmega128Usart0_TypeDef*) Atmega128Usart0_Address;
+	#if defined(_UART_MODULE_)
+		atmega128.usart0.enable = UART0enable;
 	#endif
 	// USART1
-	ret.usart1.reg = (Atmega128Usart1_TypeDef*) Atmega128Usart1_Address;
-	#if defined(_ATMEGA128UART_H_)
-		ret.usart1.enable = UART1enable;
+	atmega128.usart1.reg = (Atmega128Usart1_TypeDef*) Atmega128Usart1_Address;
+	#if defined(_UART_MODULE_)
+		atmega128.usart1.enable = UART1enable;
 	#endif
-	ret.wdt.reg = (Atmega128WatchdogTimer_TypeDef*) Atmega128WatchdogTimer_Address;
-	// FLASH
-	// ret.isr.reg = (Atmega128InterruptVectors_TypeDef*) Atmega128InterruptVectors_Address;
+	atmega128.wdt.reg = (Atmega128WatchdogTimer_TypeDef*) Atmega128WatchdogTimer_Address;
 	// General Func
-	ret.readhlbyte = ReadHLByte;
-	ret.readlhbyte = ReadLHByte;
-	ret.writehlbyte = WriteHLByte;
-	ret.writelhbyte = WriteLHByte;
-	ret.swapbyte = SwapByte;
-	return ret;
+	atmega128.readhlbyte = ReadHLByte;
+	atmega128.readlhbyte = ReadLHByte;
+	atmega128.writehlbyte = WriteHLByte;
+	atmega128.writelhbyte = WriteLHByte;
+	atmega128.swapbyte = SwapByte;
+	atmega128.byte_mask = ByteMask;
+	atmega128.byte_set = ByteSet;
+	atmega128.byte_clear = ByteClear;
+	atmega128.byte_shiftright = ByteShiftright;
+	atmega128.byte_shiftleft = ByteShiftleft;
+	atmega128.readreg = readreg;
+	atmega128.writereg = writereg;
+	atmega128.setreg = setreg;
+	atmega128.setbit = setbit;
+	atmega128.getsetbit = getsetbit;
+	/******/
+	//atmega128.Clock_Prescaler_Select = ClockPrescalerSelect;
+	atmega128.Move_Interrupts_To_Boot = MoveInterruptsToBoot;
+	
+	return atmega128;
 }
 
 // COMMON
@@ -148,6 +174,109 @@ uint16_t SwapByte(uint16_t num)
 	uint16_t tp;
 	tp = (num << 8);
 	return (num >> 8) | tp;
+}
+
+uint8_t ByteMask(uint8_t target, uint8_t mask)
+{
+	return target & mask;
+}
+
+void ByteSet(uint8_t* target, uint8_t set)
+{
+	*target |= set;
+}
+
+void ByteClear(uint8_t* target, uint8_t clear)
+{
+	*target &= ~clear;
+}
+
+uint8_t ByteShiftright(uint8_t target, uint8_t shift)
+{
+	return target >> shift;
+}
+
+uint8_t ByteShiftleft(uint8_t target, uint8_t shift)
+{
+	return target << shift;
+}
+
+/*** File Procedure & Function Definition***/
+uint8_t readreg(uint8_t reg, uint8_t size_block, uint8_t bit)
+{
+	if(bit > DATA_BITS){ bit = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
+	uint8_t value = reg;
+	uint8_t mask = (unsigned int)((1 << size_block) - 1);
+	value &= (mask << bit);
+	value = (value >> bit);
+	return value;
+}
+void writereg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data)
+{
+	if(bit > DATA_BITS){ bit = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
+	uint8_t value = *reg;
+	uint8_t mask = (unsigned int)((1 << size_block) - 1);
+	data &= mask; value &= ~(mask << bit);
+	data = (data << bit);
+	value |= data;
+	*reg = value;
+}
+void setreg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data)
+{
+	if(bit > DATA_BITS){ bit = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
+	uint8_t value = data;
+	uint8_t mask = (unsigned int)((1 << size_block) - 1);
+	value &= mask;
+	*reg &= ~(mask << bit);
+	*reg |= (value << bit);
+}
+void setbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data)
+{
+	uint8_t n = 0;
+	if(bit > DATA_BITS){ n = bit/DATA_SIZE; bit = bit - (n * DATA_SIZE); } if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
+	uint8_t value = data;
+	uint8_t mask = (unsigned int)((1 << size_block) - 1);
+	value &= mask;
+	*(reg + n ) &= ~(mask << bit);
+	*(reg + n ) |= (value << bit);
+}
+uint8_t getsetbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit)
+{
+	uint8_t n = 0;
+	if(bit > DATA_BITS){ n = bit/DATA_SIZE; bit = bit - (n * DATA_SIZE); } if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
+	uint8_t value = *(reg + n );
+	uint8_t mask = (unsigned int)((1 << size_block) - 1);
+	value &= (mask << bit);
+	value = (value >> bit);
+	return value;
+}
+
+/******/
+/***
+void ClockPrescalerSelect(volatile uint8_t prescaler)
+{
+	volatile uint8_t sreg;
+	volatile uint8_t* clkpr = &CLKPR;
+	prescaler &= 0x0F;
+	sreg = atmega128.cpu.reg->sreg;
+	atmega128.cpu.reg->sreg &= ~(1 << 7);
+	
+	*clkpr = (1 << CLKPCE);
+	*clkpr = prescaler;
+	
+	atmega128.cpu.reg->sreg = sreg;
+}
+***/
+void MoveInterruptsToBoot(void)
+{
+	volatile uint8_t sreg;
+	sreg = atmega128.cpu.reg->sreg;
+	atmega128.cpu.reg->sreg &= ~(1 << 7);
+	
+	MCUCR = (1<<IVCE);
+	MCUCR = (1<<IVSEL);
+	
+	atmega128.cpu.reg->sreg = sreg;
 }
 
 /*** File Interrupt ***/

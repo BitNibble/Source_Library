@@ -45,6 +45,11 @@ Comment:
 #define Atmega128Usart0_Address 0x0029
 #define Atmega128Usart1_Address 0x0098
 #define Atmega128WatchdogTimer_Address 0x0041
+#define Atmega128JtagInterfaceControlStatus_Address 0x0054
+#define Atmega128TimerInterruptFlag_Address 0x0056
+#define Atmega128TimerInterruptMask_Address 0x0057
+#define Atmega128TimerExternalInterruptFlag_Address 0x007C
+#define Atmega128TimerExternalInterruptMask_Address 0x007D
 
 /*** Global Variable ***/
 // Low Byte High Byte
@@ -196,6 +201,11 @@ typedef struct {
 	uint8_t mcucsr; // 0x54
 } Atmega128JtagInterface_TypeDef;
 
+// JTAG Interface (JTAG)
+typedef struct {
+	uint8_t reg; // 0x54 mcucsr
+} Atmega128JtagInterfaceControlStatus_TypeDef;
+
 // Other Registers (MISC)
 typedef struct {
 	uint8_t sfior; // 0x40
@@ -242,6 +252,16 @@ typedef struct {
 	uint8_t tccr3c; // 0x8C
 } Atmega128TimerCounter3_TypeDef;
 
+// Timer/Counter 1 and 3
+typedef struct {
+	uint8_t reg; // 0x7C etifr
+} Atmega128TimerExternalInterruptFlag_TypeDef;
+
+// Timer/Counter 1 and 3
+typedef struct {
+	uint8_t reg; // 0x7D etimsk
+} Atmega128TimerExternalInterruptMask_TypeDef;
+
 // Timer/Counter, 8-bit (TC2)
 typedef struct {
 	uint8_t ocr2; // 0x43
@@ -262,6 +282,16 @@ typedef struct {
 	uint8_t tifr; // 0x56
 	uint8_t timsk; // 0x57
 } Atmega128TimerCounter0_TypeDef;
+
+// Timer/Counter 0, 1 and 2
+typedef struct {
+	uint8_t reg; // 0x56 tifr
+} Atmega128TimerInterruptFlag_TypeDef;
+
+// Timer/Counter 0, 1 and 2
+typedef struct {
+	uint8_t reg; // 0x57 timsk
+} Atmega128TimerInterruptMask_TypeDef;
 
 // Two Wire Serial Interface (TWI)
 typedef struct {

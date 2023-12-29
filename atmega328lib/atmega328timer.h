@@ -54,6 +54,10 @@ struct TIMER_COUNTER2{
 typedef struct TIMER_COUNTER2 TIMER_COUNTER2;
 
 /*** Global header ***/
+//TIMER_COUNTER0 tc0;
+//TIMER_COUNTER1 tc1;
+//TIMER_COUNTER2 tc2;
+
 TIMER_COUNTER0 TIMER_COUNTER0enable(unsigned char wavegenmode, unsigned char interrupt);
 TIMER_COUNTER1 TIMER_COUNTER1enable(unsigned char wavegenmode, unsigned char interrupt);
 TIMER_COUNTER2 TIMER_COUNTER2enable(unsigned char wavegenmode, unsigned char interrupt);

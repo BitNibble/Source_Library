@@ -13,20 +13,73 @@ Comment:
 
 /*** Global Library ***/
 #include <avr/io.h>
+#include <avr/fuse.h>
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
+#include <stdlib.h>
 #include <inttypes.h>
 // RAW IMAGE
 #include "atmega128.h"
+
+#ifndef DATA_SIZE
+	#define DATA_SIZE 8
+#endif
+#ifndef DATA_BITS
+	#define DATA_BITS 7
+#endif
+
+/*********************************************************/
+/****************** Include Switches  ********************/
+/*********************************************************/
+// To be Selected by the User
 // MODULES
-// Comment out modules not being used
-#include "atmega128analog.h"
-#include "atmegaeeprom.h"
-#include "atmega128interrupt.h"
-#include "atmega128timer.h"
-#include "atmega128twi.h"
+#define _ANALOG_MODULE_
+#define _TIMER_MODULE_
+#define _EEPROM_MODULE_
+#define _INTERRUPT_MODULE_
+#define _SPI_MODULE_
+#define _TWI_MODULE_
+#define _UART_MODULE_
+
+/*********************************************************/
+/******************** USER Includes **********************/
+/*********************************************************/
+// MODULES
+#ifdef _ANALOG_MODULE_
+	#include "atmega128analog.h"
+//#else
+//	#warning "NO ANALOG MODULE"
+#endif
+#ifdef _TIMER_MODULE_
+	#include "atmega128timer.h"
+//#else
+//	#warning "NO TIMER MODULE"
+#endif
+#ifdef _EEPROM_MODULE_
+	#include "atmegaeeprom.h"
+//#else
+//	#warning "NO EEPROM MODULE"
+#endif
+#ifdef _INTERRUPT_MODULE_
+	#include "atmega128interrupt.h"
+//#else
+//	#warning "NO INTERRUPT MODULE"
+#endif
+#ifdef _SPI_MODULE_
 #include "atmega128spi.h"
-#include "atmega128uart.h"
+//#else
+//	#warning "NO SPI MODULE"
+#endif
+#ifdef _TWI_MODULE_
+	#include "atmega128twi.h"
+//#else
+//	#warning "NO TWI MODULE"
+#endif
+#ifdef _UART_MODULE_
+	#include "atmega128uart.h"
+//#else
+//	#warning "NO UART MODULE"
+#endif
 
 /*** Global Variable ***/
 //		PARAMETER
@@ -34,7 +87,7 @@ typedef struct {
 	HighLowByte HLbyte;
 }Atmega128Parameter;
 
-//		SECOND LAYER
+/*** SECOND LAYER ***/
 // GPWR
 typedef struct {
 	Atmega128GPWR_TypeDef* reg;
@@ -49,7 +102,7 @@ typedef struct {
 // Analog to Digital Converter (ADC)
 typedef struct {
 	Atmega128AnalogToDigitalConverter_TypeDef* reg;
-	#if defined(_ATMEGA128ANALOG_H_)
+	#if defined(_ANALOG_MODULE_)
 		ANALOG (*enable)( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... );
 	#endif
 } Atmega128AnalogToDigitalConverter;
@@ -67,7 +120,7 @@ typedef struct {
 // EEPROM (EEPROM)
 typedef struct {
 	Atmega128Eeprom_TypeDef* reg;
-	#if defined(_ATMEGAEEPROM_H_)
+	#if defined(_EEPROM_MODULE_)
 		EEPROM (*enable)(void);
 	#endif
 } Atmega128Eeprom;
@@ -75,7 +128,7 @@ typedef struct {
 // External Interrupts (EXINT)
 typedef struct {
 	Atmega128ExternalInterrupts_TypeDef* reg;
-	#if defined(_ATMEGA128INTERRUPT_H_)
+	#if defined(_INTERRUPT_MODULE_)
 		INTERRUPT (*enable)(void);
 	#endif
 } Atmega128ExternalInterrupts;
@@ -128,7 +181,7 @@ typedef struct {
 // Serial Peripheral Interface (SPI)
 typedef struct {
 	Atmega128SerialPeripherialInterface_TypeDef* reg;
-	#if defined(_ATMEGA128SPI_H_)
+	#if defined(_SPI_MODULE_)
 		SPI (*enable)(uint8_t master_slave_select, uint8_t data_order,  uint8_t data_modes, uint8_t prescaler);
 	#endif
 } Atmega128SerialPeripherialInterface;
@@ -137,7 +190,7 @@ typedef struct {
 typedef struct {
 	Atmega128TimerCounter1_TypeDef* reg;
 	Atmega128OtherRegisters_TypeDef* misc;
-	#if defined(_ATMEGA128TIMER_H_)
+	#if defined(_TIMER_MODULE_)
 		TIMER_COUNTER1 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
 	#endif
 } Atmega128TimerCounter1;
@@ -146,7 +199,7 @@ typedef struct {
 typedef struct {
 	Atmega128TimerCounter3_TypeDef* reg;
 	Atmega128OtherRegisters_TypeDef* misc;
-	#if defined(_ATMEGA128TIMER_H_)
+	#if defined(_TIMER_MODULE_)
 		TIMER_COUNTER3 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
 	#endif
 } Atmega128TimerCounter3;
@@ -154,7 +207,7 @@ typedef struct {
 // Timer/Counter, 8-bit (TC2)
 typedef struct {
 	Atmega128TimerCounter2_TypeDef* reg;
-	#if defined(_ATMEGA128TIMER_H_)
+	#if defined(_TIMER_MODULE_)
 		TIMER_COUNTER2 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
 	#endif
 } Atmega128TimerCounter2;
@@ -163,7 +216,7 @@ typedef struct {
 typedef struct {
 	Atmega128TimerCounter0_TypeDef* reg;
 	Atmega128OtherRegisters_TypeDef* misc;
-	#if defined(_ATMEGA128TIMER_H_)
+	#if defined(_TIMER_MODULE_)
 		TIMER_COUNTER0 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
 	#endif
 } Atmega128TimerCounter0;
@@ -171,7 +224,7 @@ typedef struct {
 // Two Wire Serial Interface (TWI)
 typedef struct {
 	Atmega128TwoWireSerialInterface_TypeDef* reg;
-	#if defined(_ATMEGA128TWI_H_)
+	#if defined(_TWI_MODULE_)
 		TWI (*enable)(uint8_t atmega_ID,  uint8_t prescaler);
 	#endif
 } Atmega128TwoWireSerialInterface;
@@ -179,7 +232,7 @@ typedef struct {
 // USART (USART0)
 typedef struct {
 	Atmega128Usart0_TypeDef* reg;
-	#if defined(_ATMEGA128UART_H_)
+	#if defined(_UART_MODULE_)
 		UART0 (*enable)(unsigned int baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 	#endif
 } Atmega128Usart0;
@@ -187,7 +240,7 @@ typedef struct {
 // USART (USART1)
 typedef struct {
 	Atmega128Usart1_TypeDef* reg;
-	#if defined(_ATMEGA128UART_H_)
+	#if defined(_UART_MODULE_)
 		UART1 (*enable)(unsigned int baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 	#endif
 } Atmega128Usart1;
@@ -197,12 +250,10 @@ typedef struct {
 	Atmega128WatchdogTimer_TypeDef* reg;
 } Atmega128WatchdogTimer;
 
-//		FLASH
-typedef struct {
-	Atmega128InterruptVectors_TypeDef* reg;
-}Atmega128InterruptVectors;
+/*******************************************************************/
+/************************* ATMEGA 128 IMAGE ************************/
+/*******************************************************************/
 
-//		ATMEGA 128 IMAGE
 typedef struct {
 	//		PARAMETER
 	Atmega128Parameter par;
@@ -232,16 +283,29 @@ typedef struct {
 	Atmega128Usart0 usart0;
 	Atmega128Usart1 usart1;
 	Atmega128WatchdogTimer wdt;
-	Atmega128InterruptVectors isr;
 	//		Pointer Function
 	uint16_t (*readhlbyte)(HighLowByte reg);
 	uint16_t (*readlhbyte)(HighLowByte reg);
 	HighLowByte (*writehlbyte)(uint16_t val);
 	HighLowByte (*writelhbyte)(uint16_t val);
 	uint16_t (*swapbyte)(uint16_t num);
-	/**************************************/
+	uint8_t (*byte_mask)(uint8_t target, uint8_t mask);
+	void (*byte_set)(uint8_t* target, uint8_t set);
+	void (*byte_clear)(uint8_t* target, uint8_t clear);
+	uint8_t (*byte_shiftright)(uint8_t target, uint8_t shift);
+	uint8_t (*byte_shiftleft)(uint8_t target, uint8_t shift);
+	uint8_t (*readreg)(uint8_t reg, uint8_t size_block, uint8_t bit);
+	void (*writereg)(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);
+	void (*setreg)(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);
+	void (*setbit)(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);
+	uint8_t (*getsetbit)(volatile uint8_t* reg, uint8_t size_block, uint8_t bit);
+	/******/
+	//void (*Clock_Prescaler_Select)(volatile uint8_t prescaler);
+	void (*Move_Interrupts_To_Boot)(void);
 }ATMEGA128;
 
+/*** Global Variable ***/
+ATMEGA128 atmega128;
 /*** Global Header ***/
 ATMEGA128 ATMEGA128enable(void);
 
