@@ -4,7 +4,7 @@ Author: Sergio Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: ATmega128
-Date: 24042023
+Update: 29/12/2023
 Comment:
 	Stable
 *************************************************************************/
@@ -332,9 +332,9 @@ TIMER_COUNTER1 TIMER_COUNTER1enable(unsigned char wavegenmode, unsigned char int
 		default:
 		break;
 	}
-	atmega128.tc1.reg->ocr1a = atmega128.writelhbyte(~0);
-	atmega128.tc1.reg->ocr1b = atmega128.writelhbyte(~0);
-	atmega128.tc1.reg->ocr1c = atmega128.writelhbyte(~0);
+	atmega128.tc1.reg->ocr1a = atmega128.writehlbyte(~0);
+	atmega128.tc1.reg->ocr1b = atmega128.writehlbyte(~0);
+	atmega128.tc1.reg->ocr1c = atmega128.writehlbyte(~0);
 	
 	tc1.compoutmodeA = TIMER_COUNTER1_compoutmodeA;
 	tc1.compoutmodeB = TIMER_COUNTER1_compoutmodeB;
@@ -464,15 +464,15 @@ void TIMER_COUNTER1_compoutmodeC(unsigned char compoutmode)
 }
 void TIMER_COUNTER1_compareA(uint16_t compare)
 {
-	atmega128.tc1.reg->ocr1a = atmega128.writelhbyte(compare);
+	atmega128.tc1.reg->ocr1a = atmega128.writehlbyte(compare);
 }
 void TIMER_COUNTER1_compareB(uint16_t compare)
 {
-	atmega128.tc1.reg->ocr1b = atmega128.writelhbyte(compare);
+	atmega128.tc1.reg->ocr1b = atmega128.writehlbyte(compare);
 }
 void TIMER_COUNTER1_compareC(uint16_t compare)
 {
-	atmega128.tc1.reg->ocr1c = atmega128.writelhbyte(compare);
+	atmega128.tc1.reg->ocr1c = atmega128.writehlbyte(compare);
 }
 uint8_t TIMER_COUNTER1_stop(void)
 // stops timer by setting prescaler to zero
@@ -747,9 +747,9 @@ TIMER_COUNTER3 TIMER_COUNTER3enable(unsigned char wavegenmode, unsigned char int
 		default:
 		break;
 	}
-	atmega128.tc3.reg->ocr3a = atmega128.writelhbyte(~0);
-	atmega128.tc3.reg->ocr3b = atmega128.writelhbyte(~0);
-	atmega128.tc3.reg->ocr3c = atmega128.writelhbyte(~0);
+	atmega128.tc3.reg->ocr3a = atmega128.writehlbyte(~0);
+	atmega128.tc3.reg->ocr3b = atmega128.writehlbyte(~0);
+	atmega128.tc3.reg->ocr3c = atmega128.writehlbyte(~0);
 	
 	tc3.compoutmodeA = TIMER_COUNTER3_compoutmodeA;
 	tc3.compoutmodeB = TIMER_COUNTER3_compoutmodeB;
@@ -879,15 +879,15 @@ void TIMER_COUNTER3_compoutmodeC(unsigned char compoutmode)
 }
 void TIMER_COUNTER3_compareA(uint16_t compare)
 {
-	atmega128.tc3.reg->ocr3a = atmega128.writelhbyte(compare);
+	atmega128.tc3.reg->ocr3a = atmega128.writehlbyte(compare);
 }
 void TIMER_COUNTER3_compareB(uint16_t compare)
 {
-	atmega128.tc3.reg->ocr3b = atmega128.writelhbyte(compare);
+	atmega128.tc3.reg->ocr3b = atmega128.writehlbyte(compare);
 }
 void TIMER_COUNTER3_compareC(uint16_t compare)
 {
-	atmega128.tc3.reg->ocr3c = atmega128.writelhbyte(compare);
+	atmega128.tc3.reg->ocr3c = atmega128.writehlbyte(compare);
 }
 uint8_t TIMER_COUNTER3_stop(void)
 // stops timer by setting prescaler to zero

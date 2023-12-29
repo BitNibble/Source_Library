@@ -4,7 +4,7 @@ Author: Sergio Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: Atmega328 by ETT ET-BASE
-Date: 01122023
+Update: 29/12/2023
 Comment:
 	Stable
  **************************************************************************************************/
