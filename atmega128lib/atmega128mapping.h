@@ -18,6 +18,7 @@ Comment:
 #include <avr/interrupt.h>
 #include <stdlib.h>
 #include <inttypes.h>
+#include <math.h>
 /*** RAW IMAGE ***/
 #include "atmega128.h"
 
@@ -233,7 +234,7 @@ typedef struct {
 typedef struct {
 	Atmega128Usart0_TypeDef* reg;
 	#if defined(_UART_MODULE_)
-		UART0 (*enable)(unsigned int baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
+		UART0 (*enable)(uint32_t baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 	#endif
 } Atmega128Usart0;
 
@@ -241,7 +242,7 @@ typedef struct {
 typedef struct {
 	Atmega128Usart1_TypeDef* reg;
 	#if defined(_UART_MODULE_)
-		UART1 (*enable)(unsigned int baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
+		UART1 (*enable)(uint32_t baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 	#endif
 } Atmega128Usart1;
 
@@ -300,7 +301,7 @@ typedef struct {
 	void (*setbit)(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);
 	uint8_t (*getsetbit)(volatile uint8_t* reg, uint8_t size_block, uint8_t bit);
 	/******/
-	//void (*Clock_Prescaler_Select)(volatile uint8_t prescaler);
+	void (*Clock_Prescaler_Select)(volatile uint8_t prescaler);
 	void (*Move_Interrupts_To_Boot)(void);
 }ATMEGA128;
 

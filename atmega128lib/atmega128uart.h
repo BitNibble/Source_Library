@@ -81,8 +81,8 @@ struct uart1{
 typedef struct uart1 UART1;
 
 /*** Global Header ***/
-UART0 UART0enable(unsigned int baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
-UART1 UART1enable(unsigned int baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
+UART0 UART0enable(uint32_t baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
+UART1 UART1enable(uint32_t baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 
 #endif
 /***EOF***/

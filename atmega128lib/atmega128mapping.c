@@ -33,7 +33,7 @@ void setreg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data
 void setbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);
 uint8_t getsetbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit);
 /******/
-//void ClockPrescalerSelect(volatile uint8_t prescaler);
+void ClockPrescalerSelect(volatile uint8_t prescaler);
 void MoveInterruptsToBoot(void);
 
 /*** Procedure & Function ***/
@@ -140,7 +140,7 @@ ATMEGA128 ATMEGA128enable(void){
 	atmega128.setbit = setbit;
 	atmega128.getsetbit = getsetbit;
 	/******/
-	//atmega128.Clock_Prescaler_Select = ClockPrescalerSelect;
+	atmega128.Clock_Prescaler_Select = ClockPrescalerSelect;
 	atmega128.Move_Interrupts_To_Boot = MoveInterruptsToBoot;
 	
 	return atmega128;
@@ -252,21 +252,20 @@ uint8_t getsetbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit)
 }
 
 /******/
-/***
 void ClockPrescalerSelect(volatile uint8_t prescaler)
 {
 	volatile uint8_t sreg;
-	volatile uint8_t* clkpr = &CLKPR;
-	prescaler &= 0x0F;
+	volatile uint8_t* clkpr = &XDIV;
+	prescaler &= 0x7F;
 	sreg = atmega128.cpu.reg->sreg;
 	atmega128.cpu.reg->sreg &= ~(1 << 7);
 	
-	*clkpr = (1 << CLKPCE);
 	*clkpr = prescaler;
+	*clkpr = (1 << XDIVEN) | prescaler;
 	
 	atmega128.cpu.reg->sreg = sreg;
 }
-***/
+
 void MoveInterruptsToBoot(void)
 {
 	volatile uint8_t sreg;

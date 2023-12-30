@@ -4,7 +4,7 @@ Author: Sergio Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: all
-Date: 18042023
+Date: 30122023
 Comment:
 	Very Stable
 	Tested Atemga128 16Mhz and Atmega328 8Mhz and STM32F446RE
@@ -37,6 +37,7 @@ typedef struct
 	char* (*i16toa)(int16_t n);
 	char* (*ui16toa)(uint16_t n);
 	char* (*i32toa)(int32_t n);
+	char* (*ui32toa)(uint32_t n);
 	int (*trim)(char s[]);
 	int (*pmax)(int a1, int a2);
 	int (*gcd)(int u, int v);

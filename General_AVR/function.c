@@ -4,7 +4,7 @@ Author: Sergio Santos
 	<sergio.salazar.santos@gmail.com> 
 License: GNU General Public License
 Hardware: all
-Date: 18042023
+Date: 30122023
 Comment:
 	Tested Atemga128 16Mhz and Atmega328 8Mhz and STM32F446RE
 *************************************************************************/
@@ -17,7 +17,7 @@ Comment:
 #include <math.h>
 
 /*** File Constant & Macro ***/
-#define FUNCSTRSIZE 95
+#define FUNCSTRSIZE 31
 #define MAXafterpoint 6
 #define DEFAULTafterpoint 2
 
@@ -37,6 +37,7 @@ void FUNCshellsort(int v[], int n);
 char* FUNCi16toa(int16_t n);
 char* FUNCui16toa(uint16_t n);
 char* FUNCi32toa(int32_t n);
+char* FUNCui32toa(uint32_t n);
 int FUNCtrim(char s[]);
 int FUNCpmax(int a1, int a2);
 int FUNCgcd (int u, int v);
@@ -92,6 +93,7 @@ FUNC FUNCenable( void )
 	func.i16toa = FUNCi16toa;
 	func.ui16toa = FUNCui16toa;
 	func.i32toa = FUNCi32toa;
+	func.ui32toa = FUNCui32toa;
 	func.trim = FUNCtrim;
 	func.pmax = FUNCpmax;
 	func.gcd = FUNCgcd;
@@ -178,6 +180,17 @@ void FUNCshellsort(int v[], int n)
 				v[j] = v[j + gap];
 				v[j + gap] = temp;
 			}
+}
+// ui32toa: convert n to characters in s
+char* FUNCui32toa(uint32_t n)
+{
+	uint8_t i = 0;
+	do { // generate digits in reverse order
+		FUNCstr[i++] = (char) (n % 10 + '0'); // get next digit
+	}while ((n /= 10) > 0); // delete it
+	FUNCstr[i] = '\0';
+	Reverse(FUNCstr);
+	return FUNCstr;
 }
 // i32toa: convert n to characters in s
 char* FUNCi32toa(int32_t n)

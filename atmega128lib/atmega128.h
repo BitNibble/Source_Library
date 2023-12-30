@@ -87,12 +87,9 @@ typedef struct {
 	volatile uint8_t r23; // 0x17
 	volatile uint8_t r24; // 0x18
 	volatile uint8_t r25; // 0x19
-	volatile uint8_t xl; // 0x1A
-	volatile uint8_t xh; // 0x1B
-	volatile uint8_t yl; // 0x1C
-	volatile uint8_t yh; // 0x1D
-	volatile uint8_t zl; // 0x1E
-	volatile uint8_t zh; // 0x1F
+	volatile HighLowByte X; // 0x1A 0x1B
+	volatile HighLowByte Y; // 0x1C 0x1D
+	volatile HighLowByte Z; // 0x1E 0x1F
 } Atmega128GPWR_TypeDef;
 
 // Analog Comparator (AC)
