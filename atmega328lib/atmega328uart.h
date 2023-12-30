@@ -53,7 +53,7 @@ struct uart {
 typedef struct uart UART;
 
 /*** Global Header ****/
-UART UARTenable( unsigned int baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
+UART UARTenable( uint32_t baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 
 #endif
 

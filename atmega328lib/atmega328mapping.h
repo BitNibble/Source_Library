@@ -18,6 +18,7 @@ Comment:
 #include <avr/interrupt.h>
 #include <stdlib.h>
 #include <inttypes.h>
+#include <math.h>
 // RAW IMAGE
 #include "atmega328.h"
 
@@ -207,7 +208,7 @@ typedef struct {
 	Atmega328Usart_TypeDef* reg;
 	#if defined(_UART_MODULE_)
 		UART run;
-		UART (*enable)(unsigned int baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
+		UART (*enable)(uint32_t baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 	#endif
 } Atmega328Usart;
 

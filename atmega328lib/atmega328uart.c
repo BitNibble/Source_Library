@@ -13,6 +13,7 @@ Comment:
 #include "atmega328uart.h"
 #include "buffer.h"
 #include <util/delay.h>
+#include <math.h>
 
 /*** File Constant & Macro ***/
 // test if the size of the circular buffers fits into SRAM
@@ -56,15 +57,17 @@ void uart_putch(UARTvar c);
 void uart_puts(UARTvar* s);
 
 /*** Procedure & Function ***/
-UART UARTenable(unsigned int baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity )
+UART UARTenable(uint32_t baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity )
 {
 	uint8_t tSREG;
 	tSREG = atmega328.cpu.reg->sreg;
 	atmega328.cpu.reg->sreg &= ~(1 << GLOBAL_INTERRUPT_ENABLE);
+	uint32_t ubrr;
 	UART uart;
 	ATMEGA328enable();
 	rxbuff = BUFFenable(UART_RX_BUFFER_SIZE, UART_RxBuf);
-	uart.par.ubrr = baudrate;
+	ubrr = F_CPU/16; ubrr /= baudrate; ubrr -= 1;
+	uart.par.ubrr = ubrr;
 	// Vtable
 	uart.read = uart_read;
 	uart.getch = uart_getch;
@@ -74,12 +77,12 @@ UART UARTenable(unsigned int baudrate, unsigned int FDbits, unsigned int Stopbit
 	uart.putch = uart_putch;
 	uart.puts = uart_puts;
 	// Set baud rate
-	if ( baudrate & 0x8000 ) 
+	if ( ubrr & 0x8000 ) 
 	{
    		atmega328.usart.reg->ucsr0a = (1 << U2X0);  //Enable 2x speed 
-   		baudrate &= ~0x8000;
+   		ubrr &= ~0x8000;
    	}
-	atmega328.usart.reg->ubrr0 =  atmega328.writehlbyte(baudrate);
+	atmega328.usart.reg->ubrr0 =  atmega328.writehlbyte(ubrr);
 	// Enable USART receiver and transmitter and receive complete interrupt
 	atmega328.usart.reg->ucsr0b = _BV(RXCIE0) | (1 << RXEN0) | (1 << TXEN0);
 	// Set frame format: asynchronous, 8data, no parity, 1stop bit
