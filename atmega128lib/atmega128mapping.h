@@ -296,10 +296,10 @@ typedef struct {
 	uint8_t (*byte_shiftright)(uint8_t target, uint8_t shift);
 	uint8_t (*byte_shiftleft)(uint8_t target, uint8_t shift);
 	uint8_t (*readreg)(uint8_t reg, uint8_t size_block, uint8_t bit);
-	void (*writereg)(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);
+	uint8_t (*getsetbit)(volatile uint8_t* reg, uint8_t size_block, uint8_t bit);
 	void (*setreg)(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);
 	void (*setbit)(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);
-	uint8_t (*getsetbit)(volatile uint8_t* reg, uint8_t size_block, uint8_t bit);
+	void (*writereg)(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);
 	/******/
 	void (*Clock_Prescaler_Select)(volatile uint8_t prescaler);
 	void (*Move_Interrupts_To_Boot)(void);
@@ -311,5 +311,6 @@ ATMEGA128 atmega128;
 ATMEGA128 ATMEGA128enable(void);
 
 #endif
+
 /***EOF***/
 

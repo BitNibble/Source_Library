@@ -28,10 +28,10 @@ uint8_t ByteShiftright(uint8_t target, uint8_t shift);
 uint8_t ByteShiftleft(uint8_t target, uint8_t shift);
 /*** File Procedure & Function Definition***/
 uint8_t readreg(uint8_t reg, uint8_t size_block, uint8_t bit);
-void writereg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);
+uint8_t getsetbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit);
 void setreg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);
 void setbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);
-uint8_t getsetbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit);
+void writereg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);
 /******/
 void ClockPrescalerSelect(volatile uint8_t prescaler);
 void MoveInterruptsToBoot(void);
@@ -205,40 +205,10 @@ uint8_t ByteShiftleft(uint8_t target, uint8_t shift)
 uint8_t readreg(uint8_t reg, uint8_t size_block, uint8_t bit)
 {
 	if(bit > DATA_BITS){ bit = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
-	uint8_t value = reg;
 	uint8_t mask = (unsigned int)((1 << size_block) - 1);
-	value &= (mask << bit);
-	value = (value >> bit);
-	return value;
-}
-void writereg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data)
-{
-	if(bit > DATA_BITS){ bit = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
-	uint8_t value = *reg;
-	uint8_t mask = (unsigned int)((1 << size_block) - 1);
-	data &= mask; value &= ~(mask << bit);
-	data = (data << bit);
-	value |= data;
-	*reg = value;
-}
-void setreg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data)
-{
-	if(bit > DATA_BITS){ bit = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
-	uint8_t value = data;
-	uint8_t mask = (unsigned int)((1 << size_block) - 1);
-	value &= mask;
-	*reg &= ~(mask << bit);
-	*reg |= (value << bit);
-}
-void setbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data)
-{
-	uint8_t n = 0;
-	if(bit > DATA_BITS){ n = bit/DATA_SIZE; bit = bit - (n * DATA_SIZE); } if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
-	uint8_t value = data;
-	uint8_t mask = (unsigned int)((1 << size_block) - 1);
-	value &= mask;
-	*(reg + n ) &= ~(mask << bit);
-	*(reg + n ) |= (value << bit);
+	reg &= (mask << bit);
+	reg = (reg >> bit);
+	return reg;
 }
 uint8_t getsetbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit)
 {
@@ -249,6 +219,33 @@ uint8_t getsetbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit)
 	value &= (mask << bit);
 	value = (value >> bit);
 	return value;
+}
+void setreg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data)
+{
+	if(bit > DATA_BITS){ bit = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
+	uint8_t mask = (unsigned int)((1 << size_block) - 1);
+	data &= mask;
+	*reg &= ~(mask << bit);
+	*reg |= (data << bit);
+}
+void setbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data)
+{
+	uint8_t n = 0;
+	if(bit > DATA_BITS){ n = bit/DATA_SIZE; bit = bit - (n * DATA_SIZE); } if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
+	uint8_t mask = (unsigned int)((1 << size_block) - 1);
+	data &= mask;
+	*(reg + n ) &= ~(mask << bit);
+	*(reg + n ) |= (data << bit);
+}
+void writereg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data)
+{
+	if(bit > DATA_BITS){ bit = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
+	uint8_t value = *reg;
+	uint8_t mask = (unsigned int)((1 << size_block) - 1);
+	data &= mask; value &= ~(mask << bit);
+	data = (data << bit);
+	value |= data;
+	*reg = value;
 }
 
 /******/
