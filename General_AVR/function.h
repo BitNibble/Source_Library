@@ -4,7 +4,7 @@ Author: Sergio Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: all
-Date: 30122023
+Date: 31122023
 Comment:
 	Very Stable
 	Tested Atemga128 16Mhz and Atmega328 8Mhz and STM32F446RE
@@ -56,7 +56,7 @@ typedef struct
 	long (*gcd1)(long a, long b);
 	uint8_t (*pincheck)(uint8_t port, uint8_t pin);
 	char* (*print_binary)(unsigned int n_bits, unsigned int number);
-	char* (*ftoa)(double num, char* res, uint8_t afterpoint);
+	char* (*ftoa)(double num, uint8_t afterpoint);
 	char* (*dectohex)(int32_t num);
 	uint16_t (*SwapByte)(uint16_t num);
 	char* (*print)( const char *format, ... );

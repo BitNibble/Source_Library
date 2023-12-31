@@ -4,22 +4,20 @@ Author: Sergio Santos
 	<sergio.salazar.santos@gmail.com> 
 License: GNU General Public License
 Hardware: all
-Date: 30122023
+Date: 31122023
 Comment:
 	Tested Atemga128 16Mhz and Atmega328 8Mhz and STM32F446RE
 *************************************************************************/
 /*** File Library ***/
 #include "function.h"
 #include <stdio.h>
-//#include <stdlib.h>
+#include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
 #include <math.h>
 
 /*** File Constant & Macro ***/
 #define FUNCSTRSIZE 31
-#define MAXafterpoint 6
-#define DEFAULTafterpoint 2
 
 /*** File Variable ***/
 static char FUNCstr[FUNCSTRSIZE + 1];
@@ -57,8 +55,8 @@ long FUNCgcd1(long a, long b);
 uint8_t FUNCpincheck(uint8_t port, uint8_t pin);
 char* FUNCprint_binary(unsigned int n_bits, unsigned int number);
 void FUNCreverse(char* str, int len);
-uint8_t FUNCintinvstr(int32_t num, char* res, uint8_t n_digit);
-char* FUNCftoa(double num, char* res, uint8_t afterpoint);
+uint8_t FUNCintinvstr(uint32_t num, uint8_t index);
+char* FUNCftoa(double num, uint8_t afterpoint);
 char* FUNCdectohex(int32_t num);
 uint16_t FUNCSwapByte(uint16_t num);
 char* FUNCprint(const char *format, ... );
@@ -458,41 +456,21 @@ uint8_t bintobcd(uint8_t bin)
 	return (uint8_t)((((bin) / 10) << 4) + ((bin) % 10));
 }
 // intinvstr
-uint8_t FUNCintinvstr(int32_t num, char* res, uint8_t n_digit)
+uint8_t FUNCintinvstr(uint32_t num, uint8_t index)
 {
-	uint8_t k = 0;
-	for(res[k++] = (char)((num % 10) + '0'); (num /= 10) > 0 ; res[k++] = (char)((num % 10) + '0'));
-	for( ; k < n_digit ; res[k++] = '0');
-	res[k] = '\0';
-	return k;
+	for(FUNCstr[index++] = (char)((num % 10) + '0'); (num /= 10) > 0 ; FUNCstr[index++] = (char)((num % 10) + '0'));
+	FUNCstr[index] = '\0'; return index;
 }
 // ftoa
-char* FUNCftoa(double num, char* res, uint8_t afterpoint)
+char* FUNCftoa(double num, uint8_t afterpoint)
 {
-	uint32_t ipart;
-	double n, fpart;
-	uint8_t k = 0;
-	int8_t sign;
-	if (num < 0){
-		n = -num; sign = -1;
-	}else{
-		n = num; sign = 1;
-	}
+	uint32_t ipart; double n, fpart; uint8_t k = 0; int8_t sign;
+	if (num < 0){ n = -num; sign = -1;}else{n = num; sign = 1;}
 	ipart = (uint32_t) n; fpart = n - (double)ipart;
-	k = FUNCintinvstr((int)ipart, res, 1);
-	if (sign < 0) res[k++] = '-'; else res[k++] = ' ';
-	res[k] = '\0';
-	Reverse(res);
-	if (afterpoint > 0 && afterpoint < (MAXafterpoint + 1)){ // it is only a 8 bit mcu
-		res[k++] = '.';
-		FUNCintinvstr( (int32_t)(fpart * pow(10, afterpoint)), (res + k), afterpoint );
-		Reverse(res + k);
-	}else{
-		res[k++] = '.';
-		FUNCintinvstr( (int32_t)(fpart * pow(10, DEFAULTafterpoint)), (res + k), DEFAULTafterpoint );
-		Reverse(res + k);
-	}
-	return res;
+	k = FUNCintinvstr(ipart, 0); if (sign < 0) FUNCstr[k++] = '-'; else FUNCstr[k++] = ' '; FUNCstr[k] = '\0'; Reverse(FUNCstr);
+	FUNCstr[k++] = '.';
+	FUNCintinvstr((fpart * pow(10, afterpoint)), k); Reverse(FUNCstr + k);
+	return FUNCstr;
 }
 // dectohex
 char* FUNCdectohex(int32_t num)
