@@ -4,7 +4,7 @@ Author: Sergio Manuel Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: Atmega328 by ETT ET-BASE
-Update: 01/01/2024
+Update: 29/12/2023
 Comment:
 	Virtual Image Atmega 328 mapping and linking.
 *********************************************************************/
@@ -84,7 +84,7 @@ ATMEGA328 ATMEGA328enable(void){
 	atmega328.tc1.iflag = (Atmega328TimerInterruptFlag_TypeDef*) Atmega328TimerInterruptFlag_Address;
 	atmega328.tc1.imask = (Atmega328TimerInterruptMask_TypeDef*) Atmega328TimerInterruptMask_Address;
 	atmega328.tc1.comp = (Atmega328TimerCompareRegister1_TypeDef*) Atmega328TimerCompareRegister1_Address;
-	#if defined(_TIMER1_MODULE_)
+	#if defined(_TIMER_MODULE_)
 		atmega328.tc1.enable = TIMER_COUNTER1enable;
 	#endif
 	// TC0
@@ -93,7 +93,7 @@ ATMEGA328 ATMEGA328enable(void){
 	atmega328.tc0.iflag = (Atmega328TimerInterruptFlag_TypeDef*) Atmega328TimerInterruptFlag_Address;
 	atmega328.tc0.imask = (Atmega328TimerInterruptMask_TypeDef*) Atmega328TimerInterruptMask_Address;
 	atmega328.tc0.comp = (Atmega328TimerCompareRegister0_TypeDef*) Atmega328TimerCompareRegister0_Address;
-	#if defined(_TIMER0_MODULE_)
+	#if defined(_TIMER_MODULE_)
 		atmega328.tc0.enable = TIMER_COUNTER0enable;
 	#endif
 	// TC2
@@ -102,7 +102,7 @@ ATMEGA328 ATMEGA328enable(void){
 	atmega328.tc2.iflag = (Atmega328TimerInterruptFlag_TypeDef*) Atmega328TimerInterruptFlag_Address;
 	atmega328.tc2.imask = (Atmega328TimerInterruptMask_TypeDef*) Atmega328TimerInterruptMask_Address;
 	atmega328.tc2.comp = (Atmega328TimerCompareRegister2_TypeDef*) Atmega328TimerCompareRegister2_Address;
-	#if defined(_TIMER2_MODULE_)
+	#if defined(_TIMER_MODULE_)
 		atmega328.tc2.enable = TIMER_COUNTER2enable;
 	#endif
 	// TWI
@@ -111,9 +111,9 @@ ATMEGA328 ATMEGA328enable(void){
 		atmega328.twi.enable = TWIenable;
 	#endif
 	// USART
-	atmega328.usart0.reg = (Atmega328Usart_TypeDef*) Atmega328Usart_Address;
-	#if defined(_USART0_MODULE_)
-		atmega328.usart0.enable = USART0enable;
+	atmega328.usart.reg = (Atmega328Usart_TypeDef*) Atmega328Usart_Address;
+	#if defined(_UART_MODULE_)
+		atmega328.usart.enable = UARTenable;
 	#endif
 	// WDT
 	atmega328.wdt.reg = (Atmega328WatchdogTimer_TypeDef*) Atmega328WatchdogTimer_Address;

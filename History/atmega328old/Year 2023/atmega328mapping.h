@@ -4,25 +4,19 @@ Author: Sergio Manuel Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: Atmega328 by ETT ET-BASE
-Update: 01/01/2024
+Update: 29/12/2023
 Comment: 
 	Virtual Image Atmega 328 mapping.
-	NB:
-	-This must always be the first Library
 *********************************************************************/
 #ifndef _ATMEGA328MAPPING_H_
 	#define _ATMEGA328MAPPING_H_
-	
-/*** Working Frequency ***/	
-#ifndef F_CPU
-	#define F_CPU 8000000UL
-#endif
 
 /*** Global Library ***/
 #include <avr/io.h>
 #include <avr/fuse.h>
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
+#include <stdlib.h>
 #include <inttypes.h>
 #include <math.h>
 // RAW IMAGE
@@ -40,10 +34,8 @@ Comment:
 /*********************************************************/
 // To be Selected by the User
 // MODULES
-#define _TIMER0_MODULE_
-#define _TIMER1_MODULE_
-#define _TIMER2_MODULE_
-#define _USART0_MODULE_
+#define _TIMER_MODULE_
+#define _UART_MODULE_
 
 /*********************************************************/
 /******************** USER Includes **********************/
@@ -64,18 +56,8 @@ Comment:
 //#else
 //	#warning "NO INTERRUPT MODULE"
 #endif
-#ifdef _TIMER0_MODULE_
-	#include "atmega328timer0.h"
-//#else
-//	#warning "NO TIMER MODULE"
-#endif
-#ifdef _TIMER1_MODULE_
-	#include "atmega328timer1.h"
-//#else
-//	#warning "NO TIMER MODULE"
-#endif
-#ifdef _TIMER2_MODULE_
-	#include "atmega328timer2.h"
+#ifdef _TIMER_MODULE_
+	#include "atmega328timer.h"
 //#else
 //	#warning "NO TIMER MODULE"
 #endif
@@ -89,8 +71,8 @@ Comment:
 //#else
 //	#warning "NO SPI MODULE"
 #endif
-#ifdef _USART0_MODULE_
-	#include "atmega328usart0.h"
+#ifdef _UART_MODULE_
+	#include "atmega328uart.h"
 //#else
 //	#warning "NO UART MODULE"
 #endif
@@ -118,6 +100,7 @@ typedef struct {
 typedef struct {
 	Atmega328AnalogToDigitalConverter_TypeDef* reg;
 	#if defined(_ANALOG_MODULE_)
+		ANALOG run;
 		ANALOG (*enable)( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... );
 	#endif
 } Atmega328AnalogToDigitalConverter;
@@ -132,6 +115,7 @@ typedef struct {
 typedef struct {
 	Atmega328Eeprom_TypeDef* reg;
 	#if defined(_EEPROM_MODULE_)
+		EEPROM run;
 		EEPROM (*enable)(void);
 	#endif
 } Atmega328Eeprom;
@@ -142,6 +126,7 @@ typedef struct {
 	Atmega328ExternalInterruptFlag_TypeDef* iflag;
 	Atmega328ExternalInterruptMask_TypeDef* imask;
 	#if defined(_INTERRUPT_MODULE_)
+		INTERRUPT run;
 		INTERRUPT (*enable)(void);
 	#endif
 } Atmega328ExternalInterrupt;
@@ -165,6 +150,7 @@ typedef struct {
 typedef struct {
 	Atmega328SerialPeripherialInterface_TypeDef* reg;
 	#if defined(_SPI_MODULE_)
+		SPI run;
 		SPI (*enable)(uint8_t master_slave_select, uint8_t data_order,  uint8_t data_modes, uint8_t prescaler);
 	#endif
 } Atmega328SerialPeripherialInterface;
@@ -176,7 +162,8 @@ typedef struct {
 	Atmega328TimerInterruptFlag_TypeDef* iflag;
 	Atmega328TimerInterruptMask_TypeDef* imask;
 	Atmega328TimerCompareRegister1_TypeDef* comp;
-	#if defined(_TIMER1_MODULE_)
+	#if defined(_TIMER_MODULE_)
+		//TIMER_COUNTER1 run;
 		TIMER_COUNTER1 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
 	#endif
 } Atmega328TimerCounter1;
@@ -188,7 +175,8 @@ typedef struct {
 	Atmega328TimerInterruptFlag_TypeDef* iflag;
 	Atmega328TimerInterruptMask_TypeDef* imask;
 	Atmega328TimerCompareRegister0_TypeDef* comp;
-	#if defined(_TIMER0_MODULE_)
+	#if defined(_TIMER_MODULE_)
+		//TIMER_COUNTER0 run;
 		TIMER_COUNTER0 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
 	#endif
 } Atmega328TimerCounter0;
@@ -200,7 +188,8 @@ typedef struct {
 	Atmega328TimerInterruptFlag_TypeDef* iflag;
 	Atmega328TimerInterruptMask_TypeDef* imask;
 	Atmega328TimerCompareRegister2_TypeDef* comp;
-	#if defined(_TIMER2_MODULE_)
+	#if defined(_TIMER_MODULE_)
+		//TIMER_COUNTER2 run;
 		TIMER_COUNTER2 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
 	#endif
 } Atmega328TimerCounter2;
@@ -209,15 +198,17 @@ typedef struct {
 typedef struct {
 	Atmega328TwoWireSerialInterface_TypeDef* reg;
 	#if defined(_TWI_MODULE_)
+		TWI run;
 		TWI (*enable)(uint8_t atmega_ID, uint8_t prescaler);
 	#endif
 } Atmega328TwoWireSerialInterface;
 
-// USART (USART0)
+// USART (USART)
 typedef struct {
 	Atmega328Usart_TypeDef* reg;
-	#if defined(_USART0_MODULE_)
-		USART0 (*enable)(uint32_t baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
+	#if defined(_UART_MODULE_)
+		UART run;
+		UART (*enable)(uint32_t baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 	#endif
 } Atmega328Usart;
 
@@ -235,6 +226,7 @@ typedef struct {
 /*******************************************************************/
 /************************* ATMEGA 328 IMAGE ************************/
 /*******************************************************************/
+
 typedef struct {
 	//		Parameter
 	Atmega328Parameter par;
@@ -253,7 +245,7 @@ typedef struct {
 	Atmega328TimerCounter0 tc0;
 	Atmega328TimerCounter2 tc2;
 	Atmega328TwoWireSerialInterface twi;
-	Atmega328Usart usart0;
+	Atmega328Usart usart;
 	Atmega328WatchdogTimer wdt;
 	//		General Function Pointer
 	uint16_t (*readhlbyte)(HighLowByte reg);
@@ -278,6 +270,7 @@ typedef struct {
 
 /*** Global Variable ***/
 ATMEGA328 atmega328;
+
 /*** Global Header ***/
 ATMEGA328 ATMEGA328enable(void);
 

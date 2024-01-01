@@ -4,7 +4,7 @@ Author: Sergio Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: ATmega
-Update: 01/01/2024
+Update: 29/12/2023
 Comment:
    Very Stable
 *************************************************************************/
@@ -36,6 +36,10 @@ EEPROM EEPROMenable(void){
 	eprom.read_block = eeprom_read_block;
 	eprom.write_block = eeprom_write_block;
 	eprom.update_block = eeprom_update_block;
+	
+#ifdef _EEPROM_MODULE_
+	atmega328.eeprom.run = eprom;
+#endif
 
 	return eprom;
 }

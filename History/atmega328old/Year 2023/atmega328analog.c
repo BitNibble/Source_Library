@@ -4,7 +4,7 @@ Author: Sergio Manuel Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: Atmega328
-Update: 01/01/2024
+Update: 29/12/2023
 Comment:
 	Very Stable
 *************************************************************************/
@@ -14,8 +14,22 @@ Comment:
 #include <stdarg.h>
 
 /*** File Constant & Macro ***/
+#ifndef GLOBAL_INTERRUPT_ENABLE
+	#define GLOBAL_INTERRUPT_ENABLE 7
+#endif
+// if using differential channels this value has to be greater than one
+#define MAX_CHANNEL 8
+#if defined(__AVR_ATmega48__) ||defined(__AVR_ATmega88__) || defined(__AVR_ATmega168__) || \
+      defined(__AVR_ATmega48P__) ||defined(__AVR_ATmega88P__) || defined(__AVR_ATmega168P__) || \
+      defined(__AVR_ATmega328P__) ||defined(__AVR_ATmega328__)
+	#define MUX_MASK 15
+	#define ANALOG_INTERRUPT ADC_vect
+#else
+ 	#error "Not Atmega328"
+#endif
 
 /*** File Variable ***/
+//ATMEGA328 atmega328;
 static volatile int ADC_VALUE[MAX_CHANNEL];
 static volatile int ADC_CHANNEL_GAIN[MAX_CHANNEL];
 static volatile int ADC_N_CHANNEL;
@@ -118,6 +132,10 @@ ANALOG ANALOGenable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... )
 	}
 	atmega328.cpu.reg->sreg = tSREG;
 	atmega328.cpu.reg->sreg |= (1 << GLOBAL_INTERRUPT_ENABLE);
+	
+#ifdef _ANALOG_MODULE_
+	atmega328.adc.run = analog;
+#endif
 
 	return analog;
 }

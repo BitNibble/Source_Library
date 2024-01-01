@@ -4,7 +4,7 @@ Author: Sergio Manuel Santos
 		<sergio.salazar.santos@gmail.com>
 Hardware: ATmega328
 License: GNU General Public License        
-Update: 01/01/2024
+Update: 29/12/2023
 Comment:
 
 *************************************************************************/
@@ -14,8 +14,23 @@ Comment:
 #include <stdarg.h>
 
 /*** File Constant & Macro ***/
+#if defined(__AVR_ATmega48__) ||defined(__AVR_ATmega88__) || defined(__AVR_ATmega168__) || \
+      defined(__AVR_ATmega48P__) ||defined(__AVR_ATmega88P__) || defined(__AVR_ATmega168P__) || \
+      defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__)
+	//#define External_Interrupt_Flag_Register EIFR
+	//#define Pin_Change_Interrrupt_Control_Register PCICR
+	//#define Pin_Change_Interrupt_Flag_Register PCIFR
+	//#define Pin_Change_Mask_Register_2 PCMSK2
+	//#define Pin_Change_Mask_Register_1 PCMSK1
+	//#define Pin_Change_Mask_Register_0 PCMSK0
+	//#define MCU_Control_Status_Register MCUSR
+	#define MCU_Control_Status_Register_Mask 0X0F
+#else
+ 	#error "Not Atmega 328"
+#endif
 
 /*** File Variable ***/
+//ATMEGA328 atmega328;
 
 /*** File Header ***/
 void INTERRUPT_set(uint8_t channel, uint8_t sense);
@@ -34,6 +49,10 @@ INTERRUPT INTERRUPTenable(void)
 	interrupt.set = INTERRUPT_set;
 	interrupt.off = INTERRUPT_off;
 	interrupt.reset_status = INTERRUPT_reset_status;
+	
+#ifdef _INTERRUPT_MODULE_
+	atmega328.exint.run = interrupt;
+#endif
 
 	return interrupt;
 }
@@ -123,6 +142,10 @@ void INTERRUPT_off(uint8_t channel)
 			break;
 	}
 }
+
+/*** File Interrupt ***/
+// ISR(INT0_vect){}
+// ISR(INT1_vect){}
 
 /***EOF***/
 
