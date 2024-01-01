@@ -234,42 +234,5 @@ void MoveInterruptsToBoot(void)
 	atmega128.cpu.reg->sreg = sreg;
 }
 
-/*** File Interrupt ***/
-// ISR(RESET_vect){}
-// ISR(EXT_INT0_vect){}
-// ISR(EXT_INT1_vect){}
-// ISR(EXT_INT2_vect){}
-// ISR(EXT_INT3_vect){}
-// ISR(EXT_INT4_vect){}
-// ISR(EXT_INT5_vect){}
-// ISR(EXT_INT6_vect){}
-// ISR(EXT_INT7_vect){}
-// ISR(TIM2_COMP_vect){}
-// ISR(TIM2_OVF_vect){}
-// ISR(TIM1_CAPT_vect){}
-// ISR(TIM1_COMPA_vect){}
-// ISR(TIM1_COMPB_vect){}
-// ISR(TIM1_OVF_vect){}
-// ISR(TIM0_COMP_vect){}
-// ISR(TIM0_OVF_vect){}
-// ISR(SPI_STC_vect){}
-// ISR(USART0_RXC_vect){}
-// ISR(USART0_DRE_vect){}
-// ISR(USART0_TXC_vect){}
-// ISR(ADC_vect){}
-// ISR(EE_RDY_vect){}
-// ISR(ANA_COMP_vect){}
-// ISR(TIM1_COMPC_vect){}
-// ISR(TIM3_CAPT_vect){}
-// ISR(TIM3_COMPA_vect){}
-// ISR(TIM3_COMPB_vect){}
-// ISR(TIM3_COMPC_vect){}
-// ISR(TIM3_OVF_vect){}
-// ISR(USART1_RXC_vect){}
-// ISR(USART1_DRE_vect){}
-// ISR(USART1_TXC_vect){}
-// ISR(TWI_vect){}
-// ISR(SPM_RDY_vect){}
-
 /***EOF***/
 

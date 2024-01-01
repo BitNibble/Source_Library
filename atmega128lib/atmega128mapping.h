@@ -7,11 +7,14 @@ Hardware: Atmega128 by ETT ET-BASE
 Update: 01/01/2024
 Comment: 
 	Virtual Image Atmega 128 mapping.
+	NB:
+	- This Header file should be the first to be placed
 **********************************************************/
 #ifndef _ATMEGA128MAPPING_H_
 	#define _ATMEGA128MAPPING_H_
 	
 /*** Working Frequency ***/
+// User May change to conform to usage
 #ifndef F_CPU
 	#define F_CPU 16000000UL
 #endif
@@ -26,18 +29,18 @@ Comment:
 #include <math.h>
 /*** RAW IMAGE ***/
 #include "atmega128.h"
-
+/****************/
 #ifndef DATA_SIZE
 	#define DATA_SIZE 8
 #endif
 #ifndef DATA_BITS
 	#define DATA_BITS 7
 #endif
-
+/****************/
 /*********************************************************/
 /****************** Include Switches  ********************/
 /*********************************************************/
-// To be Selected by the User
+// User may Commented out if not in used
 // MODULES
 #define _ANALOG_MODULE_
 #define _TIMER0_MODULE_
@@ -51,7 +54,7 @@ Comment:
 #define _USART0_MODULE_
 #define _USART1_MODULE_
 /*********************************************************/
-/******************** USER Includes **********************/
+/****************** Hardware Includes ********************/
 /*********************************************************/
 // MODULES
 #ifdef _ANALOG_MODULE_
@@ -281,7 +284,6 @@ typedef struct {
 /*******************************************************************/
 /************************* ATMEGA 128 IMAGE ************************/
 /*******************************************************************/
-
 typedef struct {
 	//		PARAMETER
 	Atmega128Parameter par;
@@ -335,4 +337,41 @@ ATMEGA128 ATMEGA128enable(void);
 #endif
 
 /***EOF***/
+
+/*** Interrupt List ***/
+// ISR(RESET_vect){}
+// ISR(EXT_INT0_vect){}
+// ISR(EXT_INT1_vect){}
+// ISR(EXT_INT2_vect){}
+// ISR(EXT_INT3_vect){}
+// ISR(EXT_INT4_vect){}
+// ISR(EXT_INT5_vect){}
+// ISR(EXT_INT6_vect){}
+// ISR(EXT_INT7_vect){}
+// ISR(TIM2_COMP_vect){}
+// ISR(TIM2_OVF_vect){}
+// ISR(TIM1_CAPT_vect){}
+// ISR(TIM1_COMPA_vect){}
+// ISR(TIM1_COMPB_vect){}
+// ISR(TIM1_OVF_vect){}
+// ISR(TIM0_COMP_vect){}
+// ISR(TIM0_OVF_vect){}
+// ISR(SPI_STC_vect){}
+// ISR(USART0_RXC_vect){}
+// ISR(USART0_DRE_vect){}
+// ISR(USART0_TXC_vect){}
+// ISR(ADC_vect){}
+// ISR(EE_RDY_vect){}
+// ISR(ANA_COMP_vect){}
+// ISR(TIM1_COMPC_vect){}
+// ISR(TIM3_CAPT_vect){}
+// ISR(TIM3_COMPA_vect){}
+// ISR(TIM3_COMPB_vect){}
+// ISR(TIM3_COMPC_vect){}
+// ISR(TIM3_OVF_vect){}
+// ISR(USART1_RXC_vect){}
+// ISR(USART1_DRE_vect){}
+// ISR(USART1_TXC_vect){}
+// ISR(TWI_vect){}
+// ISR(SPM_RDY_vect){}
 
