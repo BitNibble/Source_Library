@@ -38,7 +38,6 @@ struct prm{
 };
 typedef struct prm EEPROM;
 
-EEPROM eeprom;
 /*** Global Header ***/
 EEPROM EEPROMenable(void);
 

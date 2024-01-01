@@ -14,10 +14,19 @@ Comment:
 #include <inttypes.h>
 
 /*** Global Constant & Macro ***/
-#define SPI_LSB_DATA_ORDER 1
-#define SPI_MSB_DATA_ORDER 0
-#define SPI_MASTER_MODE 1
-#define SPI_SLAVE_MODE 0
+#if defined(__AVR_ATmega64__) || defined(__AVR_ATmega128__)
+	#define SPI_LSB_DATA_ORDER 1
+	#define SPI_MSB_DATA_ORDER 0
+	#define SPI_MASTER_MODE 1
+	#define SPI_SLAVE_MODE 0
+	#define SPI_PIN_MASK 15
+	#define DD_SS 0
+	#define DD_SCK 1
+	#define DD_MOSI 2
+	#define DD_MISO 3
+#else
+	#error "Not Atmega 128"
+#endif
 
 /*** Global Variable ***/
 struct sp{

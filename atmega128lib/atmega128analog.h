@@ -15,11 +15,19 @@ Comment:
 #include <inttypes.h>
 
 /*** Global Constant & Macro ***/
-#ifndef GLOBAL_INTERRUPT_ENABLE
-	#define GLOBAL_INTERRUPT_ENABLE 7
+#if defined(__AVR_ATmega64__) || defined(__AVR_ATmega128__)
+	#ifndef GLOBAL_INTERRUPT_ENABLE
+		#define GLOBAL_INTERRUPT_ENABLE 7
+	#endif
+	// if using differential channels this value has to be greater than one
+	#define MAX_CHANNEL 32
+	// ADC_NUMBER_SAMPLE^2 gives number of samples, note values can only range from 0 to 4.
+	#define ADC_NUMBER_SAMPLE 2
+	#define ATMEGA_128_ANALOG
+	#define MUX_MASK 31
+#else
+	#error "Not Atmega 128"
 #endif
-// ADC_NUMBER_SAMPLE^2 gives number of samples, note values can only range from 0 to 4.
-#define ADC_NUMBER_SAMPLE 2
 
 /*** Global Variable ***/
 typedef struct{

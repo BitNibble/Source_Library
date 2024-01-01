@@ -9,10 +9,7 @@ Comment:
    Very Stable
 *************************************************************************/
 /*** File Library ***/
-#include "atmega328mapping.h"
 #include "atmegaeeprom.h"
-
-/*** File Constant & Macro ***/
 
 /*** File Variable ***/
 
@@ -36,7 +33,6 @@ EEPROM EEPROMenable(void){
 	eprom.read_block = eeprom_read_block;
 	eprom.write_block = eeprom_write_block;
 	eprom.update_block = eeprom_update_block;
-
 	return eprom;
 }
 

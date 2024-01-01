@@ -13,13 +13,6 @@ Comment:
 #include "atmega128interrupt.h"
 //#include <stdarg.h>
 
-/*** File Constant & Macro ***/
-#if defined(__AVR_ATmega64__) || defined(__AVR_ATmega128__)	
-	#define ATMEGA_128_INTERRUPT
-#else
- 	#error "Not Atmega 128"
-#endif
-
 /*** File Variable ***/
 
 /*** File Header ***/

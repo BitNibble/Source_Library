@@ -11,10 +11,6 @@ Comment:
 /*** File Library ***/
 #include "atmega128mapping.h"
 
-/*** File Define & Macro ***/
-// FLASH
-#define Atmega128InterruptVectors_Address 0x0100 // ISVEL = 0
-
 /*** File Header ***/
 uint16_t ReadHLByte(HighLowByte reg);
 uint16_t ReadLHByte(HighLowByte reg);

@@ -15,8 +15,12 @@ Comment:
 #include <inttypes.h>
 
 /*** Global Constant & Macro ***/
-#ifndef GLOBAL_INTERRUPT_ENABLE
-	#define GLOBAL_INTERRUPT_ENABLE 7
+#if defined(__AVR_ATmega64__) || defined(__AVR_ATmega128__)
+	#ifndef GLOBAL_INTERRUPT_ENABLE
+		#define GLOBAL_INTERRUPT_ENABLE 7
+	#endif
+#else
+	#error "Not Atmega 128"
 #endif
 
 /*** Global Variable ***/

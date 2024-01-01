@@ -17,7 +17,6 @@ Comment:
 
 /*** File Variable ***/
 BUFF rx1buff;
-
 UARTvar UART1_Rx;
 UARTvar UART1_RxBuf[UART1_RX_BUFFER_SIZE + 1];
 uint8_t UART1_LastRxError;

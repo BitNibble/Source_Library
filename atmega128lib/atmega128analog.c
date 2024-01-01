@@ -13,17 +13,6 @@ Comment:
 #include "atmega128analog.h"
 #include <stdarg.h>
 
-/*** File Constant & Macro ***/
-// if using differential channels this value has to be greater than one
-#define MAX_CHANNEL 32
-
-#if defined(__AVR_ATmega64__) || defined(__AVR_ATmega128__)	
-	#define ATMEGA_128_ANALOG
-	#define MUX_MASK 31
-#else
- 	#error "Not Atmega 128"
-#endif
-
 /*** File Variable ***/
 static volatile int ADC_VALUE[MAX_CHANNEL];
 static volatile int ADC_CHANNEL_GAIN[MAX_CHANNEL];

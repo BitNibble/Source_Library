@@ -12,18 +12,6 @@ Comment:
 #include "atmega128mapping.h"
 #include "atmega128spi.h"
 
-/*** File Constant & Macro ***/
-#if defined(__AVR_ATmega64__) || defined(__AVR_ATmega128__) 
-	#define ATMEGA_128_SPI
-	#define SPI_PIN_MASK 15
-	#define DD_SS 0
-	#define DD_SCK 1
-	#define DD_MOSI 2
-	#define DD_MISO 3
-#else
-	#error "Not Atmega 128"
-#endif
-
 /*** File Variable ***/
 
 /*** File Header ***/

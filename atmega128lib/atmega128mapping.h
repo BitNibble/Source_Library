@@ -10,6 +10,11 @@ Comment:
 **********************************************************/
 #ifndef _ATMEGA128MAPPING_H_
 	#define _ATMEGA128MAPPING_H_
+	
+/*** Working Frequency ***/
+#ifndef F_CPU
+	#define F_CPU 16000000UL
+#endif
 
 /*** Global Library ***/
 #include <avr/io.h>

@@ -12,8 +12,6 @@ Comment:
 #include "atmega128mapping.h"
 #include "atmega128timer2.h"
 
-/*** File Constant & Macro ***/
-
 /*** File Variable ***/
 uint8_t timer2_state;
 
