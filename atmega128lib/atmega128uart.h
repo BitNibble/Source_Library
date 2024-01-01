@@ -4,7 +4,7 @@ Author: Sergio Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: ATmega128
-Update: 29/12/2023
+Update: 01/01/2024
 Comment:
 	Stable
 ************************************************************************/
@@ -40,7 +40,7 @@ Comment:
 /*** Global Variable ***/
 typedef struct {
 	// Parameters
-	uint8_t ubrr;
+	uint16_t ubrr;
 	uint8_t FDbits;
 	uint8_t Stopbits;
 	uint8_t Parity;
@@ -61,7 +61,7 @@ typedef struct uart0 UART0;
 
 typedef struct {
 	// Parameters
-	uint8_t ubrr;
+	uint16_t ubrr;
 	uint8_t FDbits;
 	uint8_t Stopbits;
 	uint8_t Parity;

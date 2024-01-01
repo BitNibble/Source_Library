@@ -4,7 +4,7 @@ Author: Sergio Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: ATmega128
-Update: 29/12/2023
+Update: 01/01/2024
 Comment:
 	Stable
 ************************************************************************/

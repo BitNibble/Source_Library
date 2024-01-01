@@ -4,7 +4,7 @@ Author: Sergio Manuel Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: Atmega128 by ETT ET-BASE
-Update: 29/12/2023
+Update: 01/01/2024
 Comment:
 	Virtual Image Atmega 128 mapping.
 **********************************************************/
@@ -26,7 +26,6 @@ void ByteSet(uint8_t* target, uint8_t set);
 void ByteClear(uint8_t* target, uint8_t clear);
 uint8_t ByteShiftright(uint8_t target, uint8_t shift);
 uint8_t ByteShiftleft(uint8_t target, uint8_t shift);
-/*** File Procedure & Function Definition***/
 uint8_t readreg(uint8_t reg, uint8_t size_block, uint8_t bit);
 uint8_t getsetbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit);
 void setreg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);
@@ -129,11 +128,6 @@ ATMEGA128 ATMEGA128enable(void){
 	atmega128.writehlbyte = WriteHLByte;
 	atmega128.writelhbyte = WriteLHByte;
 	atmega128.swapbyte = SwapByte;
-	atmega128.byte_mask = ByteMask;
-	atmega128.byte_set = ByteSet;
-	atmega128.byte_clear = ByteClear;
-	atmega128.byte_shiftright = ByteShiftright;
-	atmega128.byte_shiftleft = ByteShiftleft;
 	atmega128.readreg = readreg;
 	atmega128.writereg = writereg;
 	atmega128.setreg = setreg;
@@ -146,62 +140,31 @@ ATMEGA128 ATMEGA128enable(void){
 	return atmega128;
 }
 
-// COMMON
+/*** File Procedure & Function Definition***/
 uint16_t ReadHLByte(HighLowByte reg)
 {
 	return (reg.H << 8) | reg.L;
 }
-
 uint16_t ReadLHByte(HighLowByte reg)
 {
 	return (reg.L << 8) | reg.H;
 }
-
 HighLowByte WriteHLByte(uint16_t val)
 {
 	HighLowByte reg; reg.H = (val >> 8); reg.L = val;
 	return reg;
 }
-
 HighLowByte WriteLHByte(uint16_t val)
 {
 	HighLowByte reg; reg.L = (val >> 8); reg.H = val;
 	return reg;
 }
-
 uint16_t SwapByte(uint16_t num)
 {
 	uint16_t tp;
 	tp = (num << 8);
 	return (num >> 8) | tp;
 }
-
-uint8_t ByteMask(uint8_t target, uint8_t mask)
-{
-	return target & mask;
-}
-
-void ByteSet(uint8_t* target, uint8_t set)
-{
-	*target |= set;
-}
-
-void ByteClear(uint8_t* target, uint8_t clear)
-{
-	*target &= ~clear;
-}
-
-uint8_t ByteShiftright(uint8_t target, uint8_t shift)
-{
-	return target >> shift;
-}
-
-uint8_t ByteShiftleft(uint8_t target, uint8_t shift)
-{
-	return target << shift;
-}
-
-/*** File Procedure & Function Definition***/
 uint8_t readreg(uint8_t reg, uint8_t size_block, uint8_t bit)
 {
 	if(bit > DATA_BITS){ bit = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
@@ -248,7 +211,7 @@ void writereg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t da
 	*reg = value;
 }
 
-/******/
+/************/
 void ClockPrescalerSelect(volatile uint8_t prescaler)
 {
 	volatile uint8_t sreg;

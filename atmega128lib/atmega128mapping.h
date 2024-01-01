@@ -4,7 +4,7 @@ Author: Sergio Manuel Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: Atmega128 by ETT ET-BASE
-Update: 29/12/2023
+Update: 01/01/2024
 Comment: 
 	Virtual Image Atmega 128 mapping.
 **********************************************************/
@@ -290,11 +290,6 @@ typedef struct {
 	HighLowByte (*writehlbyte)(uint16_t val);
 	HighLowByte (*writelhbyte)(uint16_t val);
 	uint16_t (*swapbyte)(uint16_t num);
-	uint8_t (*byte_mask)(uint8_t target, uint8_t mask);
-	void (*byte_set)(uint8_t* target, uint8_t set);
-	void (*byte_clear)(uint8_t* target, uint8_t clear);
-	uint8_t (*byte_shiftright)(uint8_t target, uint8_t shift);
-	uint8_t (*byte_shiftleft)(uint8_t target, uint8_t shift);
 	uint8_t (*readreg)(uint8_t reg, uint8_t size_block, uint8_t bit);
 	uint8_t (*getsetbit)(volatile uint8_t* reg, uint8_t size_block, uint8_t bit);
 	void (*setreg)(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);

@@ -4,7 +4,7 @@ Author: Sergio Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: ATmega128
-Update: 29/12/2023
+Update: 01/01/2024
 Comment:
 	Stable
 *************************************************************************/
@@ -17,7 +17,7 @@ Comment:
 #include <math.h>
 
 /*** File Constant & Macro ***/
-#if ( ( UART_RX_BUFFER_SIZE ) >= ( RAMEND-0x60 ) )
+#if ( ( UART_RX_BUFFER_SIZE ) >= ( RAMEND - 0x60 ) )
 	#error "size of UART_RX_BUFFER_SIZE + UART_TX_BUFFER_SIZE larger than size of SRAM"
 #endif
 #define BAUD_RATE_ASYNCHRONOUS_NORMAL_MODE(baudRate, xtalCpu) ((xtalCpu) / ((baudRate) * 16l) - 1)
@@ -74,7 +74,7 @@ UART0 UART0enable(uint32_t baudrate, unsigned int FDbits, unsigned int Stopbits,
 	ATMEGA128enable();
 	rx0buff = BUFFenable( UART0_RX_BUFFER_SIZE, UART0_RxBuf );
 	ubrr = F_CPU/16; ubrr /= baudrate; ubrr -= 1;
-	usart0.par.ubrr = ubrr;
+	usart0.par.ubrr = (uint16_t) ubrr;
 	// Vtable
 	usart0.read = uart0_read;
 	usart0.getch = uart0_getch;
@@ -87,15 +87,16 @@ UART0 UART0enable(uint32_t baudrate, unsigned int FDbits, unsigned int Stopbits,
 	if ( ubrr & 0x8000 ) // The transfer rate can be doubled by setting the U2X bit in UCSRA.
 	{
    		atmega128.usart0.reg->ucsr0a = (1 << U2X0);  // Enable 2x speed 
-   		ubrr &= ~0x8000;
+   		ubrr = F_CPU/8; ubrr /= baudrate; ubrr -= 1;
+		usart0.par.ubrr = (uint16_t) ubrr;
    	}
-	atmega128.usart0.reg->ubrr0h = (unsigned char)(ubrr >> 8);
-	atmega128.usart0.reg->ubrr0l = (unsigned char) ubrr;
+	atmega128.usart0.reg->ubrr0h = atmega128.writehlbyte(ubrr).H;
+	atmega128.usart0.reg->ubrr0l = atmega128.writehlbyte(ubrr).L;
 	// Enable USART receiver and transmitter and receive complete interrupt
 	atmega128.usart0.reg->ucsr0b = _BV(RXCIE0) | (1 << RXEN0) | (1 << TXEN0);
 	// Set frame format: asynchronous, 8 data, no parity, 1 stop bit
 	#ifdef URSEL0
-		atmega128.usart0->ucsr0c = (1 << URSEL0) | (3 << UCSZ00);
+		atmega128.usart0->ucsr0c = (1 << UMSEL0) | (3 << UCSZ00);
 		usart0.par.FDbits = 8;
 		usart0.par.Stopbits = 1;
 		usart0.par.Parity = 0;
@@ -218,7 +219,7 @@ UART1 UART1enable(uint32_t baudrate, unsigned int FDbits, unsigned int Stopbits,
 	ATMEGA128enable();
 	rx1buff = BUFFenable( UART1_RX_BUFFER_SIZE, UART1_RxBuf );
 	ubrr = F_CPU/16; ubrr /= baudrate; ubrr -= 1;
-	usart1.par.ubrr = ubrr;
+	usart1.par.ubrr = (uint16_t) ubrr;
 	// FUNCTION POINTER
 	usart1.read = uart1_read;
 	usart1.getch = uart1_getch;
@@ -230,15 +231,16 @@ UART1 UART1enable(uint32_t baudrate, unsigned int FDbits, unsigned int Stopbits,
 	// Set baud rate
 	if ( ubrr & 0x8000 ) {
 		atmega128.usart1.reg->ucsr1a = (1 << U2X1);  // Enable 2x speed 
-		ubrr &= ~0x8000;
+		ubrr = F_CPU/8; ubrr /= baudrate; ubrr -= 1;
+		usart1.par.ubrr = (uint16_t) ubrr;
 	}
-	atmega128.usart1.reg->ubrr1h = (unsigned char)(ubrr >> 8);
-	atmega128.usart1.reg->ubrr1l = (unsigned char) ubrr;
+	atmega128.usart1.reg->ubrr1h = atmega128.writehlbyte(ubrr).H;
+	atmega128.usart1.reg->ubrr1l = atmega128.writehlbyte(ubrr).L;
 	// Enable USART receiver and transmitter and receive complete interrupt
 	atmega128.usart1.reg->ucsr1b = _BV(RXCIE1) | (1 << RXEN1)|(1 << TXEN1);
 	// Set frame format: asynchronous, 8data, no parity, 1stop bit
 	#ifdef URSEL1
-		UCSR1C = (1 << URSEL1) | (3 << UCSZ10);
+		UCSR1C = (1 << UMSEL1) | (3 << UCSZ10);
 		usart1.par.FDbits = 8;
 		usart1.par.Stopbits = 1;
 		usart1.par.Parity = 0;
