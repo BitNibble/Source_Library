@@ -68,7 +68,7 @@ typedef struct {
 }uart1parameter;
 
 struct uart1{
-	uart0parameter par;
+	uart1parameter par;
 	// prototype pointers
 	UARTvar (*read)(void);
 	UARTvar (*getch)(void);

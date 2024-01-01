@@ -35,13 +35,16 @@ Comment:
 // To be Selected by the User
 // MODULES
 #define _ANALOG_MODULE_
-#define _TIMER_MODULE_
+#define _TIMER0_MODULE_
+#define _TIMER1_MODULE_
+#define _TIMER2_MODULE_
+#define _TIMER3_MODULE_
 #define _EEPROM_MODULE_
 #define _INTERRUPT_MODULE_
 #define _SPI_MODULE_
 #define _TWI_MODULE_
-#define _UART_MODULE_
-
+#define _USART0_MODULE_
+#define _USART1_MODULE_
 /*********************************************************/
 /******************** USER Includes **********************/
 /*********************************************************/
@@ -51,8 +54,23 @@ Comment:
 //#else
 //	#warning "NO ANALOG MODULE"
 #endif
-#ifdef _TIMER_MODULE_
-	#include "atmega128timer.h"
+#ifdef _TIMER0_MODULE_
+	#include "atmega128timer0.h"
+//#else
+//	#warning "NO TIMER MODULE"
+#endif
+#ifdef _TIMER1_MODULE_
+#include "atmega128timer1.h"
+//#else
+//	#warning "NO TIMER MODULE"
+#endif
+#ifdef _TIMER2_MODULE_
+#include "atmega128timer2.h"
+//#else
+//	#warning "NO TIMER MODULE"
+#endif
+#ifdef _TIMER3_MODULE_
+#include "atmega128timer3.h"
 //#else
 //	#warning "NO TIMER MODULE"
 #endif
@@ -76,12 +94,16 @@ Comment:
 //#else
 //	#warning "NO TWI MODULE"
 #endif
-#ifdef _UART_MODULE_
-	#include "atmega128uart.h"
+#ifdef _USART0_MODULE_
+#include "atmega128usart0.h"
 //#else
 //	#warning "NO UART MODULE"
 #endif
-
+#ifdef _USART1_MODULE_
+#include "atmega128usart1.h"
+//#else
+//	#warning "NO UART MODULE"
+#endif
 /*** Global Variable ***/
 //		PARAMETER
 typedef struct {
@@ -191,7 +213,7 @@ typedef struct {
 typedef struct {
 	Atmega128TimerCounter1_TypeDef* reg;
 	Atmega128OtherRegisters_TypeDef* misc;
-	#if defined(_TIMER_MODULE_)
+	#if defined(_TIMER1_MODULE_)
 		TIMER_COUNTER1 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
 	#endif
 } Atmega128TimerCounter1;
@@ -200,7 +222,7 @@ typedef struct {
 typedef struct {
 	Atmega128TimerCounter3_TypeDef* reg;
 	Atmega128OtherRegisters_TypeDef* misc;
-	#if defined(_TIMER_MODULE_)
+	#if defined(_TIMER3_MODULE_)
 		TIMER_COUNTER3 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
 	#endif
 } Atmega128TimerCounter3;
@@ -208,7 +230,7 @@ typedef struct {
 // Timer/Counter, 8-bit (TC2)
 typedef struct {
 	Atmega128TimerCounter2_TypeDef* reg;
-	#if defined(_TIMER_MODULE_)
+	#if defined(_TIMER2_MODULE_)
 		TIMER_COUNTER2 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
 	#endif
 } Atmega128TimerCounter2;
@@ -217,7 +239,7 @@ typedef struct {
 typedef struct {
 	Atmega128TimerCounter0_TypeDef* reg;
 	Atmega128OtherRegisters_TypeDef* misc;
-	#if defined(_TIMER_MODULE_)
+	#if defined(_TIMER0_MODULE_)
 		TIMER_COUNTER0 (*enable)(unsigned char wavegenmode, unsigned char interrupt);
 	#endif
 } Atmega128TimerCounter0;
@@ -233,16 +255,16 @@ typedef struct {
 // USART (USART0)
 typedef struct {
 	Atmega128Usart0_TypeDef* reg;
-	#if defined(_UART_MODULE_)
-		UART0 (*enable)(uint32_t baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
+	#if defined(_USART0_MODULE_)
+		USART0 (*enable)(uint32_t baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 	#endif
 } Atmega128Usart0;
 
 // USART (USART1)
 typedef struct {
 	Atmega128Usart1_TypeDef* reg;
-	#if defined(_UART_MODULE_)
-		UART1 (*enable)(uint32_t baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
+	#if defined(_USART1_MODULE_)
+		USART1 (*enable)(uint32_t baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 	#endif
 } Atmega128Usart1;
 

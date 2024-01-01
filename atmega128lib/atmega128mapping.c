@@ -86,24 +86,24 @@ ATMEGA128 ATMEGA128enable(void){
 	// TC1
 	atmega128.tc1.reg = (Atmega128TimerCounter1_TypeDef*) Atmega128TimerCounter1_Address;
 	atmega128.tc1.misc = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
-	#if defined(_TIMER_MODULE_)
+	#if defined(_TIMER1_MODULE_)
 		atmega128.tc1.enable = TIMER_COUNTER1enable;
 	#endif
 	// TC3
 	atmega128.tc3.reg = (Atmega128TimerCounter3_TypeDef*) Atmega128TimerCounter3_Address;
 	atmega128.tc3.misc = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
-	#if defined(_TIMER_MODULE_)
+	#if defined(_TIMER3_MODULE_)
 		atmega128.tc3.enable = TIMER_COUNTER3enable;
 	#endif
 	// TC2
 	atmega128.tc2.reg = (Atmega128TimerCounter2_TypeDef*) Atmega128TimerCounter2_Address;
-	#if defined(_TIMER_MODULE_)
+	#if defined(_TIMER2_MODULE_)
 		atmega128.tc2.enable = TIMER_COUNTER2enable;
 	#endif
 	// TC0
 	atmega128.tc0.reg = (Atmega128TimerCounter0_TypeDef*) Atmega128TimerCounter0_Address;
 	atmega128.tc0.misc = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
-	#if defined(_TIMER_MODULE_)
+	#if defined(_TIMER0_MODULE_)
 		atmega128.tc0.enable = TIMER_COUNTER0enable;
 	#endif
 	// TWI
@@ -113,13 +113,13 @@ ATMEGA128 ATMEGA128enable(void){
 	#endif
 	// USART0
 	atmega128.usart0.reg = (Atmega128Usart0_TypeDef*) Atmega128Usart0_Address;
-	#if defined(_UART_MODULE_)
-		atmega128.usart0.enable = UART0enable;
+	#if defined(_USART0_MODULE_)
+		atmega128.usart0.enable = USART0enable;
 	#endif
 	// USART1
 	atmega128.usart1.reg = (Atmega128Usart1_TypeDef*) Atmega128Usart1_Address;
-	#if defined(_UART_MODULE_)
-		atmega128.usart1.enable = UART1enable;
+	#if defined(_USART1_MODULE_)
+		atmega128.usart1.enable = USART1enable;
 	#endif
 	atmega128.wdt.reg = (Atmega128WatchdogTimer_TypeDef*) Atmega128WatchdogTimer_Address;
 	// General Func
