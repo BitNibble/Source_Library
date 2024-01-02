@@ -54,7 +54,9 @@ typedef struct {
 	uint8_t H; // Higher address
 } HighLowByte;
 
+/***************************/
 /*** MAIN HARDWARE LAYER ***/
+/***************************/
 // GPWR
 typedef struct {
 	volatile uint8_t r0; // 0x00

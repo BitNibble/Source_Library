@@ -29,15 +29,25 @@ void uart1_rxflush(void);
 void uart1_write(UARTvar data);
 void uart1_putch(UARTvar c);
 void uart1_puts(UARTvar* s);
+/*** Complimentary functions ***/
+uint8_t USART1ReceiveComplete(void);
+uint8_t USART1TransmitComplete(void);
+uint8_t USART1DataRegisterEmpty(void);
+uint8_t USART1FrameError(void);
+uint8_t USART1DataOverRun(void);
+uint8_t USART1ParityError(void);
+uint8_t USART1ReadErrors(void);
+void USART1ClearErrors(void);
+void USART1DoubleTransmissionSpeed(void);
 
 /*** Procedure & Function ***/
-USART1 USART1enable(uint32_t baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity )
+USART1 USART1enable(uint32_t baud, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity )
 {
-	uint32_t ubrr = 0;
+	uint16_t ubrr = 0;
 	ATMEGA128enable();
 	rx1buff = BUFFenable( UART1_RX_BUFFER_SIZE, UART1_RxBuf );
-	ubrr = F_CPU/16; ubrr /= baudrate; ubrr -= 1;
-	usart1.par.ubrr = (uint16_t) ubrr;
+	ubrr = BAUDRATEnormal(baud);
+	usart1.par.ubrr = ubrr;
 	// FUNCTION POINTER
 	usart1.read = uart1_read;
 	usart1.getch = uart1_getch;
@@ -49,15 +59,15 @@ USART1 USART1enable(uint32_t baudrate, unsigned int FDbits, unsigned int Stopbit
 	// Set baud rate
 	if ( ubrr & 0x8000 ) {
 		atmega128.usart1.reg->ucsr1a = (1 << U2X1);  // Enable 2x speed 
-		ubrr = F_CPU/8; ubrr /= baudrate; ubrr -= 1;
-		usart1.par.ubrr = (uint16_t) ubrr;
+		ubrr = BAUDRATEdouble(baud);
+		usart1.par.ubrr = ubrr;
 	}
 	atmega128.usart1.reg->ubrr1h = atmega128.writehlbyte(ubrr).H;
 	atmega128.usart1.reg->ubrr1l = atmega128.writehlbyte(ubrr).L;
 	// Enable USART receiver and transmitter and receive complete interrupt
-	atmega128.usart1.reg->ucsr1b = _BV(RXCIE1) | (1 << RXEN1)|(1 << TXEN1);
-	// Set frame format: asynchronous, 8data, no parity, 1stop bit
-	#ifdef URSEL1
+	atmega128.usart1.reg->ucsr1b = (1 << RXCIE1) | (1 << RXEN1)|(1 << TXEN1);
+	
+	#ifdef URSEL1 // Set frame format: asynchronous, 8data, no parity, 1stop bit
 		UCSR1C = (1 << UMSEL1) | (3 << UCSZ10);
 		usart1.par.FDbits = 8;
 		usart1.par.Stopbits = 1;
@@ -132,7 +142,7 @@ USART1 USART1enable(uint32_t baudrate, unsigned int FDbits, unsigned int Stopbit
 			break;
 		}
 	#endif
-	atmega128.cpu.reg->sreg |= _BV(GLOBAL_INTERRUPT_ENABLE);
+	atmega128.cpu.reg->sreg |= 1 << GLOBAL_INTERRUPT_ENABLE;
 	return usart1;
 }
 UARTvar uart1_read(void)
@@ -154,11 +164,12 @@ UARTvar* uart1_gets(void)
 void uart1_rxflush(void)
 {
 	rx1buff.flush(&rx1buff.par);
+	UART1_LastRxError = 0;
 }
 void uart1_write(UARTvar data)
 {
 	atmega128.usart1.reg->udr1 = data;
-	atmega128.usart1.reg->ucsr1b |= _BV(UDRIE1);
+	atmega128.usart1.reg->ucsr1b |= 1 << UDRIE1;
 	_delay_ms(1);
 }
 void uart1_putch(UARTvar c)
@@ -180,11 +191,11 @@ SIGNAL(UART1_RECEIVE_INTERRUPT)
 	unsigned char bit9;
 	unsigned char usr;
 	
-	usr  = atmega128.usart1.reg->ucsr1a;
+	usr  = USART1ReadErrors();
 	bit9 = atmega128.usart1.reg->ucsr1b;
 	bit9 = 0x01 & (bit9 >> 1);
  	   
-	UART1_LastRxError = (usr & (_BV(FE1) | _BV(DOR1)));
+	if(usr){ UART1_LastRxError = usr; }
 	
 	UART1_Rx = atmega128.usart1.reg->udr1;
 	rx1buff.push(&rx1buff.par, UART1_Rx);
@@ -192,7 +203,45 @@ SIGNAL(UART1_RECEIVE_INTERRUPT)
 
 SIGNAL(UART1_TRANSMIT_INTERRUPT)
 {
-	atmega128.usart1.reg->ucsr1b &= ~_BV(UDRIE1);
+	atmega128.usart1.reg->ucsr1b &= ~(1 << UDRIE1);
+}
+
+/*** Complimentary functions ***/
+uint8_t USART1ReceiveComplete(void)
+{
+	return (UCSR1A & (1 << RXC1));
+}
+uint8_t USART1TransmitComplete(void)
+{
+	return (UCSR1A & (1 << TXC1));
+}
+uint8_t USART1DataRegisterEmpty(void)
+{
+	return (UCSR1A & (1 << UDRE1));
+}
+uint8_t USART1FrameError(void)
+{
+	return (UCSR1A & (1 << FE1));
+}
+uint8_t USART1DataOverRun(void)
+{
+	return (UCSR1A & (1 << DOR1));
+}
+uint8_t USART1ParityError(void)
+{
+	return (UCSR1A & (1 << FE1));
+}
+uint8_t USART1ReadErrors(void)
+{
+	return atmega128.readreg(UCSR1A,3,2);
+}
+void USART1ClearErrors(void)
+{
+	atmega128.setreg(&UCSR1A,3,2,0);
+}
+void USART1DoubleTransmissionSpeed(void)
+{
+	atmega128.setreg(&UCSR1A,4,1,1);
 }
 
 /***EOF***/

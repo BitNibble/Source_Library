@@ -118,7 +118,9 @@ typedef struct {
 	HighLowByte HLbyte;
 }Atmega128Parameter;
 
-/*** SECOND LAYER ***/
+/********************/
+/*** Second Layer ***/
+/********************/
 // GPWR
 typedef struct {
 	Atmega128GPWR_TypeDef* reg;
@@ -283,6 +285,7 @@ typedef struct {
 
 /*******************************************************************/
 /************************* ATMEGA 128 IMAGE ************************/
+/*************************** Third Layer ***************************/
 /*******************************************************************/
 typedef struct {
 	//		PARAMETER
@@ -319,11 +322,11 @@ typedef struct {
 	HighLowByte (*writehlbyte)(uint16_t val);
 	HighLowByte (*writelhbyte)(uint16_t val);
 	uint16_t (*swapbyte)(uint16_t num);
-	uint8_t (*readreg)(uint8_t reg, uint8_t size_block, uint8_t bit);
-	uint8_t (*getsetbit)(volatile uint8_t* reg, uint8_t size_block, uint8_t bit);
-	void (*setreg)(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);
-	void (*setbit)(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);
-	void (*writereg)(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);
+	uint8_t (*readreg)(uint8_t reg, uint8_t size_block, uint8_t bit_n);
+	uint8_t (*getsetbit)(volatile uint8_t* reg, uint8_t size_block, uint8_t bit_n);
+	void (*setreg)(volatile uint8_t* reg, uint8_t size_block, uint8_t bit_n, uint8_t data);
+	void (*setbit)(volatile uint8_t* reg, uint8_t size_block, uint8_t bit_n, uint8_t data);
+	void (*writereg)(volatile uint8_t* reg, uint8_t size_block, uint8_t bit_n, uint8_t data);
 	/******/
 	void (*Clock_Prescaler_Select)(volatile uint8_t prescaler);
 	void (*Move_Interrupts_To_Boot)(void);
@@ -333,6 +336,11 @@ typedef struct {
 ATMEGA128 atmega128;
 /*** Global Header ***/
 ATMEGA128 ATMEGA128enable(void);
+
+/*** General ***/
+uint16_t BAUDRATEnormal(uint32_t BAUD);
+uint16_t BAUDRATEdouble(uint32_t BAUD);
+uint16_t BAUDRATEsynchronous(uint32_t BAUD);
 
 #endif
 

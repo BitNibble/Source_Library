@@ -8,12 +8,13 @@ Update: 01/01/2024
 Comment: 
 	Virtual Image Atmega 328 mapping.
 	NB:
-	-This must always be the first Library
+	- This Header file should be the first to be placed
 *********************************************************************/
 #ifndef _ATMEGA328MAPPING_H_
 	#define _ATMEGA328MAPPING_H_
 	
-/*** Working Frequency ***/	
+/*** Working Frequency ***/
+// User May change to conform to use
 #ifndef F_CPU
 	#define F_CPU 8000000UL
 #endif
@@ -25,20 +26,20 @@ Comment:
 #include <avr/interrupt.h>
 #include <inttypes.h>
 #include <math.h>
-// RAW IMAGE
+/*** RAW IMAGE ***/
 #include "atmega328.h"
-
+/****************/
 #ifndef DATA_SIZE
 	#define DATA_SIZE 8
 #endif
 #ifndef DATA_BITS
 	#define DATA_BITS 7
 #endif
-
+/****************/
 /*********************************************************/
 /****************** Include Switches  ********************/
 /*********************************************************/
-// To be Selected by the User
+// User may Comment out if not in use
 // MODULES
 #define _TIMER0_MODULE_
 #define _TIMER1_MODULE_
@@ -46,7 +47,7 @@ Comment:
 #define _USART0_MODULE_
 
 /*********************************************************/
-/******************** USER Includes **********************/
+/******************* Hardware Includes *******************/
 /*********************************************************/
 // MODULES
 #ifdef _ANALOG_MODULE_
@@ -102,7 +103,9 @@ typedef struct {
 	HighLowByte HLbyte;
 }Atmega328Parameter;
 
-/*** SECOND LAYER ***/
+/********************/
+/*** Second Layer ***/
+/********************/
 // GPWR
 typedef struct {
 	Atmega328GPWR_TypeDef* reg;
@@ -226,14 +229,9 @@ typedef struct {
 	Atmega328WatchdogTimer_TypeDef* reg;
 } Atmega328WatchdogTimer;
 
-//		FLASH
-// Interrupt Vectors (ISR)
-typedef struct {
-	Atmega328InterruptVectors_TypeDef* reg;
-} Atmega328InterruptVectors;
-
 /*******************************************************************/
 /************************* ATMEGA 328 IMAGE ************************/
+/*************************** Third Layer ***************************/
 /*******************************************************************/
 typedef struct {
 	//		Parameter
@@ -255,17 +253,12 @@ typedef struct {
 	Atmega328TwoWireSerialInterface twi;
 	Atmega328Usart usart0;
 	Atmega328WatchdogTimer wdt;
-	//		General Function Pointer
+	//		Function Pointer
 	uint16_t (*readhlbyte)(HighLowByte reg);
 	uint16_t (*readlhbyte)(HighLowByte reg);
 	HighLowByte (*writehlbyte)(uint16_t val);
 	HighLowByte (*writelhbyte)(uint16_t val);
 	uint16_t (*swapbyte)(uint16_t num);
-	uint8_t (*byte_mask)(uint8_t target, uint8_t mask);
-	void (*byte_set)(uint8_t* target, uint8_t set);
-	void (*byte_clear)(uint8_t* target, uint8_t clear);
-	uint8_t (*byte_shiftright)(uint8_t target, uint8_t shift);
-	uint8_t (*byte_shiftleft)(uint8_t target, uint8_t shift);
 	uint8_t (*readreg)(uint8_t reg, uint8_t size_block, uint8_t bit);
 	void (*writereg)(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);
 	void (*setreg)(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);
@@ -281,7 +274,43 @@ ATMEGA328 atmega328;
 /*** Global Header ***/
 ATMEGA328 ATMEGA328enable(void);
 
+/*** General ***/
+uint16_t BAUDRATEnormal(uint32_t BAUD);
+uint16_t BAUDRATEdouble(uint32_t BAUD);
+uint16_t BAUDRATEsynchronous(uint32_t BAUD);
+
 #endif
 
 /***EOF***/
 
+/*** Interrupt List ***/
+// ISR(RESET_vect){}
+// ISR(INT0_vect){}
+// ISR(INT1_vect){}
+// ISR(PCINT0_vect){}
+// ISR(PCINT1_vect){}
+// ISR(PCINT2_vect){}
+// ISR(WDT_vect){}
+// ISR(TIMER2_COMPA_vect){}
+// ISR(TIMER2_COMPB_vect){}
+// ISR(TIMER2_OVF_vect){}
+// ISR(TIMER1_CAPT_vect){}
+// ISR(TIMER1_COMPA_vect){}
+// ISR(TIMER1_COMPB_vect){}
+// ISR(TIMER1_OVF_vect){}
+// ISR(TIMER0_COMPA_vect){}
+// ISR(TIMER0_COMPB_vect){}
+// ISR(TIMER0_OVF_vect){}
+// ISR(SPI_STC_vect){}
+// ISR(USART_RX_vect){}
+// ISR(USART_UDRE_vect){}
+// ISR(USART_TX_vect){}
+// ISR(ADC_vect){}
+// ISR(EE_READY_vect){}
+// ISR(ADC_vect)
+// ISR(ANALOG_COMP_vect){}
+// ISR(TWI_vect){}
+// ISR(SPM_READY_vect){}
+// ISR(USART_RX_vect){}
+// ISR(USART_UDRE_vect){}
+// ISR(USART_TX_vect){}

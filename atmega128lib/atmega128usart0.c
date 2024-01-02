@@ -29,15 +29,25 @@ void uart0_rxflush(void);
 void uart0_write(UARTvar data);
 void uart0_putch(UARTvar c);
 void uart0_puts(UARTvar* s);
+/*** Complimentary functions ***/
+uint8_t USART0ReceiveComplete(void);
+uint8_t USART0TransmitComplete(void);
+uint8_t USART0DataRegisterEmpty(void);
+uint8_t USART0FrameError(void);
+uint8_t USART0DataOverRun(void);
+uint8_t USART0ParityError(void);
+uint8_t USART0ReadErrors(void);
+void USART0ClearErrors(void);
+void USART0DoubleTransmissionSpeed(void);
 
 /*** Procedure & Function ***/
-USART0 USART0enable(uint32_t baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity )
+USART0 USART0enable(uint32_t baud, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity )
 {
-	uint32_t ubrr = 0;
+	uint16_t ubrr = 0;
 	ATMEGA128enable();
 	rx0buff = BUFFenable( UART0_RX_BUFFER_SIZE, UART0_RxBuf );
-	ubrr = F_CPU/16; ubrr /= baudrate; ubrr -= 1;
-	usart0.par.ubrr = (uint16_t) ubrr;
+	ubrr = BAUDRATEnormal(baud);
+	usart0.par.ubrr = ubrr;
 	// Vtable
 	usart0.read = uart0_read;
 	usart0.getch = uart0_getch;
@@ -50,15 +60,15 @@ USART0 USART0enable(uint32_t baudrate, unsigned int FDbits, unsigned int Stopbit
 	if ( ubrr & 0x8000 ) // The transfer rate can be doubled by setting the U2X bit in UCSRA.
 	{
    		atmega128.usart0.reg->ucsr0a = (1 << U2X0);  // Enable 2x speed 
-   		ubrr = F_CPU/8; ubrr /= baudrate; ubrr -= 1;
-		usart0.par.ubrr = (uint16_t) ubrr;
+   		ubrr = BAUDRATEdouble(baud);
+		usart0.par.ubrr = ubrr;
    	}
 	atmega128.usart0.reg->ubrr0h = atmega128.writehlbyte(ubrr).H;
 	atmega128.usart0.reg->ubrr0l = atmega128.writehlbyte(ubrr).L;
 	// Enable USART receiver and transmitter and receive complete interrupt
-	atmega128.usart0.reg->ucsr0b = _BV(RXCIE0) | (1 << RXEN0) | (1 << TXEN0);
-	// Set frame format: asynchronous, 8 data, no parity, 1 stop bit
-	#ifdef URSEL0
+	atmega128.usart0.reg->ucsr0b = (1 << RXCIE0) | (1 << RXEN0) | (1 << TXEN0);
+	
+	#ifdef URSEL0 // Set frame format: asynchronous, 8 data, no parity, 1 stop bit
 		atmega128.usart0->ucsr0c = (1 << UMSEL0) | (3 << UCSZ00);
 		usart0.par.FDbits = 8;
 		usart0.par.Stopbits = 1;
@@ -132,7 +142,7 @@ USART0 USART0enable(uint32_t baudrate, unsigned int FDbits, unsigned int Stopbit
 			break;
 		}
 	#endif
-	atmega128.cpu.reg->sreg |= _BV(GLOBAL_INTERRUPT_ENABLE);
+	atmega128.cpu.reg->sreg |= (1 << GLOBAL_INTERRUPT_ENABLE);
 	return usart0;
 }
 UARTvar uart0_read(void)
@@ -154,11 +164,12 @@ UARTvar* uart0_gets(void)
 void uart0_rxflush(void)
 {
 	rx0buff.flush(&rx0buff.par);
+	UART0_LastRxError = 0;
 }
 void uart0_write(UARTvar data)
 {
 	atmega128.usart0.reg->udr0 = data;
-	atmega128.usart0.reg->ucsr0b |= _BV(UDRIE0);
+	atmega128.usart0.reg->ucsr0b |= 1 << UDRIE0;
 	_delay_ms(1);
 }
 void uart0_putch(UARTvar c)
@@ -180,11 +191,11 @@ ISR(UART0_RECEIVE_INTERRUPT)
 	unsigned char bit9;
 	unsigned char usr;
 	
-	usr  = atmega128.usart0.reg->ucsr0a;
+	usr  = USART0ReadErrors();
 	bit9 = atmega128.usart0.reg->ucsr0b;
 	bit9 = 0x01 & (bit9 >> 1);
 	
-	UART0_LastRxError = (usr & (_BV(FE0) | _BV(DOR0)));
+	if(usr){ UART0_LastRxError = usr; }
 	
 	UART0_Rx = atmega128.usart0.reg->udr0;
 	rx0buff.push(&rx0buff.par, UART0_Rx);
@@ -192,7 +203,45 @@ ISR(UART0_RECEIVE_INTERRUPT)
 
 ISR(UART0_TRANSMIT_INTERRUPT)
 {
-	atmega128.usart0.reg->ucsr0b &= ~_BV(UDRIE0);
+	atmega128.usart0.reg->ucsr0b &= ~(1 << UDRIE0);
+}
+
+/*** Complimentary functions ***/
+uint8_t USART0ReceiveComplete(void)
+{
+	return (UCSR0A & (1 << RXC0));
+}
+uint8_t USART0TransmitComplete(void)
+{
+	return (UCSR0A & (1 << TXC0));
+}
+uint8_t USART0DataRegisterEmpty(void)
+{
+	return (UCSR0A & (1 << UDRE0));
+}
+uint8_t USART0FrameError(void)
+{
+	return (UCSR0A & (1 << FE0));
+}
+uint8_t USART0DataOverRun(void)
+{
+	return (UCSR0A & (1 << DOR0));
+}
+uint8_t USART0ParityError(void)
+{
+	return (UCSR0A & (1 << FE0));
+}
+uint8_t USART0ReadErrors(void)
+{
+	return atmega128.readreg(UCSR0A,3,2);
+}
+void USART0ClearErrors(void)
+{
+	atmega128.setreg(&UCSR0A,3,2,0);
+}
+void USART0DoubleTransmissionSpeed(void)
+{
+	atmega128.setreg(&UCSR0A,4,1,1);
 }
 
 /***EOF***/

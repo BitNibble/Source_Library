@@ -11,25 +11,12 @@ Comment:
 /*** File Library ***/
 #include "atmega328mapping.h"
 
-/*** File Define & Macro ***/
-// STATIC RAM
-#define Atmega328InterruptVectors_Address 0x0100
-
-/*** File Variable ***/
-//ATMEGA328 atmega328;
-
 /***File Header***/
 uint16_t Atmega328_ReadHLByte(HighLowByte reg);
 uint16_t Atmega328_ReadLHByte(HighLowByte reg);
 HighLowByte Atmega328_WriteHLByte(uint16_t val);
 HighLowByte Atmega328_WriteLHByte(uint16_t val);
 uint16_t Atmega328_SwapByte(uint16_t num);
-uint8_t Atmega328_ByteMask(uint8_t target, uint8_t mask);
-void Atmega328_ByteSet(uint8_t* target, uint8_t set);
-void Atmega328_ByteClear(uint8_t* target, uint8_t clear);
-uint8_t Atmega328_ByteShiftright(uint8_t target, uint8_t shift);
-uint8_t Atmega328_ByteShiftleft(uint8_t target, uint8_t shift);
-/*** File Procedure & Function Definition***/
 uint8_t readreg(uint8_t reg, uint8_t size_block, uint8_t bit);
 void writereg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);
 void setreg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);
@@ -123,11 +110,6 @@ ATMEGA328 ATMEGA328enable(void){
 	atmega328.writehlbyte = Atmega328_WriteHLByte;
 	atmega328.writelhbyte = Atmega328_WriteLHByte;
 	atmega328.swapbyte = Atmega328_SwapByte;
-	atmega328.byte_mask = Atmega328_ByteMask;
-	atmega328.byte_set = Atmega328_ByteSet;
-	atmega328.byte_clear = Atmega328_ByteClear;
-	atmega328.byte_shiftright = Atmega328_ByteShiftright;
-	atmega328.byte_shiftleft = Atmega328_ByteShiftleft;
 	atmega328.readreg = readreg;
 	atmega328.writereg = writereg;
 	atmega328.setreg = setreg;
@@ -140,62 +122,53 @@ ATMEGA328 ATMEGA328enable(void){
 	return atmega328;
 }
 
-// COMMON
+/*** Global Procedure & Function Definition***/
+uint16_t BAUDRATEnormal(uint32_t BAUD)
+{
+	uint32_t baudrate = F_CPU/16;
+	baudrate /= BAUD;
+	baudrate -= 1;
+	return (uint16_t) baudrate;
+}
+uint16_t BAUDRATEdouble(uint32_t BAUD)
+{
+	uint32_t baudrate = F_CPU/8;
+	baudrate /= BAUD;
+	baudrate -= 1;
+	return (uint16_t) baudrate;
+}
+uint16_t BAUDRATEsynchronous(uint32_t BAUD)
+{
+	uint32_t baudrate = F_CPU/2;
+	baudrate /= BAUD;
+	baudrate -= 1;
+	return (uint16_t) baudrate;
+}
+/*** File Procedure & Function Definition***/
 uint16_t Atmega328_ReadHLByte(HighLowByte reg)
 {
 	return (reg.H << 8) | reg.L;
 }
-
 uint16_t Atmega328_ReadLHByte(HighLowByte reg)
 {
 	return (reg.L << 8) | reg.H;
 }
-
 HighLowByte Atmega328_WriteHLByte(uint16_t val) // AVR normal little endian
 {
 	HighLowByte reg; reg.H = (val >> 8); reg.L = val;
 	return reg;
 }
-
 HighLowByte Atmega328_WriteLHByte(uint16_t val)
 {
 	HighLowByte reg; reg.L = (val >> 8); reg.H = val;
 	return reg;
 }
-
 uint16_t Atmega328_SwapByte(uint16_t num)
 {
 	uint16_t tp;
 	tp = (num << 8);
 	return (num >> 8) | tp;
 }
-
-uint8_t Atmega328_ByteMask(uint8_t target, uint8_t mask)
-{
-	return target & mask;
-}
-
-void Atmega328_ByteSet(uint8_t* target, uint8_t set)
-{
-	*target |= set;
-}
-
-void Atmega328_ByteClear(uint8_t* target, uint8_t clear)
-{
-	*target &= ~clear;
-}
-
-uint8_t Atmega328_ByteShiftright(uint8_t target, uint8_t shift)
-{
-	return target >> shift;
-}
-
-uint8_t Atmega328_ByteShiftleft(uint8_t target, uint8_t shift)
-{
-	return target << shift;
-}
-
-/*** File Procedure & Function Definition***/
 uint8_t readreg(uint8_t reg, uint8_t size_block, uint8_t bit)
 {
 	if(bit > DATA_BITS){ bit = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
@@ -241,7 +214,7 @@ void writereg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t da
 	value |= data;
 	*reg = value;
 }
-/******/
+/****** System ******/
 void Atmega328ClockPrescalerSelect(volatile uint8_t prescaler)
 {
 	volatile uint8_t sreg;
@@ -266,35 +239,6 @@ void Atmega328MoveInterruptsToBoot(void)
 	
 	atmega328.cpu.reg->sreg = sreg;
 }
-
-/*** File Interrupt ***/
-// ISR(RESET_vect){}
-// ISR(INT0_vect){}
-// ISR(INT1_vect){}
-// ISR(PCINT0_vect){}
-// ISR(PCINT1_vect){}
-// ISR(PCINT2_vect){}
-// ISR(WDT_vect){}
-// ISR(TIMER2_COMPA_vect){}
-// ISR(TIMER2_COMPB_vect){}
-// ISR(TIMER2_OVF_vect){}
-// ISR(TIMER1_CAPT_vect){}
-// ISR(TIMER1_COMPA_vect){}
-// ISR(TIMER1_COMPB_vect){}
-// ISR(TIMER1_OVF_vect){}
-// ISR(TIMER0_COMPA_vect){}
-// ISR(TIMER0_COMPB_vect){}
-// ISR(TIMER0_OVF_vect){}
-// ISR(SPI_STC_vect){}
-// ISR(USART_RX_vect){}
-// ISR(USART_UDRE_vect){}
-// ISR(USART_TX_vect){}
-// ISR(ADC_vect){}
-// ISR(EE_READY_vect){}
-// ISR(ANALOG_INTERRUPT)
-// ISR(ANALOG_COMP_vect){}
-// ISR(TWI_vect){}
-// ISR(SPM_READY_vect){}
 
 /***EOF***/
 

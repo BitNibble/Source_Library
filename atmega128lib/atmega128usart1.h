@@ -81,7 +81,7 @@ typedef struct uart1 USART1;
 /*** Global Var ***/
 USART1 usart1;
 /*** Global Header ***/
-USART1 USART1enable(uint32_t baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
+USART1 USART1enable(uint32_t baud, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 
 #endif
 /***EOF***/

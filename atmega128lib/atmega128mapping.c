@@ -22,11 +22,11 @@ void ByteSet(uint8_t* target, uint8_t set);
 void ByteClear(uint8_t* target, uint8_t clear);
 uint8_t ByteShiftright(uint8_t target, uint8_t shift);
 uint8_t ByteShiftleft(uint8_t target, uint8_t shift);
-uint8_t readreg(uint8_t reg, uint8_t size_block, uint8_t bit);
-uint8_t getsetbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit);
-void setreg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);
-void setbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);
-void writereg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data);
+uint8_t readreg(uint8_t reg, uint8_t size_block, uint8_t bit_n);
+uint8_t getsetbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit_n);
+void setreg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit_n, uint8_t data);
+void setbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit_n, uint8_t data);
+void writereg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit_n, uint8_t data);
 /******/
 void ClockPrescalerSelect(volatile uint8_t prescaler);
 void MoveInterruptsToBoot(void);
@@ -136,6 +136,28 @@ ATMEGA128 ATMEGA128enable(void){
 	return atmega128;
 }
 
+/*** Global Procedure & Function Definition***/
+uint16_t BAUDRATEnormal(uint32_t BAUD)
+{
+	uint32_t baudrate = F_CPU/16;
+	baudrate /= BAUD;
+	baudrate -= 1;
+	return (uint16_t) baudrate;
+}
+uint16_t BAUDRATEdouble(uint32_t BAUD)
+{
+	uint32_t baudrate = F_CPU/8;
+	baudrate /= BAUD;
+	baudrate -= 1;
+	return (uint16_t) baudrate;
+}
+uint16_t BAUDRATEsynchronous(uint32_t BAUD)
+{
+	uint32_t baudrate = F_CPU/2;
+	baudrate /= BAUD;
+	baudrate -= 1;
+	return (uint16_t) baudrate;
+}
 /*** File Procedure & Function Definition***/
 uint16_t ReadHLByte(HighLowByte reg)
 {
@@ -161,53 +183,52 @@ uint16_t SwapByte(uint16_t num)
 	tp = (num << 8);
 	return (num >> 8) | tp;
 }
-uint8_t readreg(uint8_t reg, uint8_t size_block, uint8_t bit)
+uint8_t readreg(uint8_t reg, uint8_t size_block, uint8_t bit_n)
 {
-	if(bit > DATA_BITS){ bit = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
+	if(bit_n > DATA_BITS){ bit_n = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
 	uint8_t mask = (unsigned int)((1 << size_block) - 1);
-	reg &= (mask << bit);
-	reg = (reg >> bit);
+	reg &= (mask << bit_n);
+	reg = (reg >> bit_n);
 	return reg;
 }
-uint8_t getsetbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit)
+uint8_t getsetbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit_n)
 {
 	uint8_t n = 0;
-	if(bit > DATA_BITS){ n = bit/DATA_SIZE; bit = bit - (n * DATA_SIZE); } if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
+	if(bit_n > DATA_BITS){ n = bit_n/DATA_SIZE; bit_n = bit_n - (n * DATA_SIZE); } if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
 	uint8_t value = *(reg + n );
 	uint8_t mask = (unsigned int)((1 << size_block) - 1);
-	value &= (mask << bit);
-	value = (value >> bit);
+	value &= (mask << bit_n);
+	value = (value >> bit_n);
 	return value;
 }
-void setreg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data)
+void setreg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit_n, uint8_t data)
 {
-	if(bit > DATA_BITS){ bit = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
+	if(bit_n > DATA_BITS){ bit_n = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
 	uint8_t mask = (unsigned int)((1 << size_block) - 1);
 	data &= mask;
-	*reg &= ~(mask << bit);
-	*reg |= (data << bit);
+	*reg &= ~(mask << bit_n);
+	*reg |= (data << bit_n);
 }
-void setbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data)
+void setbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit_n, uint8_t data)
 {
 	uint8_t n = 0;
-	if(bit > DATA_BITS){ n = bit/DATA_SIZE; bit = bit - (n * DATA_SIZE); } if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
+	if(bit_n > DATA_BITS){ n = bit_n/DATA_SIZE; bit_n = bit_n - (n * DATA_SIZE); } if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
 	uint8_t mask = (unsigned int)((1 << size_block) - 1);
 	data &= mask;
-	*(reg + n ) &= ~(mask << bit);
-	*(reg + n ) |= (data << bit);
+	*(reg + n ) &= ~(mask << bit_n);
+	*(reg + n ) |= (data << bit_n);
 }
-void writereg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit, uint8_t data)
+void writereg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit_n, uint8_t data)
 {
-	if(bit > DATA_BITS){ bit = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
+	if(bit_n > DATA_BITS){ bit_n = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
 	uint8_t value = *reg;
 	uint8_t mask = (unsigned int)((1 << size_block) - 1);
-	data &= mask; value &= ~(mask << bit);
-	data = (data << bit);
+	data &= mask; value &= ~(mask << bit_n);
+	data = (data << bit_n);
 	value |= data;
 	*reg = value;
 }
-
-/************/
+/****** System ******/
 void ClockPrescalerSelect(volatile uint8_t prescaler)
 {
 	volatile uint8_t sreg;
@@ -221,7 +242,6 @@ void ClockPrescalerSelect(volatile uint8_t prescaler)
 	
 	atmega128.cpu.reg->sreg = sreg;
 }
-
 void MoveInterruptsToBoot(void)
 {
 	volatile uint8_t sreg;
