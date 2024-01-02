@@ -43,8 +43,9 @@ void USART1DoubleTransmissionSpeed(void);
 /*** Procedure & Function ***/
 USART1 USART1enable(uint32_t baud, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity )
 {
-	uint16_t ubrr = 0;
 	ATMEGA128enable();
+	
+	uint16_t ubrr = 0;
 	rx1buff = BUFFenable( UART1_RX_BUFFER_SIZE, UART1_RxBuf );
 	ubrr = BAUDRATEnormal(baud);
 	usart1.par.ubrr = ubrr;
@@ -58,7 +59,7 @@ USART1 USART1enable(uint32_t baud, unsigned int FDbits, unsigned int Stopbits, u
 	usart1.puts = uart1_puts;
 	// Set baud rate
 	if ( ubrr & 0x8000 ) {
-		atmega128.usart1.reg->ucsr1a = (1 << U2X1);  // Enable 2x speed 
+		USART1DoubleTransmissionSpeed(); // Enable 2x speed 
 		ubrr = BAUDRATEdouble(baud);
 		usart1.par.ubrr = ubrr;
 	}

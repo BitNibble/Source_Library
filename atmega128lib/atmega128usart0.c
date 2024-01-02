@@ -43,8 +43,9 @@ void USART0DoubleTransmissionSpeed(void);
 /*** Procedure & Function ***/
 USART0 USART0enable(uint32_t baud, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity )
 {
-	uint16_t ubrr = 0;
 	ATMEGA128enable();
+	
+	uint16_t ubrr = 0;
 	rx0buff = BUFFenable( UART0_RX_BUFFER_SIZE, UART0_RxBuf );
 	ubrr = BAUDRATEnormal(baud);
 	usart0.par.ubrr = ubrr;
@@ -59,7 +60,7 @@ USART0 USART0enable(uint32_t baud, unsigned int FDbits, unsigned int Stopbits, u
 	// Set baud rate
 	if ( ubrr & 0x8000 ) // The transfer rate can be doubled by setting the U2X bit in UCSRA.
 	{
-   		atmega128.usart0.reg->ucsr0a = (1 << U2X0);  // Enable 2x speed 
+   		USART0DoubleTransmissionSpeed(); // Enable 2x speed 
    		ubrr = BAUDRATEdouble(baud);
 		usart0.par.ubrr = ubrr;
    	}

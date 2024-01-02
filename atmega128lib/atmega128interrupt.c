@@ -23,14 +23,10 @@ uint8_t INTERRUPT_reset_status(void);
 
 /*** Procedure & Function ***/
 INTERRUPT INTERRUPTenable(void)
-// Setup blank
-
 {
-	INTERRUPT exint;
 	ATMEGA128enable();
 	
 	atmega128.exint.reg->eimsk = 0x00;
-	
 	exint.set = INTERRUPT_set;
 	exint.off = INTERRUPT_off;
 	exint.on = INTERRUPT_on;
@@ -307,16 +303,6 @@ void INTERRUPT_on(uint8_t channel)
 		break;
 	}
 }
-
-/*** File Interrupt ***/
-// ISR(INT0_vect){ }
-// ISR(INT1_vect){ }
-// ISR(INT2_vect){ }
-// ISR(INT3_vect){ }
-// ISR(INT4_vect){ }
-// ISR(INT5_vect){ }
-// ISR(INT6_vect){ }
-// ISR(INT7_vect){ }
 
 /***EOF***/
 

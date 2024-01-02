@@ -31,7 +31,7 @@ void TWI_wait_twint( uint16_t nticks );
 TWI TWIenable(uint8_t atmega_ID,  uint8_t prescaler)
 {
 	ATMEGA128enable();
-	TWI twi;
+	
 	// Vtable
 	twi.start = TWI_start;
 	twi.connect = TWI_connect;

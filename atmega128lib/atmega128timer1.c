@@ -309,21 +309,5 @@ uint8_t TIMER_COUNTER1_stop(void)
 	return timer1_state;
 }
 
-/*** File Interrupt ***/
-// ISR(TIMER0_COMP_vect){};
-// ISR(TIMER0_OVF_vect){};
-// ISR(TIMER1_CAPT_vect){};
-// ISR(TIMER1_COMPA_vect){};
-// ISR(TIMER1_COMPB_vect){};
-// ISR(TIMER1_COMPC_vect){};
-// ISR(TIMER1_OVF_vect){};
-// ISR(TIMER2_COMP_vect){};
-// ISR(TIMER2_OVF_vect){};
-// ISR(TIMER3_CAPT_vect){};
-// ISR(TIMER3_COMPA_vect){};
-// ISR(TIMER3_COMPB_vect){};
-// ISR(TIMER3_COMPC_vect){};
-// ISR(TIMER3_OVF_vect){};
-
 /***EOF***/
 

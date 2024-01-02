@@ -23,7 +23,6 @@ Comment:
 	#define MAX_CHANNEL 32
 	// ADC_NUMBER_SAMPLE^2 gives number of samples, note values can only range from 0 to 4.
 	#define ADC_NUMBER_SAMPLE 2
-	#define ATMEGA_128_ANALOG
 	#define MUX_MASK 31
 #else
 	#error "Not Atmega 128"
@@ -42,9 +41,11 @@ struct analog{
 
 typedef struct analog ANALOG;
 
+ANALOG adc;
 /*** Global Header ***/
 ANALOG ANALOGenable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... );
 
 #endif
+
 /***EOF***/
 

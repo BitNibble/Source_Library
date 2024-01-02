@@ -32,6 +32,7 @@ struct ntrrpt{
 };
 typedef struct ntrrpt INTERRUPT;
 
+INTERRUPT exint;
 /*** Global Header ***/
 INTERRUPT INTERRUPTenable(void);
 

@@ -10,11 +10,6 @@ Comment:
 ************************************************************************/
 #ifndef _ATMEGA128_H_
 	#define _ATMEGA128_H_
-	
-/*** Compiler ***/
-#if (__GNUC__ * 100 + __GNUC_MINOR__) < 304
-	#error "This library requires AVR-GCC 3.4 or later, update to newer AVR-GCC compiler !"
-#endif
 
 /*** Global Library ***/
 #include <inttypes.h>
@@ -369,9 +364,10 @@ typedef struct { // IVSEL = 0
 
 #endif
 
+/***EOF***/
+
 /***
 MASK FLAG CONTROL STATUS
 ***/
 
-/***EOF***/
 

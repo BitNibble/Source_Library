@@ -23,8 +23,8 @@ uint8_t spi_fast_shift (uint8_t data);
 /*** Procedure & Function ***/
 SPI SPIenable(uint8_t master_slave_select, uint8_t data_order,  uint8_t data_modes, uint8_t prescaler)
 {
-	SPI spi;
 	ATMEGA128enable();
+	
 	spi.transfer_sync = spi_transfer_sync;
 	spi.transmit_sync = spi_transmit_sync;
 	spi.fast_shift = spi_fast_shift;
@@ -151,9 +151,6 @@ uint8_t spi_fast_shift (uint8_t data)
 	while((atmega128.spi.reg->spsr & (1 << SPIF)) == 0) ; // polling, serial transfer is complete interrupt.
 	return atmega128.spi.reg->spdr;
 }
-
-/*** File Interrupt ***/
-// ISR(SPI_STC_vect){ }
 
 /***EOF***/
 

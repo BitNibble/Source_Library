@@ -14,7 +14,7 @@ Comment:
 	#define _ATMEGA128MAPPING_H_
 	
 /*** Working Frequency ***/
-// User May change to conform to usage
+// User May change to conform to use
 #ifndef F_CPU
 	#define F_CPU 16000000UL
 #endif
@@ -40,7 +40,7 @@ Comment:
 /*********************************************************/
 /****************** Include Switches  ********************/
 /*********************************************************/
-// User may Commented out if not in used
+// User may Comment out if not in use
 // MODULES
 #define _ANALOG_MODULE_
 #define _TIMER0_MODULE_
@@ -117,7 +117,6 @@ Comment:
 typedef struct {
 	HighLowByte HLbyte;
 }Atmega128Parameter;
-
 /********************/
 /*** Second Layer ***/
 /********************/
@@ -282,7 +281,6 @@ typedef struct {
 typedef struct {
 	Atmega128WatchdogTimer_TypeDef* reg;
 } Atmega128WatchdogTimer;
-
 /*******************************************************************/
 /************************* ATMEGA 128 IMAGE ************************/
 /*************************** Third Layer ***************************/
@@ -290,7 +288,7 @@ typedef struct {
 typedef struct {
 	//		PARAMETER
 	Atmega128Parameter par;
-	//		SECOND LAYER
+	//		Second Layer
 	Atmega128GPWR gpwr;
 	Atmega128AnalogComparator ac;
 	Atmega128AnalogToDigitalConverter adc;
@@ -356,14 +354,6 @@ uint16_t BAUDRATEsynchronous(uint32_t BAUD);
 // ISR(EXT_INT5_vect){}
 // ISR(EXT_INT6_vect){}
 // ISR(EXT_INT7_vect){}
-// ISR(TIM2_COMP_vect){}
-// ISR(TIM2_OVF_vect){}
-// ISR(TIM1_CAPT_vect){}
-// ISR(TIM1_COMPA_vect){}
-// ISR(TIM1_COMPB_vect){}
-// ISR(TIM1_OVF_vect){}
-// ISR(TIM0_COMP_vect){}
-// ISR(TIM0_OVF_vect){}
 // ISR(SPI_STC_vect){}
 // ISR(USART0_RXC_vect){}
 // ISR(USART0_DRE_vect){}
@@ -371,15 +361,31 @@ uint16_t BAUDRATEsynchronous(uint32_t BAUD);
 // ISR(ADC_vect){}
 // ISR(EE_RDY_vect){}
 // ISR(ANA_COMP_vect){}
-// ISR(TIM1_COMPC_vect){}
-// ISR(TIM3_CAPT_vect){}
-// ISR(TIM3_COMPA_vect){}
-// ISR(TIM3_COMPB_vect){}
-// ISR(TIM3_COMPC_vect){}
-// ISR(TIM3_OVF_vect){}
 // ISR(USART1_RXC_vect){}
 // ISR(USART1_DRE_vect){}
 // ISR(USART1_TXC_vect){}
 // ISR(TWI_vect){}
 // ISR(SPM_RDY_vect){}
+// ISR(INT0_vect){ }
+// ISR(INT1_vect){ }
+// ISR(INT2_vect){ }
+// ISR(INT3_vect){ }
+// ISR(INT4_vect){ }
+// ISR(INT5_vect){ }
+// ISR(INT6_vect){ }
+// ISR(INT7_vect){ }
+// ISR(TIMER0_COMP_vect){};
+// ISR(TIMER0_OVF_vect){};
+// ISR(TIMER1_CAPT_vect){};
+// ISR(TIMER1_COMPA_vect){};
+// ISR(TIMER1_COMPB_vect){};
+// ISR(TIMER1_COMPC_vect){};
+// ISR(TIMER1_OVF_vect){};
+// ISR(TIMER2_COMP_vect){};
+// ISR(TIMER2_OVF_vect){};
+// ISR(TIMER3_CAPT_vect){};
+// ISR(TIMER3_COMPA_vect){};
+// ISR(TIMER3_COMPB_vect){};
+// ISR(TIMER3_COMPC_vect){};
+// ISR(TIMER3_OVF_vect){};
 
