@@ -74,6 +74,7 @@ ATMEGA128 ATMEGA128enable(void){
 	// SPI
 	atmega128.spi.reg = (Atmega128SerialPeripherialInterface_TypeDef*) Atmega128SerialPeripherialInterface_Address;
 	#if defined(_SPI_MODULE_)
+		atmega128.spi.run = &spi;
 		atmega128.spi.enable = SPIenable;
 	#endif
 	// TC1
@@ -102,6 +103,7 @@ ATMEGA128 ATMEGA128enable(void){
 	// TWI
 	atmega128.twi.reg = (Atmega128TwoWireSerialInterface_TypeDef*) Atmega128TwoWireSerialInterface_Address;
 	#if defined(_TWI_MODULE_)
+		atmega128.twi.run = &twi;
 		atmega128.twi.enable = TWIenable;
 	#endif
 	// USART0

@@ -214,6 +214,7 @@ typedef struct {
 typedef struct {
 	Atmega128SerialPeripherialInterface_TypeDef* reg;
 	#if defined(_SPI_MODULE_)
+		SPI* run;
 		SPI (*enable)(uint8_t master_slave_select, uint8_t data_order,  uint8_t data_modes, uint8_t prescaler);
 	#endif
 } Atmega128SerialPeripherialInterface;
@@ -257,6 +258,7 @@ typedef struct {
 typedef struct {
 	Atmega128TwoWireSerialInterface_TypeDef* reg;
 	#if defined(_TWI_MODULE_)
+		TWI* run;
 		TWI (*enable)(uint8_t atmega_ID,  uint8_t prescaler);
 	#endif
 } Atmega128TwoWireSerialInterface;
