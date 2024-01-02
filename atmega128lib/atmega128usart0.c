@@ -151,7 +151,6 @@ UARTvar uart0_read(void)
 	UARTvar c;
 	c = UART0_Rx;
 	UART0_Rx = 0;
-	_delay_ms(1);
 	return c;
 }
 UARTvar uart0_getch(void)
@@ -169,9 +168,11 @@ void uart0_rxflush(void)
 }
 void uart0_write(UARTvar data)
 {
-	atmega128.usart0.reg->udr0 = data;
+	uint16_t timeout;
 	atmega128.usart0.reg->ucsr0b |= 1 << UDRIE0;
-	_delay_ms(1);
+	atmega128.usart0.reg->udr0 = data;
+	for( timeout = 600; !USART0DataRegisterEmpty() && timeout; timeout-- ); // minimum -> +/- 450
+	//for( ; !USART0DataRegisterEmpty(); ); // without timeout
 }
 void uart0_putch(UARTvar c)
 {
