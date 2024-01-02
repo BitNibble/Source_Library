@@ -24,8 +24,8 @@ Comment:
 #include <avr/fuse.h>
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
-#include <stdlib.h>
 #include <inttypes.h>
+#include <string.h>
 #include <math.h>
 /*** RAW IMAGE ***/
 #include "atmega128.h"
@@ -265,6 +265,7 @@ typedef struct {
 typedef struct {
 	Atmega128Usart0_TypeDef* reg;
 	#if defined(_USART0_MODULE_)
+		USART0* run;
 		USART0 (*enable)(uint32_t baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 	#endif
 } Atmega128Usart0;
@@ -273,6 +274,7 @@ typedef struct {
 typedef struct {
 	Atmega128Usart1_TypeDef* reg;
 	#if defined(_USART1_MODULE_)
+		USART1* run;
 		USART1 (*enable)(uint32_t baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 	#endif
 } Atmega128Usart1;

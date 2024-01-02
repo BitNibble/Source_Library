@@ -83,6 +83,9 @@ USART1 usart1;
 /*** Global Header ***/
 USART1 USART1enable(uint32_t baud, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 
+char* usart1messageprint(USART1* uart, char* oneshot, char* msg, char endl);
+
 #endif
+
 /***EOF***/
 

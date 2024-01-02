@@ -22,6 +22,7 @@ Comment:
 #include <inttypes.h>
 
 /*** Global Constant & Macro ***/
+#define FUNCSTRSIZE 31
 
 /*** Global Variable ***/
 typedef struct
@@ -42,8 +43,6 @@ typedef struct
 	int (*pmax)(int a1, int a2);
 	int (*gcd)(int u, int v);
 	int (*strToInt)(const char string[]);
-	uint8_t (*filter)(uint8_t mask, uint8_t data);
-	unsigned int (*ticks)(unsigned int num);
 	int (*twocomptoint8bit)(int twoscomp);
 	int (*twocomptoint10bit)(int twoscomp);
 	int (*twocomptointnbit)(int twoscomp, uint8_t nbits);
@@ -54,7 +53,6 @@ typedef struct
 	unsigned char (*bcd2bin)(unsigned char val);
 	unsigned char (*bin2bcd)(unsigned val);
 	long (*gcd1)(long a, long b);
-	uint8_t (*pincheck)(uint8_t port, uint8_t pin);
 	char* (*print_binary)(unsigned int n_bits, unsigned int number);
 	char* (*ftoa)(double num, uint8_t afterpoint);
 	char* (*dectohex)(int32_t num);

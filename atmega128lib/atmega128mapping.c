@@ -11,6 +11,8 @@ Comment:
 /*** File Library ***/
 #include "atmega128mapping.h"
 
+/*** File Variables ***/
+
 /*** File Header ***/
 uint16_t ReadHLByte(HighLowByte reg);
 uint16_t ReadLHByte(HighLowByte reg);
@@ -105,11 +107,13 @@ ATMEGA128 ATMEGA128enable(void){
 	// USART0
 	atmega128.usart0.reg = (Atmega128Usart0_TypeDef*) Atmega128Usart0_Address;
 	#if defined(_USART0_MODULE_)
+		atmega128.usart0.run = &usart0;
 		atmega128.usart0.enable = USART0enable;
 	#endif
 	// USART1
 	atmega128.usart1.reg = (Atmega128Usart1_TypeDef*) Atmega128Usart1_Address;
 	#if defined(_USART1_MODULE_)
+		atmega128.usart1.run = &usart1;
 		atmega128.usart1.enable = USART1enable;
 	#endif
 	atmega128.wdt.reg = (Atmega128WatchdogTimer_TypeDef*) Atmega128WatchdogTimer_Address;

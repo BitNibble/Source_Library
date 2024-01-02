@@ -20,6 +20,7 @@ BUFF rx1buff;
 UARTvar UART1_Rx;
 UARTvar UART1_RxBuf[UART1_RX_BUFFER_SIZE + 1];
 uint8_t UART1_LastRxError;
+static uint8_t uart1flag;
 
 /*** File Header ***/
 UARTvar uart1_read(void);
@@ -209,6 +210,14 @@ SIGNAL(UART1_TRANSMIT_INTERRUPT)
 }
 
 /*** Complimentary functions ***/
+char* usart1messageprint(USART1* uart, char* oneshot, char* msg, char endl)
+{
+	char* ptr;
+	if(uart1flag){ *oneshot = 0; uart1flag = 0; uart->rxflush();} // the matrix
+	ptr = uart->gets();
+	if(uart->getch() == endl){ strcpy(oneshot, ptr); strcpy(msg, ptr); uart1flag = 0xFF;}
+	return ptr;
+}
 uint8_t USART1ReceiveComplete(void)
 {
 	return (UCSR1A & (1 << RXC1));

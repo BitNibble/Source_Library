@@ -16,9 +16,6 @@ Comment:
 #include <stdarg.h>
 #include <math.h>
 
-/*** File Constant & Macro ***/
-#define FUNCSTRSIZE 31
-
 /*** File Variable ***/
 static char FUNCstr[FUNCSTRSIZE + 1];
 
@@ -40,8 +37,6 @@ int FUNCtrim(char s[]);
 int FUNCpmax(int a1, int a2);
 int FUNCgcd (int u, int v);
 int FUNCstrToInt (const char string[]);
-uint8_t FUNCfilter(uint8_t mask, uint8_t data);
-unsigned int FUNCticks(unsigned int num);
 int FUNCtwocomptoint8bit(int twoscomp);
 int FUNCtwocomptoint10bit(int twoscomp);
 int FUNCtwocomptointnbit(int twoscomp, uint8_t nbits);
@@ -52,7 +47,6 @@ long FUNCtrimmer(long x, long in_min, long in_max, long out_min, long out_max);
 unsigned char FUNCbcd2bin(unsigned char val);
 unsigned char FUNCbin2bcd(unsigned val);
 long FUNCgcd1(long a, long b);
-uint8_t FUNCpincheck(uint8_t port, uint8_t pin);
 char* FUNCprint_binary(unsigned int n_bits, unsigned int number);
 void FUNCreverse(char* str, int len);
 uint8_t FUNCintinvstr(uint32_t num, uint8_t index);
@@ -96,8 +90,6 @@ FUNC FUNCenable( void )
 	func.pmax = FUNCpmax;
 	func.gcd = FUNCgcd;
 	func.strToInt = FUNCstrToInt;
-	func.filter = FUNCfilter;
-	func.ticks = FUNCticks;
 	func.twocomptoint8bit = FUNCtwocomptoint8bit;
 	func.twocomptoint10bit = FUNCtwocomptoint10bit;
 	func.twocomptointnbit = FUNCtwocomptointnbit;
@@ -108,7 +100,6 @@ FUNC FUNCenable( void )
 	func.bcd2bin = FUNCbcd2bin;
 	func.bin2bcd = FUNCbin2bcd;
 	func.gcd1 = FUNCgcd1;
-	func.pincheck = FUNCpincheck;
 	func.print_binary = FUNCprint_binary;
 	func.ftoa = FUNCftoa;
 	func.dectohex = FUNCdectohex;
@@ -134,7 +125,7 @@ unsigned int FUNCmayia(unsigned int xi, unsigned int xf, uint8_t nbits)
 	unsigned int mask;
 	unsigned int diff;
 	unsigned int trans;
-	mask = (unsigned int)(pow(2, nbits) - 1);
+	mask = (unsigned int)((1 << nbits) - 1);
 	xi &= mask;
 	xf &= mask;
 	diff = xf ^ xi;
@@ -144,18 +135,14 @@ unsigned int FUNCmayia(unsigned int xi, unsigned int xf, uint8_t nbits)
 // interchange *px and *py
 void FUNCswap(long *px, long *py)
 {
-	long temp;
-	temp = *px;
-	*px = *py;
-	*py = temp;
+	long temp = *px;
+	*px = *py; *py = temp;
 }
 // copy: copy 'from' into 'to'; assume to is big enough
 void FUNCcopy(char to[], char from[])
 {
-	int i;
-	i = 0;
-	while ((to[i] = from[i]) != '\0')
-		++i;
+	int i = 0;
+	while ((to[i] = from[i]) != '\0') ++i;
 }
 // squeeze: delete all c from s
 void FUNCsqueeze(char s[], int c)
@@ -201,8 +188,7 @@ char* FUNCi32toa(int32_t n)
 	do { // generate digits in reverse order
 		FUNCstr[i++] = (char) (n % 10 + '0'); // get next digit
 	}while ((n /= 10) > 0); // delete it
-	if (sign < 0)
-		FUNCstr[i++] = '-';
+	if (sign < 0) FUNCstr[i++] = '-';
 	FUNCstr[i] = '\0';
 	Reverse(FUNCstr);
 	return FUNCstr;
@@ -218,8 +204,7 @@ char* FUNCi16toa(int16_t n)
 	do { // generate digits in reverse order
 		FUNCstr[i++] = (char) (n % 10 + '0'); // get next digit
 	}while ((n /= 10) > 0); // delete it
-	if (sign < 0)
-		FUNCstr[i++] = '-';
+	if (sign < 0) FUNCstr[i++] = '-';
 	FUNCstr[i] = '\0';
 	Reverse(FUNCstr);
 	return FUNCstr;
@@ -247,11 +232,7 @@ int FUNCtrim(char s[])
 int FUNCpmax(int a1, int a2)
 {
 	int biggest;
-	if(a1 > a2){
-		biggest = a1;
-	}else{
-		biggest = a2;
-	}
+	if(a1 > a2){ biggest = a1; }else{ biggest = a2; }
 	return biggest;
 }
 // common divisor
@@ -259,9 +240,7 @@ int FUNCgcd (int u, int v)
 {
 	int temp;
 	while ( v != 0 ) {
-		temp = u % v;
-		u = v;
-		v = temp;
+		temp = u % v; u = v; v = temp;
 	}
 	return u;
 }
@@ -274,18 +253,6 @@ int FUNCstrToInt (const char string[])
 		result = result * 10 + intValue;
 	}
 	return result;
-}
-// filter
-uint8_t FUNCfilter(uint8_t mask, uint8_t data)
-{
-	return mask & data;
-}
-// ticks
-unsigned int FUNCticks(unsigned int num)
-{
-	unsigned int count;
-	for(count = 0; count < num; count++) ;
-	return count;
 }
 // Two's Complement function
 int FUNCtwocomptoint8bit(int twoscomp){
@@ -380,7 +347,7 @@ long FUNCtrimmer(long x, long in_min, long in_max, long out_min, long out_max)
 int StringLength (const char string[])
 {
 	int count;
-	for (count = 0; string[count] != '\0'; count++ ) ;
+	for ( count = 0; string[count] != '\0'; count++ ) ;
 	return count;
 }
 // reverse: reverse string s in place
@@ -389,9 +356,7 @@ void Reverse(char s[])
 	char c;
 	int i, j;
 	for (i = 0, j = StringLength(s) - 1; i < j; i++, j--){
-		c = s[i];
-		s[i] = s[j];
-		s[j] = c;
+		c = s[i]; s[i] = s[j]; s[j] = c;
 	}
 }
 // bcd2bin
@@ -417,16 +382,6 @@ long FUNCgcd1(long a, long b)
 		}
 	}
 	return b;
-}
-// pincheck
-uint8_t FUNCpincheck(uint8_t port, uint8_t pin)
-{
-	uint8_t lh;
-	if(port & (1 << pin))
-		lh = 1;
-	else
-		lh = 0;
-	return lh;
 }
 // printbinary
 char* FUNCprint_binary(unsigned int n_bits, unsigned int number)
@@ -467,7 +422,7 @@ char* FUNCftoa(double num, uint8_t afterpoint)
 	uint32_t ipart; double n, fpart; uint8_t k = 0; int8_t sign;
 	if (num < 0){ n = -num; sign = -1;}else{n = num; sign = 1;}
 	ipart = (uint32_t) n; fpart = n - (double)ipart;
-	k = FUNCintinvstr(ipart, 0); if (sign < 0) FUNCstr[k++] = '-'; else FUNCstr[k++] = ' '; FUNCstr[k] = '\0'; Reverse(FUNCstr);
+	k = FUNCintinvstr(ipart, 0); if (sign < 0) FUNCstr[k++] = '-'; FUNCstr[k] = '\0'; Reverse(FUNCstr);
 	FUNCstr[k++] = '.';
 	FUNCintinvstr((fpart * pow(10, afterpoint)), k); Reverse(FUNCstr + k);
 	return FUNCstr;
@@ -479,10 +434,8 @@ char* FUNCdectohex(int32_t num)
 	uint8_t j;
 	for(j = 0, FUNCstr[j] = '\0'; num; FUNCstr[j] = '\0', num = num / 16){
 		remainder = num % 16;
-		if (remainder < 10)
-			FUNCstr[j++] = (char) (48 + remainder);
-		else
-			FUNCstr[j++] = (char) (55 + remainder);
+		if (remainder < 10) FUNCstr[j++] = (char) (48 + remainder);
+		else FUNCstr[j++] = (char) (55 + remainder);
 	}
 	Reverse(FUNCstr);
 	return FUNCstr;
@@ -497,19 +450,12 @@ uint16_t FUNCSwapByte(uint16_t num)
 // print
 char* FUNCprint( const char* format, ... )
 {
-	va_list aptr;
-	int ret;
-	
+	va_list aptr; int ret;
 	va_start(aptr, format);
 	ret = vsnprintf( FUNCstr, FUNCSTRSIZE, (const char*) format, aptr );
 	// ret = vsnprintf( ptr, FUNCSTRSIZE, format, aptr );
 	va_end(aptr);
-	
-	if(ret < 0){
-		return NULL;
-		// FUNCstr[0]='/0';FUNCstr[1]='/0';FUNCstr[2]='/0';FUNCstr[3]='/0';
-	}else
-		return FUNCstr;
+	if(ret < 0){ return NULL; }else return FUNCstr;
 }
 // strtovec
 void FUNCstrtovec(char* pos, const char* str){
@@ -684,8 +630,6 @@ int FUNCreadint(int nmin, int nmax)
 		return num;
 }
 ********************************************************************/
-
-/***File Interrupt***/
 
 /***EOF***/
 
