@@ -36,8 +36,8 @@ struct sp{
 };
 typedef struct sp SPI;
 
-SPI spi;
-/*** Global Header ***/
+/*** Global ***/
+SPI* spi(void);
 SPI SPIenable(uint8_t master_slave_select, uint8_t data_order,  uint8_t data_modes, uint8_t prescaler);
 
 #endif

@@ -12,29 +12,32 @@ Comment:
 #include "atmegaeeprom.h"
 
 /*** File Variable ***/
+static EEPROM atmega128_eeprom;
 
 /*** File Header ***/
 
 /*** Procedure & Function ***/
 EEPROM EEPROMenable(void){
-	eeprom.read_byte = eeprom_read_byte;
-	eeprom.write_byte = eeprom_write_byte;
-	eeprom.update_byte = eeprom_update_byte;
-	eeprom.read_word = eeprom_read_word;
-	eeprom.write_word = eeprom_write_word;
-	eeprom.update_word = eeprom_update_word;
-	//eeprom.read_dword = eeprom_read_dword;
-	eeprom.write_dword = eeprom_write_dword;
-	eeprom.write_dword = eeprom_write_dword;
-	//eeprom.read_float = eeprom_read_float;
-	eeprom.write_float = eeprom_write_float;
-	eeprom.update_float = eeprom_update_float;
-	eeprom.read_block = eeprom_read_block;
-	eeprom.write_block = eeprom_write_block;
-	eeprom.update_block = eeprom_update_block;
+	atmega128_eeprom.read_byte = eeprom_read_byte;
+	atmega128_eeprom.write_byte = eeprom_write_byte;
+	atmega128_eeprom.update_byte = eeprom_update_byte;
+	atmega128_eeprom.read_word = eeprom_read_word;
+	atmega128_eeprom.write_word = eeprom_write_word;
+	atmega128_eeprom.update_word = eeprom_update_word;
+	//atmega128_eeprom.read_dword = eeprom_read_dword;
+	atmega128_eeprom.write_dword = eeprom_write_dword;
+	atmega128_eeprom.write_dword = eeprom_write_dword;
+	//atmega128_eeprom.read_float = eeprom_read_float;
+	atmega128_eeprom.write_float = eeprom_write_float;
+	atmega128_eeprom.update_float = eeprom_update_float;
+	atmega128_eeprom.read_block = eeprom_read_block;
+	atmega128_eeprom.write_block = eeprom_write_block;
+	atmega128_eeprom.update_block = eeprom_update_block;
 	
-	return eeprom;
+	return atmega128_eeprom;
 }
+
+EEPROM* eeprom(void){ return &atmega128_eeprom; }
 
 /***EOF***/
 

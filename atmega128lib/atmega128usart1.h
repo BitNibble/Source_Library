@@ -78,9 +78,8 @@ struct uart1{
 };
 typedef struct uart1 USART1;
 
-/*** Global Var ***/
-USART1 usart1;
-/*** Global Header ***/
+/*** Global ***/
+USART1* usart1(void);
 USART1 USART1enable(uint32_t baud, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 
 char* usart1messageprint(USART1* uart, char* oneshot, char* msg, char endl);

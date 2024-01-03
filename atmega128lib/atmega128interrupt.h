@@ -32,8 +32,8 @@ struct ntrrpt{
 };
 typedef struct ntrrpt INTERRUPT;
 
-INTERRUPT exint;
 /*** Global Header ***/
+INTERRUPT* exint(void);
 INTERRUPT INTERRUPTenable(void);
 
 #endif

@@ -214,7 +214,7 @@ typedef struct {
 typedef struct {
 	Atmega128SerialPeripherialInterface_TypeDef* reg;
 	#if defined(_SPI_MODULE_)
-		SPI* run;
+		SPI* (*run)(void);
 		SPI (*enable)(uint8_t master_slave_select, uint8_t data_order,  uint8_t data_modes, uint8_t prescaler);
 	#endif
 } Atmega128SerialPeripherialInterface;
@@ -258,7 +258,7 @@ typedef struct {
 typedef struct {
 	Atmega128TwoWireSerialInterface_TypeDef* reg;
 	#if defined(_TWI_MODULE_)
-		TWI* run;
+		TWI* (*run)(void);
 		TWI (*enable)(uint8_t atmega_ID,  uint8_t prescaler);
 	#endif
 } Atmega128TwoWireSerialInterface;
@@ -267,7 +267,7 @@ typedef struct {
 typedef struct {
 	Atmega128Usart0_TypeDef* reg;
 	#if defined(_USART0_MODULE_)
-		USART0* run;
+		USART0* (*run)(void);
 		USART0 (*enable)(uint32_t baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 	#endif
 } Atmega128Usart0;
@@ -276,7 +276,7 @@ typedef struct {
 typedef struct {
 	Atmega128Usart1_TypeDef* reg;
 	#if defined(_USART1_MODULE_)
-		USART1* run;
+		USART1* (*run)(void);
 		USART1 (*enable)(uint32_t baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 	#endif
 } Atmega128Usart1;
@@ -334,9 +334,8 @@ typedef struct {
 	void (*Move_Interrupts_To_Boot)(void);
 }ATMEGA128;
 
-/*** Global Variable ***/
-ATMEGA128 atmega128;
-/*** Global Header ***/
+/*** Global ***/
+ATMEGA128* atmega128(void);
 ATMEGA128 ATMEGA128enable(void);
 
 /*** General ***/

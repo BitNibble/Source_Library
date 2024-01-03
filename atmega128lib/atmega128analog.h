@@ -41,8 +41,8 @@ struct analog{
 
 typedef struct analog ANALOG;
 
-ANALOG adc;
 /*** Global Header ***/
+ANALOG* adc(void);
 ANALOG ANALOGenable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... );
 
 #endif
