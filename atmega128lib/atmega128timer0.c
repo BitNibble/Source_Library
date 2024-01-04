@@ -28,7 +28,7 @@ TIMER_COUNTER0 TIMER_COUNTER0enable(unsigned char wavegenmode, unsigned char int
 // wavegen mode: Normal; PWM phase correct; Fast PWM; default-Normasl;
 // interrupt: off; overflow; output compare; both; default - non.
 {
-	ATMEGA128enable(); // Dependency
+	// ATMEGA128enable(); // Dependency
 	
 	timer0_state = 0;
 	atmega128()->tc0.reg->tccr0 &= ~((1 << WGM00) | (1 << WGM01));

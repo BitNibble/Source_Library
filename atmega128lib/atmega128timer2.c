@@ -28,7 +28,7 @@ TIMER_COUNTER2 TIMER_COUNTER2enable(unsigned char wavegenmode, unsigned char int
 // wavegen mode: Normal; PWM phase correct; Fast PWM; default-Normasl;
 // interrupt: off; overflow; output compare; both; default - non.
 {
-	ATMEGA128enable(); // Dependency
+	// ATMEGA128enable(); // Dependency
 	
 	timer2_state = 0;
 	atmega128()->tc2.reg->tccr2 &= ~((1 << WGM20) | (1 << WGM21));

@@ -30,7 +30,7 @@ int ANALOG_read(int selection);
 ANALOG ANALOGenable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... )
 // Interrupt running mode setup, and list of channels to be probed
 {
-	ATMEGA128enable();
+	// ATMEGA128enable();
 	
 	// LOCAL VARIABLES
 	va_list list;

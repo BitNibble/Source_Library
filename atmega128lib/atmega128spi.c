@@ -24,7 +24,7 @@ uint8_t spi_fast_shift (uint8_t data);
 /*** Procedure & Function ***/
 SPI SPIenable(uint8_t master_slave_select, uint8_t data_order,  uint8_t data_modes, uint8_t prescaler)
 {
-	ATMEGA128enable();
+	// ATMEGA128enable();
 	
 	atmega128_spi.transfer_sync = spi_transfer_sync;
 	atmega128_spi.transmit_sync = spi_transmit_sync;

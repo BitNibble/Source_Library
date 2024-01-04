@@ -25,7 +25,7 @@ uint8_t INTERRUPT_reset_status(void);
 /*** Procedure & Function ***/
 INTERRUPT INTERRUPTenable(void)
 {
-	ATMEGA128enable();
+	// ATMEGA128enable();
 	
 	atmega128()->exint.reg->eimsk = 0x00;
 	atmega128_exint.set = INTERRUPT_set;

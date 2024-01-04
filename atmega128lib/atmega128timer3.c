@@ -35,7 +35,7 @@ TIMER_COUNTER3 TIMER_COUNTER3enable(unsigned char wavegenmode, unsigned char int
 // interrupt: off; overflow; output compare; both; default - non.
 // for more information read data sheet.
 {
-	ATMEGA128enable(); // Dependency
+	// ATMEGA128enable(); // Dependency
 	
 	timer3_state = 0;
 	atmega128()->tc3.reg->tccr3a &= ~((1 << WGM31) | (1 << WGM30));

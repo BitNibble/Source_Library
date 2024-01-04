@@ -45,7 +45,7 @@ void USART1DoubleTransmissionSpeed(void);
 /*** Procedure & Function ***/
 USART1 USART1enable(uint32_t baud, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity )
 {
-	ATMEGA128enable();
+	// ATMEGA128enable();
 	
 	uint16_t ubrr = 0;
 	rx1buff = BUFFenable( UART1_RX_BUFFER_SIZE, UART1_RxBuf );
