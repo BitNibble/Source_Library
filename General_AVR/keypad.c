@@ -4,7 +4,8 @@ Author: Sergio Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: all
-Date: 27112022
+Date: 27/11/2022
+Update 05/01/2024
 Comment:
 	Stable
 *************************************************************************/
@@ -14,9 +15,8 @@ Comment:
 #include <string.h>
 #include <stdarg.h>
 
-/*** File Constant & Macro ***/
-
 /*** File Variable ***/
+static KEYPAD setup_keypad;
 volatile uint8_t *keypad_DDR;
 volatile uint8_t *keypad_PIN;
 volatile uint8_t *keypad_PORT;
@@ -35,11 +35,13 @@ char keypadvalue[KEYPADLINES][KEYPADCOLUMNS] =
 	{'7', '8', '9', 'C'},
 	{'*', '0', 35, 'D'}
 };
+
 uint8_t KEYPADSTRINGINDEX;
 char KEYPAD_string[KEYPADSTRINGSIZE + 1];
 keypadata data;
 char KEYPAD_char;
-char endstr[2] = "\0";
+
+char endstr[2];
 // can not assign something outside a function
 
 /*** File Header ***/
@@ -61,8 +63,10 @@ KEYPAD KEYPADenable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8
 {
 	// LOCAL VARIABLE
 	data.character = ' ';
+	endstr[0] = ' ';endstr[1] = '\0';
 	// ALLOCAÇÂO MEMORIA PARA Estrutura
-	KEYPAD keypad;
+	// KEYPAD setup_keypad;
+	
 	// import parameters
 	keypad_DDR = ddr;
 	keypad_PIN = pin;
@@ -76,16 +80,19 @@ KEYPAD KEYPADenable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8
 	keypad_datai.line_4 = keypad_dataf.line_4 = (1 << KEYPADDATA_1) | (1 << KEYPADDATA_2) | (1 << KEYPADDATA_3) | (1 << KEYPADDATA_4);
 	KEYPADSTRINGINDEX = 0;
 	// Vtable
-	keypad.getkey = KEYPAD_getkey;
-	keypad.read = KEYPAD_read;
-	keypad.data = KEYPAD_data;
-	keypad.flush = KEYPAD_flush;
+	setup_keypad.getkey = KEYPAD_getkey;
+	setup_keypad.read = KEYPAD_read;
+	setup_keypad.data = KEYPAD_data;
+	setup_keypad.flush = KEYPAD_flush;
 	//
 	*keypad_PORT |= (1 << KEYPADLINE_1) | (1 << KEYPADLINE_2) | (1 << KEYPADLINE_3) | (1 << KEYPADLINE_4);
 	// Going to use pull down method.
 	
-	return keypad;
+	return setup_keypad;
 }
+
+KEYPAD* keypad(void){ return &setup_keypad; }
+
 char KEYPAD_getkey(void)
 {
 	uint8_t HL;
@@ -241,8 +248,6 @@ uint8_t KEYPADhl(uint8_t xi, uint8_t xf)
 	i &= xi;
 	return i;
 }
-
-/***File Interrupt***/
 
 /***EOF***/
 
