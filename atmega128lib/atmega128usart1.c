@@ -193,7 +193,7 @@ void uart1_puts(UARTvar* s)
 	}
 }
 
-/*** File Interrupt ***/
+/*** Interrupts ***/
 SIGNAL(UART1_RECEIVE_INTERRUPT)
 {
 	unsigned char bit9;
@@ -223,6 +223,8 @@ char* usart1messageprint(USART1* uart, char* oneshot, char* msg, char endl)
 	if(uart->getch() == endl){ strcpy(oneshot, ptr); strcpy(msg, ptr); uart1flag = 0xFF;}
 	return ptr;
 }
+
+/*** Auxiliar ***/
 uint8_t USART1ReceiveComplete(void)
 {
 	return (UCSR1A & (1 << RXC1));

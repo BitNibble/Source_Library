@@ -162,6 +162,7 @@ uint16_t BAUDRATEsynchronous(uint32_t BAUD)
 	baudrate -= 1;
 	return (uint16_t) baudrate;
 }
+
 /*** File Procedure & Function Definition***/
 uint16_t ReadHLByte(HighLowByte reg)
 {
@@ -232,6 +233,7 @@ void writereg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit_n, uint8_t 
 	value |= data;
 	*reg = value;
 }
+
 /****** System ******/
 void ClockPrescalerSelect(volatile uint8_t prescaler)
 {

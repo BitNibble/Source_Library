@@ -290,8 +290,6 @@ typedef struct {
 /*************************** Third Layer ***************************/
 /*******************************************************************/
 typedef struct {
-	//		PARAMETER
-	Atmega128Parameter par;
 	//		Second Layer
 	Atmega128GPWR gpwr;
 	Atmega128AnalogComparator ac;
