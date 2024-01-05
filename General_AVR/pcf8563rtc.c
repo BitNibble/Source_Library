@@ -18,8 +18,6 @@ Comment:
 	#error "MCU Lib not available"
 #endif
 
-/*** File Constant & Macro ***/
-
 /*** File Variables ***/
 TWI i2c;
 
@@ -44,27 +42,28 @@ uint8_t PCF8563RTC_bintobcd(uint8_t bin);
 // PCF8563RTC PCF8563RTCenable(uint8_t prescaler)
 PCF8563RTC PCF8563RTCenable(uint8_t prescaler)
 {
-	PCF8563RTC pcf;
+	PCF8563RTC setup_pcf;
+	
 	i2c = TWIenable('A', prescaler); // Initialize the I2c module.
 	// Vtable
-	pcf.SetTime = PCF8563RTC_SetTime;
-	pcf.SetHour = PCF8563RTC_SetHour;
-	pcf.SetMinute = PCF8563RTC_SetMinute;
-	pcf.SetSecond = PCF8563RTC_SetSecond;
-	pcf.SetClkOut = PCF8563RTC_SetClkOut;
-	pcf.SetDate = PCF8563RTC_SetDate;
-	pcf.SetDay = PCF8563RTC_SetDay;
-	pcf.SetWeekday = PCF8563RTC_SetWeekday;
-	pcf.SetMonth = PCF8563RTC_SetMonth;
-	pcf.SetYear = PCF8563RTC_SetYear;
-	pcf.GetTime = PCF8563RTC_GetTime;
-	pcf.GetDate = PCF8563RTC_GetDate;
-	pcf.bcd2dec = PCF8563RTC_bcd2dec;
-	pcf.bintobcd = PCF8563RTC_bintobcd;
+	setup_pcf.SetTime = PCF8563RTC_SetTime;
+	setup_pcf.SetHour = PCF8563RTC_SetHour;
+	setup_pcf.SetMinute = PCF8563RTC_SetMinute;
+	setup_pcf.SetSecond = PCF8563RTC_SetSecond;
+	setup_pcf.SetClkOut = PCF8563RTC_SetClkOut;
+	setup_pcf.SetDate = PCF8563RTC_SetDate;
+	setup_pcf.SetDay = PCF8563RTC_SetDay;
+	setup_pcf.SetWeekday = PCF8563RTC_SetWeekday;
+	setup_pcf.SetMonth = PCF8563RTC_SetMonth;
+	setup_pcf.SetYear = PCF8563RTC_SetYear;
+	setup_pcf.GetTime = PCF8563RTC_GetTime;
+	setup_pcf.GetDate = PCF8563RTC_GetDate;
+	setup_pcf.bcd2dec = PCF8563RTC_bcd2dec;
+	setup_pcf.bintobcd = PCF8563RTC_bintobcd;
 	
 	PCF8563RTC_Init();
 	
-	return pcf;
+	return setup_pcf;
 }
 // void PCF8563RTC_Init(uint8_t prescaler)
 void PCF8563RTC_Init(void)
@@ -216,8 +215,6 @@ uint8_t PCF8563RTC_bintobcd(uint8_t bin)
 {
 	return (((bin) / 10) << 4) + ((bin) % 10);
 }
-
-/***File Interrupt***/
 
 /***EOF***/
 
