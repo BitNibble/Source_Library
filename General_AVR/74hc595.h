@@ -11,28 +11,29 @@ Comment:
 ************************************************************************/
 #ifndef _74HC595_H_
 	#define _74HC595_H_
+	
+/*** Global Constant & Macro ***/
+#if defined (STM32F446xx)
+	#ifndef IO_var
+		#define IO_var uint32_t
+	#endif
+#else
+	#ifndef IO_var
+		#define IO_var uint8_t
+	#endif
+#endif
 
 /*** File Library ***/
 #include <inttypes.h>
 
 /*** File TypeDef ***/
-#if defined (STM32F446xx)
 typedef struct{
 	uint8_t HC595_datapin;
 	uint8_t HC595_clkpin;
 	uint8_t HC595_outpin;
-	volatile uint32_t *hc595_DDR;
-	volatile uint32_t *hc595_PORT;
+	volatile IO_var *hc595_DDR;
+	volatile IO_var *hc595_PORT;
 }hc595_parameter;
-#else
-typedef struct{
-	uint8_t HC595_datapin;
-	uint8_t HC595_clkpin;
-	uint8_t HC595_outpin;
-	volatile uint8_t *hc595_DDR;
-	volatile uint8_t *hc595_PORT;
-}hc595_parameter;
-#endif
 
 /*** 74HC595 TypeDef ***/
 typedef struct
@@ -45,11 +46,7 @@ typedef struct
 	void (*out)(hc595_parameter* par);
 }HC595;
 
-#if defined (STM32F446xx)
-HC595 HC595enable(volatile uint32_t *ddr, volatile uint32_t *port, uint8_t datapin, uint8_t clkpin, uint8_t outpin);
-#else
-HC595 HC595enable(volatile uint8_t *ddr, volatile uint8_t *port, uint8_t datapin, uint8_t clkpin, uint8_t outpin);
-#endif
+HC595 HC595enable(volatile IO_var *ddr, volatile IO_var *port, uint8_t datapin, uint8_t clkpin, uint8_t outpin);
 
 #endif
 
