@@ -1,5 +1,5 @@
 /************************************************************************
-	LCD
+	LCD2P
 Author: Sergio Santos 
    <sergio.salazar.santos@gmail.com>
 License: GNU General Public License
@@ -20,15 +20,15 @@ Comment:
 #endif
 // ASIGN PORT PINS TO LCD (can be setup in any way)
 // CMD
-#define RS 0
-#define RW 1
-#define EN 2
-#define NC 3
+#define LCD02P_RS 0
+#define LCD02P_RW 1
+#define LCD02P_EN 2
+#define LCD02P_NC 3
 // DATA
-#define DB4 0 // 4
-#define DB5 1 // 5
-#define DB6 2 // 6
-#define DB7 3 // 7
+#define LCD02P_DB4 0 // 4
+#define LCD02P_DB5 1 // 5
+#define LCD02P_DB6 2 // 6
+#define LCD02P_DB7 3 // 7
 
 /*** Global Variable ***/
 struct dspl {
@@ -44,10 +44,10 @@ struct dspl {
 	void (*gotoxy)(unsigned int y, unsigned int x);
 	void (*reboot)(void);
 };
-typedef struct dspl LCD0;
+typedef struct dspl LCD02P;
 
 /*** Global Header ***/
-LCD0 LCD0enable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatile uint8_t *cmdport, volatile uint8_t *dataddr, volatile uint8_t *datapin, volatile uint8_t *dataport);
+LCD02P LCD02Penable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatile uint8_t *cmdport, volatile uint8_t *dataddr, volatile uint8_t *datapin, volatile uint8_t *dataport);
 
 #endif
 
