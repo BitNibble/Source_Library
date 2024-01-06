@@ -12,11 +12,6 @@ Comment:
 /*** File library ***/
 #include "lfsm.h"
 
-/*** File Constant & Macro ***/
-#define NPAGES 255 // 1 to 254 possible pages
-#define BYTEL 0
-#define BYTEH 65535
-
 /*** File Variable ***/
 struct lfsmdata data, tmp1, tmp2;
 const uint16_t tmask = 0xFFFF;
@@ -44,27 +39,28 @@ LFSM LFSMenable(EEPROM* eeprom, const uint16_t sizeeeprom)
 	// Local Variable
 	const uint8_t sizeblock = sizeof(struct lfsmdata);
 	// Create Object
-	LFSM r;
-	// Initialize variables
-	r.eprom = eeprom;
-	r.sizeeeprom = sizeeeprom;
-	r.sizeblock = sizeblock;
-	r.page = 0;
-	r.output = 0; // Output
-	// Function V table
-	r.read = LFSMread;
-	r.learn = LFSMlearn;
-	r.quant = LFSMquant;
-	r.remove = LFSMremove;
-	r.premove = LFSMpremove;
-	r.deleteall = LFSMdeleteall;
-	r.getoutput = LFSMgetoutput;
-	r.getstatus = LFSMgetstatus;
-	r.setoutput = LFSMsetoutput;
-	r.getpage = LFSMgetpage;
-	r.setpage = LFSMsetpage;
+	LFSM setup_lfsm;
 	
-	return r;
+	// Initialize variables
+	setup_lfsm.eprom = eeprom;
+	setup_lfsm.sizeeeprom = sizeeeprom;
+	setup_lfsm.sizeblock = sizeblock;
+	setup_lfsm.page = 0;
+	setup_lfsm.output = 0; // Output
+	// Function V table
+	setup_lfsm.read = LFSMread;
+	setup_lfsm.learn = LFSMlearn;
+	setup_lfsm.quant = LFSMquant;
+	setup_lfsm.remove = LFSMremove;
+	setup_lfsm.premove = LFSMpremove;
+	setup_lfsm.deleteall = LFSMdeleteall;
+	setup_lfsm.getoutput = LFSMgetoutput;
+	setup_lfsm.getstatus = LFSMgetstatus;
+	setup_lfsm.setoutput = LFSMsetoutput;
+	setup_lfsm.getpage = LFSMgetpage;
+	setup_lfsm.setpage = LFSMsetpage;
+	
+	return setup_lfsm;
 }
 // uint8_t LFSMread(struct lfsm *r, uint8_t input)
 uint8_t LFSMread(struct lfsm *r, uint8_t input)
@@ -451,8 +447,6 @@ uint16_t LFSMoutputcalc(uint16_t feedback, uint16_t hl, uint16_t lh, uint16_t ma
 	feedback &= ~(hl & mask);
 	return feedback;
 }
-
-/***File Interrupt***/
 
 /***EOF***/
 

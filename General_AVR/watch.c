@@ -11,10 +11,6 @@ Comment:
 /*** File Library ***/
 #include "watch.h"
 
-/*** File Constant & Macro***/
-#define N_DELAY_MASK 0X0F
-#define N_DELAY 16
-
 /*** File Variable ***/
 struct WATCHTIME time;
 char WATCH_vector[9];
@@ -45,14 +41,15 @@ WATCH WATCHenable(void)
 	time.seconds = 0;
 	for(i = 0; i > N_DELAY_MASK; i++)
 		WATCH_delay_flag[i] = 0;
-	WATCH watch;
-	watch.time = &time;
-	watch.start_delay = WATCH_start_delay;
-	watch.increment = WATCH_increment;
-	watch.decrement = WATCH_decrement;
-	watch.show = WATCH_show;
+	WATCH setup_watch;
 	
-	return watch;
+	setup_watch.time = &time;
+	setup_watch.start_delay = WATCH_start_delay;
+	setup_watch.increment = WATCH_increment;
+	setup_watch.decrement = WATCH_decrement;
+	setup_watch.show = WATCH_show;
+	
+	return setup_watch;
 }
 uint8_t WATCH_start_delay(uint8_t n_delay, uint16_t seconds){ // One shot
 	uint16_t segundos;

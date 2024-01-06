@@ -11,12 +11,10 @@ Comment:
 /*** File Library ***/
 #include "rotenc.h"
 
-/*** File Constant & Macro ***/
-
 /*** File Variable ***/
 
 /*** File Header ***/
-rotaryencoderparameter RotEnc_rte(rotaryencoderparameter* par, uint8_t data);
+rotaryencoder_parameter RotEnc_rte(rotaryencoder_parameter* par, uint8_t data);
 uint8_t ROTENClh(uint8_t xp, uint8_t xi);
 uint8_t ROTENChl(uint8_t xp, uint8_t xi);
 
@@ -24,24 +22,25 @@ uint8_t ROTENChl(uint8_t xp, uint8_t xi);
 ROTENC ROTENCenable( uint8_t ChnApin, uint8_t ChnBpin )
 {
 	// struct object
-	ROTENC rtnc;
-	// Initialize variables
-	rtnc.par.PinChnA = ChnApin;
-	rtnc.par.PinChnB = ChnBpin;
-	rtnc.par.pchn = rtnc.par.chn = (1 << ChnBpin) | (1 << ChnApin);
-	rtnc.par.num = 0;
-	// function pointers
-	rtnc.rte = RotEnc_rte;
+	ROTENC setup_rtnc;
 	
-	return rtnc;
+	// Initialize variables
+	setup_rtnc.par.PinChnA = ChnApin;
+	setup_rtnc.par.PinChnB = ChnBpin;
+	setup_rtnc.par.pchn = setup_rtnc.par.chn = (1 << ChnBpin) | (1 << ChnApin);
+	setup_rtnc.par.num = 0;
+	// function pointers
+	setup_rtnc.rte = RotEnc_rte;
+	
+	return setup_rtnc;
 }
 
-rotaryencoderparameter RotEnc_rte(rotaryencoderparameter* par, uint8_t data)
+rotaryencoder_parameter RotEnc_rte(rotaryencoder_parameter* par, uint8_t data)
 {
 	uint8_t hl;
 	par->chn = data & ((1 << par->PinChnB) | (1 << par->PinChnA));
 	hl = ROTENChl(par->pchn, par->chn);
-	if(hl){
+	if(par->pchn != par->chn){
 		if((par->pchn == ((1 << par->PinChnB) | (1 << par->PinChnA))) && (hl & (1 << par->PinChnA)))
 		par->num++;
 		if((par->pchn == ((1 << par->PinChnB) | (1 << par->PinChnA))) && (hl & (1 << par->PinChnB)))
@@ -51,7 +50,7 @@ rotaryencoderparameter RotEnc_rte(rotaryencoderparameter* par, uint8_t data)
 	return *par;
 }
 
-// auxiliar
+// auxiliary
 uint8_t ROTENClh(uint8_t xp, uint8_t xi)
 {
 	uint8_t i;
@@ -66,8 +65,6 @@ uint8_t ROTENChl(uint8_t xp, uint8_t xi)
 	i &= xp;
 	return i;
 }
-
-/*** File Interrupt ***/
 
 /***EOF***/
 

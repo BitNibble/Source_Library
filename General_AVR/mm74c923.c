@@ -13,11 +13,7 @@ Comment:
 #include "explode.h"
 #include "function.h"
 
-/*** File Constant & Macro ***/
-#define MM74C923_KEY_BUFFER_SIZE 16
-
 /*** File Variable ***/
-FUNC func;
 EXPLODE vari;
 
 volatile uint8_t *mm74c923_DDR;
@@ -48,7 +44,7 @@ MM74C923 MM74C923enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile u
 {
 	// LOCAL VARIABLES
 	// ALLOCACAO MEMORIA Para Estrutura
-	func=FUNCenable();
+	FUNCenable();
 	vari = EXPLODEenable();
 	MM74C923 mm74c923;
 	// import parameters

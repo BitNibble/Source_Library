@@ -11,21 +11,17 @@ Comment:
 /***File Library***/
 #include "znpid.h"
 
-/***File Constant & Macro***/
-#define ZNPID_outMAX 1023
-#define ZNPID_outMIN -1023
-
 /***File Variable***/
 double ZNPID_tmp;
 
 /***File Header***/
-void ZNPID_set_kc(znpidparameter* par, double kc);
-void ZNPID_set_ki(znpidparameter* par, double ki);
-void ZNPID_set_kd(znpidparameter* par, double kp);
-void ZNPID_set_SP(znpidparameter* par, double setpoint);
-double ZNPID_output(znpidparameter* par, double PV, double timelapse);
-double ZNPID_integral(znpidparameter* par, double PV, double timelapse);
-double ZNPID_derivative(znpidparameter* par, double PV, double timelapse);
+void ZNPID_set_kc(znpid_parameter* par, double kc);
+void ZNPID_set_ki(znpid_parameter* par, double ki);
+void ZNPID_set_kd(znpid_parameter* par, double kp);
+void ZNPID_set_SP(znpid_parameter* par, double setpoint);
+double ZNPID_output(znpid_parameter* par, double PV, double timelapse);
+double ZNPID_integral(znpid_parameter* par, double PV, double timelapse);
+double ZNPID_derivative(znpid_parameter* par, double PV, double timelapse);
 double ZNPID_delta(double present_value, double past_value);
 double ZNPID_sum(double value_1, double value_2);
 double ZNPID_product(double value_1, double value_2);
@@ -34,46 +30,47 @@ double ZNPID_product(double value_1, double value_2);
 ZNPID ZNPIDenable(void)
 {
 	// LOCAL VARIABLES
-	ZNPID znpid;
-	// initialize variables
-	znpid.par.kc = 1;
-	znpid.par.ki = 0;
-	znpid.par.kd = 0;
-	znpid.par.SetPoint = 0;
-	znpid.par.Err_past = 0;
-	znpid.par.dy = 0;
-	znpid.par.dx = 0;
-	znpid.par.integral = 0;
-	znpid.par.derivative = 0;
-	znpid.par.PV = 0;
-	znpid.par.OP = 0;
-	// Direccionar apontadores para PROTOTIPOS
-	znpid.set_kc = ZNPID_set_kc;
-	znpid.set_ki = ZNPID_set_ki;
-	znpid.set_kd = ZNPID_set_kd;
-	znpid.set_SP = ZNPID_set_SP;
-	znpid.output = ZNPID_output;
+	ZNPID setup_znpid;
 	
-	return znpid;
+	// initialize variables
+	setup_znpid.par.kc = 1;
+	setup_znpid.par.ki = 0;
+	setup_znpid.par.kd = 0;
+	setup_znpid.par.SetPoint = 0;
+	setup_znpid.par.Err_past = 0;
+	setup_znpid.par.dy = 0;
+	setup_znpid.par.dx = 0;
+	setup_znpid.par.integral = 0;
+	setup_znpid.par.derivative = 0;
+	setup_znpid.par.PV = 0;
+	setup_znpid.par.OP = 0;
+	// Direccionar apontadores para PROTOTIPOS
+	setup_znpid.set_kc = ZNPID_set_kc;
+	setup_znpid.set_ki = ZNPID_set_ki;
+	setup_znpid.set_kd = ZNPID_set_kd;
+	setup_znpid.set_SP = ZNPID_set_SP;
+	setup_znpid.output = ZNPID_output;
+	
+	return setup_znpid;
 }
-void ZNPID_set_kc(znpidparameter* par, double kc)
+void ZNPID_set_kc(znpid_parameter* par, double kc)
 {
 	par->kc = kc;
 }
-void ZNPID_set_ki(znpidparameter* par, double ki)
+void ZNPID_set_ki(znpid_parameter* par, double ki)
 {
 	par->ki = ki;
 }
-void ZNPID_set_kd(znpidparameter* par, double kd)
+void ZNPID_set_kd(znpid_parameter* par, double kd)
 {	
 	par->kd = kd;
 }
-void ZNPID_set_SP(znpidparameter* par, double setpoint)
+void ZNPID_set_SP(znpid_parameter* par, double setpoint)
 {
 	par->SetPoint = setpoint;
 }
 
-double ZNPID_output(znpidparameter* par, double PV, double timelapse)
+double ZNPID_output(znpid_parameter* par, double PV, double timelapse)
 {
 	double result;
 	par->PV = PV;
@@ -93,14 +90,14 @@ double ZNPID_output(znpidparameter* par, double PV, double timelapse)
 	return result;
 }
 
-double ZNPID_integral(znpidparameter* par, double PV, double timelapse)
+double ZNPID_integral(znpid_parameter* par, double PV, double timelapse)
 {
 	ZNPID_tmp = ZNPID_product(ZNPID_sum(ZNPID_delta(par->SetPoint, PV), par->Err_past), timelapse);
 	ZNPID_tmp /= 2;
 	return (par->integral += ZNPID_tmp);
 }
 
-double ZNPID_derivative(znpidparameter* par, double PV, double timelapse)
+double ZNPID_derivative(znpid_parameter* par, double PV, double timelapse)
 {
 	ZNPID_tmp = ZNPID_delta(ZNPID_delta(par->SetPoint, PV), par->Err_past);
 	return (par->derivative = (ZNPID_tmp / timelapse));
@@ -120,8 +117,6 @@ double ZNPID_product(double value_1, double value_2)
 {
 	return (value_1 * value_2);
 }
-
-/***File Interrupt***/
 
 /***EOF***/
 

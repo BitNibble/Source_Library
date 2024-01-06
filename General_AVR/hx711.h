@@ -22,6 +22,14 @@ Comment:
 	#define GLOBAL_INTERRUPT_ENABLE 7
 #endif
 
+#define ZERO 0
+#define OFF 0x00
+#define ONE 1
+#define ON 0xFF
+#define HX711_ticks 36 // fine tunned to 36
+#define HX711_ADC_bits 24
+#define HX711_VECT_SIZE 4
+
 /*** Global Variable ***/
 // calibration
 typedef struct{
@@ -33,7 +41,9 @@ typedef struct{
 	uint8_t divfactor_128; // interval B
 	uint8_t status;
 }HX711_calibration;
+
 HX711_calibration* HX711_Default;
+
 // device
 struct hx711{
 	volatile uint8_t readflag; // indicate start of bit shifting

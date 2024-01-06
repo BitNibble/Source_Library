@@ -17,15 +17,9 @@ Comment:
 //#include <stdarg.h>
 //#include <math.h>
 
-/***File Constant & Macro***/
-// CMD RS
-#define INST 0
-#define DATA 1
-// ticks depends on CPU frequency this case 16Mhz
-#define LCD_N_TICKS 0
-#define BIT_N_TICKS 0
-
 /***File Variable***/
+static LCD0 setup_lcd0;
+static LCD1 setup_lcd1;
 volatile uint8_t *lcd0_DDR;
 volatile uint8_t *lcd0_PIN;
 volatile uint8_t *lcd0_PORT;
@@ -69,7 +63,8 @@ LCD0 LCD0enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *
 {
 	// LOCAL VARIABLES
 	// ALLOCAÇÂO MEMORIA PARA Estrutura
-	LCD0 lcd0;
+	//LCD0 setup_lcd0;
+	
 	// import parameters
 	lcd0_DDR = ddr;
 	lcd0_PIN = pin;
@@ -79,22 +74,25 @@ LCD0 LCD0enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *
 	*lcd0_PORT = 0xFF;
 	lcd0_detect = *lcd0_PIN & (1 << NC);
 	// Direccionar apontadores para PROTOTIPOS
-	lcd0.write = LCD0_write;
-	lcd0.read = LCD0_read;
-	lcd0.BF = LCD0_BF;
-	lcd0.putch = LCD0_putch;
-	lcd0.getch = LCD0_getch;
-	lcd0.string = LCD0_string; // RAW
-	lcd0.string_size = LCD0_string_size; // RAW
-	lcd0.hspace = LCD0_hspace;
-	lcd0.clear = LCD0_clear;
-	lcd0.gotoxy = LCD0_gotoxy;
-	lcd0.reboot = LCD0_reboot;
+	setup_lcd0.write = LCD0_write;
+	setup_lcd0.read = LCD0_read;
+	setup_lcd0.BF = LCD0_BF;
+	setup_lcd0.putch = LCD0_putch;
+	setup_lcd0.getch = LCD0_getch;
+	setup_lcd0.string = LCD0_string; // RAW
+	setup_lcd0.string_size = LCD0_string_size; // RAW
+	setup_lcd0.hspace = LCD0_hspace;
+	setup_lcd0.clear = LCD0_clear;
+	setup_lcd0.gotoxy = LCD0_gotoxy;
+	setup_lcd0.reboot = LCD0_reboot;
 	// LCD INIC
 	LCD0_inic();
-	//
-	return lcd0;
+	
+	return setup_lcd0;
 }
+
+LCD0* lcd0(void){ return &setup_lcd0; }
+
 void LCD0_inic(void)
 {
 	// LCD INIC
@@ -234,7 +232,7 @@ void LCD0_string_size(const char* s, uint8_t size)
 			break;
 		LCD0_putch(tmp);
 	}
-	while(pos<size){ // TO SIZE
+	while(pos < size){ // TO SIZE
 		LCD0_putch(' ');
 		pos++;
 	}
@@ -291,12 +289,14 @@ void LCD0_reboot(void)
 		LCD0_inic();
 	lcd0_detect = tmp;
 }
+
 // LCD 1
 LCD1 LCD1enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port)
 {
 	// LOCAL VARIABLES
 	// ALLOCAÇÂO MEMORIA PARA Estrutura
-	LCD1 lcd1;
+	//LCD1 setup_lcd1;
+	
 	// import parameters
 	lcd1_DDR = ddr;
 	lcd1_PIN = pin;
@@ -306,22 +306,25 @@ LCD1 LCD1enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *
 	*lcd1_PORT = 0xFF;
 	lcd1_detect = *lcd1_PIN & (1 << NC);
 	// Direccionar apontadores para PROTOTIPOS
-	lcd1.write = LCD1_write;
-	lcd1.read = LCD1_read;
-	lcd1.BF = LCD1_BF;
-	lcd1.putch = LCD1_putch;
-	lcd1.getch = LCD1_getch;
-	lcd1.string = LCD1_string; // RAW
-	lcd1.string_size = LCD1_string_size; // RAW
-	lcd1.hspace = LCD1_hspace;
-	lcd1.clear = LCD1_clear;
-	lcd1.gotoxy = LCD1_gotoxy;
-	lcd1.reboot = LCD1_reboot;
+	setup_lcd1.write = LCD1_write;
+	setup_lcd1.read = LCD1_read;
+	setup_lcd1.BF = LCD1_BF;
+	setup_lcd1.putch = LCD1_putch;
+	setup_lcd1.getch = LCD1_getch;
+	setup_lcd1.string = LCD1_string; // RAW
+	setup_lcd1.string_size = LCD1_string_size; // RAW
+	setup_lcd1.hspace = LCD1_hspace;
+	setup_lcd1.clear = LCD1_clear;
+	setup_lcd1.gotoxy = LCD1_gotoxy;
+	setup_lcd1.reboot = LCD1_reboot;
 	// LCD INIC
 	LCD1_inic();
-	//
-	return lcd1;
+	
+	return setup_lcd1;
 }
+
+LCD1* lcd1(void){ return &setup_lcd1; }
+
 void LCD1_inic(void)
 {
 	// LCD INIC
@@ -521,8 +524,6 @@ void LCD_ticks(uint16_t num)
 	uint16_t count;
 	for(count = 0; count < num; count++) ;
 }
-
-/***File Interrupt***/
 
 /***EOF***/
 

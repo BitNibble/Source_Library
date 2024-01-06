@@ -17,6 +17,7 @@ Comment:
 #include <math.h>
 
 /*** File Variable ***/
+static FUNC setup_func;
 static char FUNCstr[FUNCSTRSIZE + 1];
 
 /*** File Header ***/
@@ -64,61 +65,58 @@ int FUNCgetnum(char* x);
 unsigned int FUNCgetnumv2(char* x);
 int FUNCreadint(int nmin, int nmax);
 ******************************/
-// uint8_t TRANupdate(struct TRAN *tr, uint8_t idata);
 
 /*** Procedure & Function ***/
 FUNC FUNCenable( void )
 {
-// Comment out links not being used, in order to release memmory.
-	// struct object
-	FUNC func;
-	// Inic FUNCstr
 	FUNCstr[FUNCSTRSIZE] = '\0';
 	// function pointers
-	func.stringlength = StringLength;
-	func.reverse = Reverse;
-	func.mayia = FUNCmayia;
-	func.swap = FUNCswap;
-	func.copy = FUNCcopy;
-	func.squeeze = FUNCsqueeze;
-	func.shellsort = FUNCshellsort;
-	func.i16toa = FUNCi16toa;
-	func.ui16toa = FUNCui16toa;
-	func.i32toa = FUNCi32toa;
-	func.ui32toa = FUNCui32toa;
-	func.trim = FUNCtrim;
-	func.pmax = FUNCpmax;
-	func.gcd = FUNCgcd;
-	func.strToInt = FUNCstrToInt;
-	func.twocomptoint8bit = FUNCtwocomptoint8bit;
-	func.twocomptoint10bit = FUNCtwocomptoint10bit;
-	func.twocomptointnbit = FUNCtwocomptointnbit;
-	func.dec2bcd = FUNCdec2bcd;
-	func.bcd2dec = FUNCbcd2dec;
-	func.resizestr = FUNCresizestr;
-	func.trimmer = FUNCtrimmer;
-	func.bcd2bin = FUNCbcd2bin;
-	func.bin2bcd = FUNCbin2bcd;
-	func.gcd1 = FUNCgcd1;
-	func.print_binary = FUNCprint_binary;
-	func.ftoa = FUNCftoa;
-	func.dectohex = FUNCdectohex;
-	// Low Byte High Byte
-	func.SwapByte = FUNCSwapByte;
-	func.print = FUNCprint;
-	func.strtovec = FUNCstrtovec;
+	setup_func.stringlength = StringLength;
+	setup_func.reverse = Reverse;
+	setup_func.mayia = FUNCmayia;
+	setup_func.swap = FUNCswap;
+	setup_func.copy = FUNCcopy;
+	setup_func.squeeze = FUNCsqueeze;
+	setup_func.shellsort = FUNCshellsort;
+	setup_func.i16toa = FUNCi16toa;
+	setup_func.ui16toa = FUNCui16toa;
+	setup_func.i32toa = FUNCi32toa;
+	setup_func.ui32toa = FUNCui32toa;
+	setup_func.trim = FUNCtrim;
+	setup_func.pmax = FUNCpmax;
+	setup_func.gcd = FUNCgcd;
+	setup_func.strToInt = FUNCstrToInt;
+	setup_func.twocomptoint8bit = FUNCtwocomptoint8bit;
+	setup_func.twocomptoint10bit = FUNCtwocomptoint10bit;
+	setup_func.twocomptointnbit = FUNCtwocomptointnbit;
+	setup_func.dec2bcd = FUNCdec2bcd;
+	setup_func.bcd2dec = FUNCbcd2dec;
+	setup_func.resizestr = FUNCresizestr;
+	setup_func.trimmer = FUNCtrimmer;
+	setup_func.bcd2bin = FUNCbcd2bin;
+	setup_func.bin2bcd = FUNCbin2bcd;
+	setup_func.gcd1 = FUNCgcd1;
+	setup_func.print_binary = FUNCprint_binary;
+	setup_func.ftoa = FUNCftoa;
+	setup_func.dectohex = FUNCdectohex;
+	setup_func.SwapByte = FUNCSwapByte;
+	setup_func.print = FUNCprint;
+	setup_func.strtovec = FUNCstrtovec;
 	/***********pc use************
-	func.fltos = FUNCfltos;
-	func.ftos = FUNCftos;
-	func.strtotok = FUNCstrtotok;
-	func.putstr = FUNCputstr;
-	func.getnum = FUNCgetnum;
-	func.getnumv2 = FUNCgetnumv2;
-	func.readint = FUNCreadint;
+	setup_func.fltos = FUNCfltos;
+	setup_func.ftos = FUNCftos;
+	setup_func.strtotok = FUNCstrtotok;
+	setup_func.putstr = FUNCputstr;
+	setup_func.getnum = FUNCgetnum;
+	setup_func.getnumv2 = FUNCgetnumv2;
+	setup_func.readint = FUNCreadint;
 	*****************************/
 	
-	return func;
+	return setup_func;
 }
+
+FUNC* func(void){ return &setup_func; }
+
 // mayia
 unsigned int FUNCmayia(unsigned int xi, unsigned int xf, uint8_t nbits)
 { // magic formula

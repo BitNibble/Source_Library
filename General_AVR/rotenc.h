@@ -23,13 +23,13 @@ typedef struct{
 	uint8_t pchn;
 	uint8_t chn;
 	uint16_t num;
-}rotaryencoderparameter;
+}rotaryencoder_parameter;
 	
 struct rotenc{
 	// VARIABLIES
-	rotaryencoderparameter par;
+	rotaryencoder_parameter par;
 	// PROTOTYPES VTABLE
-	rotaryencoderparameter (*rte)(rotaryencoderparameter* par, uint8_t data);
+	rotaryencoder_parameter (*rte)(rotaryencoder_parameter* par, uint8_t data);
 };
 typedef struct rotenc ROTENC;
 

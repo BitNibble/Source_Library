@@ -14,7 +14,9 @@ Comment:
 /*** Global library ***/
 #include <inttypes.h>
 
-/*** Global Constant & Macro ***/
+/*** Constant & Macro ***/
+#define N_DELAY_MASK 0X0F
+#define N_DELAY 16
 
 /*** Global Variable ***/
 struct WATCHTIME{

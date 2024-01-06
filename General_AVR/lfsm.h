@@ -15,7 +15,10 @@ Comment:
 #include "atmegaeeprom.h"
 #include <inttypes.h>
 
-/*** Global Constant & Macro ***/
+/*** Constant & Macro ***/
+#define NPAGES 255 // 1 to 254 possible pages
+#define BYTEL 0
+#define BYTEH 65535
 
 /*** Global Variable ***/
 struct lfsmdata{

@@ -12,11 +12,8 @@ Comment:
 #include "hc05atcommands.h"
 #include <string.h>
 
-/*** File Constant & Macro ***/
-
 /*** File Variable ***/
 char ATstr[72];
-
 
 /*** File Header ***/
 

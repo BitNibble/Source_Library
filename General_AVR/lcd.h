@@ -31,6 +31,13 @@ Comment:
 #define DB5 5
 #define DB6 6
 #define DB7 7
+/***************/
+// CMD RS
+#define INST 0
+#define DATA 1
+// ticks depends on CPU frequency 16Mhz -> 0 8Mhz -> 0
+#define LCD_N_TICKS 0
+#define BIT_N_TICKS 0
 
 /***Global Variable***/
 struct dspl {
@@ -50,6 +57,8 @@ typedef struct dspl LCD0;
 typedef struct dspl LCD1;
 
 /***Global Header***/
+LCD0* lcd0(void);
+LCD1* lcd1(void);
 LCD0 LCD0enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port);
 LCD1 LCD1enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port);
 

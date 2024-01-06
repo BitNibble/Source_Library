@@ -23,6 +23,7 @@ COMMENT:
 #define MM74C923_EXTRA_DATA_OUT_PIN 2 // MSB
 #define MM74C923_OUTPUT_ENABLE 1 //ic pin 14
 #define MM74C923_DATA_AVAILABLE 0 //ic pin 13
+#define MM74C923_KEY_BUFFER_SIZE 16
 
 /*** Global Variable ***/
 struct mm74c923{
