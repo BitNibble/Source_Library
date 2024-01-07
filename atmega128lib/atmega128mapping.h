@@ -30,9 +30,6 @@ Comment:
 /*** RAW IMAGE ***/
 #include "atmega128.h"
 /****************/
-#ifndef IO_var
-	#define IO_var uint8_t
-#endif
 #ifndef DATA_SIZE
 	#define DATA_SIZE 8
 #endif
