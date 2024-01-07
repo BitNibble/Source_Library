@@ -73,18 +73,18 @@ uint8_t WATCH_start_delay(uint8_t n_delay, uint16_t seconds){ // One shot
 }
 void WATCH_preset(uint8_t hour, uint8_t minute, uint8_t second)
 {
-	if( hour >= 0 && hour < 13 ){
+	if( hour < 13 ){
 		if(hour > 0 && hour < 12)
 			time.hour = hour;
 		else
 			time.hour = 12;
 	}else
 		time.hour = 0;
-	if( minute >= 0 && minute < 60 )
+	if( minute < 60 )
 		time.minute = minute;
 	else
 		time.minute = 0;
-	if( second >= 0 && second < 60 );
+	if( second < 60 );
 	else
 		time.second = 0;
 	time.seconds = hour * 3600 + minute * 60 + second;

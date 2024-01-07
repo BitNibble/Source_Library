@@ -23,10 +23,12 @@ static char FUNCstr[FUNCSTRSIZE + 1];
 /*** File Header ***/
 int StringLength (const char string[]);
 void Reverse(char s[]);
+uint8_t FUNCintinvstr(uint32_t num, uint8_t index);
+void FUNCswap(long *px, long *py);
+/***/
 uint8_t  bintobcd(uint8_t bin);
 uint8_t leap_year_check(uint16_t year);
 unsigned int FUNCmayia(unsigned int xi, unsigned int xf, uint8_t nbits);
-void FUNCswap(long *px, long *py);
 void FUNCcopy(char to[], char from[]);
 void FUNCsqueeze(char s[], int c);
 void FUNCshellsort(int v[], int n);
@@ -50,7 +52,6 @@ unsigned char FUNCbin2bcd(unsigned val);
 long FUNCgcd1(long a, long b);
 char* FUNCprint_binary(unsigned int n_bits, unsigned int number);
 void FUNCreverse(char* str, int len);
-uint8_t FUNCintinvstr(uint32_t num, uint8_t index);
 char* FUNCftoa(double num, uint8_t afterpoint);
 char* FUNCdectohex(int32_t num);
 uint16_t FUNCSwapByte(uint16_t num);

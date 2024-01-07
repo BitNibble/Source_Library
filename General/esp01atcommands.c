@@ -99,7 +99,7 @@ char* ESP01ATcmd(uint16_t num){
 			strcpy(ATstr, "AT+CWMODE=3\r\n");
 		break;
 		case 30: // esp01
-			strcpy(ATstr, "AT+CWJAP="NOS-9C64","RUSXRCKL"\r\n");
+			strcpy(ATstr, "AT+CWJAP=NOS-9C64,RUSXRCKL\r\n");
 		break;
 		case 311: // esp01 configure the ESP8266 ESP-01 module as a Single server
 			strcpy(ATstr, "AT+CIPMUX=0\r\n");
