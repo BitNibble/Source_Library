@@ -5,6 +5,7 @@ Author: Sergio Santos
 License: GNU General Public License
 Hardware: all
 Date: 31122023
+Update: 07012024
 Comment:
 	Very Stable
 	Tested Atemga128 16Mhz and Atmega328 8Mhz and STM32F446RE

@@ -4,7 +4,7 @@ Author: Sergio Manuel Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: Atmega128 by ETT ET-BASE
-Update: 01/01/2024
+Update: 07/01/2024
 Comment:
 	Virtual Image Atmega 128 mapping.
 **********************************************************/
@@ -13,6 +13,32 @@ Comment:
 
 /*** File Variables ***/
 static ATMEGA128 atmega;
+/**********************/
+static Atmega128GPWR gpwr_ptr;
+static Atmega128AnalogComparator ac_ptr;
+static Atmega128AnalogToDigitalConverter adc_ptr;
+static Atmega128BootLoader boot_load_ptr;
+static Atmega128CPURegister cpu_ptr;
+static Atmega128Eeprom eeprom_ptr;
+static Atmega128ExternalInterrupts exint_ptr;
+static Atmega128PORTA porta_ptr;
+static Atmega128PORTB portb_ptr;
+static Atmega128PORTC portc_ptr;
+static Atmega128PORTD portd_ptr;
+static Atmega128PORTE porte_ptr;
+static Atmega128PORTF portf_ptr;
+static Atmega128PORTG portg_ptr;
+static Atmega128JtagInterface jtag_ptr;
+static Atmega128OtherRegisters misc_ptr;
+static Atmega128SerialPeripherialInterface spi_ptr;
+static Atmega128TimerCounter1 tc1_ptr;
+static Atmega128TimerCounter3 tc3_ptr;
+static Atmega128TimerCounter2 tc2_ptr;
+static Atmega128TimerCounter0 tc0_ptr;
+static Atmega128TwoWireSerialInterface twi_ptr;
+static Atmega128Usart0 usart0_ptr;
+static Atmega128Usart1 usart1_ptr;
+static Atmega128WatchdogTimer wdt_ptr;
 
 /*** File Header ***/
 uint16_t ReadHLByte(HighLowByte reg);
@@ -32,94 +58,119 @@ void MoveInterruptsToBoot(void);
 /*** Procedure & Function ***/
 ATMEGA128 ATMEGA128enable(void){ 
 	// Assign
+	atmega.gpwr = (Atmega128GPWR*) &gpwr_ptr;
+	atmega.ac = (Atmega128AnalogComparator*) &ac_ptr;
+	atmega.adc = (Atmega128AnalogToDigitalConverter*) &adc_ptr;
+	atmega.boot_load = (Atmega128BootLoader*) &boot_load_ptr;
+	atmega.cpu = (Atmega128CPURegister*) &cpu_ptr;
+	atmega.eeprom = (Atmega128Eeprom*) &eeprom_ptr;
+	atmega.exint = (Atmega128ExternalInterrupts*) &exint_ptr;
+	atmega.porta = (Atmega128PORTA*) &porta_ptr;
+	atmega.portb = (Atmega128PORTB*) &portb_ptr;
+	atmega.portc = (Atmega128PORTC*) &portc_ptr;
+	atmega.portd = (Atmega128PORTD*) &portd_ptr;
+	atmega.porte = (Atmega128PORTE*) &porte_ptr;
+	atmega.portf = (Atmega128PORTF*) &portf_ptr;
+	atmega.portg = (Atmega128PORTG*) &portg_ptr;
+	atmega.jtag = (Atmega128JtagInterface*) &jtag_ptr;
+	atmega.misc = (Atmega128OtherRegisters*) &misc_ptr;
+	atmega.spi = (Atmega128SerialPeripherialInterface*) &spi_ptr;
+	atmega.tc1 = (Atmega128TimerCounter1*) &tc1_ptr;
+	atmega.tc3 = (Atmega128TimerCounter3*) &tc3_ptr;
+	atmega.tc2 = (Atmega128TimerCounter2*) &tc2_ptr;
+	atmega.tc0 = (Atmega128TimerCounter0*) &tc0_ptr;
+	atmega.twi = (Atmega128TwoWireSerialInterface*) &twi_ptr;
+	atmega.usart0 = (Atmega128Usart0*) &usart0_ptr;
+	atmega.usart1 = (Atmega128Usart1*) &usart1_ptr;
+	atmega.wdt = (Atmega128WatchdogTimer*) &wdt_ptr;
 	// GPWR
-	atmega.gpwr.reg = (Atmega128GPWR_TypeDef*) Atmega128GPWR_Address;
+	atmega.gpwr->reg = (Atmega128GPWR_TypeDef*) Atmega128GPWR_Address;
 	// AC
-	atmega.ac.reg = (Atmega128AnalogComparator_TypeDef*) Atmega128AnalogComparator_Address;
-	atmega.ac.misc = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
+	atmega.ac->reg = (Atmega128AnalogComparator_TypeDef*) Atmega128AnalogComparator_Address;
+	atmega.ac->misc = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
 	// ADC
-	atmega.adc.reg = (Atmega128AnalogToDigitalConverter_TypeDef*) Atmega128AnalogToDigitalConverter_Address;
+	atmega.adc->reg = (Atmega128AnalogToDigitalConverter_TypeDef*) Atmega128AnalogToDigitalConverter_Address;
 	#if defined(_ANALOG_MODULE_)
-		atmega.adc.enable = ANALOGenable;
+		atmega.adc->enable = ANALOGenable;
 	#endif
-	atmega.boot_load.reg = (Atmega128BootLoader_TypeDef*) Atmega128BootLoader_Address;
-	atmega.cpu.reg = (Atmega128CPURegister_TypeDef*) Atmega128CPURegister_Address;
+	atmega.boot_load->reg = (Atmega128BootLoader_TypeDef*) Atmega128BootLoader_Address;
+	atmega.cpu->reg = (Atmega128CPURegister_TypeDef*) Atmega128CPURegister_Address;
 	// EEPROM
-	atmega.eeprom.reg = (Atmega128Eeprom_TypeDef*) Atmega128Eeprom_Address;
+	atmega.eeprom->reg = (Atmega128Eeprom_TypeDef*) Atmega128Eeprom_Address;
 	#if defined(_EEPROM_MODULE_)
-		atmega.eeprom.enable = EEPROMenable;
+		atmega.eeprom->enable = EEPROMenable;
 	#endif
 	// EXINT
-	atmega.exint.reg = (Atmega128ExternalInterrupts_TypeDef*) Atmega128ExternalInterrupts_Address;
+	atmega.exint->reg = (Atmega128ExternalInterrupts_TypeDef*) Atmega128ExternalInterrupts_Address;
 	#if defined(_INTERRUPT_MODULE_)
-		atmega.exint.enable = INTERRUPTenable;
+		atmega.exint->enable = INTERRUPTenable;
 	#endif
 	// PORTA
-	atmega.porta.reg = (Atmega128PORTA_TypeDef*) Atmega128PORTA_Address;
+	atmega.porta->reg = (Atmega128PORTA_TypeDef*) Atmega128PORTA_Address;
 	// PORTB
-	atmega.portb.reg = (Atmega128PORTB_TypeDef*) Atmega128PORTB_Address;
+	atmega.portb->reg = (Atmega128PORTB_TypeDef*) Atmega128PORTB_Address;
 	// PORTC
-	atmega.portc.reg = (Atmega128PORTC_TypeDef*) Atmega128PORTC_Address;
+	atmega.portc->reg = (Atmega128PORTC_TypeDef*) Atmega128PORTC_Address;
 	// PORTD
-	atmega.portd.reg = (Atmega128PORTD_TypeDef*) Atmega128PORTD_Address;
+	atmega.portd->reg = (Atmega128PORTD_TypeDef*) Atmega128PORTD_Address;
 	// PORTE
-	atmega.porte.reg = (Atmega128PORTE_TypeDef*) Atmega128PORTE_Address;
+	atmega.porte->reg = (Atmega128PORTE_TypeDef*) Atmega128PORTE_Address;
 	// PORTF
-	atmega.portf.reg = (Atmega128PORTF_TypeDef*) Atmega128PORTF_Address;
+	atmega.portf->reg = (Atmega128PORTF_TypeDef*) Atmega128PORTF_Address;
 	// PORTG
-	atmega.portg.reg = (Atmega128PORTG_TypeDef*) Atmega128PORTG_Address;
+	atmega.portg->reg = (Atmega128PORTG_TypeDef*) Atmega128PORTG_Address;
 	// JTAG
-	atmega.jtag.reg = (Atmega128JtagInterface_TypeDef*) Atmega128JtagInterface_Address;
+	atmega.jtag->reg = (Atmega128JtagInterface_TypeDef*) Atmega128JtagInterface_Address;
 	// MISC
-	atmega.misc.reg = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
+	atmega.misc->reg = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
 	// SPI
-	atmega.spi.reg = (Atmega128SerialPeripherialInterface_TypeDef*) Atmega128SerialPeripherialInterface_Address;
+	atmega.spi->reg = (Atmega128SerialPeripherialInterface_TypeDef*) Atmega128SerialPeripherialInterface_Address;
 	#if defined(_SPI_MODULE_)
-		atmega.spi.run = spi;
-		atmega.spi.enable = SPIenable;
+		atmega.spi->run = spi;
+		atmega.spi->enable = SPIenable;
 	#endif
 	// TC1
-	atmega.tc1.reg = (Atmega128TimerCounter1_TypeDef*) Atmega128TimerCounter1_Address;
-	atmega.tc1.misc = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
+	atmega.tc1->reg = (Atmega128TimerCounter1_TypeDef*) Atmega128TimerCounter1_Address;
+	atmega.tc1->misc = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
 	#if defined(_TIMER1_MODULE_)
-		atmega.tc1.enable = TIMER_COUNTER1enable;
+		atmega.tc1->enable = TIMER_COUNTER1enable;
 	#endif
 	// TC3
-	atmega.tc3.reg = (Atmega128TimerCounter3_TypeDef*) Atmega128TimerCounter3_Address;
-	atmega.tc3.misc = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
+	atmega.tc3->reg = (Atmega128TimerCounter3_TypeDef*) Atmega128TimerCounter3_Address;
+	atmega.tc3->misc = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
 	#if defined(_TIMER3_MODULE_)
-		atmega.tc3.enable = TIMER_COUNTER3enable;
+		atmega.tc3->enable = TIMER_COUNTER3enable;
 	#endif
 	// TC2
-	atmega.tc2.reg = (Atmega128TimerCounter2_TypeDef*) Atmega128TimerCounter2_Address;
+	atmega.tc2->reg = (Atmega128TimerCounter2_TypeDef*) Atmega128TimerCounter2_Address;
 	#if defined(_TIMER2_MODULE_)
-		atmega.tc2.enable = TIMER_COUNTER2enable;
+		atmega.tc2->enable = TIMER_COUNTER2enable;
 	#endif
 	// TC0
-	atmega.tc0.reg = (Atmega128TimerCounter0_TypeDef*) Atmega128TimerCounter0_Address;
-	atmega.tc0.misc = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
+	atmega.tc0->reg = (Atmega128TimerCounter0_TypeDef*) Atmega128TimerCounter0_Address;
+	atmega.tc0->misc = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
 	#if defined(_TIMER0_MODULE_)
-		atmega.tc0.enable = TIMER_COUNTER0enable;
+		atmega.tc0->enable = TIMER_COUNTER0enable;
 	#endif
 	// TWI
-	atmega.twi.reg = (Atmega128TwoWireSerialInterface_TypeDef*) Atmega128TwoWireSerialInterface_Address;
+	atmega.twi->reg = (Atmega128TwoWireSerialInterface_TypeDef*) Atmega128TwoWireSerialInterface_Address;
 	#if defined(_TWI_MODULE_)
-		atmega.twi.run = twi;
-		atmega.twi.enable = TWIenable;
+		atmega.twi->run = twi;
+		atmega.twi->enable = TWIenable;
 	#endif
 	// USART0
-	atmega.usart0.reg = (Atmega128Usart0_TypeDef*) Atmega128Usart0_Address;
+	atmega.usart0->reg = (Atmega128Usart0_TypeDef*) Atmega128Usart0_Address;
 	#if defined(_USART0_MODULE_)
-		atmega.usart0.run = usart0;
-		atmega.usart0.enable = USART0enable;
+		atmega.usart0->run = usart0;
+		atmega.usart0->enable = USART0enable;
 	#endif
 	// USART1
-	atmega.usart1.reg = (Atmega128Usart1_TypeDef*) Atmega128Usart1_Address;
+	atmega.usart1->reg = (Atmega128Usart1_TypeDef*) Atmega128Usart1_Address;
 	#if defined(_USART1_MODULE_)
-		atmega.usart1.run = usart1;
-		atmega.usart1.enable = USART1enable;
+		atmega.usart1->run = usart1;
+		atmega.usart1->enable = USART1enable;
 	#endif
-	atmega.wdt.reg = (Atmega128WatchdogTimer_TypeDef*) Atmega128WatchdogTimer_Address;
+	atmega.wdt->reg = (Atmega128WatchdogTimer_TypeDef*) Atmega128WatchdogTimer_Address;
 	// General Func
 	atmega.readhlbyte = ReadHLByte;
 	atmega.readlhbyte = ReadLHByte;
@@ -240,24 +291,24 @@ void ClockPrescalerSelect(volatile uint8_t prescaler)
 	volatile uint8_t sreg;
 	volatile uint8_t* clkpr = &XDIV;
 	prescaler &= 0x7F;
-	sreg = atmega.cpu.reg->sreg;
-	atmega.cpu.reg->sreg &= ~(1 << 7);
+	sreg = atmega.cpu->reg->sreg;
+	atmega.cpu->reg->sreg &= ~(1 << 7);
 	
 	*clkpr = prescaler;
 	*clkpr = (1 << XDIVEN) | prescaler;
 	
-	atmega.cpu.reg->sreg = sreg;
+	atmega.cpu->reg->sreg = sreg;
 }
 void MoveInterruptsToBoot(void)
 {
 	volatile uint8_t sreg;
-	sreg = atmega.cpu.reg->sreg;
-	atmega.cpu.reg->sreg &= ~(1 << 7);
+	sreg = atmega.cpu->reg->sreg;
+	atmega.cpu->reg->sreg &= ~(1 << 7);
 	
 	MCUCR = (1<<IVCE);
 	MCUCR = (1<<IVSEL);
 	
-	atmega.cpu.reg->sreg = sreg;
+	atmega.cpu->reg->sreg = sreg;
 }
 
 /***EOF***/

@@ -4,7 +4,7 @@ Author: Sergio Manuel Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: Atmega128 by ETT ET-BASE
-Update: 01/01/2024
+Update: 07/01/2024
 Comment: 
 	Virtual Image Atmega 128 mapping.
 	NB:
@@ -117,9 +117,9 @@ Comment:
 typedef struct {
 	HighLowByte HLbyte;
 }Atmega128Parameter;
-/********************/
-/*** Second Layer ***/
-/********************/
+/**************************/
+/****** Second Layer ******/
+/**************************/
 // GPWR
 typedef struct {
 	Atmega128GPWR_TypeDef* reg;
@@ -290,32 +290,31 @@ typedef struct {
 /*************************** Third Layer ***************************/
 /*******************************************************************/
 typedef struct {
-	//		Second Layer
-	Atmega128GPWR gpwr;
-	Atmega128AnalogComparator ac;
-	Atmega128AnalogToDigitalConverter adc;
-	Atmega128BootLoader boot_load;
-	Atmega128CPURegister cpu;
-	Atmega128Eeprom eeprom;
-	Atmega128ExternalInterrupts exint;
-	Atmega128PORTA porta;
-	Atmega128PORTB portb;
-	Atmega128PORTC portc;
-	Atmega128PORTD portd;
-	Atmega128PORTE porte;
-	Atmega128PORTF portf;
-	Atmega128PORTG portg;
-	Atmega128JtagInterface jtag;
-	Atmega128OtherRegisters misc;
-	Atmega128SerialPeripherialInterface spi;
-	Atmega128TimerCounter1 tc1;
-	Atmega128TimerCounter3 tc3;
-	Atmega128TimerCounter2 tc2;
-	Atmega128TimerCounter0 tc0;
-	Atmega128TwoWireSerialInterface twi;
-	Atmega128Usart0 usart0;
-	Atmega128Usart1 usart1;
-	Atmega128WatchdogTimer wdt;
+	Atmega128GPWR* gpwr;
+	Atmega128AnalogComparator* ac;
+	Atmega128AnalogToDigitalConverter* adc;
+	Atmega128BootLoader* boot_load;
+	Atmega128CPURegister* cpu;
+	Atmega128Eeprom* eeprom;
+	Atmega128ExternalInterrupts* exint;
+	Atmega128PORTA* porta;
+	Atmega128PORTB* portb;
+	Atmega128PORTC* portc;
+	Atmega128PORTD* portd;
+	Atmega128PORTE* porte;
+	Atmega128PORTF* portf;
+	Atmega128PORTG* portg;
+	Atmega128JtagInterface* jtag;
+	Atmega128OtherRegisters* misc;
+	Atmega128SerialPeripherialInterface* spi;
+	Atmega128TimerCounter1* tc1;
+	Atmega128TimerCounter3* tc3;
+	Atmega128TimerCounter2* tc2;
+	Atmega128TimerCounter0* tc0;
+	Atmega128TwoWireSerialInterface* twi;
+	Atmega128Usart0* usart0;
+	Atmega128Usart1* usart1;
+	Atmega128WatchdogTimer* wdt;
 	//		Pointer Function
 	uint16_t (*readhlbyte)(HighLowByte reg);
 	uint16_t (*readlhbyte)(HighLowByte reg);
