@@ -27,11 +27,13 @@ Comment:
 static STM32446 stm32446;
 static uint32_t DelayCounter;
 /*** File Header ***/
-IO_var STM32446_readreg(IO_var reg, uint8_t size_block, uint8_t bit);
-void STM32446_writereg(volatile IO_var* reg, uint8_t size_block, uint8_t bit, IO_var data);
-void STM32446_setreg(volatile IO_var* reg, uint8_t size_block, uint8_t bit, IO_var data);
-void STM32446_setbit(volatile IO_var* reg, uint8_t size_block, uint8_t bit, IO_var data);
-IO_var STM32446_getsetbit(volatile IO_var* reg, uint8_t size_block, uint8_t bit);
+/***/
+uint32_t readreg(uint32_t reg, uint8_t size_block, uint8_t bit_n);
+uint32_t getsetbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n);
+void setreg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
+void setbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
+void writereg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
+/***/
 // QUERY
 STM32446CLOCK_prescaler CLOCK_prescaler_inic(void);
 STM32446PLL_parameter PLL_parameter_inic(void);
@@ -58,16 +60,17 @@ void STM32446delay_10us(uint32_t ten_us);
 void STM32446delay_us(uint32_t us);
 /******* STM32F446RE Procedure & Function Definition *******/
 STM32446 STM32446enable(void){
-	//STM32446 stm32446;
 	/************* CORE ************/
+	// QUERY
+	stm32446.query = query_inic();
 	// Coprocessor Access Control Register
 	stm32446.scb.reg = ((SCB_Type*) STM32446_SCB_BASE;
+	// SysTick (Used as Delay Source)
+	stm32446.systick = systick_inic();
 	// NVIC
 	#if defined(_STM32446NVIC_H_)
 		stm32446.nvic = nvic_inic();
 	#endif
-	// SysTick (Used as Delay Source)
-	stm32446.systick = systick_inic();
 	/************ MCU ************/
 	// ADC -> ADC1
 	#if defined(_STM32446ADC_H_)
@@ -111,14 +114,9 @@ STM32446 STM32446enable(void){
 		stm32446.rcc = rcc_inic();
 	#endif
 	// RTC
-	stm32446.rtc.reg = RTC;
 	#if defined(_STM32446RTC_H_)
-		stm32446.rtc.clock = STM32446RtcClock;
-		stm32446.rtc.nvic = STM32446RtcNvic;
-		stm32446.rtc.inic = STM32446RtcInic;
-		// Enable
-		stm32446.rtc.run = rtc;
-		stm32446.rtc.enable = RTCenable;
+		RTCenable();
+		stm32446.rtc = rtc();
 	#endif
 	// SRAM
 	#if defined(_STM32446SRAM_H_)
@@ -149,26 +147,33 @@ STM32446 STM32446enable(void){
 	#endif
 	// USART
 	#if defined(_STM32446USART_H_)
-		stm32446.usart1 = usart1_inic();
+		USART1enable();
+		stm32446.usart1 = (STM32446_USART1*) usart1();
+
 		stm32446.usart2 = usart2_inic();
 		stm32446.usart3 = usart3_inic();
 		stm32446.uart4 = uart4_inic();
 		stm32446.uart5 = uart5_inic();
 		stm32446.usart6 = usart6_inic();
 	#endif
-	// QUERY
-	stm32446.query = query_inic();
 	// PRIVATE
-	#if defined(_FUNCTION_H_)
-		stm32446.func = FUNCenable();
+	#if defined(_ARMFUNCTION_H_)
+		FUNCenable();
+		stm32446.func = func();
 	#endif
+
+	stm32446.readreg = readreg;
+	stm32446.getsetbit = getsetbit;
+	stm32446.setreg = setreg;
+	stm32446.setbit = setbit;
+	stm32446.writereg = writereg;
 	
 	SystickInic(); // Polling delay source.
 
 	return stm32446;
 }
 
-STM32446* stm(void){return &stm32446;}
+STM32446* stm(void){return (STM32446*) &stm32446;}
 /*** Query ***/
 STM32446CLOCK_prescaler CLOCK_prescaler_inic(void)
 {
@@ -217,7 +222,7 @@ uint32_t STM32446_getpllsource(void)
 }
 uint16_t STM32446_gethpre(void)
 {
-	uint32_t value = STM32446_readreg(RCC->CFGR, 4, 4);
+	uint32_t value = readreg(RCC->CFGR, 4, 4);
 	switch(value)
 	{
 		case 0b1000:
@@ -252,7 +257,7 @@ uint16_t STM32446_gethpre(void)
 }
 uint8_t STM32446_gethppre1(void)
 {
-	uint32_t value = STM32446_readreg(RCC->CFGR, 3, 10);
+	uint32_t value = readreg(RCC->CFGR, 3, 10);
 	switch(value)
 	{
 		case 0b100:
@@ -275,7 +280,7 @@ uint8_t STM32446_gethppre1(void)
 }
 uint8_t STM32446_gethppre2(void)
 {
-	uint32_t value = STM32446_readreg(RCC->CFGR, 3, 13);
+	uint32_t value = readreg(RCC->CFGR, 3, 13);
 	switch(value)
 	{
 		case 0b100:
@@ -298,11 +303,11 @@ uint8_t STM32446_gethppre2(void)
 }
 uint8_t STM32446_getrtcpre(void)
 {
-	return STM32446_readreg(RCC->CFGR, 5, 16);
+	return readreg(RCC->CFGR, 5, 16);
 }
 uint8_t STM32446_gethmco1pre(void)
 {
-	uint32_t value = STM32446_readreg(RCC->CFGR, 3, 24);
+	uint32_t value = readreg(RCC->CFGR, 3, 24);
 	switch(value)
 	{
 		case 0b100:
@@ -325,7 +330,7 @@ uint8_t STM32446_gethmco1pre(void)
 }
 uint8_t STM32446_gethmco2pre(void)
 {
-	uint32_t value = STM32446_readreg(RCC->CFGR, 3, 27);
+	uint32_t value = readreg(RCC->CFGR, 3, 27);
 	switch(value)
 	{
 		case 0b100:
@@ -348,15 +353,15 @@ uint8_t STM32446_gethmco2pre(void)
 }
 uint8_t STM32446_getpllm(void)
 {
-	return STM32446_readreg(RCC->PLLCFGR, 6, 0);
+	return readreg(RCC->PLLCFGR, 6, 0);
 }
 uint16_t STM32446_getplln(void)
 {
-	return STM32446_readreg(RCC->PLLCFGR, 9, 6);
+	return readreg(RCC->PLLCFGR, 9, 6);
 }
 uint8_t STM32446_getpllp(void)
 {
-	uint32_t value = STM32446_readreg(RCC->PLLCFGR, 2, 16);
+	uint32_t value = readreg(RCC->PLLCFGR, 2, 16);
 	switch(value)
 	{
 		case 0b00:
@@ -378,15 +383,15 @@ uint8_t STM32446_getpllp(void)
 }
 uint8_t STM32446_getpllq(void)
 {
-	return STM32446_readreg(RCC->PLLCFGR, 4, 24);
+	return readreg(RCC->PLLCFGR, 4, 24);
 }
 uint8_t STM32446_getpllr(void)
 {
-	return STM32446_readreg(RCC->PLLCFGR, 3, 28);
+	return readreg(RCC->PLLCFGR, 3, 28);
 }
 uint32_t STM32446_getsysclk(void)
 {
-	uint32_t value = STM32446_readreg(RCC->CFGR, 2, 2);
+	uint32_t value = readreg(RCC->CFGR, 2, 2);
 	switch(value) // SWS[2]: System clock switch status
 	{
 		case 1: // 01: HSE oscillator used as the system clock
@@ -454,51 +459,53 @@ void STM32446delay_us(uint32_t us)
 	SysTick->CTRL &= (uint32_t) ~(1 << 0);
 }
 /*** File Procedure & Function Definition ***/
-IO_var STM32446_readreg(IO_var reg, uint8_t size_block, uint8_t bit_n)
+/***/
+uint32_t readreg(uint32_t reg, uint8_t size_block, uint8_t bit_n)
 {
-	if(bit_n > DATA_BITS){ bit_n = 0; } if(size_block > DATA_SIZE){ size_block = DATA_SIZE; }
-	IO_var mask = (IO_var)((1 << size_block) - 1);
+	if(bit_n > DATA_BITS){ bit_n = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
+	uint32_t mask = (unsigned int)((1 << size_block) - 1);
 	reg &= (mask << bit_n);
 	reg = (reg >> bit_n);
 	return reg;
 }
-IO_var STM32446_getsetbit(volatile IO_var* reg, uint8_t size_block, uint8_t bit_n)
+uint32_t getsetbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n)
 {
-	uint8_t n = 0;
-	if(bit_n > DATA_BITS){ n = bit_n/DATA_SIZE; bit_n -= (n * DATA_SIZE); } if(size_block > DATA_SIZE){ size_block = DATA_SIZE; }
-	IO_var value = *(reg + n );
-	IO_var mask = (IO_var)((1 << size_block) - 1);
+	uint32_t n = 0;
+	if(bit_n > DATA_BITS){ n = bit_n/DATA_SIZE; bit_n = bit_n - (n * DATA_SIZE); } if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
+	uint32_t value = *(reg + n );
+	uint32_t mask = (unsigned int)((1 << size_block) - 1);
 	value &= (mask << bit_n);
 	value = (value >> bit_n);
 	return value;
 }
-void STM32446_setreg(volatile IO_var* reg, uint8_t size_block, uint8_t bit_n, IO_var data )
+void setreg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data)
 {
-	if(bit_n > DATA_BITS){ bit_n = 0; } if(size_block > DATA_SIZE){ size_block = DATA_SIZE; }
-	IO_var mask = (IO_var)((1 << size_block) - 1);
+	if(bit_n > DATA_BITS){ bit_n = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
+	uint32_t mask = (unsigned int)((1 << size_block) - 1);
 	data &= mask;
 	*reg &= ~(mask << bit_n);
 	*reg |= (data << bit_n);
 }
-void STM32446_setbit(volatile IO_var* reg, uint8_t size_block, uint8_t bit_n, IO_var data)
+void setbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data)
 {
-	uint8_t n = 0;
-	if(bit_n > DATA_BITS){ n = bit_n/DATA_SIZE; bit_n = bit_n - (n * DATA_SIZE); } if(size_block > DATA_SIZE){ size_block = DATA_SIZE; }
-	IO_var mask = (IO_var)((1 << size_block) - 1);
+	uint32_t n = 0;
+	if(bit_n > DATA_BITS){ n = bit_n/DATA_SIZE; bit_n = bit_n - (n * DATA_SIZE); } if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
+	uint32_t mask = (unsigned int)((1 << size_block) - 1);
 	data &= mask;
 	*(reg + n ) &= ~(mask << bit_n);
 	*(reg + n ) |= (data << bit_n);
 }
-void STM32446_writereg(volatile IO_var* reg, uint8_t size_block, uint8_t bit_n, IO_var data)
+void writereg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data)
 {
-	if(bit_n > DATA_BITS){ bit_n = 0; } if(size_block > DATA_SIZE){ size_block = DATA_SIZE; }
-	IO_var value = *reg;
-	IO_var mask = (IO_var)((1 << size_block) - 1);
+	if(bit_n > DATA_BITS){ bit_n = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
+	uint32_t value = *reg;
+	uint32_t mask = (unsigned int)((1 << size_block) - 1);
 	data &= mask; value &= ~(mask << bit_n);
 	data = (data << bit_n);
 	value |= data;
 	*reg = value;
 }
+/***/
 void STM32446RegSetBits( unsigned int* reg, int n_bits, ... )
 {
 	uint8_t i;

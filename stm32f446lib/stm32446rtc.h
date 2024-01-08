@@ -21,12 +21,18 @@ Comment:
 #ifndef RTC_KEY2
 	#define RTC_KEY2 0x53
 #endif
+#ifndef DATA_BITS
+	#define DATA_BITS 31
+#endif
+#ifndef DATA_SIZE
+	#define DATA_SIZE 32
+#endif
 
 /*** RTC TypeDef ***/
 typedef struct
 {
-	void (*clock)(uint8_t bool);
-	void (*inic)(uint8_t clock);
+	RTC_TypeDef* reg;
+	/***/
 	void (*Day)(uint8_t day);
 	void (*Month)(uint8_t month);
 	void (*WeekDay)(uint8_t weekday);
@@ -40,6 +46,9 @@ typedef struct
 	uint8_t (*BckRead)(uint8_t n);
 	uint8_t (*get_stsu)(void);
 	uint16_t (*get_ss)(void);
+	/*** Other ***/
+	void (*clock)(uint8_t bool);
+	void (*inic)(uint8_t clock);
 	void (*nvic)(uint8_t value);
 }STM32446_RTC;
 /***/

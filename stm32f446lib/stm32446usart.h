@@ -12,6 +12,13 @@ Comment:
 	#define _STM32446USART_H_
 /*** Library ***/
 #include <inttypes.h>
+/*** Define & Macro ***/
+#ifndef DATA_BITS
+	#define DATA_BITS 31
+#endif
+#ifndef DATA_SIZE
+	#define DATA_SIZE 32
+#endif
 /*** USART Bit Mapping Common TypeDef ***/
 typedef struct{
 	uint8_t (*cts)(void);
@@ -94,9 +101,10 @@ typedef struct
 	uint32_t (*get_dr)(void);
 	/*** Other ***/
 	void (*clock)(uint8_t bool);
+	void (*enable)(void);
 
 	void (*parameter)( uint8_t wordlength, uint8_t samplingmode, double stopbits, uint32_t baudrate );
-}STM32446USART1obj;
+}STM32446_USART1;
 // USART -> USART2
 typedef struct
 {
@@ -186,7 +194,10 @@ typedef struct
 		void (*parameter)( uint8_t wordlength, uint8_t samplingmode, double stopbits, uint32_t baudrate );
 	#endif
 }STM32446USART6obj;
-STM32446USART1obj usart1_inic(void);
+
+STM32446_USART1 USART1enable(void);
+STM32446_USART1*  usart1(void);
+
 STM32446USART2obj usart2_inic(void);
 STM32446USART3obj usart3_inic(void);
 STM32446USART4obj uart4_inic(void);

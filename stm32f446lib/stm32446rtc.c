@@ -16,11 +16,13 @@ static STM32446_RTC stm32446_rtc;
 static uint32_t rtc_time_out;
 
 /*** File Procedure & Function Header ***/
-uint32_t rtc_readreg(uint32_t reg, uint32_t size_block, uint32_t bit);
-void rtc_writereg(volatile uint32_t* reg, uint32_t size_block, uint32_t bit, uint32_t data);
-void rtc_setreg(volatile uint32_t* reg, uint32_t size_block, uint32_t bit, uint32_t data);
-void rtc_setbit(volatile uint32_t* reg, uint32_t size_block, uint32_t bit, uint32_t data);
-uint32_t rtc_getsetbit(volatile uint32_t* reg, uint32_t size_block, uint32_t bit);
+uint32_t rtc_readreg(uint32_t reg, uint8_t size_block, uint8_t bit_n);
+uint32_t rtc_getsetbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n);
+void rtc_setreg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
+void rtc_setbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
+void rtc_writereg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
+/***/
+STM32446_RTC RTC_inic(void);
 void STM32446PwrClock(uint8_t bool);
 void STM32446BckSramClock(uint8_t bool);
 void STM32446RtcWriteEnable(void);
@@ -40,11 +42,10 @@ char rtc_dec2bcd(char num);
 void rtc_lenable(unsigned int lclock);
 void rtc_lselect(uint8_t lclock);
 /*** RTC Procedure & Function Definition ***/
-STM32446_RTC RTCenable(void)
+STM32446_RTC RTC_inic(void)
 {
-	stm32446_rtc.clock = STM32446RtcClock;
-	stm32446_rtc.nvic = STM32446RtcNvic;
-	stm32446_rtc.inic = STM32446RtcInic;
+	stm32446_rtc.reg = RTC;
+	/***/
 	stm32446_rtc.Day = STM32446RtcDay;
 	stm32446_rtc.Month = STM32446RtcMonth;
 	stm32446_rtc.WeekDay = STM32446RtcWeekDay;
@@ -58,11 +59,20 @@ STM32446_RTC RTCenable(void)
 	stm32446_rtc.BckRead = STM32446RtcBckRead;
 	stm32446_rtc.get_stsu = rtc_get_stsu;
 	stm32446_rtc.get_ss = rtc_get_ss;
+	/*** Other ***/
+	stm32446_rtc.clock = STM32446RtcClock;
+	stm32446_rtc.nvic = STM32446RtcNvic;
+	stm32446_rtc.inic = STM32446RtcInic;
 
 	return stm32446_rtc;
 }
 
-STM32446_RTC* rtc(void){return &stm32446_rtc;}
+STM32446_RTC* rtc(void){ return (STM32446_RTC*) &stm32446_rtc; }
+
+STM32446_RTC RTCenable(void)
+{
+	return RTC_inic();
+}
 
 /*** Procedure & Function Definition ***/
 void STM32446RtcClock(uint8_t bool)
@@ -413,52 +423,50 @@ void rtc_lselect(uint8_t lclock)
 }
 
 /*** File Procedure & Function Definition ***/
-uint32_t rtc_readreg(uint32_t reg, uint32_t size_block, uint32_t bit)
+uint32_t rtc_readreg(uint32_t reg, uint8_t size_block, uint8_t bit_n)
 {
-	if(bit > 31){ bit = 0;} if(size_block > 32){ size_block = 32;}
-	uint32_t value = reg;
+	if(bit_n > DATA_BITS){ bit_n = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
 	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	value &= (mask << bit);
-	value = (value >> bit);
-	return value;
+	reg &= (mask << bit_n);
+	reg = (reg >> bit_n);
+	return reg;
 }
-void rtc_writereg(volatile uint32_t* reg, uint32_t size_block, uint32_t bit, uint32_t data)
-{
-	if(bit > 31){ bit = 0;} if(size_block > 32){ size_block = 32;}
-	uint32_t value = data;
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	value &= mask;
-	value = (value << bit);
-	*reg = value;
-}
-void rtc_setreg(volatile uint32_t* reg, uint32_t size_block, uint32_t bit, uint32_t data)
-{
-	if(bit > 31){ bit = 0;} if(size_block > 32){ size_block = 32;}
-	uint32_t value = data;
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	value &= mask;
-	*reg &= ~(mask << bit);
-	*reg |= (value << bit);
-}
-void rtc_setbit(volatile uint32_t* reg, uint32_t size_block, uint32_t bit, uint32_t data)
+uint32_t rtc_getsetbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n)
 {
 	uint32_t n = 0;
-	if(bit > 31){ n = bit/32; bit = bit - (n * 32); } if(size_block > 32){ size_block = 32;}
-	uint32_t value = data;
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	value &= mask;
-	*(reg + n ) &= ~(mask << bit);
-	*(reg + n ) |= (value << bit);
-}
-uint32_t rtc_getsetbit(volatile uint32_t* reg, uint32_t size_block, uint32_t bit)
-{
-	uint32_t n = 0;
-	if(bit > 31){ n = bit/32; bit = bit - (n * 32); } if(size_block > 32){ size_block = 32;}
+	if(bit_n > DATA_BITS){ n = bit_n/DATA_SIZE; bit_n = bit_n - (n * DATA_SIZE); } if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
 	uint32_t value = *(reg + n );
 	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	value &= (mask << bit);
-	value = (value >> bit);
+	value &= (mask << bit_n);
+	value = (value >> bit_n);
 	return value;
+}
+void rtc_setreg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data)
+{
+	if(bit_n > DATA_BITS){ bit_n = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
+	uint32_t mask = (unsigned int)((1 << size_block) - 1);
+	data &= mask;
+	*reg &= ~(mask << bit_n);
+	*reg |= (data << bit_n);
+}
+void rtc_setbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data)
+{
+	uint32_t n = 0;
+	if(bit_n > DATA_BITS){ n = bit_n/DATA_SIZE; bit_n = bit_n - (n * DATA_SIZE); } if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
+	uint32_t mask = (unsigned int)((1 << size_block) - 1);
+	data &= mask;
+	*(reg + n ) &= ~(mask << bit_n);
+	*(reg + n ) |= (data << bit_n);
+}
+void rtc_writereg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data)
+{
+	if(bit_n > DATA_BITS){ bit_n = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
+	uint32_t value = *reg;
+	uint32_t mask = (unsigned int)((1 << size_block) - 1);
+	data &= mask; value &= ~(mask << bit_n);
+	data = (data << bit_n);
+	value |= data;
+	*reg = value;
 }
 
 /*** EOF ***/

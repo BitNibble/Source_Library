@@ -36,9 +36,6 @@ Comment:
 #ifndef no
 	#define no 0
 #endif
-#ifndef IO_var
-	#define IO_var uint32_t
-#endif
 #ifndef DATA_BITS
 	#define DATA_BITS 31
 #endif
@@ -63,14 +60,8 @@ Comment:
 //#include "stm32446tim2to5.h"
 //#include "stm32446tim6and7.h"
 #include "stm32446tim9to14.h"
-#include "function.h"
+#include "armfunction.h"
 /************ STM32F446RE ************/
-/********** Global TypeDef ***********/
-typedef struct
-{
-	uint8_t L;
-	uint8_t H;
-} STM32HighLowByte;
 /************** QUERY TypeDef ****************/
 typedef struct
 {
@@ -112,19 +103,6 @@ typedef struct
 	void (*delay_us)(uint32_t us);
 }STM32446SysTickobj;
 /******************** MCU TypeDef ********************/
-/*** RTC TypeDef ***/
-typedef struct
-{
-	RTC_TypeDef* reg;
-	#if defined(_STM32446RTC_H_)
-		void (*clock)(uint8_t bool);
-		void (*nvic)(uint8_t value);
-		void (*inic)(uint8_t clock);
-		// Enable
-		STM32446_RTC* (*run)(void);
-		STM32446_RTC (*enable)(void);
-	#endif
-}STM32446RTCobj;
 // CAN_TxMailBox
 typedef struct
 {
@@ -323,18 +301,14 @@ typedef struct
 /***************** STM32F446 TypeDef *****************/
 typedef struct
 {
-	// PARAMETER
-	STM32HighLowByte HLbyte;
-
 	STM32446Query query;
-	// CORE
 	STM32446SCBobj scb;
+	STM32446SysTickobj systick;
 
 	#if defined(_STM32446NVIC_H_)
 		STM32446NVICobj nvic;
 	#endif
 
-	STM32446SysTickobj systick;
 	// MCU
 	#if defined(_STM32446ADC_H_)
 		STM32446ADC1obj adc1;
@@ -345,7 +319,6 @@ typedef struct
 	#if defined(_STM32446CRC_H_)
 		STM32446CRCobj crc;
 	#endif
-
 
 	#if defined(_STM32446DMA_H_)
 		STM32446DMA1obj dma1;
@@ -378,7 +351,7 @@ typedef struct
 	#endif
 
 	#if defined(_STM32446RTC_H_)
-		STM32446RTCobj rtc;
+		STM32446_RTC* rtc;
 	#endif
 
 	#if defined(_STM32446SRAM_H_)
@@ -407,9 +380,8 @@ typedef struct
 		STM32446TIM13obj tim13;
 		STM32446TIM14obj tim14;
 	#endif
-
 	#if defined(_STM32446USART_H_)
-		STM32446USART1obj usart1;
+		STM32446_USART1* usart1;
 		STM32446USART2obj usart2;
 		STM32446USART3obj usart3;
 		STM32446USART4obj uart4;
@@ -417,15 +389,21 @@ typedef struct
 		STM32446USART6obj usart6;
 	#endif
 	//PRIVATE
-	#if defined(_FUNCTION_H_)
-		FUNC func;
+	#if defined(_ARMFUNCTION_H_)
+		FUNC* func;
 	#endif
+
+	uint32_t (*readreg)(uint32_t reg, uint8_t size_block, uint8_t bit_n);
+	uint32_t (*getsetbit)(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n);
+	void (*setreg)(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
+	void (*setbit)(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
+	void (*writereg)(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
 
 }STM32446;
 
 /*** Global ***/
-STM32446* stm(void);
 STM32446 STM32446enable(void);
+STM32446* stm(void);
 
 /*** INTERRUPT HEADER ***/
 void Reset_IRQHandler(void);
