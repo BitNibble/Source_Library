@@ -5,7 +5,7 @@ Author: Sergio Santos
 License: GNU General Public License
 Hardware: all
 Date: 27/11/2022
-Update 05/01/2024
+Update 09/01/2024
 Comment:
 	Stable
 *************************************************************************/
@@ -38,8 +38,7 @@ char keypadvalue[KEYPADLINES][KEYPADCOLUMNS] =
 
 uint8_t KEYPADSTRINGINDEX;
 char KEYPAD_string[KEYPADSTRINGSIZE + 1];
-keypadata data;
-char KEYPAD_char;
+static keypadata data;
 
 char endstr[2];
 // can not assign something outside a function
@@ -50,7 +49,7 @@ char KEYPAD_getkey(void);
 // read
 void KEYPAD_read(void);
 // get
-keypadata KEYPAD_data(void);
+keypadata* KEYPAD_data(void);
 // flush
 void KEYPAD_flush(void);
 // lh
@@ -80,9 +79,9 @@ KEYPAD KEYPADenable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8
 	keypad_datai.line_4 = keypad_dataf.line_4 = (1 << KEYPADDATA_1) | (1 << KEYPADDATA_2) | (1 << KEYPADDATA_3) | (1 << KEYPADDATA_4);
 	KEYPADSTRINGINDEX = 0;
 	// Vtable
+	setup_keypad.data = KEYPAD_data();
 	setup_keypad.getkey = KEYPAD_getkey;
 	setup_keypad.read = KEYPAD_read;
-	setup_keypad.data = KEYPAD_data;
 	setup_keypad.flush = KEYPAD_flush;
 	//
 	*keypad_PORT |= (1 << KEYPADLINE_1) | (1 << KEYPADLINE_2) | (1 << KEYPADLINE_3) | (1 << KEYPADLINE_4);
@@ -218,9 +217,9 @@ void KEYPAD_read(void)
 	}
 }
 // read
-keypadata KEYPAD_data(void)
+keypadata* KEYPAD_data(void)
 {
-	return data;
+	return &data;
 }
 // flush
 void KEYPAD_flush(void)
@@ -234,18 +233,14 @@ void KEYPAD_flush(void)
 uint8_t KEYPADlh(uint8_t xi, uint8_t xf)
 {
 	uint8_t i;
-	// printf("KEYPADlh\n");
-	i = xf ^ xi;
-	i &= xf;
+	i = xf ^ xi; i &= xf;
 	return i;
 }
 // hl
 uint8_t KEYPADhl(uint8_t xi, uint8_t xf)
 {
 	uint8_t i;
-	// printf("KEYPADhl\n");
-	i = xf ^ xi;
-	i &= xi;
+	i = xf ^ xi; i &= xi;
 	return i;
 }
 

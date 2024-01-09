@@ -5,7 +5,7 @@ Author: Sergio Santos
 License: GNU General Public License
 Hardware: all
 Date: 27/11/2022
-Update 05/01/2024
+Update 09/01/2024
 Comment:
 	Stable
 ************************************************************************/
@@ -38,9 +38,9 @@ typedef struct {
 }keypadata;
 
 typedef struct{
+	keypadata* data;
 	char (*getkey)(void);
 	void (*read)(void);
-	keypadata (*data)(void);
 	void (*flush)(void);
 }KEYPAD;
 
