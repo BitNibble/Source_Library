@@ -478,16 +478,6 @@ void TIM8_UP_TIM13_IRQHandler(void);
 void TIM8_TRG_COM_TIM14_IRQHandler(void);
 void TIM8_CC_IRQHandler(void);
 
-/*** INTERRUPT HEADER ***/
-void TIM1_BRK_TIM9_IRQHandler(void);
-void TIM1_UP_TIM10_IRQHandler(void);
-void TIM1_TRG_COM_TIM11_IRQHandler(void);
-void TIM1_CC_IRQHandler(void);
-void TIM8_BRK_TIM12_IRQHandler(void);
-void TIM8_UP_TIM13_IRQHandler(void);
-void TIM8_TRG_COM_TIM14_IRQHandler(void);
-void TIM8_CC_IRQHandler(void);
-
 #endif
 
 /*** EOF ***/
@@ -502,5 +492,4 @@ void TIM8_CC_IRQHandler(void);
 3º Pointer and Variable
 4º Casting
 ******/
-
 

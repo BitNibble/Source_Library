@@ -6,7 +6,7 @@ License: GNU General Public License
 Hardware: STM32-446
 Date: 19062023
 Comment:
-	
+
 *******************************************************************************/
 #ifndef _STM32446PWR_H_
 	#define _STM32446PWR_H_
@@ -114,5 +114,4 @@ uint8_t STM32446PWR_csr_wuf(void);
 3º Pointer and Variable
 4º Casting
 ******/
-
 

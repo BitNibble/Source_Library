@@ -14,16 +14,11 @@ Comment:
 *******************************************************************************/
 #ifndef _STM32446MAPPING_H_
 	#define _STM32446MAPPING_H_
-/*** Global Libraries ***/
+/***** Global Libraries *****/
 #include <inttypes.h>
-// SELECTION OF CHIP (CMSIS Access to its libraries)
-#ifndef STM32F446xx
-	#define STM32F446xx
-#endif
-#include "stm32f4xx.h"
-/*** Define & Macros***/
-#define HSI_RC 16000000UL
-#define HSE_OSC 25000000UL
+#include "stm32query.h"
+#include "stm32f4xx_it.h"
+/****** Define & Macros******/
 #ifndef on
 	#define on 1
 #endif
@@ -35,12 +30,6 @@ Comment:
 #endif
 #ifndef no
 	#define no 0
-#endif
-#ifndef DATA_BITS
-	#define DATA_BITS 31
-#endif
-#ifndef DATA_SIZE
-	#define DATA_SIZE 32
 #endif
 /*** Module Library ***/
 // Comment out modules not being used
@@ -60,48 +49,13 @@ Comment:
 //#include "stm32446tim2to5.h"
 //#include "stm32446tim6and7.h"
 #include "stm32446tim9to14.h"
-#include "armfunction.h"
 /************ STM32F446RE ************/
-/************** QUERY TypeDef ****************/
-typedef struct
-{
-	uint16_t (*AHB)(void);
-	uint8_t (*APB1)(void);
-	uint8_t (*APB2)(void);
-	uint8_t (*RTCclk)(void);
-	uint8_t (*MCO1)(void);
-	uint8_t (*MCO2)(void);
-}STM32446CLOCK_prescaler;
-typedef struct
-{
-	uint8_t (*M)(void);
-	uint16_t (*N)(void);
-	uint8_t (*P)(void);
-	uint8_t (*Q)(void);
-	uint8_t (*R)(void);
-}STM32446PLL_parameter;
-typedef struct
-{
-	STM32446CLOCK_prescaler CLOCK_prescaler;
-	STM32446PLL_parameter PLL_parameter;
-	uint32_t (*ClockSource)(void);
-	uint32_t (*PllSource)(void);
-	uint32_t (*SystemClock)(void);
-}STM32446Query;
 /******************* CORE TypeDef ********************/
 // SCB
 typedef struct
 {
 	SCB_Type* reg;
 }STM32446SCBobj;
-// SysTick
-typedef struct
-{
-	SysTick_Type* reg;
-	void (*delay_ms)(uint32_t ms); // It uses Systick
-	void (*delay_10us)(uint32_t ten_us); // It uses Systick
-	void (*delay_us)(uint32_t us);
-}STM32446SysTickobj;
 /******************** MCU TypeDef ********************/
 // CAN_TxMailBox
 typedef struct
@@ -301,9 +255,8 @@ typedef struct
 /***************** STM32F446 TypeDef *****************/
 typedef struct
 {
-	STM32446Query query;
+	// SCB
 	STM32446SCBobj scb;
-	STM32446SysTickobj systick;
 
 	#if defined(_STM32446NVIC_H_)
 		STM32446NVICobj nvic;
@@ -382,22 +335,12 @@ typedef struct
 	#endif
 	#if defined(_STM32446USART_H_)
 		STM32446_USART1* usart1;
-		STM32446USART2obj usart2;
-		STM32446USART3obj usart3;
-		STM32446USART4obj uart4;
-		STM32446USART5obj uart5;
-		STM32446USART6obj usart6;
+		STM32446_USART2* usart2;
+		STM32446_USART3* usart3;
+		STM32446_UART4* uart4;
+		STM32446_UART5* uart5;
+		STM32446_USART6* usart6;
 	#endif
-	//PRIVATE
-	#if defined(_ARMFUNCTION_H_)
-		FUNC* func;
-	#endif
-
-	uint32_t (*readreg)(uint32_t reg, uint8_t size_block, uint8_t bit_n);
-	uint32_t (*getsetbit)(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n);
-	void (*setreg)(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
-	void (*setbit)(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
-	void (*writereg)(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
 
 }STM32446;
 

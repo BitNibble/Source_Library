@@ -1780,8 +1780,6 @@ uint32_t tim1and8_getsetbit(volatile uint32_t* reg, uint32_t size_block, uint32_
 	return value;
 }
 
-/*** File Interrupt ***/
-
 /*** EOF ***/
 
 /******

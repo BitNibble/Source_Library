@@ -54,4 +54,3 @@ void STM32446CRC_clock(uint8_t bool);
 4º Casting
 ******/
 
-

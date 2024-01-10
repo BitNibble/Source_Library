@@ -15,7 +15,6 @@ Comment:
 /*** Global Library ***/
 //#include <util/delay.h> // if use AVR ATMEL
 #include <inttypes.h>
-#include "stm32446mapping.h"
 
 /*** Global Constant & Macro ***/
 // ASIGN PORT PINS TO LCD (can be setup in any way)
@@ -61,5 +60,4 @@ ARMLCD0* lcd0(void);
 3º Pointer and Variable
 4º Casting
 ******/
-
 

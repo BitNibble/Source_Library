@@ -560,4 +560,3 @@ void DMA2_Stream7_IRQHandler(void);
 4º Casting
 ******/
 
-

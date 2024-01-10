@@ -13,12 +13,7 @@ Comment:
 /*** Library ***/
 #include <inttypes.h>
 /*** Define & Macro ***/
-#ifndef DATA_BITS
-	#define DATA_BITS 31
-#endif
-#ifndef DATA_SIZE
-	#define DATA_SIZE 32
-#endif
+
 /*** USART Bit Mapping Common TypeDef ***/
 typedef struct{
 	uint8_t (*cts)(void);
@@ -121,7 +116,7 @@ typedef struct
 	/*** Other ***/
 	void (*clock)(uint8_t bool);
 	void (*parameter)( uint8_t wordlength, uint8_t samplingmode, double stopbits, uint32_t baudrate );
-}STM32446USART2obj;
+}STM32446_USART2;
 // USART -> USART3
 typedef struct
 {
@@ -138,7 +133,7 @@ typedef struct
 	/*** Other ***/
 	void (*clock)(uint8_t bool);
 	void (*parameter)( uint8_t wordlength, uint8_t samplingmode, double stopbits, uint32_t baudrate );
-}STM32446USART3obj;
+}STM32446_USART3;
 // USART -> UART4
 typedef struct
 {
@@ -155,7 +150,7 @@ typedef struct
 	/*** Other ***/
 	void (*clock)(uint8_t bool);
 	void (*parameter)( uint8_t wordlength, uint8_t samplingmode, double stopbits, uint32_t baudrate );
-}STM32446USART4obj;
+}STM32446_UART4;
 // USART -> UART5
 typedef struct
 {
@@ -174,7 +169,7 @@ typedef struct
 		void (*clock)(uint8_t bool);
 		void (*parameter)( uint8_t wordlength, uint8_t samplingmode, double stopbits, uint32_t baudrate );
 	#endif
-}STM32446USART5obj;
+}STM32446_UART5;
 // USART -> USART6
 typedef struct
 {
@@ -193,16 +188,26 @@ typedef struct
 		void (*clock)(uint8_t bool);
 		void (*parameter)( uint8_t wordlength, uint8_t samplingmode, double stopbits, uint32_t baudrate );
 	#endif
-}STM32446USART6obj;
+}STM32446_USART6;
 
 STM32446_USART1 USART1enable(void);
 STM32446_USART1*  usart1(void);
 
-STM32446USART2obj usart2_inic(void);
-STM32446USART3obj usart3_inic(void);
-STM32446USART4obj uart4_inic(void);
-STM32446USART5obj uart5_inic(void);
-STM32446USART6obj usart6_inic(void);
+STM32446_USART2 USART2enable(void);
+STM32446_USART2*  usart2(void);
+
+STM32446_USART3 USART3enable(void);
+STM32446_USART3*  usart3(void);
+
+STM32446_UART4 UART4enable(void);
+STM32446_UART4*  uart4(void);
+
+STM32446_UART5 UART5enable(void);
+STM32446_UART5*  uart5(void);
+
+STM32446_USART6 USART6enable(void);
+STM32446_USART6*  usart6(void);
+
 /*** USART1 Bit Mapping Header ***/
 // SR
 uint8_t STM32446Usart1_cts(void);

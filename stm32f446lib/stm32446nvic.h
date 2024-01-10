@@ -54,4 +54,3 @@ void STM32446NVIC_trigger(uint32_t IRQn);
 4º Casting
 ******/
 
-

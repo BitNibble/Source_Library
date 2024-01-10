@@ -17,6 +17,7 @@ Comment:
 #include <inttypes.h>
 /*** Global Define & Macro ***/
 #define FUNCSTRSIZE 31
+/*****************************/
 #ifndef DATA_BITS
 	#define DATA_BITS 31
 #endif
@@ -98,5 +99,4 @@ FUNC* func(void);
 3º Pointer and Variable
 4º Casting
 ******/
-
 

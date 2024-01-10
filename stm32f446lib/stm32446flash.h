@@ -163,7 +163,6 @@ void FLASH_IRQHandler(void);
 
 #endif
 
-
 /*** EOF ***/
 
 /******
@@ -176,5 +175,4 @@ void FLASH_IRQHandler(void);
 3º Pointer and Variable
 4º Casting
 ******/
-
 

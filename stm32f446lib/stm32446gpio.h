@@ -247,4 +247,3 @@ void STM32446GpioHafr( uint8_t data, uint8_t pin );
 4º Casting
 ******/
 
-

@@ -15,15 +15,18 @@ Comment:
 
 /*** File Variable ***/
 static STM32446_USART1 stm32446_usart1;
-
+static STM32446_USART2 stm32446_usart2;
+static STM32446_USART3 stm32446_usart3;
+static STM32446_UART4 stm32446_uart4;
+static STM32446_UART5 stm32446_uart5;
+static STM32446_USART6 stm32446_usart6;
 /*** File Procedure & Function Header ***/
-uint32_t usart_readreg(uint32_t reg, uint8_t size_block, uint8_t bit_n);
-uint32_t usart_getsetbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n);
-void usart_setreg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
-void usart_setbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
-void usart_writereg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
-/******/
 STM32446_USART1 usart1_inic(void);
+STM32446_USART2 usart2_inic(void);
+STM32446_USART3 usart3_inic(void);
+STM32446_UART4 uart4_inic(void);
+STM32446_UART5 uart5_inic(void);
+STM32446_USART6 usart6_inic(void);
 /******/
 uint32_t usart_getclocksource(void);
 uint32_t usart_gethpre(void);
@@ -105,7 +108,7 @@ void STM32446Usart1Parameter( uint8_t wordlength, uint8_t samplingmode, double s
 		USART1->CR2 |= ((1 << 13) | (1 << 12));
 	else if(fabs(stopbits - 2) < 0.00001) // STOP: STOP bits, 10: 2 Stop bits
 		USART1->CR2 |= (1 << 13);
-	value = (double) usart_getsysclk() / ( usart_gethpre() * sampling * baudrate );
+	value = (double) getsysclk() / ( gethpre() * sampling * baudrate );
 	fracpart = modf(value, &intpart);
 	USART1->BRR = 0; // clean slate, reset.
 	if(samplingmode == 16){
@@ -123,234 +126,234 @@ void STM32446Usart1Parameter( uint8_t wordlength, uint8_t samplingmode, double s
 // SR
 uint8_t STM32446Usart1_cts(void)
 {
-	return usart_readreg(USART1->SR, 1, 9);
+	return readreg(USART1->SR, 1, 9);
 }
 void STM32446Usart1_clear_cts(void)
 {
-	usart_setreg(&USART1->SR, 1, 9, 0);
+	setreg(&USART1->SR, 1, 9, 0);
 }
 uint8_t STM32446Usart1_lbd(void)
 {
-	return usart_readreg(USART1->SR, 1, 8);
+	return readreg(USART1->SR, 1, 8);
 }
 void STM32446Usart1_clear_lbd(void)
 {
-	usart_setreg(&USART1->SR, 1, 8, 0);
+	setreg(&USART1->SR, 1, 8, 0);
 }
 uint8_t STM32446Usart1_txe(void)
 {
-	return usart_readreg(USART1->SR, 1, 7);
+	return readreg(USART1->SR, 1, 7);
 }
 uint8_t STM32446Usart1_tc(void)
 {
-	return usart_readreg(USART1->SR, 1, 6);
+	return readreg(USART1->SR, 1, 6);
 }
 void STM32446Usart1_clear_tc(void)
 {
-	usart_setreg(&USART1->SR, 1, 6, 0);
+	setreg(&USART1->SR, 1, 6, 0);
 }
 uint8_t STM32446Usart1_rxne(void)
 {
-	return usart_readreg(USART1->SR, 1, 5);
+	return readreg(USART1->SR, 1, 5);
 }
 void STM32446Usart1_clear_rxne(void)
 {
-	usart_setreg(&USART1->SR, 1, 5, 0);
+	setreg(&USART1->SR, 1, 5, 0);
 }
 uint8_t STM32446Usart1_idle(void)
 {
-	return usart_readreg(USART1->SR, 1, 4);
+	return readreg(USART1->SR, 1, 4);
 }
 uint8_t STM32446Usart1_ore(void)
 {
-	return usart_readreg(USART1->SR, 1, 3);
+	return readreg(USART1->SR, 1, 3);
 }
 uint8_t STM32446Usart1_nf(void)
 {
-	return usart_readreg(USART1->SR, 1, 2);
+	return readreg(USART1->SR, 1, 2);
 }
 uint8_t STM32446Usart1_fe(void)
 {
-	return usart_readreg(USART1->SR, 1, 1);
+	return readreg(USART1->SR, 1, 1);
 }
 uint8_t STM32446Usart1_pe(void)
 {
-	return usart_readreg(USART1->SR, 1, 0);
+	return readreg(USART1->SR, 1, 0);
 }
 // DR
 void STM32446Usart1_dr(uint32_t data)
 {
-	usart_writereg(&USART1->DR, 9, 0, data);
+	writereg(&USART1->DR, 9, 0, data);
 }
 uint32_t STM32446Usart1_get_dr(void)
 {
-	return usart_readreg(USART1->DR, 9, 0);
+	return readreg(USART1->DR, 9, 0);
 }
 // BRR
 void STM32446Usart1_div_mantissa(uint16_t value)
 {
-	usart_setreg(&USART1->BRR, 12, 4, value);
+	setreg(&USART1->BRR, 12, 4, value);
 }
 void STM32446Usart1_div_fraction(uint8_t value)
 {
-	usart_setreg(&USART1->BRR, 4, 0, value);
+	setreg(&USART1->BRR, 4, 0, value);
 }
 // CR1
 void STM32446Usart1_over8(uint8_t bool)
 {
-	usart_setreg(&USART1->CR1, 1, 15, bool);
+	setreg(&USART1->CR1, 1, 15, bool);
 }
 void STM32446Usart1_ue(uint8_t bool)
 {
-	usart_setreg(&USART1->CR1, 1, 13, bool);
+	setreg(&USART1->CR1, 1, 13, bool);
 }
 void STM32446Usart1_m(uint8_t bool)
 {
-	usart_setreg(&USART1->CR1, 1, 12, bool);
+	setreg(&USART1->CR1, 1, 12, bool);
 }
 void STM32446Usart1_wake(uint8_t bool)
 {
-	usart_setreg(&USART1->CR1, 1, 11, bool);
+	setreg(&USART1->CR1, 1, 11, bool);
 }
 void STM32446Usart1_pce(uint8_t bool)
 {
-	usart_setreg(&USART1->CR1, 1, 10, bool);
+	setreg(&USART1->CR1, 1, 10, bool);
 }
 void STM32446Usart1_ps(uint8_t bool)
 {
-	usart_setreg(&USART1->CR1, 1, 9, bool);
+	setreg(&USART1->CR1, 1, 9, bool);
 }
 void STM32446Usart1_peie(uint8_t bool)
 {
-	usart_setreg(&USART1->CR1, 1, 8, bool);
+	setreg(&USART1->CR1, 1, 8, bool);
 }
 void STM32446Usart1_txeie(uint8_t bool)
 {
-	usart_setreg(&USART1->CR1, 1, 7, bool);
+	setreg(&USART1->CR1, 1, 7, bool);
 }
 void STM32446Usart1_tcie(uint8_t bool)
 {
-	usart_setreg(&USART1->CR1, 1, 6, bool);
+	setreg(&USART1->CR1, 1, 6, bool);
 }
 void STM32446Usart1_rxneie(uint8_t bool)
 {
-	usart_setreg(&USART1->CR1, 1, 5, bool);
+	setreg(&USART1->CR1, 1, 5, bool);
 }
 void STM32446Usart1_idleie(uint8_t bool)
 {
-	usart_setreg(&USART1->CR1, 1, 4, bool);
+	setreg(&USART1->CR1, 1, 4, bool);
 }
 void STM32446Usart1_te(uint8_t bool)
 {
-	usart_setreg(&USART1->CR1, 1, 3, bool);
+	setreg(&USART1->CR1, 1, 3, bool);
 }
 void STM32446Usart1_re(uint8_t bool)
 {
-	usart_setreg(&USART1->CR1, 1, 2, bool);
+	setreg(&USART1->CR1, 1, 2, bool);
 }
 void STM32446Usart1_rwu(uint8_t bool)
 {
-	usart_setreg(&USART1->CR1, 1, 1, bool);
+	setreg(&USART1->CR1, 1, 1, bool);
 }
 void STM32446Usart1_sbk(uint8_t bool)
 {
-	usart_setreg(&USART1->CR1, 1, 0, bool);
+	setreg(&USART1->CR1, 1, 0, bool);
 }
 // CR2
 void STM32446Usart1_linen(uint8_t bool)
 {
-	usart_setreg(&USART1->CR2, 1, 14, bool);
+	setreg(&USART1->CR2, 1, 14, bool);
 }
 void STM32446Usart1_stop(uint8_t value)
 {
-	usart_setreg(&USART1->CR2, 2, 12, value);
+	setreg(&USART1->CR2, 2, 12, value);
 }
 
 void STM32446Usart1_clken(uint8_t bool)
 {
-	usart_setreg(&USART1->CR2, 1, 11, bool);
+	setreg(&USART1->CR2, 1, 11, bool);
 }
 void STM32446Usart1_cpol(uint8_t bool)
 {
-	usart_setreg(&USART1->CR2, 1, 10, bool);
+	setreg(&USART1->CR2, 1, 10, bool);
 }
 void STM32446Usart1_cpha(uint8_t bool)
 {
-	usart_setreg(&USART1->CR2, 1, 9, bool);
+	setreg(&USART1->CR2, 1, 9, bool);
 }
 void STM32446Usart1_lbcl(uint8_t bool)
 {
-	usart_setreg(&USART1->CR2, 1, 8, bool);
+	setreg(&USART1->CR2, 1, 8, bool);
 }
 void STM32446Usart1_lbdie(uint8_t bool)
 {
-	usart_setreg(&USART1->CR2, 1, 6, bool);
+	setreg(&USART1->CR2, 1, 6, bool);
 }
 void STM32446Usart1_lbdl(uint8_t bool)
 {
-	usart_setreg(&USART1->CR2, 1, 5, bool);
+	setreg(&USART1->CR2, 1, 5, bool);
 }
 void STM32446Usart1_add(uint8_t value)
 {
-	usart_setreg(&USART1->CR2, 4, 0, value);
+	setreg(&USART1->CR2, 4, 0, value);
 }
 // CR3
 void STM32446Usart1_onebit(uint8_t bool)
 {
-	usart_setreg(&USART1->CR3, 1, 11, bool);
+	setreg(&USART1->CR3, 1, 11, bool);
 }
 void STM32446Usart1_ctsie(uint8_t bool)
 {
-	usart_setreg(&USART1->CR3, 1, 10, bool);
+	setreg(&USART1->CR3, 1, 10, bool);
 }
 void STM32446Usart1_ctse(uint8_t bool)
 {
-	usart_setreg(&USART1->CR3, 1, 9, bool);
+	setreg(&USART1->CR3, 1, 9, bool);
 }
 void STM32446Usart1_rtse(uint8_t bool)
 {
-	usart_setreg(&USART1->CR3, 1, 8, bool);
+	setreg(&USART1->CR3, 1, 8, bool);
 }
 void STM32446Usart1_dmat(uint8_t bool)
 {
-	usart_setreg(&USART1->CR3, 1, 7, bool);
+	setreg(&USART1->CR3, 1, 7, bool);
 }
 void STM32446Usart1_dmar(uint8_t bool)
 {
-	usart_setreg(&USART1->CR3, 1, 6, bool);
+	setreg(&USART1->CR3, 1, 6, bool);
 }
 void STM32446Usart1_scen(uint8_t bool)
 {
-	usart_setreg(&USART1->CR3, 1, 5, bool);
+	setreg(&USART1->CR3, 1, 5, bool);
 }
 void STM32446Usart1_nack(uint8_t bool)
 {
-	usart_setreg(&USART1->CR3, 1, 4, bool);
+	setreg(&USART1->CR3, 1, 4, bool);
 }
 void STM32446Usart1_hdsel(uint8_t bool)
 {
-	usart_setreg(&USART1->CR3, 1, 3, bool);
+	setreg(&USART1->CR3, 1, 3, bool);
 }
 void STM32446Usart1_irlp(uint8_t bool)
 {
-	usart_setreg(&USART1->CR3, 1, 2, bool);
+	setreg(&USART1->CR3, 1, 2, bool);
 }
 void STM32446Usart1_iren(uint8_t bool)
 {
-	usart_setreg(&USART1->CR3, 1, 1, bool);
+	setreg(&USART1->CR3, 1, 1, bool);
 }
 void STM32446Usart1_eie(uint8_t bool)
 {
-	usart_setreg(&USART1->CR3, 1, 0, bool);
+	setreg(&USART1->CR3, 1, 0, bool);
 }
 // GTPR
 void STM32446Usart1_gt(uint8_t value)
 {
-	usart_setreg(&USART1->GTPR, 8, 8, value);
+	setreg(&USART1->GTPR, 8, 8, value);
 }
 void STM32446Usart1_psc(uint8_t value)
 {
-	usart_setreg(&USART1->GTPR, 8, 0, value);
+	setreg(&USART1->GTPR, 8, 0, value);
 }
 /*** USART2 ***/
 void STM32446Usart2Clock( uint8_t bool )
@@ -388,7 +391,7 @@ void STM32446Usart2Parameter( uint8_t wordlength, uint8_t samplingmode, double s
 		USART2->CR2 |= ((1 << 13) | (1 << 12));
 	else if(fabs(stopbits - 2) < 0.00001) // STOP: STOP bits, 10: 2 Stop bits
 		USART2->CR2 |= (1 << 13);
-	value = (double) usart_getsysclk() / ( usart_gethpre() * sampling * baudrate );
+	value = (double) getsysclk() / ( gethpre() * sampling * baudrate );
 	fracpart = modf(value, &intpart);
 	USART2->BRR = 0; // clean slate, reset.
 	if(samplingmode == 16){
@@ -406,233 +409,233 @@ void STM32446Usart2Parameter( uint8_t wordlength, uint8_t samplingmode, double s
 // SR
 uint8_t STM32446Usart2_cts(void)
 {
-	return usart_readreg(USART2->SR, 1, 9);
+	return readreg(USART2->SR, 1, 9);
 }
 void STM32446Usart2_clear_cts(void)
 {
-	usart_setreg(&USART2->SR, 1, 9, 0);
+	setreg(&USART2->SR, 1, 9, 0);
 }
 uint8_t STM32446Usart2_lbd(void)
 {
-	return usart_readreg(USART2->SR, 1, 8);
+	return readreg(USART2->SR, 1, 8);
 }
 void STM32446Usart2_clear_lbd(void)
 {
-	usart_setreg(&USART2->SR, 1, 8, 0);
+	setreg(&USART2->SR, 1, 8, 0);
 }
 uint8_t STM32446Usart2_txe(void)
 {
-	return usart_readreg(USART2->SR, 1, 7);
+	return readreg(USART2->SR, 1, 7);
 }
 uint8_t STM32446Usart2_tc(void)
 {
-	return usart_readreg(USART2->SR, 1, 6);
+	return readreg(USART2->SR, 1, 6);
 }
 void STM32446Usart2_clear_tc(void)
 {
-	usart_setreg(&USART2->SR, 1, 6, 0);
+	setreg(&USART2->SR, 1, 6, 0);
 }
 uint8_t STM32446Usart2_rxne(void)
 {
-	return usart_readreg(USART2->SR, 1, 5);
+	return readreg(USART2->SR, 1, 5);
 }
 void STM32446Usart2_clear_rxne(void)
 {
-	usart_setreg(&USART2->SR, 1, 5, 0);
+	setreg(&USART2->SR, 1, 5, 0);
 }
 uint8_t STM32446Usart2_idle(void)
 {
-	return usart_readreg(USART2->SR, 1, 4);
+	return readreg(USART2->SR, 1, 4);
 }
 uint8_t STM32446Usart2_ore(void)
 {
-	return usart_readreg(USART2->SR, 1, 3);
+	return readreg(USART2->SR, 1, 3);
 }
 uint8_t STM32446Usart2_nf(void)
 {
-	return usart_readreg(USART2->SR, 1, 2);
+	return readreg(USART2->SR, 1, 2);
 }
 uint8_t STM32446Usart2_fe(void)
 {
-	return usart_readreg(USART2->SR, 1, 1);
+	return readreg(USART2->SR, 1, 1);
 }
 uint8_t STM32446Usart2_pe(void)
 {
-	return usart_readreg(USART2->SR, 1, 0);
+	return readreg(USART2->SR, 1, 0);
 }
 // DR
 void STM32446Usart2_dr(uint32_t data)
 {
-	usart_writereg(&USART2->DR, 9, 0, data);
+	writereg(&USART2->DR, 9, 0, data);
 }
 uint32_t STM32446Usart2_get_dr(void)
 {
-	return usart_readreg(USART2->DR, 9, 0);
+	return readreg(USART2->DR, 9, 0);
 }
 // BRR
 void STM32446Usart2_div_mantissa(uint16_t value)
 {
-	usart_setreg(&USART2->BRR, 12, 4, value);
+	setreg(&USART2->BRR, 12, 4, value);
 }
 void STM32446Usart2_div_fraction(uint8_t value)
 {
-	usart_setreg(&USART2->BRR, 4, 0, value);
+	setreg(&USART2->BRR, 4, 0, value);
 }
 // CR1
 void STM32446Usart2_over8(uint8_t bool)
 {
-	usart_setreg(&USART2->CR1, 1, 15, bool);
+	setreg(&USART2->CR1, 1, 15, bool);
 }
 void STM32446Usart2_ue(uint8_t bool)
 {
-	usart_setreg(&USART2->CR1, 1, 13, bool);
+	setreg(&USART2->CR1, 1, 13, bool);
 }
 void STM32446Usart2_m(uint8_t bool)
 {
-	usart_setreg(&USART2->CR1, 1, 12, bool);
+	setreg(&USART2->CR1, 1, 12, bool);
 }
 void STM32446Usart2_wake(uint8_t bool)
 {
-	usart_setreg(&USART2->CR1, 1, 11, bool);
+	setreg(&USART2->CR1, 1, 11, bool);
 }
 void STM32446Usart2_pce(uint8_t bool)
 {
-	usart_setreg(&USART2->CR1, 1, 10, bool);
+	setreg(&USART2->CR1, 1, 10, bool);
 }
 void STM32446Usart2_ps(uint8_t bool)
 {
-	usart_setreg(&USART2->CR1, 1, 9, bool);
+	setreg(&USART2->CR1, 1, 9, bool);
 }
 void STM32446Usart2_peie(uint8_t bool)
 {
-	usart_setreg(&USART2->CR1, 1, 8, bool);
+	setreg(&USART2->CR1, 1, 8, bool);
 }
 void STM32446Usart2_txeie(uint8_t bool)
 {
-	usart_setreg(&USART2->CR1, 1, 7, bool);
+	setreg(&USART2->CR1, 1, 7, bool);
 }
 void STM32446Usart2_tcie(uint8_t bool)
 {
-	usart_setreg(&USART2->CR1, 1, 6, bool);
+	setreg(&USART2->CR1, 1, 6, bool);
 }
 void STM32446Usart2_rxneie(uint8_t bool)
 {
-	usart_setreg(&USART2->CR1, 1, 5, bool);
+	setreg(&USART2->CR1, 1, 5, bool);
 }
 void STM32446Usart2_idleie(uint8_t bool)
 {
-	usart_setreg(&USART2->CR1, 1, 4, bool);
+	setreg(&USART2->CR1, 1, 4, bool);
 }
 void STM32446Usart2_te(uint8_t bool)
 {
-	usart_setreg(&USART2->CR1, 1, 3, bool);
+	setreg(&USART2->CR1, 1, 3, bool);
 }
 void STM32446Usart2_re(uint8_t bool)
 {
-	usart_setreg(&USART2->CR1, 1, 2, bool);
+	setreg(&USART2->CR1, 1, 2, bool);
 }
 void STM32446Usart2_rwu(uint8_t bool)
 {
-	usart_setreg(&USART2->CR1, 1, 1, bool);
+	setreg(&USART2->CR1, 1, 1, bool);
 }
 void STM32446Usart2_sbk(uint8_t bool)
 {
-	usart_setreg(&USART2->CR1, 1, 0, bool);
+	setreg(&USART2->CR1, 1, 0, bool);
 }
 // CR2
 void STM32446Usart2_linen(uint8_t bool)
 {
-	usart_setreg(&USART2->CR2, 1, 14, bool);
+	setreg(&USART2->CR2, 1, 14, bool);
 }
 void STM32446Usart2_stop(uint8_t value)
 {
-	usart_setreg(&USART2->CR2, 2, 12, value);
+	setreg(&USART2->CR2, 2, 12, value);
 }
 void STM32446Usart2_clken(uint8_t bool)
 {
-	usart_setreg(&USART2->CR2, 1, 11, bool);
+	setreg(&USART2->CR2, 1, 11, bool);
 }
 void STM32446Usart2_cpol(uint8_t bool)
 {
-	usart_setreg(&USART2->CR2, 1, 10, bool);
+	setreg(&USART2->CR2, 1, 10, bool);
 }
 void STM32446Usart2_cpha(uint8_t bool)
 {
-	usart_setreg(&USART2->CR2, 1, 9, bool);
+	setreg(&USART2->CR2, 1, 9, bool);
 }
 void STM32446Usart2_lbcl(uint8_t bool)
 {
-	usart_setreg(&USART2->CR2, 1, 8, bool);
+	setreg(&USART2->CR2, 1, 8, bool);
 }
 void STM32446Usart2_lbdie(uint8_t bool)
 {
-	usart_setreg(&USART2->CR2, 1, 6, bool);
+	setreg(&USART2->CR2, 1, 6, bool);
 }
 void STM32446Usart2_lbdl(uint8_t bool)
 {
-	usart_setreg(&USART2->CR2, 1, 5, bool);
+	setreg(&USART2->CR2, 1, 5, bool);
 }
 void STM32446Usart2_add(uint8_t value)
 {
-	usart_setreg(&USART2->CR2, 4, 0, value);
+	setreg(&USART2->CR2, 4, 0, value);
 }
 // CR3
 void STM32446Usart2_onebit(uint8_t bool)
 {
-	usart_setreg(&USART2->CR3, 1, 11, bool);
+	setreg(&USART2->CR3, 1, 11, bool);
 }
 void STM32446Usart2_ctsie(uint8_t bool)
 {
-	usart_setreg(&USART2->CR3, 1, 10, bool);
+	setreg(&USART2->CR3, 1, 10, bool);
 }
 void STM32446Usart2_ctse(uint8_t bool)
 {
-	usart_setreg(&USART2->CR3, 1, 9, bool);
+	setreg(&USART2->CR3, 1, 9, bool);
 }
 void STM32446Usart2_rtse(uint8_t bool)
 {
-	usart_setreg(&USART2->CR3, 1, 8, bool);
+	setreg(&USART2->CR3, 1, 8, bool);
 }
 void STM32446Usart2_dmat(uint8_t bool)
 {
-	usart_setreg(&USART2->CR3, 1, 7, bool);
+	setreg(&USART2->CR3, 1, 7, bool);
 }
 void STM32446Usart2_dmar(uint8_t bool)
 {
-	usart_setreg(&USART2->CR3, 1, 6, bool);
+	setreg(&USART2->CR3, 1, 6, bool);
 }
 void STM32446Usart2_scen(uint8_t bool)
 {
-	usart_setreg(&USART2->CR3, 1, 5, bool);
+	setreg(&USART2->CR3, 1, 5, bool);
 }
 void STM32446Usart2_nack(uint8_t bool)
 {
-	usart_setreg(&USART2->CR3, 1, 4, bool);
+	setreg(&USART2->CR3, 1, 4, bool);
 }
 void STM32446Usart2_hdsel(uint8_t bool)
 {
-	usart_setreg(&USART2->CR3, 1, 3, bool);
+	setreg(&USART2->CR3, 1, 3, bool);
 }
 void STM32446Usart2_irlp(uint8_t bool)
 {
-	usart_setreg(&USART2->CR3, 1, 2, bool);
+	setreg(&USART2->CR3, 1, 2, bool);
 }
 void STM32446Usart2_iren(uint8_t bool)
 {
-	usart_setreg(&USART2->CR3, 1, 1, bool);
+	setreg(&USART2->CR3, 1, 1, bool);
 }
 void STM32446Usart2_eie(uint8_t bool)
 {
-	usart_setreg(&USART2->CR3, 1, 0, bool);
+	setreg(&USART2->CR3, 1, 0, bool);
 }
 // GTPR
 void STM32446Usart2_gt(uint8_t value)
 {
-	usart_setreg(&USART2->GTPR, 8, 8, value);
+	setreg(&USART2->GTPR, 8, 8, value);
 }
 void STM32446Usart2_psc(uint8_t value)
 {
-	usart_setreg(&USART2->GTPR, 8, 0, value);
+	setreg(&USART2->GTPR, 8, 0, value);
 }
 /*** USART3 ***/
 void STM32446Usart3Clock( uint8_t bool )
@@ -670,7 +673,7 @@ void STM32446Usart3Parameter( uint8_t wordlength, uint8_t samplingmode, double s
 		USART3->CR2 |= ((1 << 13) | (1 << 12));
 	else if(fabs(stopbits - 2) < 0.00001) // STOP: STOP bits, 10: 2 Stop bits
 		USART3->CR2 |= (1 << 13);
-	value = (double) usart_getsysclk() / ( usart_gethpre() * sampling * baudrate );
+	value = (double) getsysclk() / ( gethpre() * sampling * baudrate );
 	fracpart = modf(value, &intpart);
 	USART3->BRR = 0; // clean slate, reset.
 	if(samplingmode == 16){
@@ -688,233 +691,233 @@ void STM32446Usart3Parameter( uint8_t wordlength, uint8_t samplingmode, double s
 // SR
 uint8_t STM32446Usart3_cts(void)
 {
-	return usart_readreg(USART3->SR, 1, 9);
+	return readreg(USART3->SR, 1, 9);
 }
 void STM32446Usart3_clear_cts(void)
 {
-	usart_setreg(&USART3->SR, 1, 9, 0);
+	setreg(&USART3->SR, 1, 9, 0);
 }
 uint8_t STM32446Usart3_lbd(void)
 {
-	return usart_readreg(USART3->SR, 1, 8);
+	return readreg(USART3->SR, 1, 8);
 }
 void STM32446Usart3_clear_lbd(void)
 {
-	usart_setreg(&USART3->SR, 1, 8, 0);
+	setreg(&USART3->SR, 1, 8, 0);
 }
 uint8_t STM32446Usart3_txe(void)
 {
-	return usart_readreg(USART3->SR, 1, 7);
+	return readreg(USART3->SR, 1, 7);
 }
 uint8_t STM32446Usart3_tc(void)
 {
-	return usart_readreg(USART3->SR, 1, 6);
+	return readreg(USART3->SR, 1, 6);
 }
 void STM32446Usart3_clear_tc(void)
 {
-	usart_setreg(&USART3->SR, 1, 6, 0);
+	setreg(&USART3->SR, 1, 6, 0);
 }
 uint8_t STM32446Usart3_rxne(void)
 {
-	return usart_readreg(USART3->SR, 1, 5);
+	return readreg(USART3->SR, 1, 5);
 }
 void STM32446Usart3_clear_rxne(void)
 {
-	usart_setreg(&USART3->SR, 1, 5, 0);
+	setreg(&USART3->SR, 1, 5, 0);
 }
 uint8_t STM32446Usart3_idle(void)
 {
-	return usart_readreg(USART3->SR, 1, 4);
+	return readreg(USART3->SR, 1, 4);
 }
 uint8_t STM32446Usart3_ore(void)
 {
-	return usart_readreg(USART3->SR, 1, 3);
+	return readreg(USART3->SR, 1, 3);
 }
 uint8_t STM32446Usart3_nf(void)
 {
-	return usart_readreg(USART3->SR, 1, 2);
+	return readreg(USART3->SR, 1, 2);
 }
 uint8_t STM32446Usart3_fe(void)
 {
-	return usart_readreg(USART3->SR, 1, 1);
+	return readreg(USART3->SR, 1, 1);
 }
 uint8_t STM32446Usart3_pe(void)
 {
-	return usart_readreg(USART3->SR, 1, 0);
+	return readreg(USART3->SR, 1, 0);
 }
 // DR
 void STM32446Usart3_dr(uint32_t data)
 {
-	usart_writereg(&USART3->DR, 9, 0, data);
+	writereg(&USART3->DR, 9, 0, data);
 }
 uint32_t STM32446Usart3_get_dr(void)
 {
-	return usart_readreg(USART3->DR, 9, 0);
+	return readreg(USART3->DR, 9, 0);
 }
 // BRR
 void STM32446Usart3_div_mantissa(uint16_t value)
 {
-	usart_setreg(&USART3->BRR, 12, 4, value);
+	setreg(&USART3->BRR, 12, 4, value);
 }
 void STM32446Usart3_div_fraction(uint8_t value)
 {
-	usart_setreg(&USART3->BRR, 4, 0, value);
+	setreg(&USART3->BRR, 4, 0, value);
 }
 // CR1
 void STM32446Usart3_over8(uint8_t bool)
 {
-	usart_setreg(&USART3->CR1, 1, 15, bool);
+	setreg(&USART3->CR1, 1, 15, bool);
 }
 void STM32446Usart3_ue(uint8_t bool)
 {
-	usart_setreg(&USART3->CR1, 1, 13, bool);
+	setreg(&USART3->CR1, 1, 13, bool);
 }
 void STM32446Usart3_m(uint8_t bool)
 {
-	usart_setreg(&USART3->CR1, 1, 12, bool);
+	setreg(&USART3->CR1, 1, 12, bool);
 }
 void STM32446Usart3_wake(uint8_t bool)
 {
-	usart_setreg(&USART3->CR1, 1, 11, bool);
+	setreg(&USART3->CR1, 1, 11, bool);
 }
 void STM32446Usart3_pce(uint8_t bool)
 {
-	usart_setreg(&USART3->CR1, 1, 10, bool);
+	setreg(&USART3->CR1, 1, 10, bool);
 }
 void STM32446Usart3_ps(uint8_t bool)
 {
-	usart_setreg(&USART3->CR1, 1, 9, bool);
+	setreg(&USART3->CR1, 1, 9, bool);
 }
 void STM32446Usart3_peie(uint8_t bool)
 {
-	usart_setreg(&USART3->CR1, 1, 8, bool);
+	setreg(&USART3->CR1, 1, 8, bool);
 }
 void STM32446Usart3_txeie(uint8_t bool)
 {
-	usart_setreg(&USART3->CR1, 1, 7, bool);
+	setreg(&USART3->CR1, 1, 7, bool);
 }
 void STM32446Usart3_tcie(uint8_t bool)
 {
-	usart_setreg(&USART3->CR1, 1, 6, bool);
+	setreg(&USART3->CR1, 1, 6, bool);
 }
 void STM32446Usart3_rxneie(uint8_t bool)
 {
-	usart_setreg(&USART3->CR1, 1, 5, bool);
+	setreg(&USART3->CR1, 1, 5, bool);
 }
 void STM32446Usart3_idleie(uint8_t bool)
 {
-	usart_setreg(&USART3->CR1, 1, 4, bool);
+	setreg(&USART3->CR1, 1, 4, bool);
 }
 void STM32446Usart3_te(uint8_t bool)
 {
-	usart_setreg(&USART3->CR1, 1, 3, bool);
+	setreg(&USART3->CR1, 1, 3, bool);
 }
 void STM32446Usart3_re(uint8_t bool)
 {
-	usart_setreg(&USART3->CR1, 1, 2, bool);
+	setreg(&USART3->CR1, 1, 2, bool);
 }
 void STM32446Usart3_rwu(uint8_t bool)
 {
-	usart_setreg(&USART3->CR1, 1, 1, bool);
+	setreg(&USART3->CR1, 1, 1, bool);
 }
 void STM32446Usart3_sbk(uint8_t bool)
 {
-	usart_setreg(&USART3->CR1, 1, 0, bool);
+	setreg(&USART3->CR1, 1, 0, bool);
 }
 // CR2
 void STM32446Usart3_linen(uint8_t bool)
 {
-	usart_setreg(&USART3->CR2, 1, 14, bool);
+	setreg(&USART3->CR2, 1, 14, bool);
 }
 void STM32446Usart3_stop(uint8_t value)
 {
-	usart_setreg(&USART3->CR2, 2, 12, value);
+	setreg(&USART3->CR2, 2, 12, value);
 }
 void STM32446Usart3_clken(uint8_t bool)
 {
-	usart_setreg(&USART3->CR2, 1, 11, bool);
+	setreg(&USART3->CR2, 1, 11, bool);
 }
 void STM32446Usart3_cpol(uint8_t bool)
 {
-	usart_setreg(&USART3->CR2, 1, 10, bool);
+	setreg(&USART3->CR2, 1, 10, bool);
 }
 void STM32446Usart3_cpha(uint8_t bool)
 {
-	usart_setreg(&USART3->CR2, 1, 9, bool);
+	setreg(&USART3->CR2, 1, 9, bool);
 }
 void STM32446Usart3_lbcl(uint8_t bool)
 {
-	usart_setreg(&USART3->CR2, 1, 8, bool);
+	setreg(&USART3->CR2, 1, 8, bool);
 }
 void STM32446Usart3_lbdie(uint8_t bool)
 {
-	usart_setreg(&USART3->CR2, 1, 6, bool);
+	setreg(&USART3->CR2, 1, 6, bool);
 }
 void STM32446Usart3_lbdl(uint8_t bool)
 {
-	usart_setreg(&USART3->CR2, 1, 5, bool);
+	setreg(&USART3->CR2, 1, 5, bool);
 }
 void STM32446Usart3_add(uint8_t value)
 {
-	usart_setreg(&USART3->CR2, 4, 0, value);
+	setreg(&USART3->CR2, 4, 0, value);
 }
 // CR3
 void STM32446Usart3_onebit(uint8_t bool)
 {
-	usart_setreg(&USART3->CR3, 1, 11, bool);
+	setreg(&USART3->CR3, 1, 11, bool);
 }
 void STM32446Usart3_ctsie(uint8_t bool)
 {
-	usart_setreg(&USART3->CR3, 1, 10, bool);
+	setreg(&USART3->CR3, 1, 10, bool);
 }
 void STM32446Usart3_ctse(uint8_t bool)
 {
-	usart_setreg(&USART3->CR3, 1, 9, bool);
+	setreg(&USART3->CR3, 1, 9, bool);
 }
 void STM32446Usart3_rtse(uint8_t bool)
 {
-	usart_setreg(&USART3->CR3, 1, 8, bool);
+	setreg(&USART3->CR3, 1, 8, bool);
 }
 void STM32446Usart3_dmat(uint8_t bool)
 {
-	usart_setreg(&USART3->CR3, 1, 7, bool);
+	setreg(&USART3->CR3, 1, 7, bool);
 }
 void STM32446Usart3_dmar(uint8_t bool)
 {
-	usart_setreg(&USART3->CR3, 1, 6, bool);
+	setreg(&USART3->CR3, 1, 6, bool);
 }
 void STM32446Usart3_scen(uint8_t bool)
 {
-	usart_setreg(&USART3->CR3, 1, 5, bool);
+	setreg(&USART3->CR3, 1, 5, bool);
 }
 void STM32446Usart3_nack(uint8_t bool)
 {
-	usart_setreg(&USART3->CR3, 1, 4, bool);
+	setreg(&USART3->CR3, 1, 4, bool);
 }
 void STM32446Usart3_hdsel(uint8_t bool)
 {
-	usart_setreg(&USART3->CR3, 1, 3, bool);
+	setreg(&USART3->CR3, 1, 3, bool);
 }
 void STM32446Usart3_irlp(uint8_t bool)
 {
-	usart_setreg(&USART3->CR3, 1, 2, bool);
+	setreg(&USART3->CR3, 1, 2, bool);
 }
 void STM32446Usart3_iren(uint8_t bool)
 {
-	usart_setreg(&USART3->CR3, 1, 1, bool);
+	setreg(&USART3->CR3, 1, 1, bool);
 }
 void STM32446Usart3_eie(uint8_t bool)
 {
-	usart_setreg(&USART3->CR3, 1, 0, bool);
+	setreg(&USART3->CR3, 1, 0, bool);
 }
 // GTPR
 void STM32446Usart3_gt(uint8_t value)
 {
-	usart_setreg(&USART3->GTPR, 8, 8, value);
+	setreg(&USART3->GTPR, 8, 8, value);
 }
 void STM32446Usart3_psc(uint8_t value)
 {
-	usart_setreg(&USART3->GTPR, 8, 0, value);
+	setreg(&USART3->GTPR, 8, 0, value);
 }
 /*** UART4 ***/
 void STM32446Uart4Clock( uint8_t bool )
@@ -953,7 +956,7 @@ void STM32446Uart4Parameter( uint8_t wordlength, uint8_t samplingmode, double st
 		UART4->CR2 |= ((1 << 13) | (1 << 12));
 	else if(fabs(stopbits - 2) < 0.00001) // STOP: STOP bits, 10: 2 Stop bits
 		UART4->CR2 |= (1 << 13);
-	value = (double) usart_getsysclk() / ( usart_gethpre() * sampling * baudrate );
+	value = (double) getsysclk() / ( gethpre() * sampling * baudrate );
 	fracpart = modf(value, &intpart);
 	UART4->BRR = 0; // clean slate, reset.
 	if(samplingmode == 16){
@@ -971,233 +974,233 @@ void STM32446Uart4Parameter( uint8_t wordlength, uint8_t samplingmode, double st
 // SR
 uint8_t STM32446Uart4_cts(void)
 {
-	return usart_readreg(UART4->SR, 1, 9);
+	return readreg(UART4->SR, 1, 9);
 }
 void STM32446Uart4_clear_cts(void)
 {
-	usart_setreg(&UART4->SR, 1, 9, 0);
+	setreg(&UART4->SR, 1, 9, 0);
 }
 uint8_t STM32446Uart4_lbd(void)
 {
-	return usart_readreg(UART4->SR, 1, 8);
+	return readreg(UART4->SR, 1, 8);
 }
 void STM32446Uart4_clear_lbd(void)
 {
-	usart_setreg(&UART4->SR, 1, 8, 0);
+	setreg(&UART4->SR, 1, 8, 0);
 }
 uint8_t STM32446Uart4_txe(void)
 {
-	return usart_readreg(UART4->SR, 1, 7);
+	return readreg(UART4->SR, 1, 7);
 }
 uint8_t STM32446Uart4_tc(void)
 {
-	return usart_readreg(UART4->SR, 1, 6);
+	return readreg(UART4->SR, 1, 6);
 }
 void STM32446Uart4_clear_tc(void)
 {
-	usart_setreg(&UART4->SR, 1, 6, 0);
+	setreg(&UART4->SR, 1, 6, 0);
 }
 uint8_t STM32446Uart4_rxne(void)
 {
-	return usart_readreg(UART4->SR, 1, 5);
+	return readreg(UART4->SR, 1, 5);
 }
 void STM32446Uart4_clear_rxne(void)
 {
-	usart_setreg(&UART4->SR, 1, 5, 0);
+	setreg(&UART4->SR, 1, 5, 0);
 }
 uint8_t STM32446Uart4_idle(void)
 {
-	return usart_readreg(UART4->SR, 1, 4);
+	return readreg(UART4->SR, 1, 4);
 }
 uint8_t STM32446Uart4_ore(void)
 {
-	return usart_readreg(UART4->SR, 1, 3);
+	return readreg(UART4->SR, 1, 3);
 }
 uint8_t STM32446Uart4_nf(void)
 {
-	return usart_readreg(UART4->SR, 1, 2);
+	return readreg(UART4->SR, 1, 2);
 }
 uint8_t STM32446Uart4_fe(void)
 {
-	return usart_readreg(UART4->SR, 1, 1);
+	return readreg(UART4->SR, 1, 1);
 }
 uint8_t STM32446Uart4_pe(void)
 {
-	return usart_readreg(UART4->SR, 1, 0);
+	return readreg(UART4->SR, 1, 0);
 }
 // DR
 void STM32446Uart4_dr(uint32_t data)
 {
-	usart_writereg(&UART4->DR, 9, 0, data);
+	writereg(&UART4->DR, 9, 0, data);
 }
 uint32_t STM32446Uart4_get_dr(void)
 {
-	return usart_readreg(UART4->DR, 9, 0);
+	return readreg(UART4->DR, 9, 0);
 }
 // BRR
 void STM32446Uart4_div_mantissa(uint16_t value)
 {
-	usart_setreg(&UART4->BRR, 12, 4, value);
+	setreg(&UART4->BRR, 12, 4, value);
 }
 void STM32446Uart4_div_fraction(uint8_t value)
 {
-	usart_setreg(&UART4->BRR, 4, 0, value);
+	setreg(&UART4->BRR, 4, 0, value);
 }
 // CR1
 void STM32446Uart4_over8(uint8_t bool)
 {
-	usart_setreg(&UART4->CR1, 1, 15, bool);
+	setreg(&UART4->CR1, 1, 15, bool);
 }
 void STM32446Uart4_ue(uint8_t bool)
 {
-	usart_setreg(&UART4->CR1, 1, 13, bool);
+	setreg(&UART4->CR1, 1, 13, bool);
 }
 void STM32446Uart4_m(uint8_t bool)
 {
-	usart_setreg(&UART4->CR1, 1, 12, bool);
+	setreg(&UART4->CR1, 1, 12, bool);
 }
 void STM32446Uart4_wake(uint8_t bool)
 {
-	usart_setreg(&UART4->CR1, 1, 11, bool);
+	setreg(&UART4->CR1, 1, 11, bool);
 }
 void STM32446Uart4_pce(uint8_t bool)
 {
-	usart_setreg(&UART4->CR1, 1, 10, bool);
+	setreg(&UART4->CR1, 1, 10, bool);
 }
 void STM32446Uart4_ps(uint8_t bool)
 {
-	usart_setreg(&UART4->CR1, 1, 9, bool);
+	setreg(&UART4->CR1, 1, 9, bool);
 }
 void STM32446Uart4_peie(uint8_t bool)
 {
-	usart_setreg(&UART4->CR1, 1, 8, bool);
+	setreg(&UART4->CR1, 1, 8, bool);
 }
 void STM32446Uart4_txeie(uint8_t bool)
 {
-	usart_setreg(&UART4->CR1, 1, 7, bool);
+	setreg(&UART4->CR1, 1, 7, bool);
 }
 void STM32446Uart4_tcie(uint8_t bool)
 {
-	usart_setreg(&UART4->CR1, 1, 6, bool);
+	setreg(&UART4->CR1, 1, 6, bool);
 }
 void STM32446Uart4_rxneie(uint8_t bool)
 {
-	usart_setreg(&UART4->CR1, 1, 5, bool);
+	setreg(&UART4->CR1, 1, 5, bool);
 }
 void STM32446Uart4_idleie(uint8_t bool)
 {
-	usart_setreg(&UART4->CR1, 1, 4, bool);
+	setreg(&UART4->CR1, 1, 4, bool);
 }
 void STM32446Uart4_te(uint8_t bool)
 {
-	usart_setreg(&UART4->CR1, 1, 3, bool);
+	setreg(&UART4->CR1, 1, 3, bool);
 }
 void STM32446Uart4_re(uint8_t bool)
 {
-	usart_setreg(&UART4->CR1, 1, 2, bool);
+	setreg(&UART4->CR1, 1, 2, bool);
 }
 void STM32446Uart4_rwu(uint8_t bool)
 {
-	usart_setreg(&UART4->CR1, 1, 1, bool);
+	setreg(&UART4->CR1, 1, 1, bool);
 }
 void STM32446Uart4_sbk(uint8_t bool)
 {
-	usart_setreg(&UART4->CR1, 1, 0, bool);
+	setreg(&UART4->CR1, 1, 0, bool);
 }
 // CR2
 void STM32446Uart4_linen(uint8_t bool)
 {
-	usart_setreg(&UART4->CR2, 1, 14, bool);
+	setreg(&UART4->CR2, 1, 14, bool);
 }
 void STM32446Uart4_stop(uint8_t value)
 {
-	usart_setreg(&UART4->CR2, 2, 12, value);
+	setreg(&UART4->CR2, 2, 12, value);
 }
 void STM32446Uart4_clken(uint8_t bool)
 {
-	usart_setreg(&UART4->CR2, 1, 11, bool);
+	setreg(&UART4->CR2, 1, 11, bool);
 }
 void STM32446Uart4_cpol(uint8_t bool)
 {
-	usart_setreg(&UART4->CR2, 1, 10, bool);
+	setreg(&UART4->CR2, 1, 10, bool);
 }
 void STM32446Uart4_cpha(uint8_t bool)
 {
-	usart_setreg(&UART4->CR2, 1, 9, bool);
+	setreg(&UART4->CR2, 1, 9, bool);
 }
 void STM32446Uart4_lbcl(uint8_t bool)
 {
-	usart_setreg(&UART4->CR2, 1, 8, bool);
+	setreg(&UART4->CR2, 1, 8, bool);
 }
 void STM32446Uart4_lbdie(uint8_t bool)
 {
-	usart_setreg(&UART4->CR2, 1, 6, bool);
+	setreg(&UART4->CR2, 1, 6, bool);
 }
 void STM32446Uart4_lbdl(uint8_t bool)
 {
-	usart_setreg(&UART4->CR2, 1, 5, bool);
+	setreg(&UART4->CR2, 1, 5, bool);
 }
 void STM32446Uart4_add(uint8_t value)
 {
-	usart_setreg(&UART4->CR2, 4, 0, value);
+	setreg(&UART4->CR2, 4, 0, value);
 }
 // CR3
 void STM32446Uart4_onebit(uint8_t bool)
 {
-	usart_setreg(&UART4->CR3, 1, 11, bool);
+	setreg(&UART4->CR3, 1, 11, bool);
 }
 void STM32446Uart4_ctsie(uint8_t bool)
 {
-	usart_setreg(&UART4->CR3, 1, 10, bool);
+	setreg(&UART4->CR3, 1, 10, bool);
 }
 void STM32446Uart4_ctse(uint8_t bool)
 {
-	usart_setreg(&UART4->CR3, 1, 9, bool);
+	setreg(&UART4->CR3, 1, 9, bool);
 }
 void STM32446Uart4_rtse(uint8_t bool)
 {
-	usart_setreg(&UART4->CR3, 1, 8, bool);
+	setreg(&UART4->CR3, 1, 8, bool);
 }
 void STM32446Uart4_dmat(uint8_t bool)
 {
-	usart_setreg(&UART4->CR3, 1, 7, bool);
+	setreg(&UART4->CR3, 1, 7, bool);
 }
 void STM32446Uart4_dmar(uint8_t bool)
 {
-	usart_setreg(&UART4->CR3, 1, 6, bool);
+	setreg(&UART4->CR3, 1, 6, bool);
 }
 void STM32446Uart4_scen(uint8_t bool)
 {
-	usart_setreg(&UART4->CR3, 1, 5, bool);
+	setreg(&UART4->CR3, 1, 5, bool);
 }
 void STM32446Uart4_nack(uint8_t bool)
 {
-	usart_setreg(&UART4->CR3, 1, 4, bool);
+	setreg(&UART4->CR3, 1, 4, bool);
 }
 void STM32446Uart4_hdsel(uint8_t bool)
 {
-	usart_setreg(&UART4->CR3, 1, 3, bool);
+	setreg(&UART4->CR3, 1, 3, bool);
 }
 void STM32446Uart4_irlp(uint8_t bool)
 {
-	usart_setreg(&UART4->CR3, 1, 2, bool);
+	setreg(&UART4->CR3, 1, 2, bool);
 }
 void STM32446Uart4_iren(uint8_t bool)
 {
-	usart_setreg(&UART4->CR3, 1, 1, bool);
+	setreg(&UART4->CR3, 1, 1, bool);
 }
 void STM32446Uart4_eie(uint8_t bool)
 {
-	usart_setreg(&UART4->CR3, 1, 0, bool);
+	setreg(&UART4->CR3, 1, 0, bool);
 }
 // GTPR
 void STM32446Uart4_gt(uint8_t value)
 {
-	usart_setreg(&UART4->GTPR, 8, 8, value);
+	setreg(&UART4->GTPR, 8, 8, value);
 }
 void STM32446Uart4_psc(uint8_t value)
 {
-	usart_setreg(&UART4->GTPR, 8, 0, value);
+	setreg(&UART4->GTPR, 8, 0, value);
 }
 /*** UART5 ***/
 void STM32446Uart5Clock( uint8_t bool )
@@ -1235,7 +1238,7 @@ void STM32446Uart5Parameter( uint8_t wordlength, uint8_t samplingmode, double st
 		UART5->CR2 |= ((1 << 13) | (1 << 12));
 	else if(fabs(stopbits - 2) < 0.00001) // STOP: STOP bits, 10: 2 Stop bits
 		UART5->CR2 |= (1 << 13);
-	value = (double) usart_getsysclk() / ( usart_gethpre() * sampling * baudrate );
+	value = (double) getsysclk() / ( gethpre() * sampling * baudrate );
 	fracpart = modf(value, &intpart);
 	UART5->BRR = 0; // clean slate, reset.
 	if(samplingmode == 16){
@@ -1253,233 +1256,233 @@ void STM32446Uart5Parameter( uint8_t wordlength, uint8_t samplingmode, double st
 // SR
 uint8_t STM32446Uart5_cts(void)
 {
-	return usart_readreg(UART5->SR, 1, 9);
+	return readreg(UART5->SR, 1, 9);
 }
 void STM32446Uart5_clear_cts(void)
 {
-	usart_setreg(&UART5->SR, 1, 9, 0);
+	setreg(&UART5->SR, 1, 9, 0);
 }
 uint8_t STM32446Uart5_lbd(void)
 {
-	return usart_readreg(UART5->SR, 1, 8);
+	return readreg(UART5->SR, 1, 8);
 }
 void STM32446Uart5_clear_lbd(void)
 {
-	usart_setreg(&UART5->SR, 1, 8, 0);
+	setreg(&UART5->SR, 1, 8, 0);
 }
 uint8_t STM32446Uart5_txe(void)
 {
-	return usart_readreg(UART5->SR, 1, 7);
+	return readreg(UART5->SR, 1, 7);
 }
 uint8_t STM32446Uart5_tc(void)
 {
-	return usart_readreg(UART5->SR, 1, 6);
+	return readreg(UART5->SR, 1, 6);
 }
 void STM32446Uart5_clear_tc(void)
 {
-	usart_setreg(&UART5->SR, 1, 6, 0);
+	setreg(&UART5->SR, 1, 6, 0);
 }
 uint8_t STM32446Uart5_rxne(void)
 {
-	return usart_readreg(UART5->SR, 1, 5);
+	return readreg(UART5->SR, 1, 5);
 }
 void STM32446Uart5_clear_rxne(void)
 {
-	usart_setreg(&UART5->SR, 1, 5, 0);
+	setreg(&UART5->SR, 1, 5, 0);
 }
 uint8_t STM32446Uart5_idle(void)
 {
-	return usart_readreg(UART5->SR, 1, 4);
+	return readreg(UART5->SR, 1, 4);
 }
 uint8_t STM32446Uart5_ore(void)
 {
-	return usart_readreg(UART5->SR, 1, 3);
+	return readreg(UART5->SR, 1, 3);
 }
 uint8_t STM32446Uart5_nf(void)
 {
-	return usart_readreg(UART5->SR, 1, 2);
+	return readreg(UART5->SR, 1, 2);
 }
 uint8_t STM32446Uart5_fe(void)
 {
-	return usart_readreg(UART5->SR, 1, 1);
+	return readreg(UART5->SR, 1, 1);
 }
 uint8_t STM32446Uart5_pe(void)
 {
-	return usart_readreg(UART5->SR, 1, 0);
+	return readreg(UART5->SR, 1, 0);
 }
 // DR
 void STM32446Uart5_dr(uint32_t data)
 {
-	usart_writereg(&UART5->DR, 9, 0, data);
+	writereg(&UART5->DR, 9, 0, data);
 }
 uint32_t STM32446Uart5_get_dr(void)
 {
-	return usart_readreg(UART5->DR, 9, 0);
+	return readreg(UART5->DR, 9, 0);
 }
 // BRR
 void STM32446Uart5_div_mantissa(uint16_t value)
 {
-	usart_setreg(&UART5->BRR, 12, 4, value);
+	setreg(&UART5->BRR, 12, 4, value);
 }
 void STM32446Uart5_div_fraction(uint8_t value)
 {
-	usart_setreg(&UART5->BRR, 4, 0, value);
+	setreg(&UART5->BRR, 4, 0, value);
 }
 // CR1
 void STM32446Uart5_over8(uint8_t bool)
 {
-	usart_setreg(&UART5->CR1, 1, 15, bool);
+	setreg(&UART5->CR1, 1, 15, bool);
 }
 void STM32446Uart5_ue(uint8_t bool)
 {
-	usart_setreg(&UART5->CR1, 1, 13, bool);
+	setreg(&UART5->CR1, 1, 13, bool);
 }
 void STM32446Uart5_m(uint8_t bool)
 {
-	usart_setreg(&UART5->CR1, 1, 12, bool);
+	setreg(&UART5->CR1, 1, 12, bool);
 }
 void STM32446Uart5_wake(uint8_t bool)
 {
-	usart_setreg(&UART5->CR1, 1, 11, bool);
+	setreg(&UART5->CR1, 1, 11, bool);
 }
 void STM32446Uart5_pce(uint8_t bool)
 {
-	usart_setreg(&UART5->CR1, 1, 10, bool);
+	setreg(&UART5->CR1, 1, 10, bool);
 }
 void STM32446Uart5_ps(uint8_t bool)
 {
-	usart_setreg(&UART5->CR1, 1, 9, bool);
+	setreg(&UART5->CR1, 1, 9, bool);
 }
 void STM32446Uart5_peie(uint8_t bool)
 {
-	usart_setreg(&UART5->CR1, 1, 8, bool);
+	setreg(&UART5->CR1, 1, 8, bool);
 }
 void STM32446Uart5_txeie(uint8_t bool)
 {
-	usart_setreg(&UART5->CR1, 1, 7, bool);
+	setreg(&UART5->CR1, 1, 7, bool);
 }
 void STM32446Uart5_tcie(uint8_t bool)
 {
-	usart_setreg(&UART5->CR1, 1, 6, bool);
+	setreg(&UART5->CR1, 1, 6, bool);
 }
 void STM32446Uart5_rxneie(uint8_t bool)
 {
-	usart_setreg(&UART5->CR1, 1, 5, bool);
+	setreg(&UART5->CR1, 1, 5, bool);
 }
 void STM32446Uart5_idleie(uint8_t bool)
 {
-	usart_setreg(&UART5->CR1, 1, 4, bool);
+	setreg(&UART5->CR1, 1, 4, bool);
 }
 void STM32446Uart5_te(uint8_t bool)
 {
-	usart_setreg(&UART5->CR1, 1, 3, bool);
+	setreg(&UART5->CR1, 1, 3, bool);
 }
 void STM32446Uart5_re(uint8_t bool)
 {
-	usart_setreg(&UART5->CR1, 1, 2, bool);
+	setreg(&UART5->CR1, 1, 2, bool);
 }
 void STM32446Uart5_rwu(uint8_t bool)
 {
-	usart_setreg(&UART5->CR1, 1, 1, bool);
+	setreg(&UART5->CR1, 1, 1, bool);
 }
 void STM32446Uart5_sbk(uint8_t bool)
 {
-	usart_setreg(&UART5->CR1, 1, 0, bool);
+	setreg(&UART5->CR1, 1, 0, bool);
 }
 // CR2
 void STM32446Uart5_linen(uint8_t bool)
 {
-	usart_setreg(&UART5->CR2, 1, 14, bool);
+	setreg(&UART5->CR2, 1, 14, bool);
 }
 void STM32446Uart5_stop(uint8_t value)
 {
-	usart_setreg(&UART5->CR2, 2, 12, value);
+	setreg(&UART5->CR2, 2, 12, value);
 }
 void STM32446Uart5_clken(uint8_t bool)
 {
-	usart_setreg(&UART5->CR2, 1, 11, bool);
+	setreg(&UART5->CR2, 1, 11, bool);
 }
 void STM32446Uart5_cpol(uint8_t bool)
 {
-	usart_setreg(&UART5->CR2, 1, 10, bool);
+	setreg(&UART5->CR2, 1, 10, bool);
 }
 void STM32446Uart5_cpha(uint8_t bool)
 {
-	usart_setreg(&UART5->CR2, 1, 9, bool);
+	setreg(&UART5->CR2, 1, 9, bool);
 }
 void STM32446Uart5_lbcl(uint8_t bool)
 {
-	usart_setreg(&UART5->CR2, 1, 8, bool);
+	setreg(&UART5->CR2, 1, 8, bool);
 }
 void STM32446Uart5_lbdie(uint8_t bool)
 {
-	usart_setreg(&UART5->CR2, 1, 6, bool);
+	setreg(&UART5->CR2, 1, 6, bool);
 }
 void STM32446Uart5_lbdl(uint8_t bool)
 {
-	usart_setreg(&UART5->CR2, 1, 5, bool);
+	setreg(&UART5->CR2, 1, 5, bool);
 }
 void STM32446Uart5_add(uint8_t value)
 {
-	usart_setreg(&UART5->CR2, 4, 0, value);
+	setreg(&UART5->CR2, 4, 0, value);
 }
 // CR3
 void STM32446Uart5_onebit(uint8_t bool)
 {
-	usart_setreg(&UART5->CR3, 1, 11, bool);
+	setreg(&UART5->CR3, 1, 11, bool);
 }
 void STM32446Uart5_ctsie(uint8_t bool)
 {
-	usart_setreg(&UART5->CR3, 1, 10, bool);
+	setreg(&UART5->CR3, 1, 10, bool);
 }
 void STM32446Uart5_ctse(uint8_t bool)
 {
-	usart_setreg(&UART5->CR3, 1, 9, bool);
+	setreg(&UART5->CR3, 1, 9, bool);
 }
 void STM32446Uart5_rtse(uint8_t bool)
 {
-	usart_setreg(&UART5->CR3, 1, 8, bool);
+	setreg(&UART5->CR3, 1, 8, bool);
 }
 void STM32446Uart5_dmat(uint8_t bool)
 {
-	usart_setreg(&UART5->CR3, 1, 7, bool);
+	setreg(&UART5->CR3, 1, 7, bool);
 }
 void STM32446Uart5_dmar(uint8_t bool)
 {
-	usart_setreg(&UART5->CR3, 1, 6, bool);
+	setreg(&UART5->CR3, 1, 6, bool);
 }
 void STM32446Uart5_scen(uint8_t bool)
 {
-	usart_setreg(&UART5->CR3, 1, 5, bool);
+	setreg(&UART5->CR3, 1, 5, bool);
 }
 void STM32446Uart5_nack(uint8_t bool)
 {
-	usart_setreg(&UART5->CR3, 1, 4, bool);
+	setreg(&UART5->CR3, 1, 4, bool);
 }
 void STM32446Uart5_hdsel(uint8_t bool)
 {
-	usart_setreg(&UART5->CR3, 1, 3, bool);
+	setreg(&UART5->CR3, 1, 3, bool);
 }
 void STM32446Uart5_irlp(uint8_t bool)
 {
-	usart_setreg(&UART5->CR3, 1, 2, bool);
+	setreg(&UART5->CR3, 1, 2, bool);
 }
 void STM32446Uart5_iren(uint8_t bool)
 {
-	usart_setreg(&UART5->CR3, 1, 1, bool);
+	setreg(&UART5->CR3, 1, 1, bool);
 }
 void STM32446Uart5_eie(uint8_t bool)
 {
-	usart_setreg(&UART5->CR3, 1, 0, bool);
+	setreg(&UART5->CR3, 1, 0, bool);
 }
 // GTPR
 void STM32446Uart5_gt(uint8_t value)
 {
-	usart_setreg(&UART5->GTPR, 8, 8, value);
+	setreg(&UART5->GTPR, 8, 8, value);
 }
 void STM32446Uart5_psc(uint8_t value)
 {
-	usart_setreg(&UART5->GTPR, 8, 0, value);
+	setreg(&UART5->GTPR, 8, 0, value);
 }
 /*** USART6 ***/
 void STM32446Usart6Clock( uint8_t bool )
@@ -1517,7 +1520,7 @@ void STM32446Usart6Parameter( uint8_t wordlength, uint8_t samplingmode, double s
 		USART6->CR2 |= ((1 << 13) | (1 << 12));
 	else if(fabs(stopbits - 2) < 0.00001) // STOP: STOP bits, 10: 2 Stop bits
 		USART6->CR2 |= (1 << 13);
-	value = (double) usart_getsysclk() / ( usart_gethpre() * sampling * baudrate );
+	value = (double) getsysclk() / ( gethpre() * sampling * baudrate );
 	fracpart = modf(value, &intpart);
 	USART6->BRR = 0; // clean slate, reset.
 	if(samplingmode == 16){
@@ -1535,233 +1538,233 @@ void STM32446Usart6Parameter( uint8_t wordlength, uint8_t samplingmode, double s
 // SR
 uint8_t STM32446Usart6_cts(void)
 {
-	return usart_readreg(USART6->SR, 1, 9);
+	return readreg(USART6->SR, 1, 9);
 }
 void STM32446Usart6_clear_cts(void)
 {
-	usart_setreg(&USART6->SR, 1, 9, 0);
+	setreg(&USART6->SR, 1, 9, 0);
 }
 uint8_t STM32446Usart6_lbd(void)
 {
-	return usart_readreg(USART6->SR, 1, 8);
+	return readreg(USART6->SR, 1, 8);
 }
 void STM32446Usart6_clear_lbd(void)
 {
-	usart_setreg(&USART6->SR, 1, 8, 0);
+	setreg(&USART6->SR, 1, 8, 0);
 }
 uint8_t STM32446Usart6_txe(void)
 {
-	return usart_readreg(USART6->SR, 1, 7);
+	return readreg(USART6->SR, 1, 7);
 }
 uint8_t STM32446Usart6_tc(void)
 {
-	return usart_readreg(USART6->SR, 1, 6);
+	return readreg(USART6->SR, 1, 6);
 }
 void STM32446Usart6_clear_tc(void)
 {
-	usart_setreg(&USART6->SR, 1, 6, 0);
+	setreg(&USART6->SR, 1, 6, 0);
 }
 uint8_t STM32446Usart6_rxne(void)
 {
-	return usart_readreg(USART6->SR, 1, 5);
+	return readreg(USART6->SR, 1, 5);
 }
 void STM32446Usart6_clear_rxne(void)
 {
-	usart_setreg(&USART6->SR, 1, 5, 0);
+	setreg(&USART6->SR, 1, 5, 0);
 }
 uint8_t STM32446Usart6_idle(void)
 {
-	return usart_readreg(USART6->SR, 1, 4);
+	return readreg(USART6->SR, 1, 4);
 }
 uint8_t STM32446Usart6_ore(void)
 {
-	return usart_readreg(USART6->SR, 1, 3);
+	return readreg(USART6->SR, 1, 3);
 }
 uint8_t STM32446Usart6_nf(void)
 {
-	return usart_readreg(USART6->SR, 1, 2);
+	return readreg(USART6->SR, 1, 2);
 }
 uint8_t STM32446Usart6_fe(void)
 {
-	return usart_readreg(USART6->SR, 1, 1);
+	return readreg(USART6->SR, 1, 1);
 }
 uint8_t STM32446Usart6_pe(void)
 {
-	return usart_readreg(USART6->SR, 1, 0);
+	return readreg(USART6->SR, 1, 0);
 }
 // DR
 void STM32446Usart6_dr(uint32_t data)
 {
-	usart_writereg(&USART6->DR, 9, 0, data);
+	writereg(&USART6->DR, 9, 0, data);
 }
 uint32_t STM32446Usart6_get_dr(void)
 {
-	return usart_readreg(USART6->DR, 9, 0);
+	return readreg(USART6->DR, 9, 0);
 }
 // BRR
 void STM32446Usart6_div_mantissa(uint16_t value)
 {
-	usart_setreg(&USART6->BRR, 12, 4, value);
+	setreg(&USART6->BRR, 12, 4, value);
 }
 void STM32446Usart6_div_fraction(uint8_t value)
 {
-	usart_setreg(&USART6->BRR, 4, 0, value);
+	setreg(&USART6->BRR, 4, 0, value);
 }
 // CR1
 void STM32446Usart6_over8(uint8_t bool)
 {
-	usart_setreg(&USART6->CR1, 1, 15, bool);
+	setreg(&USART6->CR1, 1, 15, bool);
 }
 void STM32446Usart6_ue(uint8_t bool)
 {
-	usart_setreg(&USART6->CR1, 1, 13, bool);
+	setreg(&USART6->CR1, 1, 13, bool);
 }
 void STM32446Usart6_m(uint8_t bool)
 {
-	usart_setreg(&USART6->CR1, 1, 12, bool);
+	setreg(&USART6->CR1, 1, 12, bool);
 }
 void STM32446Usart6_wake(uint8_t bool)
 {
-	usart_setreg(&USART6->CR1, 1, 11, bool);
+	setreg(&USART6->CR1, 1, 11, bool);
 }
 void STM32446Usart6_pce(uint8_t bool)
 {
-	usart_setreg(&USART6->CR1, 1, 10, bool);
+	setreg(&USART6->CR1, 1, 10, bool);
 }
 void STM32446Usart6_ps(uint8_t bool)
 {
-	usart_setreg(&USART6->CR1, 1, 9, bool);
+	setreg(&USART6->CR1, 1, 9, bool);
 }
 void STM32446Usart6_peie(uint8_t bool)
 {
-	usart_setreg(&USART6->CR1, 1, 8, bool);
+	setreg(&USART6->CR1, 1, 8, bool);
 }
 void STM32446Usart6_txeie(uint8_t bool)
 {
-	usart_setreg(&USART6->CR1, 1, 7, bool);
+	setreg(&USART6->CR1, 1, 7, bool);
 }
 void STM32446Usart6_tcie(uint8_t bool)
 {
-	usart_setreg(&USART6->CR1, 1, 6, bool);
+	setreg(&USART6->CR1, 1, 6, bool);
 }
 void STM32446Usart6_rxneie(uint8_t bool)
 {
-	usart_setreg(&USART6->CR1, 1, 5, bool);
+	setreg(&USART6->CR1, 1, 5, bool);
 }
 void STM32446Usart6_idleie(uint8_t bool)
 {
-	usart_setreg(&USART6->CR1, 1, 4, bool);
+	setreg(&USART6->CR1, 1, 4, bool);
 }
 void STM32446Usart6_te(uint8_t bool)
 {
-	usart_setreg(&USART6->CR1, 1, 3, bool);
+	setreg(&USART6->CR1, 1, 3, bool);
 }
 void STM32446Usart6_re(uint8_t bool)
 {
-	usart_setreg(&USART6->CR1, 1, 2, bool);
+	setreg(&USART6->CR1, 1, 2, bool);
 }
 void STM32446Usart6_rwu(uint8_t bool)
 {
-	usart_setreg(&USART6->CR1, 1, 1, bool);
+	setreg(&USART6->CR1, 1, 1, bool);
 }
 void STM32446Usart6_sbk(uint8_t bool)
 {
-	usart_setreg(&USART6->CR1, 1, 0, bool);
+	setreg(&USART6->CR1, 1, 0, bool);
 }
 // CR2
 void STM32446Usart6_linen(uint8_t bool)
 {
-	usart_setreg(&USART6->CR2, 1, 14, bool);
+	setreg(&USART6->CR2, 1, 14, bool);
 }
 void STM32446Usart6_stop(uint8_t value)
 {
-	usart_setreg(&USART6->CR2, 2, 12, value);
+	setreg(&USART6->CR2, 2, 12, value);
 }
 void STM32446Usart6_clken(uint8_t bool)
 {
-	usart_setreg(&USART6->CR2, 1, 11, bool);
+	setreg(&USART6->CR2, 1, 11, bool);
 }
 void STM32446Usart6_cpol(uint8_t bool)
 {
-	usart_setreg(&USART6->CR2, 1, 10, bool);
+	setreg(&USART6->CR2, 1, 10, bool);
 }
 void STM32446Usart6_cpha(uint8_t bool)
 {
-	usart_setreg(&USART6->CR2, 1, 9, bool);
+	setreg(&USART6->CR2, 1, 9, bool);
 }
 void STM32446Usart6_lbcl(uint8_t bool)
 {
-	usart_setreg(&USART6->CR2, 1, 8, bool);
+	setreg(&USART6->CR2, 1, 8, bool);
 }
 void STM32446Usart6_lbdie(uint8_t bool)
 {
-	usart_setreg(&USART6->CR2, 1, 6, bool);
+	setreg(&USART6->CR2, 1, 6, bool);
 }
 void STM32446Usart6_lbdl(uint8_t bool)
 {
-	usart_setreg(&USART6->CR2, 1, 5, bool);
+	setreg(&USART6->CR2, 1, 5, bool);
 }
 void STM32446Usart6_add(uint8_t value)
 {
-	usart_setreg(&USART6->CR2, 4, 0, value);
+	setreg(&USART6->CR2, 4, 0, value);
 }
 // CR3
 void STM32446Usart6_onebit(uint8_t bool)
 {
-	usart_setreg(&USART6->CR3, 1, 11, bool);
+	setreg(&USART6->CR3, 1, 11, bool);
 }
 void STM32446Usart6_ctsie(uint8_t bool)
 {
-	usart_setreg(&USART6->CR3, 1, 10, bool);
+	setreg(&USART6->CR3, 1, 10, bool);
 }
 void STM32446Usart6_ctse(uint8_t bool)
 {
-	usart_setreg(&USART6->CR3, 1, 9, bool);
+	setreg(&USART6->CR3, 1, 9, bool);
 }
 void STM32446Usart6_rtse(uint8_t bool)
 {
-	usart_setreg(&USART6->CR3, 1, 8, bool);
+	setreg(&USART6->CR3, 1, 8, bool);
 }
 void STM32446Usart6_dmat(uint8_t bool)
 {
-	usart_setreg(&USART6->CR3, 1, 7, bool);
+	setreg(&USART6->CR3, 1, 7, bool);
 }
 void STM32446Usart6_dmar(uint8_t bool)
 {
-	usart_setreg(&USART6->CR3, 1, 6, bool);
+	setreg(&USART6->CR3, 1, 6, bool);
 }
 void STM32446Usart6_scen(uint8_t bool)
 {
-	usart_setreg(&USART6->CR3, 1, 5, bool);
+	setreg(&USART6->CR3, 1, 5, bool);
 }
 void STM32446Usart6_nack(uint8_t bool)
 {
-	usart_setreg(&USART6->CR3, 1, 4, bool);
+	setreg(&USART6->CR3, 1, 4, bool);
 }
 void STM32446Usart6_hdsel(uint8_t bool)
 {
-	usart_setreg(&USART6->CR3, 1, 3, bool);
+	setreg(&USART6->CR3, 1, 3, bool);
 }
 void STM32446Usart6_irlp(uint8_t bool)
 {
-	usart_setreg(&USART6->CR3, 1, 2, bool);
+	setreg(&USART6->CR3, 1, 2, bool);
 }
 void STM32446Usart6_iren(uint8_t bool)
 {
-	usart_setreg(&USART6->CR3, 1, 1, bool);
+	setreg(&USART6->CR3, 1, 1, bool);
 }
 void STM32446Usart6_eie(uint8_t bool)
 {
-	usart_setreg(&USART6->CR3, 1, 0, bool);
+	setreg(&USART6->CR3, 1, 0, bool);
 }
 // GTPR
 void STM32446Usart6_gt(uint8_t value)
 {
-	usart_setreg(&USART6->GTPR, 8, 8, value);
+	setreg(&USART6->GTPR, 8, 8, value);
 }
 void STM32446Usart6_psc(uint8_t value)
 {
-	usart_setreg(&USART6->GTPR, 8, 0, value);
+	setreg(&USART6->GTPR, 8, 0, value);
 }
 /*** USART1 Auxiliar ***/
 STM32446USART_SR stm32446_usart1_sr_inic(void)
@@ -1974,9 +1977,9 @@ STM32446USART_GTPR stm32446_usart2_gtpr_inic(void)
 	return stm32446_usart2_gtpr;
 }
 /*** USART2 INIC Procedure & Function Definition ***/
-STM32446USART2obj usart2_inic(void)
+STM32446_USART2 usart2_inic(void)
 {
-	STM32446USART2obj stm32446_usart2;
+	STM32446_USART2 stm32446_usart2;
 	stm32446_usart2.reg = USART2;
 	/*** USART2 Bit Mapping Link ***/
 	stm32446_usart2.sr = stm32446_usart2_sr_inic();
@@ -1992,6 +1995,14 @@ STM32446USART2obj usart2_inic(void)
 	stm32446_usart2.parameter = STM32446Usart2Parameter;
 	return stm32446_usart2;
 }
+
+STM32446_USART2*  usart2(void){ return (STM32446_USART2*) &stm32446_usart2; }
+
+STM32446_USART2 USART2enable(void)
+{
+	return usart2_inic();
+}
+
 /*** USART3 Auxiliar ***/
 STM32446USART_SR stm32446_usart3_sr_inic(void)
 {
@@ -2084,9 +2095,9 @@ STM32446USART_GTPR stm32446_usart3_gtpr_inic(void)
 	return stm32446_usart3_gtpr;
 }
 /*** USART3 INIC Procedure & Function Definition ***/
-STM32446USART3obj usart3_inic(void)
+STM32446_USART3 usart3_inic(void)
 {
-	STM32446USART3obj stm32446_usart3;
+	STM32446_USART3 stm32446_usart3;
 	stm32446_usart3.reg = USART3;
 	/*** USART3 Bit Mapping Link ***/
 	stm32446_usart3.sr = stm32446_usart3_sr_inic();
@@ -2102,6 +2113,14 @@ STM32446USART3obj usart3_inic(void)
 	stm32446_usart3.parameter = STM32446Usart3Parameter;
 	return stm32446_usart3;
 }
+
+STM32446_USART3*  usart3(void){ return (STM32446_USART3*) &stm32446_usart3; }
+
+STM32446_USART3 USART3enable(void)
+{
+	return usart3_inic();
+}
+
 /*** UART4 Auxiliar ***/
 STM32446USART_SR stm32446_uart4_sr_inic(void)
 {
@@ -2194,9 +2213,9 @@ STM32446USART_GTPR stm32446_uart4_gtpr_inic(void)
 	return stm32446_uart4_gtpr;
 }
 /*** UART4 INIC Procedure & Function Definition ***/
-STM32446USART4obj uart4_inic(void)
+STM32446_UART4 uart4_inic(void)
 {
-	STM32446USART4obj stm32446_uart4;
+	STM32446_UART4 stm32446_uart4;
 	stm32446_uart4.reg = UART4;
 	/*** UART4 Bit Mapping Link ***/
 	stm32446_uart4.sr = stm32446_uart4_sr_inic();
@@ -2212,6 +2231,14 @@ STM32446USART4obj uart4_inic(void)
 	stm32446_uart4.parameter = STM32446Uart4Parameter;
 	return stm32446_uart4;
 }
+
+STM32446_UART4*  uart4(void){ return (STM32446_UART4*) &stm32446_uart4; }
+
+STM32446_UART4 UART4enable(void)
+{
+	return uart4_inic();
+}
+
 /*** UART5 Auxiliar ***/
 STM32446USART_SR stm32446_uart5_sr_inic(void)
 {
@@ -2304,9 +2331,9 @@ STM32446USART_GTPR stm32446_uart5_gtpr_inic(void)
 	return stm32446_uart5_gtpr;
 }
 /*** UART5 INIC Procedure & Function Definition ***/
-STM32446USART5obj uart5_inic(void)
+STM32446_UART5 uart5_inic(void)
 {
-	STM32446USART5obj stm32446_uart5;
+	STM32446_UART5 stm32446_uart5;
 	stm32446_uart5.reg = UART5;
 	/*** UART5 Bit Mapping Link ***/
 	stm32446_uart5.sr = stm32446_uart5_sr_inic();
@@ -2322,6 +2349,14 @@ STM32446USART5obj uart5_inic(void)
 	stm32446_uart5.parameter = STM32446Uart5Parameter;
 	return stm32446_uart5;
 }
+
+STM32446_UART5*  uart5(void){ return (STM32446_UART5*) &stm32446_uart5; }
+
+STM32446_UART5 UART5enable(void)
+{
+	return uart5_inic();
+}
+
 /*** USART6 Auxiliar ***/
 STM32446USART_SR stm32446_usart6_sr_inic(void)
 {
@@ -2414,9 +2449,9 @@ STM32446USART_GTPR stm32446_usart6_gtpr_inic(void)
 	return stm32446_usart6_gtpr;
 }
 /*** USART6 INIC Procedure & Function Definition ***/
-STM32446USART6obj usart6_inic(void)
+STM32446_USART6 usart6_inic(void)
 {
-	STM32446USART6obj stm32446_usart6;
+	STM32446_USART6 stm32446_usart6;
 	stm32446_usart6.reg = USART6;
 	/*** USART6 Bit Mapping Link ***/
 	stm32446_usart6.sr = stm32446_usart6_sr_inic();
@@ -2432,147 +2467,12 @@ STM32446USART6obj usart6_inic(void)
 	stm32446_usart6.parameter = STM32446Usart6Parameter;
 	return stm32446_usart6;
 }
-/*** File Procedure & Function Definition ***/
-uint32_t usart_getclocksource(void)
+
+STM32446_USART6*  usart6(void){ return (STM32446_USART6*) &stm32446_usart6; }
+
+STM32446_USART6 USART6enable(void)
 {
-	uint32_t reg = RCC->CR;
-	uint32_t source;
-	if(reg & (1 << 1)){source = HSI_RC;}else if(reg & (1 << 17)){source = HSE_OSC;}
-	return source;
-}
-uint32_t usart_gethpre(void)
-{
-	uint32_t value = usart_readreg(RCC->CFGR, 4, 4);
-	switch(value)
-	{
-		case 0b1000:
-			value = 2;
-		break;
-		case 0b1001:
-			value = 4;
-		break;
-		case 0b1010:
-			value = 8;
-		break;
-		case 0b1011:
-			value = 16;
-		break;
-		case 0b1100:
-			value = 64;
-		break;
-		case 0b1101:
-			value = 128;
-		break;
-		case 0b1110:
-			value = 256;
-		break;
-		case 0b1111:
-			value = 512;
-		break;
-		default:
-			value = 1;
-		break;
-	}
-	return value;
-}
-uint32_t usart_getpllm(void)
-{
-	return usart_readreg(RCC->PLLCFGR, 6, 0);
-}
-uint32_t usart_getplln(void)
-{
-	return usart_readreg(RCC->PLLCFGR, 9, 6);
-}
-uint32_t usart_getpllp(void)
-{
-	uint32_t value = usart_readreg(RCC->PLLCFGR, 2, 16);
-	switch(value)
-	{
-		case 0b00:
-			value = 2;
-		break;
-		case 0b01:
-			value = 4;
-		break;
-		case 0b10:
-			value = 6;
-		break;
-		case 0b11:
-			value = 8;
-		break;
-		default:
-		break;
-	}
-	return value;
-}
-uint32_t usart_getpllr(void)
-{
-	return usart_readreg(RCC->PLLCFGR, 3, 28);
-}
-uint32_t usart_getsysclk(void)
-{
-	uint32_t value = usart_readreg(RCC->CFGR, 2, 2);
-	switch(value) // SWS[2]: System clock switch status
-	{
-		case 1: // 01: HSE oscillator used as the system clock
-			value = HSE_OSC;
-		break;
-		case 2: // 10: PLL used as the system clock
-			value = ( usart_getclocksource() / usart_getpllm() ) * ( usart_getplln() / usart_getpllp() );
-		break;
-		case 3: // 11: PLL_R used as the system clock
-			value = ( usart_getclocksource() / usart_getpllm() ) * ( usart_getplln() / usart_getpllr() );
-		break;
-		default: // 00: HSI oscillator used as the system clock
-			value = HSI_RC;
-		break;
-	}
-	return value;
-}
-uint32_t usart_readreg(uint32_t reg, uint8_t size_block, uint8_t bit_n)
-{
-	if(bit_n > DATA_BITS){ bit_n = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	reg &= (mask << bit_n);
-	reg = (reg >> bit_n);
-	return reg;
-}
-uint32_t usart_getsetbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n)
-{
-	uint32_t n = 0;
-	if(bit_n > DATA_BITS){ n = bit_n/DATA_SIZE; bit_n = bit_n - (n * DATA_SIZE); } if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
-	uint32_t value = *(reg + n );
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	value &= (mask << bit_n);
-	value = (value >> bit_n);
-	return value;
-}
-void usart_setreg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data)
-{
-	if(bit_n > DATA_BITS){ bit_n = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	data &= mask;
-	*reg &= ~(mask << bit_n);
-	*reg |= (data << bit_n);
-}
-void usart_setbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data)
-{
-	uint32_t n = 0;
-	if(bit_n > DATA_BITS){ n = bit_n/DATA_SIZE; bit_n = bit_n - (n * DATA_SIZE); } if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	data &= mask;
-	*(reg + n ) &= ~(mask << bit_n);
-	*(reg + n ) |= (data << bit_n);
-}
-void usart_writereg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data)
-{
-	if(bit_n > DATA_BITS){ bit_n = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
-	uint32_t value = *reg;
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	data &= mask; value &= ~(mask << bit_n);
-	data = (data << bit_n);
-	value |= data;
-	*reg = value;
+	return usart6_inic();
 }
 
 /*** EOF ***/

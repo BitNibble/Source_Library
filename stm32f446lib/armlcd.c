@@ -10,6 +10,7 @@ Comment:
 	- Make sure the delay are working in the inic function.
 ************************************************************************/
 /*** File Library ***/
+#include "stm32446mapping.h"
 #include "armlcd.h"
 
 /*** File Constant & Macro ***/
@@ -38,8 +39,6 @@ void ARMLCD0_gotoxy(unsigned int y, unsigned int x);
 void ARMLCD0_reboot(void);
 // Common
 void ARMLCD0_strobe(void);
-void armlcd_setpin( GPIO_TypeDef* reg, int pin );
-void armlcd_resetpin( GPIO_TypeDef* reg, int pin );
 
 /*** LCD0 Procedure & Function Definition ***/
 ARMLCD0 ARMLCD0enable(GPIO_TypeDef* reg)
@@ -90,17 +89,17 @@ void ARMLCD0_inic(void)
 	armlcd0_detect = ireg->IDR & (1 << ARMLCD0_NC);
 	
 	// INICIALIZACAO LCD datasheet
-	stm()->systick.delay_ms(20); // using clock at 16Mhz
+	_delay_ms(20); // using clock at 16Mhz
 	ARMLCD0_write(0x38, ARMLCD0_INST); // function set
-	stm()->systick.delay_10us(4);
+	_delay_10us(4);
 	ARMLCD0_write(0x38, ARMLCD0_INST); // function set
-	stm()->systick.delay_10us(10);
+	_delay_10us(10);
 	ARMLCD0_write(0x38, ARMLCD0_INST); // function set
-	stm()->systick.delay_10us(4);
+	_delay_10us(4);
 	ARMLCD0_write(0x28, ARMLCD0_INST); // function set 2B
-	stm()->systick.delay_10us(4);
+	_delay_10us(4);
 	ARMLCD0_write(0x28, ARMLCD0_INST); // function set 2B
-	stm()->systick.delay_10us(4);
+	_delay_10us(4);
 	
 	// for(repeat = 2 ; repeat ; repeat--){
 		// repeat twice in 4 bit length
@@ -126,34 +125,34 @@ void ARMLCD0_inic(void)
 	// }
 	// INICIALIZATION END
 	// ARMLCD0_write(0x1F, ARMLCD0_INST); // cursor or display shift
-	// stm.systick.delay_10us(4);
+	// _delay_10us(4);
 	// ARMLCD0_write(0x03, ARMLCD0_INST); // return home
-	// stm.systick.delay_ms(10);
+	// _delay_ms(10);
 	ARMLCD0_gotoxy(0,0);
 }
 void ARMLCD0_write(char c, unsigned short D_I)
 { // write to LCD
-	armlcd_resetpin(ireg,ARMLCD0_RW); // lcd as input
+	resetpin(ireg,ARMLCD0_RW); // lcd as input
 	ireg->MODER &= (uint32_t) ~((3 << (ARMLCD0_DB4 *2)) | (3 << (ARMLCD0_DB5* 2)) | (3 << (ARMLCD0_DB6* 2)) | (3 << (ARMLCD0_DB7 * 2))); // mcu as output
 	ireg->MODER |= ((1 << (ARMLCD0_DB4 *2)) | (1 << (ARMLCD0_DB5* 2)) | (1 << (ARMLCD0_DB6* 2)) | (1 << (ARMLCD0_DB7 * 2))); // mcu as output
 	
-	if(D_I) armlcd_setpin(ireg, ARMLCD0_RS); else armlcd_resetpin(ireg, ARMLCD0_RS);
+	if(D_I) setpin(ireg, ARMLCD0_RS); else resetpin(ireg, ARMLCD0_RS);
 	ARMLCD0_strobe( );
 	
-	if(c & 0x80) armlcd_setpin(ireg,ARMLCD0_DB7); else armlcd_resetpin(ireg,ARMLCD0_DB7);
-	if(c & 0x40) armlcd_setpin(ireg,ARMLCD0_DB6); else armlcd_resetpin(ireg,ARMLCD0_DB6);
-	if(c & 0x20) armlcd_setpin(ireg,ARMLCD0_DB5); else armlcd_resetpin(ireg,ARMLCD0_DB5);
-	if(c & 0x10) armlcd_setpin(ireg,ARMLCD0_DB4); else armlcd_resetpin(ireg,ARMLCD0_DB4);
+	if(c & 0x80) setpin(ireg,ARMLCD0_DB7); else resetpin(ireg,ARMLCD0_DB7);
+	if(c & 0x40) setpin(ireg,ARMLCD0_DB6); else resetpin(ireg,ARMLCD0_DB6);
+	if(c & 0x20) setpin(ireg,ARMLCD0_DB5); else resetpin(ireg,ARMLCD0_DB5);
+	if(c & 0x10) setpin(ireg,ARMLCD0_DB4); else resetpin(ireg,ARMLCD0_DB4);
 	
-	if(D_I) armlcd_setpin(ireg, ARMLCD0_RS); else armlcd_resetpin(ireg, ARMLCD0_RS);
+	if(D_I) setpin(ireg, ARMLCD0_RS); else resetpin(ireg, ARMLCD0_RS);
 	ARMLCD0_strobe( );
 	
-	if(c & 0x08) armlcd_setpin(ireg,ARMLCD0_DB7); else armlcd_resetpin(ireg,ARMLCD0_DB7);
-	if(c & 0x04) armlcd_setpin(ireg,ARMLCD0_DB6); else armlcd_resetpin(ireg,ARMLCD0_DB6);
-	if(c & 0x02) armlcd_setpin(ireg,ARMLCD0_DB5); else armlcd_resetpin(ireg,ARMLCD0_DB5);
-	if(c & 0x01) armlcd_setpin(ireg,ARMLCD0_DB4); else armlcd_resetpin(ireg,ARMLCD0_DB4);
+	if(c & 0x08) setpin(ireg,ARMLCD0_DB7); else resetpin(ireg,ARMLCD0_DB7);
+	if(c & 0x04) setpin(ireg,ARMLCD0_DB6); else resetpin(ireg,ARMLCD0_DB6);
+	if(c & 0x02) setpin(ireg,ARMLCD0_DB5); else resetpin(ireg,ARMLCD0_DB5);
+	if(c & 0x01) setpin(ireg,ARMLCD0_DB4); else resetpin(ireg,ARMLCD0_DB4);
 	
-	armlcd_resetpin(ireg, ARMLCD0_EN);
+	resetpin(ireg, ARMLCD0_EN);
 }
 
 char ARMLCD0_read(unsigned short D_I)
@@ -161,9 +160,9 @@ char ARMLCD0_read(unsigned short D_I)
 	uint32_t data = 0;
 	uint8_t c = 0;
 	ireg->MODER &= (uint32_t) ~((3 << (ARMLCD0_DB4 * 2)) | (3 << (ARMLCD0_DB5 * 2)) | (3 << (ARMLCD0_DB6 * 2)) | (3 << (ARMLCD0_DB7 * 2))); // mcu as input
-	armlcd_setpin(ireg, ARMLCD0_RW); // lcd as output
+	setpin(ireg, ARMLCD0_RW); // lcd as output
 	
-	if(D_I) armlcd_setpin(ireg, ARMLCD0_RS); else armlcd_resetpin(ireg, ARMLCD0_RS);
+	if(D_I) setpin(ireg, ARMLCD0_RS); else resetpin(ireg, ARMLCD0_RS);
 	ARMLCD0_strobe( );
 	data = ireg->IDR; // read data
 	
@@ -172,7 +171,7 @@ char ARMLCD0_read(unsigned short D_I)
 	if(data & (1 << ARMLCD0_DB5)) c |= 1 << 5; else c &= ~(1 << 5);
 	if(data & (1 << ARMLCD0_DB4)) c |= 1 << 4; else c &= ~(1 << 4);
 	
-	if(D_I) armlcd_setpin(ireg, ARMLCD0_RS); else armlcd_resetpin(ireg, ARMLCD0_RS);
+	if(D_I) setpin(ireg, ARMLCD0_RS); else resetpin(ireg, ARMLCD0_RS);
 	ARMLCD0_strobe( );
 	data = ireg->IDR; // read data
 
@@ -181,7 +180,7 @@ char ARMLCD0_read(unsigned short D_I)
 	if(data & (1 << ARMLCD0_DB5)) c |= 1 << 1; else c &= ~(1 << 1);
 	if(data & (1 << ARMLCD0_DB4)) c |= 1 << 0; else c &= ~(1 << 0);
 	
-	armlcd_resetpin(ireg, ARMLCD0_EN);
+	resetpin(ireg, ARMLCD0_EN);
 
 	return c;
 }
@@ -249,7 +248,7 @@ void ARMLCD0_hspace(uint32_t n)
 void ARMLCD0_clear(void)
 {
 	ARMLCD0_write(0x01, ARMLCD0_INST);
-	stm()->systick.delay_ms(2);
+	_delay_ms(2);
 }
 
 void ARMLCD0_gotoxy(unsigned int y, unsigned int x)
@@ -278,8 +277,8 @@ void ARMLCD0_gotoxy(unsigned int y, unsigned int x)
 
 void ARMLCD0_strobe(void)
 {
-	armlcd_resetpin(ireg, ARMLCD0_EN);
-	armlcd_setpin(ireg, ARMLCD0_EN);
+	resetpin(ireg, ARMLCD0_EN);
+	setpin(ireg, ARMLCD0_EN);
 }
 
 void ARMLCD0_reboot(void)
@@ -293,17 +292,6 @@ void ARMLCD0_reboot(void)
 	if(i)
 		ARMLCD0_inic();
 	armlcd0_detect = tmp;
-}
-
-/*** COMMON ***/
-void armlcd_setpin( GPIO_TypeDef* reg, int pin )
-{
-	reg->BSRR = (1 << pin);
-}
-
-void armlcd_resetpin( GPIO_TypeDef* reg, int pin )
-{
-	reg->BSRR = (unsigned int)((1 << pin) << 16);
 }
 
 /******************************************************************************

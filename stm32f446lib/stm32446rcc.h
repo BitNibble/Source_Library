@@ -827,4 +827,3 @@ void RCC_IRQHandler(void);
 4º Casting
 ******/
 
-

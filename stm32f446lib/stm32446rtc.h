@@ -92,4 +92,3 @@ void RTC_Alarm_IRQHandler(void);
 4º Casting
 ******/
 
-
