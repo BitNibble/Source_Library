@@ -16,11 +16,6 @@ static STM32446_RTC stm32446_rtc;
 static uint32_t rtc_time_out;
 
 /*** File Procedure & Function Header ***/
-uint32_t rtc_readreg(uint32_t reg, uint8_t size_block, uint8_t bit_n);
-uint32_t rtc_getsetbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n);
-void rtc_setreg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
-void rtc_setbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
-void rtc_writereg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
 /***/
 STM32446_RTC RTC_inic(void);
 void STM32446PwrClock(uint8_t bool);
@@ -84,16 +79,16 @@ void STM32446RtcNvic(uint8_t value)
 { // 3, 41
 	switch(value){
 		case 0b01:
-			rtc_setbit(NVIC->ISER, 1, 3, 1);
+			setbit(NVIC->ISER, 1, 3, 1);
 		break;
 		case 0b10:
-			rtc_setbit(NVIC->ISER, 1, 41, 1);
+			setbit(NVIC->ISER, 1, 41, 1);
 		break;
 		case 0b101:
-			rtc_setbit(NVIC->ICER, 1, 3, 1);
+			setbit(NVIC->ICER, 1, 3, 1);
 		break;
 		case 0b110:
-			rtc_setbit(NVIC->ICER, 1, 41, 1);
+			setbit(NVIC->ICER, 1, 41, 1);
 		break;
 	default:
 	break;
@@ -119,9 +114,7 @@ void STM32446RtcBckWrite(uint8_t n, uint8_t data)
 	STM32446PwrClock(1);
 	STM32446BckSramClock(1);
 	STM32446RtcWriteEnable();
-	if(n < 80){
-		rtc_setbit(&RTC->BKP0R, 8, (n * 8), data);
-	}
+	if(n < 80){ setbit(&RTC->BKP0R, 8, (n * 8), data); }
 	STM32446RtcWriteDisable();
 }
 
@@ -129,7 +122,7 @@ uint8_t STM32446RtcBckRead(uint8_t n)
 {
 	uint8_t value = 0;
 	if(n < 80){
-		value = rtc_getsetbit(&RTC->BKP0R, 8, (n * 8));
+		value = getsetbit(&RTC->BKP0R, 8, (n * 8));
 	}
 	return value;
 }
@@ -327,11 +320,11 @@ uint16_t rtc_get_ss(void)
 /*** AUX Procedure & Function Definition ***/
 void STM32446PwrClock(uint8_t bool)
 {
-	rtc_setreg(&RCC->APB1ENR, 1, 28, bool); // Power interface clock enable
+	setreg(&RCC->APB1ENR, 1, 28, bool); // Power interface clock enable
 }
 void STM32446BckSramClock(uint8_t bool)
 {
-	rtc_setreg(&RCC->AHB1ENR, 1, 18, bool); // Backup SRAM interface clock enable
+	setreg(&RCC->AHB1ENR, 1, 18, bool); // Backup SRAM interface clock enable
 }
 void STM32446RtcWriteEnable(void)
 {
@@ -420,53 +413,6 @@ void rtc_lselect(uint8_t lclock)
 			RCC->BDCR |= (1 << 9); // LSI oscillator clock used as the RTC clock
 		break;
 	}
-}
-
-/*** File Procedure & Function Definition ***/
-uint32_t rtc_readreg(uint32_t reg, uint8_t size_block, uint8_t bit_n)
-{
-	if(bit_n > DATA_BITS){ bit_n = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	reg &= (mask << bit_n);
-	reg = (reg >> bit_n);
-	return reg;
-}
-uint32_t rtc_getsetbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n)
-{
-	uint32_t n = 0;
-	if(bit_n > DATA_BITS){ n = bit_n/DATA_SIZE; bit_n = bit_n - (n * DATA_SIZE); } if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
-	uint32_t value = *(reg + n );
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	value &= (mask << bit_n);
-	value = (value >> bit_n);
-	return value;
-}
-void rtc_setreg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data)
-{
-	if(bit_n > DATA_BITS){ bit_n = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	data &= mask;
-	*reg &= ~(mask << bit_n);
-	*reg |= (data << bit_n);
-}
-void rtc_setbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data)
-{
-	uint32_t n = 0;
-	if(bit_n > DATA_BITS){ n = bit_n/DATA_SIZE; bit_n = bit_n - (n * DATA_SIZE); } if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	data &= mask;
-	*(reg + n ) &= ~(mask << bit_n);
-	*(reg + n ) |= (data << bit_n);
-}
-void rtc_writereg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data)
-{
-	if(bit_n > DATA_BITS){ bit_n = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
-	uint32_t value = *reg;
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	data &= mask; value &= ~(mask << bit_n);
-	data = (data << bit_n);
-	value |= data;
-	*reg = value;
 }
 
 /*** EOF ***/

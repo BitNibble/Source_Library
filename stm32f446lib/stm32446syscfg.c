@@ -14,11 +14,6 @@ Comment:
 /****************************************/
 /*** File Procedure & Function Header ***/
 /****************************************/
-uint32_t syscfg_readreg(uint32_t reg, uint32_t size_block, uint32_t bit);
-void syscfg_writereg(volatile uint32_t* reg, uint32_t size_block, uint32_t bit, uint32_t data);
-void syscfg_setreg(volatile uint32_t* reg, uint32_t size_block, uint32_t bit, uint32_t data);
-void syscfg_setbit(volatile uint32_t* reg, uint32_t size_block, uint32_t bit, uint32_t data);
-uint32_t syscfg_getsetbit(volatile uint32_t* reg, uint32_t size_block, uint32_t bit);
 /***********************************************/
 /****** LINK Procedure & Function Header *******/
 /***********************************************/
@@ -36,120 +31,119 @@ SYSCFG_cfgr SYSCFG_cfgr_inic(void);
 // memrmp
 void SYSCFG_memrmp_swp_fmc(uint8_t value)
 {
-	syscfg_setreg(&SYSCFG->MEMRMP, 2, 10, value);
+	setreg(&SYSCFG->MEMRMP, 2, 10, value);
 }
 void SYSCFG_memrmp_mem_mode(uint8_t value)
 {
-	syscfg_setreg(&SYSCFG->MEMRMP, 3, 0, value);
+	setreg(&SYSCFG->MEMRMP, 3, 0, value);
 }
 // pmc
 void SYSCFG_pmc_adcxdc2(uint8_t value)
 {
-	syscfg_setreg(&SYSCFG->PMC, 3, 16, value);
+	setreg(&SYSCFG->PMC, 3, 16, value);
 }
 void SYSCFG_pmc_adc1dc2(uint8_t bool)
 {
-	syscfg_setreg(&SYSCFG->PMC, 1, 16, bool);
+	setreg(&SYSCFG->PMC, 1, 16, bool);
 }
 void SYSCFG_pmc_adc2dc2(uint8_t bool)
 {
-	syscfg_setreg(&SYSCFG->PMC, 1, 17, bool);
+	setreg(&SYSCFG->PMC, 1, 17, bool);
 }
 void SYSCFG_pmc_adc3dc2(uint8_t bool)
 {
-	syscfg_setreg(&SYSCFG->PMC, 1, 18, bool);
+	setreg(&SYSCFG->PMC, 1, 18, bool);
 }
 // exticr1
 void SYSCFG_exticr1_exti3(uint8_t value)
 {
-	syscfg_setreg(&SYSCFG->EXTICR[0], 4, 12, value);
+	setreg(&SYSCFG->EXTICR[0], 4, 12, value);
 }
 void SYSCFG_exticr1_exti2(uint8_t value)
 {
-	syscfg_setreg(&SYSCFG->EXTICR[0], 4, 8, value);
+	setreg(&SYSCFG->EXTICR[0], 4, 8, value);
 }
 void SYSCFG_exticr1_exti1(uint8_t value)
 {
-	syscfg_setreg(&SYSCFG->EXTICR[0], 4, 4, value);
+	setreg(&SYSCFG->EXTICR[0], 4, 4, value);
 }
 void SYSCFG_exticr1_exti0(uint8_t value)
 {
-	syscfg_setreg(&SYSCFG->EXTICR[0], 4, 0, value);
+	setreg(&SYSCFG->EXTICR[0], 4, 0, value);
 }
 // exticr2
 void SYSCFG_exticr2_exti7(uint8_t value)
 {
-	syscfg_setreg(&SYSCFG->EXTICR[1], 4, 12, value);
+	setreg(&SYSCFG->EXTICR[1], 4, 12, value);
 }
 void SYSCFG_exticr2_exti6(uint8_t value)
 {
-	syscfg_setreg(&SYSCFG->EXTICR[1], 4, 8, value);
+	setreg(&SYSCFG->EXTICR[1], 4, 8, value);
 }
 void SYSCFG_exticr2_exti5(uint8_t value)
 {
-	syscfg_setreg(&SYSCFG->EXTICR[1], 4, 4, value);
+	setreg(&SYSCFG->EXTICR[1], 4, 4, value);
 }
 void SYSCFG_exticr2_exti4(uint8_t value)
 {
-	syscfg_setreg(&SYSCFG->EXTICR[1], 4, 0, value);
+	setreg(&SYSCFG->EXTICR[1], 4, 0, value);
 }
 // exticr3
 void SYSCFG_exticr3_exti11(uint8_t value)
 {
-	syscfg_setreg(&SYSCFG->EXTICR[2], 4, 12, value);
+	setreg(&SYSCFG->EXTICR[2], 4, 12, value);
 }
 void SYSCFG_exticr3_exti10(uint8_t value)
 {
-	syscfg_setreg(&SYSCFG->EXTICR[2], 4, 8, value);
+	setreg(&SYSCFG->EXTICR[2], 4, 8, value);
 }
 void SYSCFG_exticr3_exti9(uint8_t value)
 {
-	syscfg_setreg(&SYSCFG->EXTICR[2], 4, 4, value);
+	setreg(&SYSCFG->EXTICR[2], 4, 4, value);
 }
 void SYSCFG_exticr3_exti8(uint8_t value)
 {
-	syscfg_setreg(&SYSCFG->EXTICR[2], 4, 0, value);
+	setreg(&SYSCFG->EXTICR[2], 4, 0, value);
 }
 // exticr4
 void SYSCFG_exticr4_exti15(uint8_t value)
 {
-	syscfg_setreg(&SYSCFG->EXTICR[3], 4, 12, value);
+	setreg(&SYSCFG->EXTICR[3], 4, 12, value);
 }
 void SYSCFG_exticr4_exti14(uint8_t value)
 {
-	syscfg_setreg(&SYSCFG->EXTICR[3], 4, 8, value);
+	setreg(&SYSCFG->EXTICR[3], 4, 8, value);
 }
 void SYSCFG_exticr4_exti13(uint8_t value)
 {
-	syscfg_setreg(&SYSCFG->EXTICR[3], 4, 4, value);
+	setreg(&SYSCFG->EXTICR[3], 4, 4, value);
 }
 void SYSCFG_exticr4_exti12(uint8_t value)
 {
-	syscfg_setreg(&SYSCFG->EXTICR[3], 4, 0, value);
+	setreg(&SYSCFG->EXTICR[3], 4, 0, value);
 }
 // cmpcr
 uint8_t SYSCFG_cmpcr_ready(void)
 {
-	return syscfg_readreg(SYSCFG->CMPCR, 1, 8);
+	return readreg(SYSCFG->CMPCR, 1, 8);
 }
 void SYSCFG_cmpcr_cmp_pd(uint8_t bool)
 {
-	syscfg_setreg(&SYSCFG->CMPCR, 1, 0, bool);
+	setreg(&SYSCFG->CMPCR, 1, 0, bool);
 }
 // cfgr
 void SYSCFG_cfgr_fmpi2c1_sda(uint8_t bool)
 {
-	syscfg_setreg(&SYSCFG->CFGR, 1, 1, bool);
+	setreg(&SYSCFG->CFGR, 1, 1, bool);
 }
 void SYSCFG_cfgr_fmpi2c1_scl(uint8_t bool)
 {
-	syscfg_setreg(&SYSCFG->CFGR, 1, 0, bool);
+	setreg(&SYSCFG->CFGR, 1, 0, bool);
 }
 /*** Other ***/
 void SYSCFG_Clock(uint8_t bool)
 {
-	if(bool){ RCC->AHB2ENR |= (1 << 14); }
-	else{ RCC->AHB2ENR &= ~(1 << 14); }
+	if(bool){ RCC->AHB2ENR |= (1 << 14); } else{ RCC->AHB2ENR &= ~(1 << 14); }
 
 }
 /***********************************************/
@@ -240,56 +234,6 @@ STM32446SYSCFGobj STM32446SYSCFG_inic(void)
 	/*** Oyher ***/
 	syscfg.clock = SYSCFG_Clock;
 	return syscfg;
-}
-/************************************************/
-/***** File Procedure & Function Definition *****/
-/************************************************/
-uint32_t syscfg_readreg(uint32_t reg, uint32_t size_block, uint32_t bit)
-{
-	if(bit > 31){ bit = 0;} if(size_block > 32){ size_block = 32;}
-	uint32_t value = reg;
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	value &= (mask << bit);
-	value = (value >> bit);
-	return value;
-}
-void syscfg_writereg(volatile uint32_t* reg, uint32_t size_block, uint32_t bit, uint32_t data)
-{
-	if(bit > 31){ bit = 0;} if(size_block > 32){ size_block = 32;}
-	uint32_t value = data;
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	value &= mask;
-	value = (value << bit);
-	*reg = value;
-}
-void syscfg_setreg(volatile uint32_t* reg, uint32_t size_block, uint32_t bit, uint32_t data)
-{
-	if(bit > 31){ bit = 0;} if(size_block > 32){ size_block = 32;}
-	uint32_t value = data;
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	value &= mask;
-	*reg &= ~(mask << bit);
-	*reg |= (value << bit);
-}
-void syscfg_setbit(volatile uint32_t* reg, uint32_t size_block, uint32_t bit, uint32_t data)
-{
-	uint32_t n = 0;
-	if(bit > 31){ n = bit/32; bit = bit - (n * 32); } if(size_block > 32){ size_block = 32;}
-	uint32_t value = data;
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	value &= mask;
-	*(reg + n ) &= ~(mask << bit);
-	*(reg + n ) |= (value << bit);
-}
-uint32_t syscfg_getsetbit(volatile uint32_t* reg, uint32_t size_block, uint32_t bit)
-{
-	uint32_t n = 0;
-	if(bit > 31){ n = bit/32; bit = bit - (n * 32); } if(size_block > 32){ size_block = 32;}
-	uint32_t value = *(reg + n );
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	value &= (mask << bit);
-	value = (value >> bit);
-	return value;
 }
 /************************************************/
 

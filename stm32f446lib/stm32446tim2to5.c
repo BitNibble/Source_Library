@@ -13,11 +13,6 @@ Comment:
 #include "stm32446tim2to5.h"
 
 /*** File Procedure & Function Header ***/
-uint32_t tim2to5_readreg(uint32_t reg, uint32_t size_block, uint32_t bit);
-void tim2to5_writereg(volatile uint32_t* reg, uint32_t size_block, uint32_t bit, uint32_t data);
-void tim2to5_setreg(volatile uint32_t* reg, uint32_t size_block, uint32_t bit, uint32_t data);
-void tim2to5_setbit(volatile uint32_t* reg, uint32_t size_block, uint32_t bit, uint32_t data);
-uint32_t tim2to5_getsetbit(volatile uint32_t* reg, uint32_t size_block, uint32_t bit);
 /*** Auxiliar 2 to 5 ***/
 STM32446TIM2_CR1 stm32446_tim2_cr1_inic(void);
 STM32446TIM2_CR2 stm32446_tim2_cr2_inic(void);
@@ -73,8 +68,7 @@ void STM32446Tim2Clock(uint8_t bool)
 }
 void STM32446Tim2Nvic(uint8_t bool)
 { // 28
-	if(bool){tim2to5_setbit(NVIC->ISER, 1, 28, 1);}
-	else{tim2to5_setbit(NVIC->ICER, 1, 28, 1);}
+	if(bool){setbit(NVIC->ISER, 1, 28, 1);} else{setbit(NVIC->ICER, 1, 28, 1);}
 }
 /************************/
 /*** TIM2 Bit Mapping ***/
@@ -82,399 +76,399 @@ void STM32446Tim2Nvic(uint8_t bool)
 // CR1
 void STM32446Tim2_ckd(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->CR1, 2, 8, value);
+	setreg(&TIM2->CR1, 2, 8, value);
 }
 uint8_t STM32446Tim2_get_ckd(void)
 {
-	return tim2to5_readreg(TIM2->CR1, 2, 8);
+	return readreg(TIM2->CR1, 2, 8);
 }
 void STM32446Tim2_set_apre(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->CR1, 1, 7, bool);
+	setreg(&TIM2->CR1, 1, 7, bool);
 }
 void STM32446Tim2_set_cms(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->CR1, 2, 5, value);
+	setreg(&TIM2->CR1, 2, 5, value);
 }
 void STM32446Tim2_set_dir(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->CR1, 1, 4, bool);
+	setreg(&TIM2->CR1, 1, 4, bool);
 }
 void STM32446Tim2_set_opm(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->CR1, 1, 3, bool);
+	setreg(&TIM2->CR1, 1, 3, bool);
 }
 void STM32446Tim2_set_urs(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->CR1, 1, 2, bool);
+	setreg(&TIM2->CR1, 1, 2, bool);
 }
 void STM32446Tim2_set_udis(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->CR1, 1, 1, bool);
+	setreg(&TIM2->CR1, 1, 1, bool);
 }
 void STM32446Tim2_cen(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->CR1, 1, 0, bool);
+	setreg(&TIM2->CR1, 1, 0, bool);
 }
 // CR2
 void STM32446Tim2_ti1s(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->CR1, 1, 7, bool);
+	setreg(&TIM2->CR2, 1, 7, bool);
 }
 void STM32446Tim2_mms(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->CR1, 3, 4, value);
+	setreg(&TIM2->CR2, 3, 4, value);
 }
 void STM32446Tim2_ccds(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->CR1, 1, 3, bool);
+	setreg(&TIM2->CR2, 1, 3, bool);
 }
 // SMCR
 void STM32446Tim2_etp(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->SMCR, 1, 15, bool);
+	setreg(&TIM2->SMCR, 1, 15, bool);
 }
 void STM32446Tim2_ece(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->SMCR, 1, 14, bool);
+	setreg(&TIM2->SMCR, 1, 14, bool);
 }
 void STM32446Tim2_etps(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->SMCR, 2, 12, value);
+	setreg(&TIM2->SMCR, 2, 12, value);
 }
 void STM32446Tim2_etf(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->SMCR, 4, 8, value);
+	setreg(&TIM2->SMCR, 4, 8, value);
 }
 void STM32446Tim2_msm(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->SMCR, 1, 7, bool);
+	setreg(&TIM2->SMCR, 1, 7, bool);
 }
 void STM32446Tim2_ts(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->SMCR, 3, 4, value);
+	setreg(&TIM2->SMCR, 3, 4, value);
 }
 void STM32446Tim2_sms(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->SMCR, 3, 0, value);
+	setreg(&TIM2->SMCR, 3, 0, value);
 }
 // DIER
 void STM32446Tim2_tde(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->DIER, 1, 14, bool);
+	setreg(&TIM2->DIER, 1, 14, bool);
 }
 void STM32446Tim2_cc4de(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->DIER, 1, 12, bool);
+	setreg(&TIM2->DIER, 1, 12, bool);
 }
 void STM32446Tim2_cc3de(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->DIER, 1, 11, bool);
+	setreg(&TIM2->DIER, 1, 11, bool);
 }
 void STM32446Tim2_cc2de(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->DIER, 1, 10, bool);
+	setreg(&TIM2->DIER, 1, 10, bool);
 }
 void STM32446Tim2_cc1de(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->DIER, 1, 9, bool);
+	setreg(&TIM2->DIER, 1, 9, bool);
 }
 void STM32446Tim2_ude(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->DIER, 1, 8, bool);
+	setreg(&TIM2->DIER, 1, 8, bool);
 }
 void STM32446Tim2_tie(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->DIER, 1, 6, bool);
+	setreg(&TIM2->DIER, 1, 6, bool);
 }
 void STM32446Tim2_cc4ie(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->DIER, 1, 4, bool);
+	setreg(&TIM2->DIER, 1, 4, bool);
 }
 void STM32446Tim2_cc3ie(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->DIER, 1, 3, bool);
+	setreg(&TIM2->DIER, 1, 3, bool);
 }
 void STM32446Tim2_cc2ie(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->DIER, 1, 2, bool);
+	setreg(&TIM2->DIER, 1, 2, bool);
 }
 void STM32446Tim2_cc1ie(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->DIER, 1, 1, bool);
+	setreg(&TIM2->DIER, 1, 1, bool);
 }
 void STM32446Tim2_uie(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->DIER, 1, 0, bool);
+	setreg(&TIM2->DIER, 1, 0, bool);
 }
 // SR
 uint8_t STM32446Tim2_cc4of(void)
 {
-	return tim2to5_readreg(TIM2->SR, 1, 12);
+	return readreg(TIM2->SR, 1, 12);
 }
 void STM32446Tim2_clear_cc4of(void)
 {
-	tim2to5_setreg(&TIM2->SR, 1, 12, 0);
+	setreg(&TIM2->SR, 1, 12, 0);
 }
 uint8_t STM32446Tim2_cc3of(void)
 {
-	return tim2to5_readreg(TIM2->SR, 1, 11);
+	return readreg(TIM2->SR, 1, 11);
 }
 void STM32446Tim2_clear_cc3of(void)
 {
-	tim2to5_setreg(&TIM2->SR, 1, 11, 0);
+	setreg(&TIM2->SR, 1, 11, 0);
 }
 uint8_t STM32446Tim2_cc2of(void)
 {
-	return tim2to5_readreg(TIM2->SR, 1, 10);
+	return readreg(TIM2->SR, 1, 10);
 }
 void STM32446Tim2_clear_cc2of(void)
 {
-	tim2to5_setreg(&TIM2->SR, 1, 10, 0);
+	setreg(&TIM2->SR, 1, 10, 0);
 }
 uint8_t STM32446Tim2_cc1of(void)
 {
-	return tim2to5_readreg(TIM2->SR, 1, 9);
+	return readreg(TIM2->SR, 1, 9);
 }
 void STM32446Tim2_clear_cc1of(void)
 {
-	tim2to5_setreg(&TIM2->SR, 1, 9, 0);
+	setreg(&TIM2->SR, 1, 9, 0);
 }
 uint8_t STM32446Tim2_tif(void)
 {
-	return tim2to5_readreg(TIM2->SR, 1, 6);
+	return readreg(TIM2->SR, 1, 6);
 }
 void STM32446Tim2_clear_tif(void)
 {
-	tim2to5_setreg(&TIM2->SR, 1, 6, 0);
+	setreg(&TIM2->SR, 1, 6, 0);
 }
 uint8_t STM32446Tim2_cc4if(void)
 {
-	return tim2to5_readreg(TIM2->SR, 1, 4);
+	return readreg(TIM2->SR, 1, 4);
 }
 void STM32446Tim2_clear_cc4if(void)
 {
-	tim2to5_setreg(&TIM2->SR, 1, 4, 0);
+	setreg(&TIM2->SR, 1, 4, 0);
 }
 uint8_t STM32446Tim2_cc3if(void)
 {
-	return tim2to5_readreg(TIM2->SR, 1, 3);
+	return readreg(TIM2->SR, 1, 3);
 }
 void STM32446Tim2_clear_cc3if(void)
 {
-	tim2to5_setreg(&TIM2->SR, 1, 3, 0);
+	setreg(&TIM2->SR, 1, 3, 0);
 }
 uint8_t STM32446Tim2_cc2if(void)
 {
-	return tim2to5_readreg(TIM2->SR, 1, 2);
+	return readreg(TIM2->SR, 1, 2);
 }
 void STM32446Tim2_clear_cc2if(void)
 {
-	tim2to5_setreg(&TIM2->SR, 1, 2, 0);
+	setreg(&TIM2->SR, 1, 2, 0);
 }
 uint8_t STM32446Tim2_cc1if(void)
 {
-	return tim2to5_readreg(TIM2->SR, 1, 1);
+	return readreg(TIM2->SR, 1, 1);
 }
 void STM32446Tim2_clear_cc1if(void)
 {
-	tim2to5_setreg(&TIM2->SR, 1, 1, 0);
+	setreg(&TIM2->SR, 1, 1, 0);
 }
 uint8_t STM32446Tim2_uif(void)
 {
-	return tim2to5_readreg(TIM2->SR, 1, 0);
+	return readreg(TIM2->SR, 1, 0);
 }
 void STM32446Tim2_clear_uif(void)
 {
-	tim2to5_setreg(&TIM2->SR, 1, 0, 0);
+	setreg(&TIM2->SR, 1, 0, 0);
 }
 // EGR
 void STM32446Tim2_tg(void)
 {
-	tim2to5_setreg(&TIM2->EGR, 1, 6, 1);
+	setreg(&TIM2->EGR, 1, 6, 1);
 }
 void STM32446Tim2_cc4g(void)
 {
-	tim2to5_setreg(&TIM2->EGR, 1, 4, 1);
+	setreg(&TIM2->EGR, 1, 4, 1);
 }
 void STM32446Tim2_cc3g(void)
 {
-	tim2to5_setreg(&TIM2->EGR, 1, 3, 1);
+	setreg(&TIM2->EGR, 1, 3, 1);
 }
 void STM32446Tim2_cc2g(void)
 {
-	tim2to5_setreg(&TIM2->EGR, 1, 2, 1);
+	setreg(&TIM2->EGR, 1, 2, 1);
 }
 void STM32446Tim2_cc1g(void)
 {
-	tim2to5_setreg(&TIM2->EGR, 1, 1, 1);
+	setreg(&TIM2->EGR, 1, 1, 1);
 }
 void STM32446Tim2_ug(void)
 {
-	tim2to5_setreg(&TIM2->EGR, 1, 0, 1);
+	setreg(&TIM2->EGR, 1, 0, 1);
 }
 // CCMR1
 void STM32446Tim2_oc2ce(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->CCMR1, 1, 15, value);
+	setreg(&TIM2->CCMR1, 1, 15, value);
 }
 void STM32446Tim2_oc2m(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->CCMR1, 3, 12, value);
+	setreg(&TIM2->CCMR1, 3, 12, value);
 }
 void STM32446Tim2_ic2f(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->CCMR1, 4, 12, value);
+	setreg(&TIM2->CCMR1, 4, 12, value);
 }
 void STM32446Tim2_oc2pe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->CCMR1, 1, 11, bool);
+	setreg(&TIM2->CCMR1, 1, 11, bool);
 }
 void STM32446Tim2_oc2fe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->CCMR1, 1, 10, bool);
+	setreg(&TIM2->CCMR1, 1, 10, bool);
 }
 void STM32446Tim2_ic2psc(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->CCMR1, 2, 10, value);
+	setreg(&TIM2->CCMR1, 2, 10, value);
 }
 void STM32446Tim2_cc2s(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->CCMR1, 2, 8, value);
+	setreg(&TIM2->CCMR1, 2, 8, value);
 }
 void STM32446Tim2_oc1ce(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->CCMR1, 1, 7, value);
+	setreg(&TIM2->CCMR1, 1, 7, value);
 }
 void STM32446Tim2_oc1m(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->CCMR1, 3, 4, value);
+	setreg(&TIM2->CCMR1, 3, 4, value);
 }
 void STM32446Tim2_ic1f(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->CCMR1, 4, 4, value);
+	setreg(&TIM2->CCMR1, 4, 4, value);
 }
 void STM32446Tim2_oc1pe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->CCMR1, 1, 3, bool);
+	setreg(&TIM2->CCMR1, 1, 3, bool);
 }
 void STM32446Tim2_oc1fe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->CCMR1, 1, 2, bool);
+	setreg(&TIM2->CCMR1, 1, 2, bool);
 }
 void STM32446Tim2_ic1psc(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->CCMR1, 2, 2, value);
+	setreg(&TIM2->CCMR1, 2, 2, value);
 }
 void STM32446Tim2_cc1s(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->CCMR1, 2, 0, value);
+	setreg(&TIM2->CCMR1, 2, 0, value);
 }
 // CCMR2
 void STM32446Tim2_oc4ce(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->CCMR2, 1, 15, value);
+	setreg(&TIM2->CCMR2, 1, 15, value);
 }
 void STM32446Tim2_oc4m(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->CCMR2, 3, 12, value);
+	setreg(&TIM2->CCMR2, 3, 12, value);
 }
 void STM32446Tim2_ic4f(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->CCMR2, 4, 12, value);
+	setreg(&TIM2->CCMR2, 4, 12, value);
 }
 void STM32446Tim2_oc4pe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->CCMR2, 1, 11, bool);
+	setreg(&TIM2->CCMR2, 1, 11, bool);
 }
 void STM32446Tim2_oc4fe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->CCMR2, 1, 10, bool);
+	setreg(&TIM2->CCMR2, 1, 10, bool);
 }
 void STM32446Tim2_ic4psc(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->CCMR2, 2, 10, value);
+	setreg(&TIM2->CCMR2, 2, 10, value);
 }
 void STM32446Tim2_cc4s(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->CCMR2, 2, 8, value);
+	setreg(&TIM2->CCMR2, 2, 8, value);
 }
 void STM32446Tim2_oc3ce(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->CCMR2, 1, 7, value);
+	setreg(&TIM2->CCMR2, 1, 7, value);
 }
 void STM32446Tim2_oc3m(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->CCMR2, 3, 4, value);
+	setreg(&TIM2->CCMR2, 3, 4, value);
 }
 void STM32446Tim2_ic3f(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->CCMR2, 4, 4, value);
+	setreg(&TIM2->CCMR2, 4, 4, value);
 }
 void STM32446Tim2_oc3pe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->CCMR2, 1, 3, bool);
+	setreg(&TIM2->CCMR2, 1, 3, bool);
 }
 void STM32446Tim2_oc3fe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->CCMR2, 1, 2, bool);
+	setreg(&TIM2->CCMR2, 1, 2, bool);
 }
 void STM32446Tim2_ic3psc(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->CCMR2, 2, 2, value);
+	setreg(&TIM2->CCMR2, 2, 2, value);
 }
 void STM32446Tim2_cc3s(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->CCMR2, 2, 0, value);
+	setreg(&TIM2->CCMR2, 2, 0, value);
 }
 // CCER
 void STM32446Tim2_cc4np(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->CCER, 1, 15, bool);
+	setreg(&TIM2->CCER, 1, 15, bool);
 }
 void STM32446Tim2_cc4p(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->CCER, 1, 13, bool);
+	setreg(&TIM2->CCER, 1, 13, bool);
 }
 void STM32446Tim2_cc4e(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->CCER, 1, 12, bool);
+	setreg(&TIM2->CCER, 1, 12, bool);
 }
 void STM32446Tim2_cc3np(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->CCER, 1, 11, bool);
+	setreg(&TIM2->CCER, 1, 11, bool);
 }
 void STM32446Tim2_cc3p(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->CCER, 1, 9, bool);
+	setreg(&TIM2->CCER, 1, 9, bool);
 }
 void STM32446Tim2_cc3e(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->CCER, 1, 8, bool);
+	setreg(&TIM2->CCER, 1, 8, bool);
 }
 void STM32446Tim2_cc2np(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->CCER, 1, 7, bool);
+	setreg(&TIM2->CCER, 1, 7, bool);
 }
 void STM32446Tim2_cc2p(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->CCER, 1, 5, bool);
+	setreg(&TIM2->CCER, 1, 5, bool);
 }
 void STM32446Tim2_cc2e(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->CCER, 1, 4, bool);
+	setreg(&TIM2->CCER, 1, 4, bool);
 }
 void STM32446Tim2_cc1np(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->CCER, 1, 3, bool);
+	setreg(&TIM2->CCER, 1, 3, bool);
 }
 void STM32446Tim2_cc1p(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->CCER, 1, 1, bool);
+	setreg(&TIM2->CCER, 1, 1, bool);
 }
 void STM32446Tim2_cc1e(uint8_t bool)
 {
-	tim2to5_setreg(&TIM2->CCER, 1, 0, bool);
+	setreg(&TIM2->CCER, 1, 0, bool);
 }
 // CNT
 void STM32446Tim2_cnt(uint32_t value)
@@ -518,11 +512,11 @@ void STM32446Tim2_ccr4(uint32_t value)
 // DCR
 void STM32446Tim2_dbl(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->DCR, 5, 8, value);
+	setreg(&TIM2->DCR, 5, 8, value);
 }
 void STM32446Tim2_dba(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->DCR, 5, 0, value);
+	setreg(&TIM2->DCR, 5, 0, value);
 }
 // DMAR
 void STM32446Tim2_dmab(uint16_t value)
@@ -536,7 +530,7 @@ uint16_t STM32446Tim2_get_dmab(void)
 // OR
 void STM32446Tim2_itr1_rmp(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->OR, 2, 10, value);
+	setreg(&TIM2->OR, 2, 10, value);
 }
 /************/
 /*** TIM3 ***/
@@ -551,8 +545,7 @@ void STM32446Tim3Clock(uint8_t bool)
 }
 void STM32446Tim3Nvic(uint8_t bool)
 { // 29
-	if(bool){tim2to5_setbit(NVIC->ISER, 1, 29, 1);}
-	else{tim2to5_setbit(NVIC->ICER, 1, 29, 1);}
+	if(bool){setbit(NVIC->ISER, 1, 29, 1);} else{setbit(NVIC->ICER, 1, 29, 1);}
 }
 /************************/
 /*** TIM3 Bit Mapping ***/
@@ -560,399 +553,399 @@ void STM32446Tim3Nvic(uint8_t bool)
 // CR1
 void STM32446Tim3_ckd(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->CR1, 2, 8, value);
+	setreg(&TIM2->CR1, 2, 8, value);
 }
 uint8_t STM32446Tim3_get_ckd(void)
 {
-	return tim2to5_readreg(TIM3->CR1, 2, 8);
+	return readreg(TIM3->CR1, 2, 8);
 }
 void STM32446Tim3_set_apre(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->CR1, 1, 7, bool);
+	setreg(&TIM3->CR1, 1, 7, bool);
 }
 void STM32446Tim3_set_cms(uint8_t value)
 {
-	tim2to5_setreg(&TIM3->CR1, 2, 5, value);
+	setreg(&TIM3->CR1, 2, 5, value);
 }
 void STM32446Tim3_set_dir(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->CR1, 1, 4, bool);
+	setreg(&TIM3->CR1, 1, 4, bool);
 }
 void STM32446Tim3_set_opm(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->CR1, 1, 3, bool);
+	setreg(&TIM3->CR1, 1, 3, bool);
 }
 void STM32446Tim3_set_urs(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->CR1, 1, 2, bool);
+	setreg(&TIM3->CR1, 1, 2, bool);
 }
 void STM32446Tim3_set_udis(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->CR1, 1, 1, bool);
+	setreg(&TIM3->CR1, 1, 1, bool);
 }
 void STM32446Tim3_cen(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->CR1, 1, 0, bool);
+	setreg(&TIM3->CR1, 1, 0, bool);
 }
 // CR2
 void STM32446Tim3_ti1s(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->CR1, 1, 7, bool);
+	setreg(&TIM3->CR2, 1, 7, bool);
 }
 void STM32446Tim3_mms(uint8_t value)
 {
-	tim2to5_setreg(&TIM3->CR1, 3, 4, value);
+	setreg(&TIM3->CR2, 3, 4, value);
 }
 void STM32446Tim3_ccds(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->CR1, 1, 3, bool);
+	setreg(&TIM3->CR2, 1, 3, bool);
 }
 // SMCR
 void STM32446Tim3_etp(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->SMCR, 1, 15, bool);
+	setreg(&TIM3->SMCR, 1, 15, bool);
 }
 void STM32446Tim3_ece(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->SMCR, 1, 14, bool);
+	setreg(&TIM3->SMCR, 1, 14, bool);
 }
 void STM32446Tim3_etps(uint8_t value)
 {
-	tim2to5_setreg(&TIM3->SMCR, 2, 12, value);
+	setreg(&TIM3->SMCR, 2, 12, value);
 }
 void STM32446Tim3_etf(uint8_t value)
 {
-	tim2to5_setreg(&TIM3->SMCR, 4, 8, value);
+	setreg(&TIM3->SMCR, 4, 8, value);
 }
 void STM32446Tim3_msm(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->SMCR, 1, 7, bool);
+	setreg(&TIM3->SMCR, 1, 7, bool);
 }
 void STM32446Tim3_ts(uint8_t value)
 {
-	tim2to5_setreg(&TIM3->SMCR, 3, 4, value);
+	setreg(&TIM3->SMCR, 3, 4, value);
 }
 void STM32446Tim3_sms(uint8_t value)
 {
-	tim2to5_setreg(&TIM3->SMCR, 3, 0, value);
+	setreg(&TIM3->SMCR, 3, 0, value);
 }
 // DIER
 void STM32446Tim3_tde(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->DIER, 1, 14, bool);
+	setreg(&TIM3->DIER, 1, 14, bool);
 }
 void STM32446Tim3_cc4de(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->DIER, 1, 12, bool);
+	setreg(&TIM3->DIER, 1, 12, bool);
 }
 void STM32446Tim3_cc3de(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->DIER, 1, 11, bool);
+	setreg(&TIM3->DIER, 1, 11, bool);
 }
 void STM32446Tim3_cc2de(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->DIER, 1, 10, bool);
+	setreg(&TIM3->DIER, 1, 10, bool);
 }
 void STM32446Tim3_cc1de(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->DIER, 1, 9, bool);
+	setreg(&TIM3->DIER, 1, 9, bool);
 }
 void STM32446Tim3_ude(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->DIER, 1, 8, bool);
+	setreg(&TIM3->DIER, 1, 8, bool);
 }
 void STM32446Tim3_tie(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->DIER, 1, 6, bool);
+	setreg(&TIM3->DIER, 1, 6, bool);
 }
 void STM32446Tim3_cc4ie(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->DIER, 1, 4, bool);
+	setreg(&TIM3->DIER, 1, 4, bool);
 }
 void STM32446Tim3_cc3ie(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->DIER, 1, 3, bool);
+	setreg(&TIM3->DIER, 1, 3, bool);
 }
 void STM32446Tim3_cc2ie(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->DIER, 1, 2, bool);
+	setreg(&TIM3->DIER, 1, 2, bool);
 }
 void STM32446Tim3_cc1ie(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->DIER, 1, 1, bool);
+	setreg(&TIM3->DIER, 1, 1, bool);
 }
 void STM32446Tim3_uie(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->DIER, 1, 0, bool);
+	setreg(&TIM3->DIER, 1, 0, bool);
 }
 // SR
 uint8_t STM32446Tim3_cc4of(void)
 {
-	return tim2to5_readreg(TIM3->SR, 1, 12);
+	return readreg(TIM3->SR, 1, 12);
 }
 void STM32446Tim3_clear_cc4of(void)
 {
-	tim2to5_setreg(&TIM3->SR, 1, 12, 0);
+	setreg(&TIM3->SR, 1, 12, 0);
 }
 uint8_t STM32446Tim3_cc3of(void)
 {
-	return tim2to5_readreg(TIM3->SR, 1, 11);
+	return readreg(TIM3->SR, 1, 11);
 }
 void STM32446Tim3_clear_cc3of(void)
 {
-	tim2to5_setreg(&TIM3->SR, 1, 11, 0);
+	setreg(&TIM3->SR, 1, 11, 0);
 }
 uint8_t STM32446Tim3_cc2of(void)
 {
-	return tim2to5_readreg(TIM3->SR, 1, 10);
+	return readreg(TIM3->SR, 1, 10);
 }
 void STM32446Tim3_clear_cc2of(void)
 {
-	tim2to5_setreg(&TIM3->SR, 1, 10, 0);
+	setreg(&TIM3->SR, 1, 10, 0);
 }
 uint8_t STM32446Tim3_cc1of(void)
 {
-	return tim2to5_readreg(TIM3->SR, 1, 9);
+	return readreg(TIM3->SR, 1, 9);
 }
 void STM32446Tim3_clear_cc1of(void)
 {
-	tim2to5_setreg(&TIM3->SR, 1, 9, 0);
+	setreg(&TIM3->SR, 1, 9, 0);
 }
 uint8_t STM32446Tim3_tif(void)
 {
-	return tim2to5_readreg(TIM3->SR, 1, 6);
+	return readreg(TIM3->SR, 1, 6);
 }
 void STM32446Tim3_clear_tif(void)
 {
-	tim2to5_setreg(&TIM3->SR, 1, 6, 0);
+	setreg(&TIM3->SR, 1, 6, 0);
 }
 uint8_t STM32446Tim3_cc4if(void)
 {
-	return tim2to5_readreg(TIM3->SR, 1, 4);
+	return readreg(TIM3->SR, 1, 4);
 }
 void STM32446Tim3_clear_cc4if(void)
 {
-	tim2to5_setreg(&TIM3->SR, 1, 4, 0);
+	setreg(&TIM3->SR, 1, 4, 0);
 }
 uint8_t STM32446Tim3_cc3if(void)
 {
-	return tim2to5_readreg(TIM3->SR, 1, 3);
+	return readreg(TIM3->SR, 1, 3);
 }
 void STM32446Tim3_clear_cc3if(void)
 {
-	tim2to5_setreg(&TIM3->SR, 1, 3, 0);
+	setreg(&TIM3->SR, 1, 3, 0);
 }
 uint8_t STM32446Tim3_cc2if(void)
 {
-	return tim2to5_readreg(TIM3->SR, 1, 2);
+	return readreg(TIM3->SR, 1, 2);
 }
 void STM32446Tim3_clear_cc2if(void)
 {
-	tim2to5_setreg(&TIM3->SR, 1, 2, 0);
+	setreg(&TIM3->SR, 1, 2, 0);
 }
 uint8_t STM32446Tim3_cc1if(void)
 {
-	return tim2to5_readreg(TIM3->SR, 1, 1);
+	return readreg(TIM3->SR, 1, 1);
 }
 void STM32446Tim3_clear_cc1if(void)
 {
-	tim2to5_setreg(&TIM3->SR, 1, 1, 0);
+	setreg(&TIM3->SR, 1, 1, 0);
 }
 uint8_t STM32446Tim3_uif(void)
 {
-	return tim2to5_readreg(TIM3->SR, 1, 0);
+	return readreg(TIM3->SR, 1, 0);
 }
 void STM32446Tim3_clear_uif(void)
 {
-	tim2to5_setreg(&TIM3->SR, 1, 0, 0);
+	setreg(&TIM3->SR, 1, 0, 0);
 }
 // EGR
 void STM32446Tim3_tg(void)
 {
-	tim2to5_setreg(&TIM3->EGR, 1, 6, 1);
+	setreg(&TIM3->EGR, 1, 6, 1);
 }
 void STM32446Tim3_cc4g(void)
 {
-	tim2to5_setreg(&TIM3->EGR, 1, 4, 1);
+	setreg(&TIM3->EGR, 1, 4, 1);
 }
 void STM32446Tim3_cc3g(void)
 {
-	tim2to5_setreg(&TIM3->EGR, 1, 3, 1);
+	setreg(&TIM3->EGR, 1, 3, 1);
 }
 void STM32446Tim3_cc2g(void)
 {
-	tim2to5_setreg(&TIM3->EGR, 1, 2, 1);
+	setreg(&TIM3->EGR, 1, 2, 1);
 }
 void STM32446Tim3_cc1g(void)
 {
-	tim2to5_setreg(&TIM3->EGR, 1, 1, 1);
+	setreg(&TIM3->EGR, 1, 1, 1);
 }
 void STM32446Tim3_ug(void)
 {
-	tim2to5_setreg(&TIM3->EGR, 1, 0, 1);
+	setreg(&TIM3->EGR, 1, 0, 1);
 }
 // CCMR1
 void STM32446Tim3_oc2ce(uint8_t value)
 {
-	tim2to5_setreg(&TIM3->CCMR1, 1, 15, value);
+	setreg(&TIM3->CCMR1, 1, 15, value);
 }
 void STM32446Tim3_oc2m(uint8_t value)
 {
-	tim2to5_setreg(&TIM3->CCMR1, 3, 12, value);
+	setreg(&TIM3->CCMR1, 3, 12, value);
 }
 void STM32446Tim3_ic2f(uint8_t value)
 {
-	tim2to5_setreg(&TIM3->CCMR1, 4, 12, value);
+	setreg(&TIM3->CCMR1, 4, 12, value);
 }
 void STM32446Tim3_oc2pe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->CCMR1, 1, 11, bool);
+	setreg(&TIM3->CCMR1, 1, 11, bool);
 }
 void STM32446Tim3_oc2fe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->CCMR1, 1, 10, bool);
+	setreg(&TIM3->CCMR1, 1, 10, bool);
 }
 void STM32446Tim3_ic2psc(uint8_t value)
 {
-	tim2to5_setreg(&TIM3->CCMR1, 2, 10, value);
+	setreg(&TIM3->CCMR1, 2, 10, value);
 }
 void STM32446Tim3_cc2s(uint8_t value)
 {
-	tim2to5_setreg(&TIM3->CCMR1, 2, 8, value);
+	setreg(&TIM3->CCMR1, 2, 8, value);
 }
 void STM32446Tim3_oc1ce(uint8_t value)
 {
-	tim2to5_setreg(&TIM3->CCMR1, 1, 7, value);
+	setreg(&TIM3->CCMR1, 1, 7, value);
 }
 void STM32446Tim3_oc1m(uint8_t value)
 {
-	tim2to5_setreg(&TIM3->CCMR1, 3, 4, value);
+	setreg(&TIM3->CCMR1, 3, 4, value);
 }
 void STM32446Tim3_ic1f(uint8_t value)
 {
-	tim2to5_setreg(&TIM3->CCMR1, 4, 4, value);
+	setreg(&TIM3->CCMR1, 4, 4, value);
 }
 void STM32446Tim3_oc1pe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->CCMR1, 1, 3, bool);
+	setreg(&TIM3->CCMR1, 1, 3, bool);
 }
 void STM32446Tim3_oc1fe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->CCMR1, 1, 2, bool);
+	setreg(&TIM3->CCMR1, 1, 2, bool);
 }
 void STM32446Tim3_ic1psc(uint8_t value)
 {
-	tim2to5_setreg(&TIM3->CCMR1, 2, 2, value);
+	setreg(&TIM3->CCMR1, 2, 2, value);
 }
 void STM32446Tim3_cc1s(uint8_t value)
 {
-	tim2to5_setreg(&TIM3->CCMR1, 2, 0, value);
+	setreg(&TIM3->CCMR1, 2, 0, value);
 }
 // CCMR2
 void STM32446Tim3_oc4ce(uint8_t value)
 {
-	tim2to5_setreg(&TIM3->CCMR2, 1, 15, value);
+	setreg(&TIM3->CCMR2, 1, 15, value);
 }
 void STM32446Tim3_oc4m(uint8_t value)
 {
-	tim2to5_setreg(&TIM3->CCMR2, 3, 12, value);
+	setreg(&TIM3->CCMR2, 3, 12, value);
 }
 void STM32446Tim3_ic4f(uint8_t value)
 {
-	tim2to5_setreg(&TIM3->CCMR2, 4, 12, value);
+	setreg(&TIM3->CCMR2, 4, 12, value);
 }
 void STM32446Tim3_oc4pe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->CCMR2, 1, 11, bool);
+	setreg(&TIM3->CCMR2, 1, 11, bool);
 }
 void STM32446Tim3_oc4fe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->CCMR2, 1, 10, bool);
+	setreg(&TIM3->CCMR2, 1, 10, bool);
 }
 void STM32446Tim3_ic4psc(uint8_t value)
 {
-	tim2to5_setreg(&TIM3->CCMR2, 2, 10, value);
+	setreg(&TIM3->CCMR2, 2, 10, value);
 }
 void STM32446Tim3_cc4s(uint8_t value)
 {
-	tim2to5_setreg(&TIM3->CCMR2, 2, 8, value);
+	setreg(&TIM3->CCMR2, 2, 8, value);
 }
 void STM32446Tim3_oc3ce(uint8_t value)
 {
-	tim2to5_setreg(&TIM3->CCMR2, 1, 7, value);
+	setreg(&TIM3->CCMR2, 1, 7, value);
 }
 void STM32446Tim3_oc3m(uint8_t value)
 {
-	tim2to5_setreg(&TIM3->CCMR2, 3, 4, value);
+	setreg(&TIM3->CCMR2, 3, 4, value);
 }
 void STM32446Tim3_ic3f(uint8_t value)
 {
-	tim2to5_setreg(&TIM3->CCMR2, 4, 4, value);
+	setreg(&TIM3->CCMR2, 4, 4, value);
 }
 void STM32446Tim3_oc3pe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->CCMR2, 1, 3, bool);
+	setreg(&TIM3->CCMR2, 1, 3, bool);
 }
 void STM32446Tim3_oc3fe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->CCMR2, 1, 2, bool);
+	setreg(&TIM3->CCMR2, 1, 2, bool);
 }
 void STM32446Tim3_ic3psc(uint8_t value)
 {
-	tim2to5_setreg(&TIM3->CCMR2, 2, 2, value);
+	setreg(&TIM3->CCMR2, 2, 2, value);
 }
 void STM32446Tim3_cc3s(uint8_t value)
 {
-	tim2to5_setreg(&TIM3->CCMR2, 2, 0, value);
+	setreg(&TIM3->CCMR2, 2, 0, value);
 }
 // CCER
 void STM32446Tim3_cc4np(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->CCER, 1, 15, bool);
+	setreg(&TIM3->CCER, 1, 15, bool);
 }
 void STM32446Tim3_cc4p(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->CCER, 1, 13, bool);
+	setreg(&TIM3->CCER, 1, 13, bool);
 }
 void STM32446Tim3_cc4e(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->CCER, 1, 12, bool);
+	setreg(&TIM3->CCER, 1, 12, bool);
 }
 void STM32446Tim3_cc3np(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->CCER, 1, 11, bool);
+	setreg(&TIM3->CCER, 1, 11, bool);
 }
 void STM32446Tim3_cc3p(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->CCER, 1, 9, bool);
+	setreg(&TIM3->CCER, 1, 9, bool);
 }
 void STM32446Tim3_cc3e(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->CCER, 1, 8, bool);
+	setreg(&TIM3->CCER, 1, 8, bool);
 }
 void STM32446Tim3_cc2np(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->CCER, 1, 7, bool);
+	setreg(&TIM3->CCER, 1, 7, bool);
 }
 void STM32446Tim3_cc2p(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->CCER, 1, 5, bool);
+	setreg(&TIM3->CCER, 1, 5, bool);
 }
 void STM32446Tim3_cc2e(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->CCER, 1, 4, bool);
+	setreg(&TIM3->CCER, 1, 4, bool);
 }
 void STM32446Tim3_cc1np(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->CCER, 1, 3, bool);
+	setreg(&TIM3->CCER, 1, 3, bool);
 }
 void STM32446Tim3_cc1p(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->CCER, 1, 1, bool);
+	setreg(&TIM3->CCER, 1, 1, bool);
 }
 void STM32446Tim3_cc1e(uint8_t bool)
 {
-	tim2to5_setreg(&TIM3->CCER, 1, 0, bool);
+	setreg(&TIM3->CCER, 1, 0, bool);
 }
 // CNT
 void STM32446Tim3_cnt(uint16_t value)
@@ -996,11 +989,11 @@ void STM32446Tim3_ccr4(uint16_t value)
 // DCR
 void STM32446Tim3_dbl(uint8_t value)
 {
-	tim2to5_setreg(&TIM3->DCR, 5, 8, value);
+	setreg(&TIM3->DCR, 5, 8, value);
 }
 void STM32446Tim3_dba(uint8_t value)
 {
-	tim2to5_setreg(&TIM3->DCR, 5, 0, value);
+	setreg(&TIM3->DCR, 5, 0, value);
 }
 // DMAR
 void STM32446Tim3_dmab(uint16_t value)
@@ -1024,8 +1017,7 @@ void STM32446Tim4Clock(uint8_t bool)
 }
 void STM32446Tim4Nvic(uint8_t bool)
 { // 30
-	if(bool){tim2to5_setbit(NVIC->ISER, 1, 30, 1);}
-	else{tim2to5_setbit(NVIC->ICER, 1, 30, 1);}
+	if(bool){setbit(NVIC->ISER, 1, 30, 1);} else{setbit(NVIC->ICER, 1, 30, 1);}
 }
 /************************/
 /*** TIM4 Bit Mapping ***/
@@ -1033,399 +1025,399 @@ void STM32446Tim4Nvic(uint8_t bool)
 // CR1
 void STM32446Tim4_ckd(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->CR1, 2, 8, value);
+	setreg(&TIM2->CR1, 2, 8, value);
 }
 uint8_t STM32446Tim4_get_ckd(void)
 {
-	return tim2to5_readreg(TIM4->CR1, 2, 8);
+	return readreg(TIM4->CR1, 2, 8);
 }
 void STM32446Tim4_set_apre(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->CR1, 1, 7, bool);
+	setreg(&TIM4->CR1, 1, 7, bool);
 }
 void STM32446Tim4_set_cms(uint8_t value)
 {
-	tim2to5_setreg(&TIM4->CR1, 2, 5, value);
+	setreg(&TIM4->CR1, 2, 5, value);
 }
 void STM32446Tim4_set_dir(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->CR1, 1, 4, bool);
+	setreg(&TIM4->CR1, 1, 4, bool);
 }
 void STM32446Tim4_set_opm(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->CR1, 1, 3, bool);
+	setreg(&TIM4->CR1, 1, 3, bool);
 }
 void STM32446Tim4_set_urs(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->CR1, 1, 2, bool);
+	setreg(&TIM4->CR1, 1, 2, bool);
 }
 void STM32446Tim4_set_udis(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->CR1, 1, 1, bool);
+	setreg(&TIM4->CR1, 1, 1, bool);
 }
 void STM32446Tim4_cen(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->CR1, 1, 0, bool);
+	setreg(&TIM4->CR1, 1, 0, bool);
 }
 // CR2
 void STM32446Tim4_ti1s(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->CR1, 1, 7, bool);
+	setreg(&TIM4->CR2, 1, 7, bool);
 }
 void STM32446Tim4_mms(uint8_t value)
 {
-	tim2to5_setreg(&TIM4->CR1, 3, 4, value);
+	setreg(&TIM4->CR2, 3, 4, value);
 }
 void STM32446Tim4_ccds(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->CR1, 1, 3, bool);
+	setreg(&TIM4->CR2, 1, 3, bool);
 }
 // SMCR
 void STM32446Tim4_etp(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->SMCR, 1, 15, bool);
+	setreg(&TIM4->SMCR, 1, 15, bool);
 }
 void STM32446Tim4_ece(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->SMCR, 1, 14, bool);
+	setreg(&TIM4->SMCR, 1, 14, bool);
 }
 void STM32446Tim4_etps(uint8_t value)
 {
-	tim2to5_setreg(&TIM4->SMCR, 2, 12, value);
+	setreg(&TIM4->SMCR, 2, 12, value);
 }
 void STM32446Tim4_etf(uint8_t value)
 {
-	tim2to5_setreg(&TIM4->SMCR, 4, 8, value);
+	setreg(&TIM4->SMCR, 4, 8, value);
 }
 void STM32446Tim4_msm(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->SMCR, 1, 7, bool);
+	setreg(&TIM4->SMCR, 1, 7, bool);
 }
 void STM32446Tim4_ts(uint8_t value)
 {
-	tim2to5_setreg(&TIM4->SMCR, 3, 4, value);
+	setreg(&TIM4->SMCR, 3, 4, value);
 }
 void STM32446Tim4_sms(uint8_t value)
 {
-	tim2to5_setreg(&TIM4->SMCR, 3, 0, value);
+	setreg(&TIM4->SMCR, 3, 0, value);
 }
 // DIER
 void STM32446Tim4_tde(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->DIER, 1, 14, bool);
+	setreg(&TIM4->DIER, 1, 14, bool);
 }
 void STM32446Tim4_cc4de(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->DIER, 1, 12, bool);
+	setreg(&TIM4->DIER, 1, 12, bool);
 }
 void STM32446Tim4_cc3de(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->DIER, 1, 11, bool);
+	setreg(&TIM4->DIER, 1, 11, bool);
 }
 void STM32446Tim4_cc2de(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->DIER, 1, 10, bool);
+	setreg(&TIM4->DIER, 1, 10, bool);
 }
 void STM32446Tim4_cc1de(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->DIER, 1, 9, bool);
+	setreg(&TIM4->DIER, 1, 9, bool);
 }
 void STM32446Tim4_ude(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->DIER, 1, 8, bool);
+	setreg(&TIM4->DIER, 1, 8, bool);
 }
 void STM32446Tim4_tie(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->DIER, 1, 6, bool);
+	setreg(&TIM4->DIER, 1, 6, bool);
 }
 void STM32446Tim4_cc4ie(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->DIER, 1, 4, bool);
+	setreg(&TIM4->DIER, 1, 4, bool);
 }
 void STM32446Tim4_cc3ie(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->DIER, 1, 3, bool);
+	setreg(&TIM4->DIER, 1, 3, bool);
 }
 void STM32446Tim4_cc2ie(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->DIER, 1, 2, bool);
+	setreg(&TIM4->DIER, 1, 2, bool);
 }
 void STM32446Tim4_cc1ie(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->DIER, 1, 1, bool);
+	setreg(&TIM4->DIER, 1, 1, bool);
 }
 void STM32446Tim4_uie(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->DIER, 1, 0, bool);
+	setreg(&TIM4->DIER, 1, 0, bool);
 }
 // SR
 uint8_t STM32446Tim4_cc4of(void)
 {
-	return tim2to5_readreg(TIM4->SR, 1, 12);
+	return readreg(TIM4->SR, 1, 12);
 }
 void STM32446Tim4_clear_cc4of(void)
 {
-	tim2to5_setreg(&TIM4->SR, 1, 12, 0);
+	setreg(&TIM4->SR, 1, 12, 0);
 }
 uint8_t STM32446Tim4_cc3of(void)
 {
-	return tim2to5_readreg(TIM4->SR, 1, 11);
+	return readreg(TIM4->SR, 1, 11);
 }
 void STM32446Tim4_clear_cc3of(void)
 {
-	tim2to5_setreg(&TIM4->SR, 1, 11, 0);
+	setreg(&TIM4->SR, 1, 11, 0);
 }
 uint8_t STM32446Tim4_cc2of(void)
 {
-	return tim2to5_readreg(TIM4->SR, 1, 10);
+	return readreg(TIM4->SR, 1, 10);
 }
 void STM32446Tim4_clear_cc2of(void)
 {
-	tim2to5_setreg(&TIM4->SR, 1, 10, 0);
+	setreg(&TIM4->SR, 1, 10, 0);
 }
 uint8_t STM32446Tim4_cc1of(void)
 {
-	return tim2to5_readreg(TIM4->SR, 1, 9);
+	return readreg(TIM4->SR, 1, 9);
 }
 void STM32446Tim4_clear_cc1of(void)
 {
-	tim2to5_setreg(&TIM4->SR, 1, 9, 0);
+	setreg(&TIM4->SR, 1, 9, 0);
 }
 uint8_t STM32446Tim4_tif(void)
 {
-	return tim2to5_readreg(TIM4->SR, 1, 6);
+	return readreg(TIM4->SR, 1, 6);
 }
 void STM32446Tim4_clear_tif(void)
 {
-	tim2to5_setreg(&TIM4->SR, 1, 6, 0);
+	setreg(&TIM4->SR, 1, 6, 0);
 }
 uint8_t STM32446Tim4_cc4if(void)
 {
-	return tim2to5_readreg(TIM4->SR, 1, 4);
+	return readreg(TIM4->SR, 1, 4);
 }
 void STM32446Tim4_clear_cc4if(void)
 {
-	tim2to5_setreg(&TIM4->SR, 1, 4, 0);
+	setreg(&TIM4->SR, 1, 4, 0);
 }
 uint8_t STM32446Tim4_cc3if(void)
 {
-	return tim2to5_readreg(TIM4->SR, 1, 3);
+	return readreg(TIM4->SR, 1, 3);
 }
 void STM32446Tim4_clear_cc3if(void)
 {
-	tim2to5_setreg(&TIM4->SR, 1, 3, 0);
+	setreg(&TIM4->SR, 1, 3, 0);
 }
 uint8_t STM32446Tim4_cc2if(void)
 {
-	return tim2to5_readreg(TIM4->SR, 1, 2);
+	return readreg(TIM4->SR, 1, 2);
 }
 void STM32446Tim4_clear_cc2if(void)
 {
-	tim2to5_setreg(&TIM4->SR, 1, 2, 0);
+	setreg(&TIM4->SR, 1, 2, 0);
 }
 uint8_t STM32446Tim4_cc1if(void)
 {
-	return tim2to5_readreg(TIM4->SR, 1, 1);
+	return readreg(TIM4->SR, 1, 1);
 }
 void STM32446Tim4_clear_cc1if(void)
 {
-	tim2to5_setreg(&TIM4->SR, 1, 1, 0);
+	setreg(&TIM4->SR, 1, 1, 0);
 }
 uint8_t STM32446Tim4_uif(void)
 {
-	return tim2to5_readreg(TIM4->SR, 1, 0);
+	return readreg(TIM4->SR, 1, 0);
 }
 void STM32446Tim4_clear_uif(void)
 {
-	tim2to5_setreg(&TIM4->SR, 1, 0, 0);
+	setreg(&TIM4->SR, 1, 0, 0);
 }
 // EGR
 void STM32446Tim4_tg(void)
 {
-	tim2to5_setreg(&TIM4->EGR, 1, 6, 1);
+	setreg(&TIM4->EGR, 1, 6, 1);
 }
 void STM32446Tim4_cc4g(void)
 {
-	tim2to5_setreg(&TIM4->EGR, 1, 4, 1);
+	setreg(&TIM4->EGR, 1, 4, 1);
 }
 void STM32446Tim4_cc3g(void)
 {
-	tim2to5_setreg(&TIM4->EGR, 1, 3, 1);
+	setreg(&TIM4->EGR, 1, 3, 1);
 }
 void STM32446Tim4_cc2g(void)
 {
-	tim2to5_setreg(&TIM4->EGR, 1, 2, 1);
+	setreg(&TIM4->EGR, 1, 2, 1);
 }
 void STM32446Tim4_cc1g(void)
 {
-	tim2to5_setreg(&TIM4->EGR, 1, 1, 1);
+	setreg(&TIM4->EGR, 1, 1, 1);
 }
 void STM32446Tim4_ug(void)
 {
-	tim2to5_setreg(&TIM4->EGR, 1, 0, 1);
+	setreg(&TIM4->EGR, 1, 0, 1);
 }
 // CCMR1
 void STM32446Tim4_oc2ce(uint8_t value)
 {
-	tim2to5_setreg(&TIM4->CCMR1, 1, 15, value);
+	setreg(&TIM4->CCMR1, 1, 15, value);
 }
 void STM32446Tim4_oc2m(uint8_t value)
 {
-	tim2to5_setreg(&TIM4->CCMR1, 3, 12, value);
+	setreg(&TIM4->CCMR1, 3, 12, value);
 }
 void STM32446Tim4_ic2f(uint8_t value)
 {
-	tim2to5_setreg(&TIM4->CCMR1, 4, 12, value);
+	setreg(&TIM4->CCMR1, 4, 12, value);
 }
 void STM32446Tim4_oc2pe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->CCMR1, 1, 11, bool);
+	setreg(&TIM4->CCMR1, 1, 11, bool);
 }
 void STM32446Tim4_oc2fe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->CCMR1, 1, 10, bool);
+	setreg(&TIM4->CCMR1, 1, 10, bool);
 }
 void STM32446Tim4_ic2psc(uint8_t value)
 {
-	tim2to5_setreg(&TIM4->CCMR1, 2, 10, value);
+	setreg(&TIM4->CCMR1, 2, 10, value);
 }
 void STM32446Tim4_cc2s(uint8_t value)
 {
-	tim2to5_setreg(&TIM4->CCMR1, 2, 8, value);
+	setreg(&TIM4->CCMR1, 2, 8, value);
 }
 void STM32446Tim4_oc1ce(uint8_t value)
 {
-	tim2to5_setreg(&TIM4->CCMR1, 1, 7, value);
+	setreg(&TIM4->CCMR1, 1, 7, value);
 }
 void STM32446Tim4_oc1m(uint8_t value)
 {
-	tim2to5_setreg(&TIM4->CCMR1, 3, 4, value);
+	setreg(&TIM4->CCMR1, 3, 4, value);
 }
 void STM32446Tim4_ic1f(uint8_t value)
 {
-	tim2to5_setreg(&TIM4->CCMR1, 4, 4, value);
+	setreg(&TIM4->CCMR1, 4, 4, value);
 }
 void STM32446Tim4_oc1pe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->CCMR1, 1, 3, bool);
+	setreg(&TIM4->CCMR1, 1, 3, bool);
 }
 void STM32446Tim4_oc1fe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->CCMR1, 1, 2, bool);
+	setreg(&TIM4->CCMR1, 1, 2, bool);
 }
 void STM32446Tim4_ic1psc(uint8_t value)
 {
-	tim2to5_setreg(&TIM4->CCMR1, 2, 2, value);
+	setreg(&TIM4->CCMR1, 2, 2, value);
 }
 void STM32446Tim4_cc1s(uint8_t value)
 {
-	tim2to5_setreg(&TIM4->CCMR1, 2, 0, value);
+	setreg(&TIM4->CCMR1, 2, 0, value);
 }
 // CCMR2
 void STM32446Tim4_oc4ce(uint8_t value)
 {
-	tim2to5_setreg(&TIM4->CCMR2, 1, 15, value);
+	setreg(&TIM4->CCMR2, 1, 15, value);
 }
 void STM32446Tim4_oc4m(uint8_t value)
 {
-	tim2to5_setreg(&TIM4->CCMR2, 3, 12, value);
+	setreg(&TIM4->CCMR2, 3, 12, value);
 }
 void STM32446Tim4_ic4f(uint8_t value)
 {
-	tim2to5_setreg(&TIM4->CCMR2, 4, 12, value);
+	setreg(&TIM4->CCMR2, 4, 12, value);
 }
 void STM32446Tim4_oc4pe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->CCMR2, 1, 11, bool);
+	setreg(&TIM4->CCMR2, 1, 11, bool);
 }
 void STM32446Tim4_oc4fe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->CCMR2, 1, 10, bool);
+	setreg(&TIM4->CCMR2, 1, 10, bool);
 }
 void STM32446Tim4_ic4psc(uint8_t value)
 {
-	tim2to5_setreg(&TIM4->CCMR2, 2, 10, value);
+	setreg(&TIM4->CCMR2, 2, 10, value);
 }
 void STM32446Tim4_cc4s(uint8_t value)
 {
-	tim2to5_setreg(&TIM4->CCMR2, 2, 8, value);
+	setreg(&TIM4->CCMR2, 2, 8, value);
 }
 void STM32446Tim4_oc3ce(uint8_t value)
 {
-	tim2to5_setreg(&TIM4->CCMR2, 1, 7, value);
+	setreg(&TIM4->CCMR2, 1, 7, value);
 }
 void STM32446Tim4_oc3m(uint8_t value)
 {
-	tim2to5_setreg(&TIM4->CCMR2, 3, 4, value);
+	setreg(&TIM4->CCMR2, 3, 4, value);
 }
 void STM32446Tim4_ic3f(uint8_t value)
 {
-	tim2to5_setreg(&TIM4->CCMR2, 4, 4, value);
+	setreg(&TIM4->CCMR2, 4, 4, value);
 }
 void STM32446Tim4_oc3pe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->CCMR2, 1, 3, bool);
+	setreg(&TIM4->CCMR2, 1, 3, bool);
 }
 void STM32446Tim4_oc3fe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->CCMR2, 1, 2, bool);
+	setreg(&TIM4->CCMR2, 1, 2, bool);
 }
 void STM32446Tim4_ic3psc(uint8_t value)
 {
-	tim2to5_setreg(&TIM4->CCMR2, 2, 2, value);
+	setreg(&TIM4->CCMR2, 2, 2, value);
 }
 void STM32446Tim4_cc3s(uint8_t value)
 {
-	tim2to5_setreg(&TIM4->CCMR2, 2, 0, value);
+	setreg(&TIM4->CCMR2, 2, 0, value);
 }
 // CCER
 void STM32446Tim4_cc4np(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->CCER, 1, 15, bool);
+	setreg(&TIM4->CCER, 1, 15, bool);
 }
 void STM32446Tim4_cc4p(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->CCER, 1, 13, bool);
+	setreg(&TIM4->CCER, 1, 13, bool);
 }
 void STM32446Tim4_cc4e(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->CCER, 1, 12, bool);
+	setreg(&TIM4->CCER, 1, 12, bool);
 }
 void STM32446Tim4_cc3np(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->CCER, 1, 11, bool);
+	setreg(&TIM4->CCER, 1, 11, bool);
 }
 void STM32446Tim4_cc3p(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->CCER, 1, 9, bool);
+	setreg(&TIM4->CCER, 1, 9, bool);
 }
 void STM32446Tim4_cc3e(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->CCER, 1, 8, bool);
+	setreg(&TIM4->CCER, 1, 8, bool);
 }
 void STM32446Tim4_cc2np(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->CCER, 1, 7, bool);
+	setreg(&TIM4->CCER, 1, 7, bool);
 }
 void STM32446Tim4_cc2p(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->CCER, 1, 5, bool);
+	setreg(&TIM4->CCER, 1, 5, bool);
 }
 void STM32446Tim4_cc2e(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->CCER, 1, 4, bool);
+	setreg(&TIM4->CCER, 1, 4, bool);
 }
 void STM32446Tim4_cc1np(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->CCER, 1, 3, bool);
+	setreg(&TIM4->CCER, 1, 3, bool);
 }
 void STM32446Tim4_cc1p(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->CCER, 1, 1, bool);
+	setreg(&TIM4->CCER, 1, 1, bool);
 }
 void STM32446Tim4_cc1e(uint8_t bool)
 {
-	tim2to5_setreg(&TIM4->CCER, 1, 0, bool);
+	setreg(&TIM4->CCER, 1, 0, bool);
 }
 // CNT
 void STM32446Tim4_cnt(uint16_t value)
@@ -1469,11 +1461,11 @@ void STM32446Tim4_ccr4(uint16_t value)
 // DCR
 void STM32446Tim4_dbl(uint8_t value)
 {
-	tim2to5_setreg(&TIM4->DCR, 5, 8, value);
+	setreg(&TIM4->DCR, 5, 8, value);
 }
 void STM32446Tim4_dba(uint8_t value)
 {
-	tim2to5_setreg(&TIM4->DCR, 5, 0, value);
+	setreg(&TIM4->DCR, 5, 0, value);
 }
 // DMAR
 void STM32446Tim4_dmab(uint16_t value)
@@ -1497,8 +1489,7 @@ void STM32446Tim5Clock(uint8_t bool)
 }
 void STM32446Tim5Nvic(uint8_t bool)
 { // 50
-	if(bool){tim2to5_setbit(NVIC->ISER, 1, 50, 1);}
-	else{tim2to5_setbit(NVIC->ICER, 1, 50, 1);}
+	if(bool){setbit(NVIC->ISER, 1, 50, 1);} else{setbit(NVIC->ICER, 1, 50, 1);}
 }
 /************************/
 /*** TIM5 Bit Mapping ***/
@@ -1506,399 +1497,399 @@ void STM32446Tim5Nvic(uint8_t bool)
 // CR1
 void STM32446Tim5_ckd(uint8_t value)
 {
-	tim2to5_setreg(&TIM2->CR1, 2, 8, value);
+	setreg(&TIM2->CR1, 2, 8, value);
 }
 uint8_t STM32446Tim5_get_ckd(void)
 {
-	return tim2to5_readreg(TIM5->CR1, 2, 8);
+	return readreg(TIM5->CR1, 2, 8);
 }
 void STM32446Tim5_set_apre(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->CR1, 1, 7, bool);
+	setreg(&TIM5->CR1, 1, 7, bool);
 }
 void STM32446Tim5_set_cms(uint8_t value)
 {
-	tim2to5_setreg(&TIM5->CR1, 2, 5, value);
+	setreg(&TIM5->CR1, 2, 5, value);
 }
 void STM32446Tim5_set_dir(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->CR1, 1, 4, bool);
+	setreg(&TIM5->CR1, 1, 4, bool);
 }
 void STM32446Tim5_set_opm(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->CR1, 1, 3, bool);
+	setreg(&TIM5->CR1, 1, 3, bool);
 }
 void STM32446Tim5_set_urs(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->CR1, 1, 2, bool);
+	setreg(&TIM5->CR1, 1, 2, bool);
 }
 void STM32446Tim5_set_udis(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->CR1, 1, 1, bool);
+	setreg(&TIM5->CR1, 1, 1, bool);
 }
 void STM32446Tim5_cen(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->CR1, 1, 0, bool);
+	setreg(&TIM5->CR1, 1, 0, bool);
 }
 // CR2
 void STM32446Tim5_ti1s(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->CR1, 1, 7, bool);
+	setreg(&TIM5->CR2, 1, 7, bool);
 }
 void STM32446Tim5_mms(uint8_t value)
 {
-	tim2to5_setreg(&TIM5->CR1, 3, 4, value);
+	setreg(&TIM5->CR2, 3, 4, value);
 }
 void STM32446Tim5_ccds(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->CR1, 1, 3, bool);
+	setreg(&TIM5->CR2, 1, 3, bool);
 }
 // SMCR
 void STM32446Tim5_etp(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->SMCR, 1, 15, bool);
+	setreg(&TIM5->SMCR, 1, 15, bool);
 }
 void STM32446Tim5_ece(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->SMCR, 1, 14, bool);
+	setreg(&TIM5->SMCR, 1, 14, bool);
 }
 void STM32446Tim5_etps(uint8_t value)
 {
-	tim2to5_setreg(&TIM5->SMCR, 2, 12, value);
+	setreg(&TIM5->SMCR, 2, 12, value);
 }
 void STM32446Tim5_etf(uint8_t value)
 {
-	tim2to5_setreg(&TIM5->SMCR, 4, 8, value);
+	setreg(&TIM5->SMCR, 4, 8, value);
 }
 void STM32446Tim5_msm(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->SMCR, 1, 7, bool);
+	setreg(&TIM5->SMCR, 1, 7, bool);
 }
 void STM32446Tim5_ts(uint8_t value)
 {
-	tim2to5_setreg(&TIM5->SMCR, 3, 4, value);
+	setreg(&TIM5->SMCR, 3, 4, value);
 }
 void STM32446Tim5_sms(uint8_t value)
 {
-	tim2to5_setreg(&TIM5->SMCR, 3, 0, value);
+	setreg(&TIM5->SMCR, 3, 0, value);
 }
 // DIER
 void STM32446Tim5_tde(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->DIER, 1, 14, bool);
+	setreg(&TIM5->DIER, 1, 14, bool);
 }
 void STM32446Tim5_cc4de(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->DIER, 1, 12, bool);
+	setreg(&TIM5->DIER, 1, 12, bool);
 }
 void STM32446Tim5_cc3de(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->DIER, 1, 11, bool);
+	setreg(&TIM5->DIER, 1, 11, bool);
 }
 void STM32446Tim5_cc2de(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->DIER, 1, 10, bool);
+	setreg(&TIM5->DIER, 1, 10, bool);
 }
 void STM32446Tim5_cc1de(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->DIER, 1, 9, bool);
+	setreg(&TIM5->DIER, 1, 9, bool);
 }
 void STM32446Tim5_ude(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->DIER, 1, 8, bool);
+	setreg(&TIM5->DIER, 1, 8, bool);
 }
 void STM32446Tim5_tie(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->DIER, 1, 6, bool);
+	setreg(&TIM5->DIER, 1, 6, bool);
 }
 void STM32446Tim5_cc4ie(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->DIER, 1, 4, bool);
+	setreg(&TIM5->DIER, 1, 4, bool);
 }
 void STM32446Tim5_cc3ie(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->DIER, 1, 3, bool);
+	setreg(&TIM5->DIER, 1, 3, bool);
 }
 void STM32446Tim5_cc2ie(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->DIER, 1, 2, bool);
+	setreg(&TIM5->DIER, 1, 2, bool);
 }
 void STM32446Tim5_cc1ie(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->DIER, 1, 1, bool);
+	setreg(&TIM5->DIER, 1, 1, bool);
 }
 void STM32446Tim5_uie(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->DIER, 1, 0, bool);
+	setreg(&TIM5->DIER, 1, 0, bool);
 }
 // SR
 uint8_t STM32446Tim5_cc4of(void)
 {
-	return tim2to5_readreg(TIM5->SR, 1, 12);
+	return readreg(TIM5->SR, 1, 12);
 }
 void STM32446Tim5_clear_cc4of(void)
 {
-	tim2to5_setreg(&TIM5->SR, 1, 12, 0);
+	setreg(&TIM5->SR, 1, 12, 0);
 }
 uint8_t STM32446Tim5_cc3of(void)
 {
-	return tim2to5_readreg(TIM5->SR, 1, 11);
+	return readreg(TIM5->SR, 1, 11);
 }
 void STM32446Tim5_clear_cc3of(void)
 {
-	tim2to5_setreg(&TIM5->SR, 1, 11, 0);
+	setreg(&TIM5->SR, 1, 11, 0);
 }
 uint8_t STM32446Tim5_cc2of(void)
 {
-	return tim2to5_readreg(TIM5->SR, 1, 10);
+	return readreg(TIM5->SR, 1, 10);
 }
 void STM32446Tim5_clear_cc2of(void)
 {
-	tim2to5_setreg(&TIM5->SR, 1, 10, 0);
+	setreg(&TIM5->SR, 1, 10, 0);
 }
 uint8_t STM32446Tim5_cc1of(void)
 {
-	return tim2to5_readreg(TIM5->SR, 1, 9);
+	return readreg(TIM5->SR, 1, 9);
 }
 void STM32446Tim5_clear_cc1of(void)
 {
-	tim2to5_setreg(&TIM5->SR, 1, 9, 0);
+	setreg(&TIM5->SR, 1, 9, 0);
 }
 uint8_t STM32446Tim5_tif(void)
 {
-	return tim2to5_readreg(TIM5->SR, 1, 6);
+	return readreg(TIM5->SR, 1, 6);
 }
 void STM32446Tim5_clear_tif(void)
 {
-	tim2to5_setreg(&TIM5->SR, 1, 6, 0);
+	setreg(&TIM5->SR, 1, 6, 0);
 }
 uint8_t STM32446Tim5_cc4if(void)
 {
-	return tim2to5_readreg(TIM5->SR, 1, 4);
+	return readreg(TIM5->SR, 1, 4);
 }
 void STM32446Tim5_clear_cc4if(void)
 {
-	tim2to5_setreg(&TIM5->SR, 1, 4, 0);
+	setreg(&TIM5->SR, 1, 4, 0);
 }
 uint8_t STM32446Tim5_cc3if(void)
 {
-	return tim2to5_readreg(TIM5->SR, 1, 3);
+	return readreg(TIM5->SR, 1, 3);
 }
 void STM32446Tim5_clear_cc3if(void)
 {
-	tim2to5_setreg(&TIM5->SR, 1, 3, 0);
+	setreg(&TIM5->SR, 1, 3, 0);
 }
 uint8_t STM32446Tim5_cc2if(void)
 {
-	return tim2to5_readreg(TIM5->SR, 1, 2);
+	return readreg(TIM5->SR, 1, 2);
 }
 void STM32446Tim5_clear_cc2if(void)
 {
-	tim2to5_setreg(&TIM5->SR, 1, 2, 0);
+	setreg(&TIM5->SR, 1, 2, 0);
 }
 uint8_t STM32446Tim5_cc1if(void)
 {
-	return tim2to5_readreg(TIM5->SR, 1, 1);
+	return readreg(TIM5->SR, 1, 1);
 }
 void STM32446Tim5_clear_cc1if(void)
 {
-	tim2to5_setreg(&TIM5->SR, 1, 1, 0);
+	setreg(&TIM5->SR, 1, 1, 0);
 }
 uint8_t STM32446Tim5_uif(void)
 {
-	return tim2to5_readreg(TIM5->SR, 1, 0);
+	return readreg(TIM5->SR, 1, 0);
 }
 void STM32446Tim5_clear_uif(void)
 {
-	tim2to5_setreg(&TIM5->SR, 1, 0, 0);
+	setreg(&TIM5->SR, 1, 0, 0);
 }
 // EGR
 void STM32446Tim5_tg(void)
 {
-	tim2to5_setreg(&TIM5->EGR, 1, 6, 1);
+	setreg(&TIM5->EGR, 1, 6, 1);
 }
 void STM32446Tim5_cc4g(void)
 {
-	tim2to5_setreg(&TIM5->EGR, 1, 4, 1);
+	setreg(&TIM5->EGR, 1, 4, 1);
 }
 void STM32446Tim5_cc3g(void)
 {
-	tim2to5_setreg(&TIM5->EGR, 1, 3, 1);
+	setreg(&TIM5->EGR, 1, 3, 1);
 }
 void STM32446Tim5_cc2g(void)
 {
-	tim2to5_setreg(&TIM5->EGR, 1, 2, 1);
+	setreg(&TIM5->EGR, 1, 2, 1);
 }
 void STM32446Tim5_cc1g(void)
 {
-	tim2to5_setreg(&TIM5->EGR, 1, 1, 1);
+	setreg(&TIM5->EGR, 1, 1, 1);
 }
 void STM32446Tim5_ug(void)
 {
-	tim2to5_setreg(&TIM5->EGR, 1, 0, 1);
+	setreg(&TIM5->EGR, 1, 0, 1);
 }
 // CCMR1
 void STM32446Tim5_oc2ce(uint8_t value)
 {
-	tim2to5_setreg(&TIM5->CCMR1, 1, 15, value);
+	setreg(&TIM5->CCMR1, 1, 15, value);
 }
 void STM32446Tim5_oc2m(uint8_t value)
 {
-	tim2to5_setreg(&TIM5->CCMR1, 3, 12, value);
+	setreg(&TIM5->CCMR1, 3, 12, value);
 }
 void STM32446Tim5_ic2f(uint8_t value)
 {
-	tim2to5_setreg(&TIM5->CCMR1, 4, 12, value);
+	setreg(&TIM5->CCMR1, 4, 12, value);
 }
 void STM32446Tim5_oc2pe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->CCMR1, 1, 11, bool);
+	setreg(&TIM5->CCMR1, 1, 11, bool);
 }
 void STM32446Tim5_oc2fe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->CCMR1, 1, 10, bool);
+	setreg(&TIM5->CCMR1, 1, 10, bool);
 }
 void STM32446Tim5_ic2psc(uint8_t value)
 {
-	tim2to5_setreg(&TIM5->CCMR1, 2, 10, value);
+	setreg(&TIM5->CCMR1, 2, 10, value);
 }
 void STM32446Tim5_cc2s(uint8_t value)
 {
-	tim2to5_setreg(&TIM5->CCMR1, 2, 8, value);
+	setreg(&TIM5->CCMR1, 2, 8, value);
 }
 void STM32446Tim5_oc1ce(uint8_t value)
 {
-	tim2to5_setreg(&TIM5->CCMR1, 1, 7, value);
+	setreg(&TIM5->CCMR1, 1, 7, value);
 }
 void STM32446Tim5_oc1m(uint8_t value)
 {
-	tim2to5_setreg(&TIM5->CCMR1, 3, 4, value);
+	setreg(&TIM5->CCMR1, 3, 4, value);
 }
 void STM32446Tim5_ic1f(uint8_t value)
 {
-	tim2to5_setreg(&TIM5->CCMR1, 4, 4, value);
+	setreg(&TIM5->CCMR1, 4, 4, value);
 }
 void STM32446Tim5_oc1pe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->CCMR1, 1, 3, bool);
+	setreg(&TIM5->CCMR1, 1, 3, bool);
 }
 void STM32446Tim5_oc1fe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->CCMR1, 1, 2, bool);
+	setreg(&TIM5->CCMR1, 1, 2, bool);
 }
 void STM32446Tim5_ic1psc(uint8_t value)
 {
-	tim2to5_setreg(&TIM5->CCMR1, 2, 2, value);
+	setreg(&TIM5->CCMR1, 2, 2, value);
 }
 void STM32446Tim5_cc1s(uint8_t value)
 {
-	tim2to5_setreg(&TIM5->CCMR1, 2, 0, value);
+	setreg(&TIM5->CCMR1, 2, 0, value);
 }
 // CCMR2
 void STM32446Tim5_oc4ce(uint8_t value)
 {
-	tim2to5_setreg(&TIM5->CCMR2, 1, 15, value);
+	setreg(&TIM5->CCMR2, 1, 15, value);
 }
 void STM32446Tim5_oc4m(uint8_t value)
 {
-	tim2to5_setreg(&TIM5->CCMR2, 3, 12, value);
+	setreg(&TIM5->CCMR2, 3, 12, value);
 }
 void STM32446Tim5_ic4f(uint8_t value)
 {
-	tim2to5_setreg(&TIM5->CCMR2, 4, 12, value);
+	setreg(&TIM5->CCMR2, 4, 12, value);
 }
 void STM32446Tim5_oc4pe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->CCMR2, 1, 11, bool);
+	setreg(&TIM5->CCMR2, 1, 11, bool);
 }
 void STM32446Tim5_oc4fe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->CCMR2, 1, 10, bool);
+	setreg(&TIM5->CCMR2, 1, 10, bool);
 }
 void STM32446Tim5_ic4psc(uint8_t value)
 {
-	tim2to5_setreg(&TIM5->CCMR2, 2, 10, value);
+	setreg(&TIM5->CCMR2, 2, 10, value);
 }
 void STM32446Tim5_cc4s(uint8_t value)
 {
-	tim2to5_setreg(&TIM5->CCMR2, 2, 8, value);
+	setreg(&TIM5->CCMR2, 2, 8, value);
 }
 void STM32446Tim5_oc3ce(uint8_t value)
 {
-	tim2to5_setreg(&TIM5->CCMR2, 1, 7, value);
+	setreg(&TIM5->CCMR2, 1, 7, value);
 }
 void STM32446Tim5_oc3m(uint8_t value)
 {
-	tim2to5_setreg(&TIM5->CCMR2, 3, 4, value);
+	setreg(&TIM5->CCMR2, 3, 4, value);
 }
 void STM32446Tim5_ic3f(uint8_t value)
 {
-	tim2to5_setreg(&TIM5->CCMR2, 4, 4, value);
+	setreg(&TIM5->CCMR2, 4, 4, value);
 }
 void STM32446Tim5_oc3pe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->CCMR2, 1, 3, bool);
+	setreg(&TIM5->CCMR2, 1, 3, bool);
 }
 void STM32446Tim5_oc3fe(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->CCMR2, 1, 2, bool);
+	setreg(&TIM5->CCMR2, 1, 2, bool);
 }
 void STM32446Tim5_ic3psc(uint8_t value)
 {
-	tim2to5_setreg(&TIM5->CCMR2, 2, 2, value);
+	setreg(&TIM5->CCMR2, 2, 2, value);
 }
 void STM32446Tim5_cc3s(uint8_t value)
 {
-	tim2to5_setreg(&TIM5->CCMR2, 2, 0, value);
+	setreg(&TIM5->CCMR2, 2, 0, value);
 }
 // CCER
 void STM32446Tim5_cc4np(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->CCER, 1, 15, bool);
+	setreg(&TIM5->CCER, 1, 15, bool);
 }
 void STM32446Tim5_cc4p(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->CCER, 1, 13, bool);
+	setreg(&TIM5->CCER, 1, 13, bool);
 }
 void STM32446Tim5_cc4e(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->CCER, 1, 12, bool);
+	setreg(&TIM5->CCER, 1, 12, bool);
 }
 void STM32446Tim5_cc3np(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->CCER, 1, 11, bool);
+	setreg(&TIM5->CCER, 1, 11, bool);
 }
 void STM32446Tim5_cc3p(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->CCER, 1, 9, bool);
+	setreg(&TIM5->CCER, 1, 9, bool);
 }
 void STM32446Tim5_cc3e(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->CCER, 1, 8, bool);
+	setreg(&TIM5->CCER, 1, 8, bool);
 }
 void STM32446Tim5_cc2np(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->CCER, 1, 7, bool);
+	setreg(&TIM5->CCER, 1, 7, bool);
 }
 void STM32446Tim5_cc2p(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->CCER, 1, 5, bool);
+	setreg(&TIM5->CCER, 1, 5, bool);
 }
 void STM32446Tim5_cc2e(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->CCER, 1, 4, bool);
+	setreg(&TIM5->CCER, 1, 4, bool);
 }
 void STM32446Tim5_cc1np(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->CCER, 1, 3, bool);
+	setreg(&TIM5->CCER, 1, 3, bool);
 }
 void STM32446Tim5_cc1p(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->CCER, 1, 1, bool);
+	setreg(&TIM5->CCER, 1, 1, bool);
 }
 void STM32446Tim5_cc1e(uint8_t bool)
 {
-	tim2to5_setreg(&TIM5->CCER, 1, 0, bool);
+	setreg(&TIM5->CCER, 1, 0, bool);
 }
 // CNT
 void STM32446Tim5_cnt(uint32_t value)
@@ -1942,11 +1933,11 @@ void STM32446Tim5_ccr4(uint32_t value)
 // DCR
 void STM32446Tim5_dbl(uint8_t value)
 {
-	tim2to5_setreg(&TIM5->DCR, 5, 8, value);
+	setreg(&TIM5->DCR, 5, 8, value);
 }
 void STM32446Tim5_dba(uint8_t value)
 {
-	tim2to5_setreg(&TIM5->DCR, 5, 0, value);
+	setreg(&TIM5->DCR, 5, 0, value);
 }
 // DMAR
 void STM32446Tim5_dmab(uint16_t value)
@@ -1960,7 +1951,7 @@ uint16_t STM32446Tim5_get_dmab(void)
 // OR
 void STM32446Tim5_ti4_rmp(uint8_t value)
 {
-	tim2to5_setreg(&TIM5->OR, 2, 6, value);
+	setreg(&TIM5->OR, 2, 6, value);
 }
 /*** TIM2 Auxiliar ***/
 STM32446TIM2_CR1 stm32446_tim2_cr1_inic(void)
@@ -2724,56 +2715,6 @@ STM32446TIM5obj tim5_inic(void)
 	stm32446_tim.or = STM32446Tim5_ti4_rmp;
 	return stm32446_tim;
 }
-/*** File Procedure & Function Definition***/
-uint32_t tim2to5_readreg(uint32_t reg, uint32_t size_block, uint32_t bit)
-{
-	if(bit > 31){ bit = 0;} if(size_block > 32){ size_block = 32;}
-	uint32_t value = reg;
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	value &= (mask << bit);
-	value = (value >> bit);
-	return value;
-}
-void tim2to5_writereg(volatile uint32_t* reg, uint32_t size_block, uint32_t bit, uint32_t data)
-{
-	if(bit > 31){ bit = 0;} if(size_block > 32){ size_block = 32;}
-	uint32_t value = data;
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	value &= mask;
-	value = (value << bit);
-	*reg = value;
-}
-void tim2to5_setreg(volatile uint32_t* reg, uint32_t size_block, uint32_t bit, uint32_t data)
-{
-	if(bit > 31){ bit = 0;} if(size_block > 32){ size_block = 32;}
-	uint32_t value = data;
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	value &= mask;
-	*reg &= ~(mask << bit);
-	*reg |= (value << bit);
-}
-void tim2to5_setbit(volatile uint32_t* reg, uint32_t size_block, uint32_t bit, uint32_t data)
-{
-	uint32_t n = 0;
-	if(bit > 31){ n = bit/32; bit = bit - (n * 32); } if(size_block > 32){ size_block = 32;}
-	uint32_t value = data;
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	value &= mask;
-	*(reg + n ) &= ~(mask << bit);
-	*(reg + n ) |= (value << bit);
-}
-uint32_t tim2to5_getsetbit(volatile uint32_t* reg, uint32_t size_block, uint32_t bit)
-{
-	uint32_t n = 0;
-	if(bit > 31){ n = bit/32; bit = bit - (n * 32); } if(size_block > 32){ size_block = 32;}
-	uint32_t value = *(reg + n );
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	value &= (mask << bit);
-	value = (value >> bit);
-	return value;
-}
-
-/*** File Interrupt ***/
 
 /*** EOF ***/
 

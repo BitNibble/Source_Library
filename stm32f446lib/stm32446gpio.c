@@ -15,11 +15,6 @@ Comment:
 #include "stm32446gpio.h"
 #include "math.h"
 /*** File Procedure & Function Header ***/
-IO_var gpio_readreg(IO_var reg, uint8_t size_block, uint8_t bit);
-void gpio_writereg(volatile IO_var* reg, uint8_t size_block, uint8_t bit, IO_var data);
-void gpio_setreg(volatile IO_var* reg, uint8_t size_block, uint8_t bit, IO_var data);
-void gpio_setbit(volatile IO_var* reg, uint8_t size_block, uint8_t bit, IO_var data);
-IO_var gpio_getsetbit(volatile IO_var* reg, uint8_t size_block, uint8_t bit);
 STM32446GpioFunc stm32446_gpio_func_inic(void);
 /*** GPIO Procedure & Function Definition ***/
 /*** GPIOA ***/
@@ -487,8 +482,7 @@ void STM32446GpioGafr( uint8_t data, uint8_t pin )
 /*** GPIOH ***/
 void STM32446GpioHclock( uint8_t bool )
 {
-	if(bool){ RCC->AHB1ENR |= (1 << 7); }
-	else{ RCC->AHB1ENR &= ~(1 << 7); }
+	if(bool){ RCC->AHB1ENR |= (1 << 7); } else{ RCC->AHB1ENR &= ~(1 << 7); }
 }
 void STM32446GpioHmoder( uint8_t data, uint8_t pin )
 {
@@ -540,18 +534,6 @@ void STM32446GpioHafr( uint8_t data, uint8_t pin )
 		GPIOH->AFR[index] |= ( data << ((pin * blocksize) - (index * n_bits)) );
 	}
 }
-/*** COMMON Auxiliar ***/
-STM32446GpioFunc stm32446_gpio_func_inic(void)
-{
-	STM32446GpioFunc stm32446_gpio_func;
-	/*** Other ***/
-	stm32446_gpio_func.readreg = gpio_readreg;
-	stm32446_gpio_func.writereg = gpio_writereg;
-	stm32446_gpio_func.setreg = gpio_setreg;
-	stm32446_gpio_func.setbit = gpio_setbit;
-	stm32446_gpio_func.getsetbit = gpio_getsetbit;
-	return stm32446_gpio_func;
-}
 /*** INIC Procedure & Function Definition ***/
 STM32446GpioAobj gpioa_inic(void)
 {
@@ -568,7 +550,6 @@ STM32446GpioAobj gpioa_inic(void)
 	stm32446_gpioa.set = STM32446GpioAset;
 	stm32446_gpioa.afr = STM32446GpioAafr;
 	/*** Other ***/
-	stm32446_gpioa.func = stm32446_gpio_func_inic();
 	return stm32446_gpioa;
 }
 STM32446GpioBobj gpiob_inic(void)
@@ -586,7 +567,6 @@ STM32446GpioBobj gpiob_inic(void)
 	stm32446_gpiob.set = STM32446GpioBset;
 	stm32446_gpiob.afr = STM32446GpioBafr;
 	/*** Other ***/
-	stm32446_gpiob.func = stm32446_gpio_func_inic();
 	return stm32446_gpiob;
 }
 STM32446GpioCobj gpioc_inic(void)
@@ -604,7 +584,6 @@ STM32446GpioCobj gpioc_inic(void)
 	stm32446_gpioc.set = STM32446GpioCset;
 	stm32446_gpioc.afr = STM32446GpioCafr;
 	/*** Other ***/
-	stm32446_gpioc.func = stm32446_gpio_func_inic();
 	return stm32446_gpioc;
 }
 STM32446GpioDobj gpiod_inic(void)
@@ -622,7 +601,6 @@ STM32446GpioDobj gpiod_inic(void)
 	stm32446_gpiod.set = STM32446GpioDset;
 	stm32446_gpiod.afr = STM32446GpioDafr;
 	/*** Other ***/
-	stm32446_gpiod.func = stm32446_gpio_func_inic();
 	return stm32446_gpiod;
 }
 STM32446GpioEobj gpioe_inic(void)
@@ -640,7 +618,6 @@ STM32446GpioEobj gpioe_inic(void)
 	stm32446_gpioe.set = STM32446GpioEset;
 	stm32446_gpioe.afr = STM32446GpioEafr;
 	/*** Other ***/
-	stm32446_gpioe.func = stm32446_gpio_func_inic();
 	return stm32446_gpioe;
 }
 STM32446GpioHobj gpioh_inic(void)
@@ -658,54 +635,7 @@ STM32446GpioHobj gpioh_inic(void)
 	stm32446_gpioh.set = STM32446GpioHset;
 	stm32446_gpioh.afr = STM32446GpioHafr;
 	/*** Other ***/
-	stm32446_gpioh.func = stm32446_gpio_func_inic();
 	return stm32446_gpioh;
-}
-/*** File Procedure & Function Definition ***/
-IO_var gpio_readreg(IO_var reg, uint8_t size_block, uint8_t bit_n)
-{
-	if(bit_n > DATA_BITS){ bit_n = 0; } if(size_block > DATA_SIZE){ size_block = DATA_SIZE; }
-	IO_var mask = (IO_var)((1 << size_block) - 1);
-	reg &= (mask << bit_n);
-	reg = (reg >> bit_n);
-	return reg;
-}
-IO_var gpio_getsetbit(volatile IO_var* reg, uint8_t size_block, uint8_t bit_n)
-{
-	uint8_t n = 0;
-	if(bit_n > DATA_BITS){ n = bit_n/DATA_SIZE; bit_n -= (n * DATA_SIZE); } if(size_block > DATA_SIZE){ size_block = DATA_SIZE; }
-	IO_var value = *(reg + n );
-	IO_var mask = (IO_var)((1 << size_block) - 1);
-	value &= (mask << bit_n);
-	value = (value >> bit_n);
-	return value;
-}
-void gpio_setreg(volatile IO_var* reg, uint8_t size_block, uint8_t bit_n, IO_var data )
-{
-	if(bit_n > DATA_BITS){ bit_n = 0; } if(size_block > DATA_SIZE){ size_block = DATA_SIZE; }
-	IO_var mask = (IO_var)((1 << size_block) - 1);
-	data &= mask;
-	*reg &= ~(mask << bit_n);
-	*reg |= (data << bit_n);
-}
-void gpio_setbit(volatile IO_var* reg, uint8_t size_block, uint8_t bit_n, IO_var data)
-{
-	uint8_t n = 0;
-	if(bit_n > DATA_BITS){ n = bit_n/DATA_SIZE; bit_n = bit_n - (n * DATA_SIZE); } if(size_block > DATA_SIZE){ size_block = DATA_SIZE; }
-	IO_var mask = (IO_var)((1 << size_block) - 1);
-	data &= mask;
-	*(reg + n ) &= ~(mask << bit_n);
-	*(reg + n ) |= (data << bit_n);
-}
-void gpio_writereg(volatile IO_var* reg, uint8_t size_block, uint8_t bit_n, IO_var data)
-{
-	if(bit_n > DATA_BITS){ bit_n = 0; } if(size_block > DATA_SIZE){ size_block = DATA_SIZE; }
-	IO_var value = *reg;
-	IO_var mask = (IO_var)((1 << size_block) - 1);
-	data &= mask; value &= ~(mask << bit_n);
-	data = (data << bit_n);
-	value |= data;
-	*reg = value;
 }
 
 /**** EOF ****/

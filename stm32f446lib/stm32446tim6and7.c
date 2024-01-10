@@ -13,11 +13,6 @@ Comment:
 #include "stm32446tim6and7.h"
 
 /*** File Procedure & Function Header ***/
-uint32_t tim6and7_readreg(uint32_t reg, uint32_t size_block, uint32_t bit);
-void tim6and7_writereg(volatile uint32_t* reg, uint32_t size_block, uint32_t bit, uint32_t data);
-void tim6and7_setreg(volatile uint32_t* reg, uint32_t size_block, uint32_t bit, uint32_t data);
-void tim6and7_setbit(volatile uint32_t* reg, uint32_t size_block, uint32_t bit, uint32_t data);
-uint32_t tim6and7_getsetbit(volatile uint32_t* reg, uint32_t size_block, uint32_t bit);
 /*** Auxiliar ***/
 STM32446TIM6_CR1 stm32446_tim6_cr1_inic(void);
 STM32446TIM6_CR2 stm32446_tim6_cr2_inic(void);
@@ -43,7 +38,7 @@ void STM32446Tim6Clock(uint8_t bool)
 }
 void STM32446Tim6Nvic(uint8_t bool)
 { // 54
-	if(bool){tim6and7_setbit(NVIC->ISER, 1, 54, 1);}else{tim6and7_setbit(NVIC->ICER, 1, 54, 1);}
+	if(bool){setbit(NVIC->ISER, 1, 54, 1);}else{setbit(NVIC->ICER, 1, 54, 1);}
 }
 /************************/
 /*** TIM6 Bit Mapping ***/
@@ -51,51 +46,51 @@ void STM32446Tim6Nvic(uint8_t bool)
 // CR1
 void STM32446Tim6_set_apre(uint8_t bool)
 {
-	tim6and7_setreg(&TIM6->CR1, 1, 7, bool);
+	setreg(&TIM6->CR1, 1, 7, bool);
 }
 void STM32446Tim6_set_opm(uint8_t bool)
 {
-	tim6and7_setreg(&TIM6->CR1, 1, 3, bool);
+	setreg(&TIM6->CR1, 1, 3, bool);
 }
 void STM32446Tim6_set_urs(uint8_t bool)
 {
-	tim6and7_setreg(&TIM6->CR1, 1, 2, bool);
+	setreg(&TIM6->CR1, 1, 2, bool);
 }
 void STM32446Tim6_set_udis(uint8_t bool)
 {
-	tim6and7_setreg(&TIM6->CR1, 1, 1, bool);
+	setreg(&TIM6->CR1, 1, 1, bool);
 }
 void STM32446Tim6_cen(uint8_t bool)
 {
-	tim6and7_setreg(&TIM6->CR1, 1, 0, bool);
+	setreg(&TIM6->CR1, 1, 0, bool);
 }
 // CR2
 void STM32446Tim6_mms(uint8_t value)
 {
-	tim6and7_setreg(&TIM6->CR2, 3, 4, value);
+	setreg(&TIM6->CR2, 3, 4, value);
 }
 // DIER
 void STM32446Tim6_ude(uint8_t bool)
 {
-	tim6and7_setreg(&TIM6->DIER, 1, 8, bool);
+	setreg(&TIM6->DIER, 1, 8, bool);
 }
 void STM32446Tim6_uie(uint8_t bool)
 {
-	tim6and7_setreg(&TIM6->DIER, 1, 0, bool);
+	setreg(&TIM6->DIER, 1, 0, bool);
 }
 // SR
 uint8_t STM32446Tim6_uif(void)
 {
-	return tim6and7_readreg(TIM6->SR, 1, 0);
+	return readreg(TIM6->SR, 1, 0);
 }
 void STM32446Tim6_clear_uif(void)
 {
-	tim6and7_setreg(&TIM6->SR, 1, 0, 0);
+	setreg(&TIM6->SR, 1, 0, 0);
 }
 // EGR
 void STM32446Tim6_ug(void)
 {
-	tim6and7_setreg(&TIM6->EGR, 1, 0, 1);
+	setreg(&TIM6->EGR, 1, 0, 1);
 }
 // CNT
 void STM32446Tim6_cnt(uint16_t value)
@@ -129,7 +124,7 @@ void STM32446Tim7Clock(uint8_t bool)
 }
 void STM32446Tim7Nvic(uint8_t bool)
 { // 55
-	if(bool){tim6and7_setbit(NVIC->ISER, 1, 55, 1);}else{tim6and7_setbit(NVIC->ICER, 1, 55, 1);}
+	if(bool){setbit(NVIC->ISER, 1, 55, 1);}else{setbit(NVIC->ICER, 1, 55, 1);}
 }
 /************************/
 /*** TIM7 Bit Mapping ***/
@@ -137,51 +132,51 @@ void STM32446Tim7Nvic(uint8_t bool)
 // CR1
 void STM32446Tim7_set_apre(uint8_t bool)
 {
-	tim6and7_setreg(&TIM7->CR1, 1, 7, bool);
+	setreg(&TIM7->CR1, 1, 7, bool);
 }
 void STM32446Tim7_set_opm(uint8_t bool)
 {
-	tim6and7_setreg(&TIM7->CR1, 1, 3, bool);
+	setreg(&TIM7->CR1, 1, 3, bool);
 }
 void STM32446Tim7_set_urs(uint8_t bool)
 {
-	tim6and7_setreg(&TIM7->CR1, 1, 2, bool);
+	setreg(&TIM7->CR1, 1, 2, bool);
 }
 void STM32446Tim7_set_udis(uint8_t bool)
 {
-	tim6and7_setreg(&TIM7->CR1, 1, 1, bool);
+	setreg(&TIM7->CR1, 1, 1, bool);
 }
 void STM32446Tim7_cen(uint8_t bool)
 {
-	tim6and7_setreg(&TIM7->CR1, 1, 0, bool);
+	setreg(&TIM7->CR1, 1, 0, bool);
 }
 // CR2
 void STM32446Tim7_mms(uint8_t value)
 {
-	tim6and7_setreg(&TIM7->CR2, 3, 4, value);
+	setreg(&TIM7->CR2, 3, 4, value);
 }
 // DIER
 void STM32446Tim7_ude(uint8_t bool)
 {
-	tim6and7_setreg(&TIM7->DIER, 1, 8, bool);
+	setreg(&TIM7->DIER, 1, 8, bool);
 }
 void STM32446Tim7_uie(uint8_t bool)
 {
-	tim6and7_setreg(&TIM7->DIER, 1, 0, bool);
+	setreg(&TIM7->DIER, 1, 0, bool);
 }
 // SR
 uint8_t STM32446Tim7_uif(void)
 {
-	return tim6and7_readreg(TIM7->SR, 1, 0);
+	return readreg(TIM7->SR, 1, 0);
 }
 void STM32446Tim7_clear_uif(void)
 {
-	tim6and7_setreg(&TIM7->SR, 1, 0, 0);
+	setreg(&TIM7->SR, 1, 0, 0);
 }
 // EGR
 void STM32446Tim7_ug(void)
 {
-	tim6and7_setreg(&TIM7->EGR, 1, 0, 1);
+	setreg(&TIM7->EGR, 1, 0, 1);
 }
 // CNT
 void STM32446Tim7_cnt(uint16_t value)
@@ -331,56 +326,6 @@ STM32446TIM7obj tim7_inic(void)
 	stm32446_tim.arr = STM32446Tim7_arr;
 	return stm32446_tim;
 }
-/*** File Procedure & Function Definition***/
-uint32_t tim6and7_readreg(uint32_t reg, uint32_t size_block, uint32_t bit)
-{
-	if(bit > 31){ bit = 0;} if(size_block > 32){ size_block = 32;}
-	uint32_t value = reg;
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	value &= (mask << bit);
-	value = (value >> bit);
-	return value;
-}
-void tim6and7_writereg(volatile uint32_t* reg, uint32_t size_block, uint32_t bit, uint32_t data)
-{
-	if(bit > 31){ bit = 0;} if(size_block > 32){ size_block = 32;}
-	uint32_t value = data;
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	value &= mask;
-	value = (value << bit);
-	*reg = value;
-}
-void tim6and7_setreg(volatile uint32_t* reg, uint32_t size_block, uint32_t bit, uint32_t data)
-{
-	if(bit > 31){ bit = 0;} if(size_block > 32){ size_block = 32;}
-	uint32_t value = data;
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	value &= mask;
-	*reg &= ~(mask << bit);
-	*reg |= (value << bit);
-}
-void tim6and7_setbit(volatile uint32_t* reg, uint32_t size_block, uint32_t bit, uint32_t data)
-{
-	uint32_t n = 0;
-	if(bit > 31){ n = bit/32; bit = bit - (n * 32); } if(size_block > 32){ size_block = 32;}
-	uint32_t value = data;
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	value &= mask;
-	*(reg + n ) &= ~(mask << bit);
-	*(reg + n ) |= (value << bit);
-}
-uint32_t tim6and7_getsetbit(volatile uint32_t* reg, uint32_t size_block, uint32_t bit)
-{
-	uint32_t n = 0;
-	if(bit > 31){ n = bit/32; bit = bit - (n * 32); } if(size_block > 32){ size_block = 32;}
-	uint32_t value = *(reg + n );
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	value &= (mask << bit);
-	value = (value >> bit);
-	return value;
-}
-
-/*** File Interrupt ***/
 
 /*** EOF ***/
 
