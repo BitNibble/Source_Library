@@ -11,7 +11,7 @@ Comment:
 #ifndef _STM32446RCC_H_
 	#define _STM32446RCC_H_
 /*** Library ***/
-#include <inttypes.h>
+#include "stm32query.h"
 /*** Define & Macros***/
 #ifndef on
 	#define on 1

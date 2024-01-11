@@ -71,12 +71,18 @@ STM32446 STM32446enable(void){
 	#endif
 	// GPIO
 	#if defined(_STM32446GPIO_H_)
-		stm32446.gpioa = gpioa_inic();
-		stm32446.gpiob = gpiob_inic();
-		stm32446.gpioc = gpioc_inic();
-		stm32446.gpiod = gpiod_inic();
-		stm32446.gpioe = gpioe_inic();
-		stm32446.gpioh = gpioh_inic();
+		gpioa_inic();
+		stm32446.gpioa = gpioa();
+		gpiob_inic();
+		stm32446.gpiob = gpiob();
+		gpioc_inic();
+		stm32446.gpioc = gpioc();
+		gpiod_inic();
+		stm32446.gpiod = gpiod();
+		gpioe_inic();
+		stm32446.gpioe = gpioe();
+		gpioh_inic();
+		stm32446.gpioh = gpioh();
 	#endif
 	// SYSCFG
 	#if defined(_STM32446SYSCFG_H_)

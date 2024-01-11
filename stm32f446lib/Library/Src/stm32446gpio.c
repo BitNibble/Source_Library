@@ -11,11 +11,19 @@ Comment:
 	
 *******************************************************************************/
 /*** File Library ***/
-#include "stm32446mapping.h"
 #include "stm32446gpio.h"
-#include "math.h"
-/*** File Procedure & Function Header ***/
-STM32446GpioFunc stm32446_gpio_func_inic(void);
+#include <math.h>
+
+/*** File Variables ***/
+static STM32446GpioAobj stm32446_gpioa;
+static STM32446GpioBobj stm32446_gpiob;
+static STM32446GpioCobj stm32446_gpioc;
+static STM32446GpioDobj stm32446_gpiod;
+static STM32446GpioEobj stm32446_gpioe;
+static STM32446GpioHobj stm32446_gpioh;
+
+
+
 /*** GPIO Procedure & Function Definition ***/
 /*** GPIOA ***/
 void STM32446GpioAclock( uint8_t bool )
@@ -537,7 +545,7 @@ void STM32446GpioHafr( uint8_t data, uint8_t pin )
 /*** INIC Procedure & Function Definition ***/
 STM32446GpioAobj gpioa_inic(void)
 {
-	STM32446GpioAobj stm32446_gpioa;
+
 	// GPIOA
 	stm32446_gpioa.reg = GPIOA;
 	/*** GPIOA RCC Clock Enable ***/
@@ -552,9 +560,12 @@ STM32446GpioAobj gpioa_inic(void)
 	/*** Other ***/
 	return stm32446_gpioa;
 }
+
+STM32446GpioAobj* gpioa(void){ return &stm32446_gpioa; }
+
 STM32446GpioBobj gpiob_inic(void)
 {
-	STM32446GpioBobj stm32446_gpiob;
+
 	// GPIOB
 	stm32446_gpiob.reg = GPIOB;
 	/*** GPIOB RCC Clock Enable ***/
@@ -569,9 +580,12 @@ STM32446GpioBobj gpiob_inic(void)
 	/*** Other ***/
 	return stm32446_gpiob;
 }
+
+STM32446GpioBobj* gpiob(void){ return &stm32446_gpiob; }
+
 STM32446GpioCobj gpioc_inic(void)
 {
-	STM32446GpioCobj stm32446_gpioc;
+
 	// GPIOC
 	stm32446_gpioc.reg = GPIOC;
 	/*** GPIOC RCC Clock Enable ***/
@@ -586,9 +600,12 @@ STM32446GpioCobj gpioc_inic(void)
 	/*** Other ***/
 	return stm32446_gpioc;
 }
+
+STM32446GpioCobj* gpioc(void){ return &stm32446_gpioc; }
+
 STM32446GpioDobj gpiod_inic(void)
 {
-	STM32446GpioDobj stm32446_gpiod;
+
 	// GPIOD
 	stm32446_gpiod.reg = GPIOD;
 	/*** GPIOD RCC Clock Enable ***/
@@ -603,9 +620,12 @@ STM32446GpioDobj gpiod_inic(void)
 	/*** Other ***/
 	return stm32446_gpiod;
 }
+
+STM32446GpioDobj* gpiod(void){ return &stm32446_gpiod; }
+
 STM32446GpioEobj gpioe_inic(void)
 {
-	STM32446GpioEobj stm32446_gpioe;
+
 	// GPIOE
 	stm32446_gpioe.reg = GPIOE;
 	/*** GPIOE RCC Clock Enable ***/
@@ -620,9 +640,12 @@ STM32446GpioEobj gpioe_inic(void)
 	/*** Other ***/
 	return stm32446_gpioe;
 }
+
+STM32446GpioEobj* gpioe(void){ return &stm32446_gpioe; }
+
 STM32446GpioHobj gpioh_inic(void)
 {
-	STM32446GpioHobj stm32446_gpioh;
+
 	// GPIOH
 	stm32446_gpioh.reg = GPIOH;
 	/*** GPIOH RCC Clock Enable ***/
@@ -637,6 +660,9 @@ STM32446GpioHobj gpioh_inic(void)
 	/*** Other ***/
 	return stm32446_gpioh;
 }
+
+STM32446GpioHobj* gpioh(void){ return &stm32446_gpioh; }
+
 
 /**** EOF ****/
 
@@ -656,5 +682,4 @@ STM32446GpioHobj gpioh_inic(void)
 3º Pointer and Variable
 4º Casting
 ******/
-
 

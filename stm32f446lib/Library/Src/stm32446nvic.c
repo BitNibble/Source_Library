@@ -9,7 +9,6 @@ Comment:
 	Interrupt Vector
 *******************************************************************************/
 /*** File Library ***/
-#include "stm32446mapping.h"
 #include "stm32446nvic.h"
 /*** File Procedure & Function Header ***/
 /*** NVIC Procedure & Function Definition ***/

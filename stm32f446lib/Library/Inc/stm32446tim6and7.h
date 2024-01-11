@@ -11,7 +11,7 @@ Comment:
 #ifndef _STM32446TIM6AND7_H_
 	#define _STM32446TIM6AND7_H_
 /*** Library ***/
-#include <inttypes.h>
+#include "stm32query.h"
 /*** TIMER Bit Mapping TypeDef ***/
 // CR1
 typedef struct{

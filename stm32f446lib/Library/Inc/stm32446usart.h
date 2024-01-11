@@ -11,7 +11,7 @@ Comment:
 #ifndef _STM32446USART_H_
 	#define _STM32446USART_H_
 /*** Library ***/
-#include <inttypes.h>
+#include "stm32query.h"
 /*** Define & Macro ***/
 
 /*** USART Bit Mapping Common TypeDef ***/
@@ -86,12 +86,12 @@ typedef struct
 {
 	USART_TypeDef* reg;
 	/*** Bit Mapping ***/
-	STM32446USART_SR sr;
-	STM32446USART_BRR brr;
-	STM32446USART_CR1 cr1;
-	STM32446USART_CR2 cr2;
-	STM32446USART_CR3 cr3;
-	STM32446USART_GTPR gtpr;
+	STM32446USART_SR* sr;
+	STM32446USART_BRR* brr;
+	STM32446USART_CR1* cr1;
+	STM32446USART_CR2* cr2;
+	STM32446USART_CR3* cr3;
+	STM32446USART_GTPR* gtpr;
 	void (*dr)(uint32_t data);
 	uint32_t (*get_dr)(void);
 	/*** Other ***/

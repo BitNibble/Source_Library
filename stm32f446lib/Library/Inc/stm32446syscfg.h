@@ -12,7 +12,7 @@ Comment:
 	#define _STM32446SYSCFG_H_
 
 /*** File Library ***/
-#include <inttypes.h>
+#include "stm32query.h"
 /***************************************/
 /***** SYSCFG Bit Mapping TypeDef ****/
 /***************************************/

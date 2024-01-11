@@ -11,7 +11,7 @@ Comment:
 #ifndef _STM32446TIM1AND8_H_
 	#define _STM32446TIM1AND8_H_
 /*** Library ***/
-#include <inttypes.h>
+#include "stm32query.h"
 /*** TIMER Bit Mapping TypeDef ***/
 typedef struct{
 	void (*ckd)(uint8_t value);

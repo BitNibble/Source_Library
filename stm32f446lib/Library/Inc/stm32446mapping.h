@@ -15,7 +15,6 @@ Comment:
 #ifndef _STM32446MAPPING_H_
 	#define _STM32446MAPPING_H_
 /***** Global Libraries *****/
-#include <inttypes.h>
 #include "stm32query.h"
 #include "stm32f4xx_it.h"
 /****** Define & Macros******/
@@ -298,12 +297,12 @@ typedef struct
 	#endif
 
 	#if defined(_STM32446GPIO_H_)
-		STM32446GpioAobj gpioa;
-		STM32446GpioBobj gpiob;
-		STM32446GpioCobj gpioc;
-		STM32446GpioDobj gpiod;
-		STM32446GpioEobj gpioe;
-		STM32446GpioHobj gpioh;
+		STM32446GpioAobj* gpioa;
+		STM32446GpioBobj* gpiob;
+		STM32446GpioCobj* gpioc;
+		STM32446GpioDobj* gpiod;
+		STM32446GpioEobj* gpioe;
+		STM32446GpioHobj* gpioh;
 	#endif
 
 	#if defined(_STM32446SYSCFG_H_)

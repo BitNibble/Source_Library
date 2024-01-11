@@ -9,7 +9,6 @@ Comment:
 	
 *******************************************************************************/
 /*** File Library ***/
-#include "stm32446mapping.h"
 #include "stm32446flash.h"
 /*** File Procedure & Function Header ***/
 STM32446FLASH_acr stm32446_flash_acr_inic(void);

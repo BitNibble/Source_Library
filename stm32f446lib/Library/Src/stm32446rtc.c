@@ -9,7 +9,6 @@ Comment:
 	
 *******************************************************************************/
 /*** File Library ***/
-#include "stm32446mapping.h"
 #include "stm32446rtc.h"
 
 static STM32446_RTC stm32446_rtc;

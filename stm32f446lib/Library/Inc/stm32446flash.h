@@ -11,7 +11,7 @@ Comment:
 #ifndef _STM32446FLASH_H_
 	#define _STM32446FLASH_H_
 /*** Library ***/
-#include <inttypes.h>
+#include "stm32query.h"
 #ifndef FLASH_KEY1
 	#define FLASH_KEY1  0x45670123
 #endif

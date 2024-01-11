@@ -9,7 +9,6 @@ Comment:
 	
 *******************************************************************************/
 /*** File Library ***/
-#include "stm32446mapping.h"
 #include "stm32446rcc.h"
 
 /*** File Variables ***/

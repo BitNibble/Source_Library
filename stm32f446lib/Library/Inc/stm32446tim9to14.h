@@ -11,7 +11,7 @@ Comment:
 #ifndef _STM32446TIM9TO14_H_
 	#define _STM32446TIM9TO14_H_
 /*** Library ***/
-#include <inttypes.h>
+#include "stm32query.h"
 /*** TIMER 9 to 14 Bit Mapping TypeDef ***/
 // CR1 9/12
 typedef struct{

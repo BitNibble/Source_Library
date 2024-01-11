@@ -11,27 +11,11 @@ Comment:
 *******************************************************************************/
 #ifndef _STM32446GPIO_H_
 	#define _STM32446GPIO_H_
+
 /*** File Library ***/
-#include <inttypes.h>
-/*** Constant & Maco ***/
-#ifndef IO_var
-	#define IO_var uint32_t
-#endif
-#ifndef DATA_BITS
-	#define DATA_BITS 31
-#endif
-#ifndef DATA_SIZE
-	#define DATA_SIZE 32
-#endif
+#include "stm32query.h"
+
 /*** GPIO TypeDef ***/
-typedef struct
-{
-	IO_var (*readreg)(IO_var reg, uint8_t size_block, uint8_t bit);
-	void (*writereg)(volatile IO_var* reg, uint8_t size_block, uint8_t bit, IO_var data);
-	void (*setreg)(volatile IO_var* reg, uint8_t size_block, uint8_t bit, IO_var data);
-	void (*setbit)(volatile IO_var* reg, uint8_t size_block, uint8_t bit, IO_var data);
-	IO_var (*getsetbit)(volatile IO_var* reg, uint8_t size_block, uint8_t bit);
-}STM32446GpioFunc;
 // GPIO -> GPIOA
 typedef struct
 {
@@ -45,7 +29,6 @@ typedef struct
 	void (*set)( uint16_t data );
 	/*** Other ***/
 	void (*clock)(uint8_t bool);
-	STM32446GpioFunc func;
 
 }STM32446GpioAobj;
 // GPIO -> GPIOB
@@ -62,7 +45,6 @@ typedef struct
 		void (*set)( uint16_t data );
 		/*** Other ***/
 		void (*clock)(uint8_t bool);
-		STM32446GpioFunc func;
 	#endif
 }STM32446GpioBobj;
 // GPIO -> GPIOC
@@ -79,7 +61,6 @@ typedef struct
 		void (*set)( uint16_t data );
 		/*** Other ***/
 		void (*clock)(uint8_t bool);
-		STM32446GpioFunc func;
 	#endif
 }STM32446GpioCobj;
 // GPIO -> GPIOD
@@ -96,7 +77,6 @@ typedef struct
 		void (*set)( uint16_t data );
 		/*** Other ***/
 		void (*clock)(uint8_t bool);
-		STM32446GpioFunc func;
 	#endif
 }STM32446GpioDobj;
 // GPIO -> GPIOE
@@ -113,7 +93,6 @@ typedef struct
 		void (*set)( uint16_t data );
 		/*** Other ***/
 		void (*clock)(uint8_t bool);
-		STM32446GpioFunc func;
 	#endif
 }STM32446GpioEobj;
 // GPIO -> GPIOF
@@ -130,7 +109,6 @@ typedef struct
 		void (*set)( uint16_t data );
 		/*** Other ***/
 		void (*clock)(uint8_t bool);
-		STM32446GpioFunc func;
 	#endif
 }STM32446GpioFobj;
 // GPIO -> GPIOG
@@ -147,7 +125,6 @@ typedef struct
 		void (*set)( uint16_t data );
 		/*** Other ***/
 		void (*clock)(uint8_t bool);
-		STM32446GpioFunc func;
 	#endif
 }STM32446GpioGobj;
 // GPIO -> GPIOH
@@ -164,16 +141,27 @@ typedef struct
 		void (*set)( uint16_t data );
 		/*** Other ***/
 		void (*clock)(uint8_t bool);
-		STM32446GpioFunc func;
 	#endif
 }STM32446GpioHobj;
 // INIC
 STM32446GpioAobj gpioa_inic(void);
+STM32446GpioAobj* gpioa(void);
+
 STM32446GpioBobj gpiob_inic(void);
+STM32446GpioBobj* gpiob(void);
+
 STM32446GpioCobj gpioc_inic(void);
+STM32446GpioCobj* gpioc(void);
+
 STM32446GpioDobj gpiod_inic(void);
+STM32446GpioDobj* gpiod(void);
+
 STM32446GpioEobj gpioe_inic(void);
+STM32446GpioEobj* gpioe(void);
+
 STM32446GpioHobj gpioh_inic(void);
+STM32446GpioHobj* gpioh(void);
+
 /***** GPIO Procedure & Funtion Header ******/
 void STM32446GpioAclock( uint8_t bool );
 void STM32446GpioAmoder( uint8_t data, uint8_t pin );

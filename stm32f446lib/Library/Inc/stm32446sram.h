@@ -11,7 +11,7 @@ Comment:
 #ifndef _STM32446SRAM_H_
 	#define _STM32446SRAM_H_
 /*** Library ***/
-#include <inttypes.h>
+#include "stm32query.h"
 /*** SRAM TypeDef ***/
 typedef struct
 {

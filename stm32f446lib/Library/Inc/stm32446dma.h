@@ -11,7 +11,7 @@ Comment:
 #ifndef _STM32446DMA_H_
 	#define _STM32446DMA_H_
 /*** Library ***/
-#include <inttypes.h>
+#include "stm32query.h"
 /*** DMA Bit Mapping TypeDef ***/
 // SR
 typedef struct

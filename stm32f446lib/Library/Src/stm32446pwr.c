@@ -9,7 +9,6 @@ Comment:
 	
 *******************************************************************************/
 /*** File Library ***/
-#include "stm32446mapping.h"
 #include "stm32446pwr.h"
 /*** File Procedure & Function Header ***/
 STM32446PWR_cr stm32446_pwr_cr_inic(void);

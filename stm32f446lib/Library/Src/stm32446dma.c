@@ -9,7 +9,6 @@ Comment:
 
 *******************************************************************************/
 /*** File Library ***/
-#include "stm32446mapping.h"
 #include "stm32446dma.h"
 
 static uint32_t time_out;

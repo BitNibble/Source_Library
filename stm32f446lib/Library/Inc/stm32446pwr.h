@@ -11,7 +11,7 @@ Comment:
 #ifndef _STM32446PWR_H_
 	#define _STM32446PWR_H_
 /*** Library ***/
-#include <inttypes.h>
+#include "stm32query.h"
 /*** PWR Bit Mapping TypeDef ***/
 // CR
 typedef struct
