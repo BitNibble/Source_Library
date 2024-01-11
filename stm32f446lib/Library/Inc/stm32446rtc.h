@@ -54,8 +54,8 @@ typedef struct
 /***/
 
 /*** Global ***/
+STM32446_RTC rtc_inic(void);
 STM32446_RTC* rtc(void);
-STM32446_RTC RTCenable(void);
 
 /*** RTC Procedure & Function Header ***/
 void STM32446RtcClock(uint8_t bool);

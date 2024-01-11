@@ -16,7 +16,6 @@ static uint32_t rtc_time_out;
 
 /*** File Procedure & Function Header ***/
 /***/
-STM32446_RTC RTC_inic(void);
 void STM32446PwrClock(uint8_t bool);
 void STM32446BckSramClock(uint8_t bool);
 void STM32446RtcWriteEnable(void);
@@ -36,7 +35,7 @@ char rtc_dec2bcd(char num);
 void rtc_lenable(unsigned int lclock);
 void rtc_lselect(uint8_t lclock);
 /*** RTC Procedure & Function Definition ***/
-STM32446_RTC RTC_inic(void)
+STM32446_RTC rtc_inic(void)
 {
 	stm32446_rtc.reg = RTC;
 	/***/
@@ -62,11 +61,6 @@ STM32446_RTC RTC_inic(void)
 }
 
 STM32446_RTC* rtc(void){ return (STM32446_RTC*) &stm32446_rtc; }
-
-STM32446_RTC RTCenable(void)
-{
-	return RTC_inic();
-}
 
 /*** Procedure & Function Definition ***/
 void STM32446RtcClock(uint8_t bool)

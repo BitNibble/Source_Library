@@ -288,8 +288,8 @@ typedef struct
 	#endif
 
 	#if defined(_STM32446DMA_H_)
-		STM32446DMA1obj dma1;
-		STM32446DMA2obj dma2;
+		STM32446DMA1obj* dma1;
+		STM32446DMA2obj* dma2;
 	#endif
 
 	#if defined(_STM32446FLASH_H_)

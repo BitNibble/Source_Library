@@ -105,12 +105,12 @@ typedef struct
 {
 	USART_TypeDef* reg;
 	/*** Bit Mapping ***/
-	STM32446USART_SR sr;
-	STM32446USART_BRR brr;
-	STM32446USART_CR1 cr1;
-	STM32446USART_CR2 cr2;
-	STM32446USART_CR3 cr3;
-	STM32446USART_GTPR gtpr;
+	STM32446USART_SR* sr;
+	STM32446USART_BRR* brr;
+	STM32446USART_CR1* cr1;
+	STM32446USART_CR2* cr2;
+	STM32446USART_CR3* cr3;
+	STM32446USART_GTPR* gtpr;
 	void (*dr)(uint32_t data);
 	uint32_t (*get_dr)(void);
 	/*** Other ***/
@@ -122,12 +122,12 @@ typedef struct
 {
 	USART_TypeDef* reg;
 	/*** Bit Mapping ***/
-	STM32446USART_SR sr;
-	STM32446USART_BRR brr;
-	STM32446USART_CR1 cr1;
-	STM32446USART_CR2 cr2;
-	STM32446USART_CR3 cr3;
-	STM32446USART_GTPR gtpr;
+	STM32446USART_SR* sr;
+	STM32446USART_BRR* brr;
+	STM32446USART_CR1* cr1;
+	STM32446USART_CR2* cr2;
+	STM32446USART_CR3* cr3;
+	STM32446USART_GTPR* gtpr;
 	void (*dr)(uint32_t data);
 	uint32_t (*get_dr)(void);
 	/*** Other ***/
@@ -139,12 +139,12 @@ typedef struct
 {
 	USART_TypeDef* reg;
 	/*** Bit Mapping ***/
-	STM32446USART_SR sr;
-	STM32446USART_BRR brr;
-	STM32446USART_CR1 cr1;
-	STM32446USART_CR2 cr2;
-	STM32446USART_CR3 cr3;
-	STM32446USART_GTPR gtpr;
+	STM32446USART_SR* sr;
+	STM32446USART_BRR* brr;
+	STM32446USART_CR1* cr1;
+	STM32446USART_CR2* cr2;
+	STM32446USART_CR3* cr3;
+	STM32446USART_GTPR* gtpr;
 	void (*dr)(uint32_t data);
 	uint32_t (*get_dr)(void);
 	/*** Other ***/
@@ -157,12 +157,12 @@ typedef struct
 	USART_TypeDef* reg;
 	#if defined(_STM32446USART_H_)
 		/*** Bit Mapping ***/
-		STM32446USART_SR sr;
-		STM32446USART_BRR brr;
-		STM32446USART_CR1 cr1;
-		STM32446USART_CR2 cr2;
-		STM32446USART_CR3 cr3;
-		STM32446USART_GTPR gtpr;
+		STM32446USART_SR* sr;
+		STM32446USART_BRR* brr;
+		STM32446USART_CR1* cr1;
+		STM32446USART_CR2* cr2;
+		STM32446USART_CR3* cr3;
+		STM32446USART_GTPR* gtpr;
 		void (*dr)(uint32_t data);
 		uint32_t (*get_dr)(void);
 		/*** Other ***/
@@ -176,12 +176,12 @@ typedef struct
 	USART_TypeDef* reg;
 	#if defined(_STM32446USART_H_)
 		/*** Bit Mapping ***/
-		STM32446USART_SR sr;
-		STM32446USART_BRR brr;
-		STM32446USART_CR1 cr1;
-		STM32446USART_CR2 cr2;
-		STM32446USART_CR3 cr3;
-		STM32446USART_GTPR gtpr;
+		STM32446USART_SR* sr;
+		STM32446USART_BRR* brr;
+		STM32446USART_CR1* cr1;
+		STM32446USART_CR2* cr2;
+		STM32446USART_CR3* cr3;
+		STM32446USART_GTPR* gtpr;
 		void (*dr)(uint32_t data);
 		uint32_t (*get_dr)(void);
 		/*** Other ***/
@@ -190,22 +190,22 @@ typedef struct
 	#endif
 }STM32446_USART6;
 
-STM32446_USART1 USART1enable(void);
+STM32446_USART1 usart1_inic(void);
 STM32446_USART1*  usart1(void);
 
-STM32446_USART2 USART2enable(void);
+STM32446_USART2 usart2_inic(void);
 STM32446_USART2*  usart2(void);
 
-STM32446_USART3 USART3enable(void);
+STM32446_USART3 usart3_inic(void);
 STM32446_USART3*  usart3(void);
 
-STM32446_UART4 UART4enable(void);
+STM32446_UART4 uart4_inic(void);
 STM32446_UART4*  uart4(void);
 
-STM32446_UART5 UART5enable(void);
+STM32446_UART5 uart5_inic(void);
 STM32446_UART5*  uart5(void);
 
-STM32446_USART6 USART6enable(void);
+STM32446_USART6 usart6_inic(void);
 STM32446_USART6*  usart6(void);
 
 /*** USART1 Bit Mapping Header ***/

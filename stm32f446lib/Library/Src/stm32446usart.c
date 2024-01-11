@@ -20,18 +20,42 @@ static STM32446USART_CR2 stm32446_usart1_cr2;
 static STM32446USART_CR3 stm32446_usart1_cr3;
 static STM32446USART_GTPR stm32446_usart1_gtpr;
 static STM32446_USART1 stm32446_usart1;
+static STM32446USART_SR stm32446_usart2_sr;
+static STM32446USART_BRR stm32446_usart2_brr;
+static STM32446USART_CR1 stm32446_usart2_cr1;
+static STM32446USART_CR2 stm32446_usart2_cr2;
+static STM32446USART_CR3 stm32446_usart2_cr3;
+static STM32446USART_GTPR stm32446_usart2_gtpr;
 static STM32446_USART2 stm32446_usart2;
+static STM32446USART_SR stm32446_usart3_sr;
+static STM32446USART_BRR stm32446_usart3_brr;
+static STM32446USART_CR1 stm32446_usart3_cr1;
+static STM32446USART_CR2 stm32446_usart3_cr2;
+static STM32446USART_CR3 stm32446_usart3_cr3;
+static STM32446USART_GTPR stm32446_usart3_gtpr;
 static STM32446_USART3 stm32446_usart3;
+static STM32446USART_SR stm32446_uart4_sr;
+static STM32446USART_BRR stm32446_uart4_brr;
+static STM32446USART_CR1 stm32446_uart4_cr1;
+static STM32446USART_CR2 stm32446_uart4_cr2;
+static STM32446USART_CR3 stm32446_uart4_cr3;
+static STM32446USART_GTPR stm32446_uart4_gtpr;
 static STM32446_UART4 stm32446_uart4;
+static STM32446USART_SR stm32446_uart5_sr;
+static STM32446USART_BRR stm32446_uart5_brr;
+static STM32446USART_CR1 stm32446_uart5_cr1;
+static STM32446USART_CR2 stm32446_uart5_cr2;
+static STM32446USART_CR3 stm32446_uart5_cr3;
+static STM32446USART_GTPR stm32446_uart5_gtpr;
 static STM32446_UART5 stm32446_uart5;
+static STM32446USART_SR stm32446_usart6_sr;
+static STM32446USART_BRR stm32446_usart6_brr;
+static STM32446USART_CR1 stm32446_usart6_cr1;
+static STM32446USART_CR2 stm32446_usart6_cr2;
+static STM32446USART_CR3 stm32446_usart6_cr3;
+static STM32446USART_GTPR stm32446_usart6_gtpr;
 static STM32446_USART6 stm32446_usart6;
 /*** File Procedure & Function Header ***/
-STM32446_USART1 usart1_inic(void);
-STM32446_USART2 usart2_inic(void);
-STM32446_USART3 usart3_inic(void);
-STM32446_UART4 uart4_inic(void);
-STM32446_UART5 uart5_inic(void);
-STM32446_USART6 usart6_inic(void);
 /******/
 uint32_t usart_getclocksource(void);
 uint32_t usart_gethpre(void);
@@ -46,36 +70,36 @@ STM32446USART_CR1* stm32446_usart1_cr1_inic(void);
 STM32446USART_CR2* stm32446_usart1_cr2_inic(void);
 STM32446USART_CR3* stm32446_usart1_cr3_inic(void);
 STM32446USART_GTPR* stm32446_usart1_gtpr_inic(void);
-STM32446USART_SR stm32446_usart2_sr_inic(void);
-STM32446USART_BRR stm32446_usart2_brr_inic(void);
-STM32446USART_CR1 stm32446_usart2_cr1_inic(void);
-STM32446USART_CR2 stm32446_usart2_cr2_inic(void);
-STM32446USART_CR3 stm32446_usart2_cr3_inic(void);
-STM32446USART_GTPR stm32446_usart2_gtpr_inic(void);
-STM32446USART_SR stm32446_usart3_sr_inic(void);
-STM32446USART_BRR stm32446_usart3_brr_inic(void);
-STM32446USART_CR1 stm32446_usart3_cr1_inic(void);
-STM32446USART_CR2 stm32446_usart3_cr2_inic(void);
-STM32446USART_CR3 stm32446_usart3_cr3_inic(void);
-STM32446USART_GTPR stm32446_usart3_gtpr_inic(void);
-STM32446USART_SR stm32446_uart4_sr_inic(void);
-STM32446USART_BRR stm32446_uart4_brr_inic(void);
-STM32446USART_CR1 stm32446_uart4_cr1_inic(void);
-STM32446USART_CR2 stm32446_uart4_cr2_inic(void);
-STM32446USART_CR3 stm32446_uart4_cr3_inic(void);
-STM32446USART_GTPR stm32446_uart4_gtpr_inic(void);
-STM32446USART_SR stm32446_uart5_sr_inic(void);
-STM32446USART_BRR stm32446_uart5_brr_inic(void);
-STM32446USART_CR1 stm32446_uart5_cr1_inic(void);
-STM32446USART_CR2 stm32446_uart5_cr2_inic(void);
-STM32446USART_CR3 stm32446_uart5_cr3_inic(void);
-STM32446USART_GTPR stm32446_uart5_gtpr_inic(void);
-STM32446USART_SR stm32446_usart6_sr_inic(void);
-STM32446USART_BRR stm32446_usart6_brr_inic(void);
-STM32446USART_CR1 stm32446_usart6_cr1_inic(void);
-STM32446USART_CR2 stm32446_usart6_cr2_inic(void);
-STM32446USART_CR3 stm32446_usart6_cr3_inic(void);
-STM32446USART_GTPR stm32446_usart6_gtpr_inic(void);
+STM32446USART_SR* stm32446_usart2_sr_inic(void);
+STM32446USART_BRR* stm32446_usart2_brr_inic(void);
+STM32446USART_CR1* stm32446_usart2_cr1_inic(void);
+STM32446USART_CR2* stm32446_usart2_cr2_inic(void);
+STM32446USART_CR3* stm32446_usart2_cr3_inic(void);
+STM32446USART_GTPR* stm32446_usart2_gtpr_inic(void);
+STM32446USART_SR* stm32446_usart3_sr_inic(void);
+STM32446USART_BRR* stm32446_usart3_brr_inic(void);
+STM32446USART_CR1* stm32446_usart3_cr1_inic(void);
+STM32446USART_CR2* stm32446_usart3_cr2_inic(void);
+STM32446USART_CR3* stm32446_usart3_cr3_inic(void);
+STM32446USART_GTPR* stm32446_usart3_gtpr_inic(void);
+STM32446USART_SR* stm32446_uart4_sr_inic(void);
+STM32446USART_BRR* stm32446_uart4_brr_inic(void);
+STM32446USART_CR1* stm32446_uart4_cr1_inic(void);
+STM32446USART_CR2* stm32446_uart4_cr2_inic(void);
+STM32446USART_CR3* stm32446_uart4_cr3_inic(void);
+STM32446USART_GTPR* stm32446_uart4_gtpr_inic(void);
+STM32446USART_SR* stm32446_uart5_sr_inic(void);
+STM32446USART_BRR* stm32446_uart5_brr_inic(void);
+STM32446USART_CR1* stm32446_uart5_cr1_inic(void);
+STM32446USART_CR2* stm32446_uart5_cr2_inic(void);
+STM32446USART_CR3* stm32446_uart5_cr3_inic(void);
+STM32446USART_GTPR* stm32446_uart5_gtpr_inic(void);
+STM32446USART_SR* stm32446_usart6_sr_inic(void);
+STM32446USART_BRR* stm32446_usart6_brr_inic(void);
+STM32446USART_CR1* stm32446_usart6_cr1_inic(void);
+STM32446USART_CR2* stm32446_usart6_cr2_inic(void);
+STM32446USART_CR3* stm32446_usart6_cr3_inic(void);
+STM32446USART_GTPR* stm32446_usart6_gtpr_inic(void);
 /*** USART Procedure & Function Definition ***/
 /*** USART1 ***/
 void STM32446Usart1Clock( uint8_t bool )
@@ -1886,15 +1910,10 @@ STM32446_USART1 usart1_inic(void)
 
 STM32446_USART1*  usart1(void){ return (STM32446_USART1*) &stm32446_usart1; }
 
-STM32446_USART1 USART1enable(void)
-{
-	return usart1_inic();
-}
-
 /*** USART2 Auxiliar ***/
-STM32446USART_SR stm32446_usart2_sr_inic(void)
+STM32446USART_SR* stm32446_usart2_sr_inic(void)
 {
-	STM32446USART_SR stm32446_usart2_sr;
+
 	// SR
 	stm32446_usart2_sr.cts = STM32446Usart2_cts;
 	stm32446_usart2_sr.clear_cts = STM32446Usart2_clear_cts;
@@ -1910,19 +1929,19 @@ STM32446USART_SR stm32446_usart2_sr_inic(void)
 	stm32446_usart2_sr.nf = STM32446Usart2_nf;
 	stm32446_usart2_sr.fe = STM32446Usart2_fe;
 	stm32446_usart2_sr.pe = STM32446Usart2_pe;
-	return stm32446_usart2_sr;
+	return &stm32446_usart2_sr;
 }
-STM32446USART_BRR stm32446_usart2_brr_inic(void)
+STM32446USART_BRR* stm32446_usart2_brr_inic(void)
 {
-	STM32446USART_BRR stm32446_usart2_brr;
+
 	// BRR
 	stm32446_usart2_brr.div_mantissa = STM32446Usart2_div_mantissa;
 	stm32446_usart2_brr.div_fraction = STM32446Usart2_div_fraction;
-	return stm32446_usart2_brr;
+	return &stm32446_usart2_brr;
 }
-STM32446USART_CR1 stm32446_usart2_cr1_inic(void)
+STM32446USART_CR1* stm32446_usart2_cr1_inic(void)
 {
-	STM32446USART_CR1 stm32446_usart2_cr1;
+
 	// CR1
 	stm32446_usart2_cr1.over8 = STM32446Usart2_over8;
 	stm32446_usart2_cr1.ue = STM32446Usart2_ue;
@@ -1939,11 +1958,11 @@ STM32446USART_CR1 stm32446_usart2_cr1_inic(void)
 	stm32446_usart2_cr1.re = STM32446Usart2_re;
 	stm32446_usart2_cr1.rwu = STM32446Usart2_rwu;
 	stm32446_usart2_cr1.sbk = STM32446Usart2_sbk;
-	return stm32446_usart2_cr1;
+	return &stm32446_usart2_cr1;
 }
-STM32446USART_CR2 stm32446_usart2_cr2_inic(void)
+STM32446USART_CR2* stm32446_usart2_cr2_inic(void)
 {
-	STM32446USART_CR2 stm32446_usart2_cr2;
+
 	// CR2
 	stm32446_usart2_cr2.linen = STM32446Usart2_linen;
 	stm32446_usart2_cr2.stop = STM32446Usart2_stop;
@@ -1954,11 +1973,11 @@ STM32446USART_CR2 stm32446_usart2_cr2_inic(void)
 	stm32446_usart2_cr2.lbdie = STM32446Usart2_lbdie;
 	stm32446_usart2_cr2.lbdl = STM32446Usart2_lbdl;
 	stm32446_usart2_cr2.add = STM32446Usart2_add;
-	return stm32446_usart2_cr2;
+	return &stm32446_usart2_cr2;
 }
-STM32446USART_CR3 stm32446_usart2_cr3_inic(void)
+STM32446USART_CR3* stm32446_usart2_cr3_inic(void)
 {
-	STM32446USART_CR3 stm32446_usart2_cr3;
+
 	// CR3
 	stm32446_usart2_cr3.onebit = STM32446Usart2_onebit;
 	stm32446_usart2_cr3.ctsie = STM32446Usart2_ctsie;
@@ -1972,20 +1991,20 @@ STM32446USART_CR3 stm32446_usart2_cr3_inic(void)
 	stm32446_usart2_cr3.irlp = STM32446Usart2_irlp;
 	stm32446_usart2_cr3.iren = STM32446Usart2_iren;
 	stm32446_usart2_cr3.eie = STM32446Usart2_eie;
-	return stm32446_usart2_cr3;
+	return &stm32446_usart2_cr3;
 }
-STM32446USART_GTPR stm32446_usart2_gtpr_inic(void)
+STM32446USART_GTPR* stm32446_usart2_gtpr_inic(void)
 {
-	STM32446USART_GTPR stm32446_usart2_gtpr;
+
 	// GTPR
 	stm32446_usart2_gtpr.gt = STM32446Usart2_gt;
 	stm32446_usart2_gtpr.psc = STM32446Usart2_psc;
-	return stm32446_usart2_gtpr;
+	return &stm32446_usart2_gtpr;
 }
 /*** USART2 INIC Procedure & Function Definition ***/
 STM32446_USART2 usart2_inic(void)
 {
-	STM32446_USART2 stm32446_usart2;
+
 	stm32446_usart2.reg = USART2;
 	/*** USART2 Bit Mapping Link ***/
 	stm32446_usart2.sr = stm32446_usart2_sr_inic();
@@ -2004,15 +2023,10 @@ STM32446_USART2 usart2_inic(void)
 
 STM32446_USART2*  usart2(void){ return (STM32446_USART2*) &stm32446_usart2; }
 
-STM32446_USART2 USART2enable(void)
-{
-	return usart2_inic();
-}
-
 /*** USART3 Auxiliar ***/
-STM32446USART_SR stm32446_usart3_sr_inic(void)
+STM32446USART_SR* stm32446_usart3_sr_inic(void)
 {
-	STM32446USART_SR stm32446_usart3_sr;
+
 	// SR
 	stm32446_usart3_sr.cts = STM32446Usart3_cts;
 	stm32446_usart3_sr.clear_cts = STM32446Usart3_clear_cts;
@@ -2028,19 +2042,19 @@ STM32446USART_SR stm32446_usart3_sr_inic(void)
 	stm32446_usart3_sr.nf = STM32446Usart3_nf;
 	stm32446_usart3_sr.fe = STM32446Usart3_fe;
 	stm32446_usart3_sr.pe = STM32446Usart3_pe;
-	return stm32446_usart3_sr;
+	return &stm32446_usart3_sr;
 }
-STM32446USART_BRR stm32446_usart3_brr_inic(void)
+STM32446USART_BRR* stm32446_usart3_brr_inic(void)
 {
-	STM32446USART_BRR stm32446_usart3_brr;
+
 	// BRR
 	stm32446_usart3_brr.div_mantissa = STM32446Usart3_div_mantissa;
 	stm32446_usart3_brr.div_fraction = STM32446Usart3_div_fraction;
-	return stm32446_usart3_brr;
+	return &stm32446_usart3_brr;
 }
-STM32446USART_CR1 stm32446_usart3_cr1_inic(void)
+STM32446USART_CR1* stm32446_usart3_cr1_inic(void)
 {
-	STM32446USART_CR1 stm32446_usart3_cr1;
+
 	// CR1
 	stm32446_usart3_cr1.over8 = STM32446Usart3_over8;
 	stm32446_usart3_cr1.ue = STM32446Usart3_ue;
@@ -2057,11 +2071,11 @@ STM32446USART_CR1 stm32446_usart3_cr1_inic(void)
 	stm32446_usart3_cr1.re = STM32446Usart3_re;
 	stm32446_usart3_cr1.rwu = STM32446Usart3_rwu;
 	stm32446_usart3_cr1.sbk = STM32446Usart3_sbk;
-	return stm32446_usart3_cr1;
+	return &stm32446_usart3_cr1;
 }
-STM32446USART_CR2 stm32446_usart3_cr2_inic(void)
+STM32446USART_CR2* stm32446_usart3_cr2_inic(void)
 {
-	STM32446USART_CR2 stm32446_usart3_cr2;
+
 	// CR2
 	stm32446_usart3_cr2.linen = STM32446Usart3_linen;
 	stm32446_usart3_cr2.stop = STM32446Usart3_stop;
@@ -2072,11 +2086,11 @@ STM32446USART_CR2 stm32446_usart3_cr2_inic(void)
 	stm32446_usart3_cr2.lbdie = STM32446Usart3_lbdie;
 	stm32446_usart3_cr2.lbdl = STM32446Usart3_lbdl;
 	stm32446_usart3_cr2.add = STM32446Usart3_add;
-	return stm32446_usart3_cr2;
+	return &stm32446_usart3_cr2;
 }
-STM32446USART_CR3 stm32446_usart3_cr3_inic(void)
+STM32446USART_CR3* stm32446_usart3_cr3_inic(void)
 {
-	STM32446USART_CR3 stm32446_usart3_cr3;
+
 	// CR3
 	stm32446_usart3_cr3.onebit = STM32446Usart3_onebit;
 	stm32446_usart3_cr3.ctsie = STM32446Usart3_ctsie;
@@ -2090,20 +2104,20 @@ STM32446USART_CR3 stm32446_usart3_cr3_inic(void)
 	stm32446_usart3_cr3.irlp = STM32446Usart3_irlp;
 	stm32446_usart3_cr3.iren = STM32446Usart3_iren;
 	stm32446_usart3_cr3.eie = STM32446Usart3_eie;
-	return stm32446_usart3_cr3;
+	return &stm32446_usart3_cr3;
 }
-STM32446USART_GTPR stm32446_usart3_gtpr_inic(void)
+STM32446USART_GTPR* stm32446_usart3_gtpr_inic(void)
 {
-	STM32446USART_GTPR stm32446_usart3_gtpr;
+
 	// GTPR
 	stm32446_usart3_gtpr.gt = STM32446Usart3_gt;
 	stm32446_usart3_gtpr.psc = STM32446Usart3_psc;
-	return stm32446_usart3_gtpr;
+	return &stm32446_usart3_gtpr;
 }
 /*** USART3 INIC Procedure & Function Definition ***/
 STM32446_USART3 usart3_inic(void)
 {
-	STM32446_USART3 stm32446_usart3;
+
 	stm32446_usart3.reg = USART3;
 	/*** USART3 Bit Mapping Link ***/
 	stm32446_usart3.sr = stm32446_usart3_sr_inic();
@@ -2122,15 +2136,10 @@ STM32446_USART3 usart3_inic(void)
 
 STM32446_USART3*  usart3(void){ return (STM32446_USART3*) &stm32446_usart3; }
 
-STM32446_USART3 USART3enable(void)
-{
-	return usart3_inic();
-}
-
 /*** UART4 Auxiliar ***/
-STM32446USART_SR stm32446_uart4_sr_inic(void)
+STM32446USART_SR* stm32446_uart4_sr_inic(void)
 {
-	STM32446USART_SR stm32446_uart4_sr;
+
 	// SR
 	stm32446_uart4_sr.cts = STM32446Uart4_cts;
 	stm32446_uart4_sr.clear_cts = STM32446Uart4_clear_cts;
@@ -2146,19 +2155,19 @@ STM32446USART_SR stm32446_uart4_sr_inic(void)
 	stm32446_uart4_sr.nf = STM32446Uart4_nf;
 	stm32446_uart4_sr.fe = STM32446Uart4_fe;
 	stm32446_uart4_sr.pe = STM32446Uart4_pe;
-	return stm32446_uart4_sr;
+	return &stm32446_uart4_sr;
 }
-STM32446USART_BRR stm32446_uart4_brr_inic(void)
+STM32446USART_BRR* stm32446_uart4_brr_inic(void)
 {
-	STM32446USART_BRR stm32446_uart4_brr;
+
 	// BRR
 	stm32446_uart4_brr.div_mantissa = STM32446Uart4_div_mantissa;
 	stm32446_uart4_brr.div_fraction = STM32446Uart4_div_fraction;
-	return stm32446_uart4_brr;
+	return &stm32446_uart4_brr;
 }
-STM32446USART_CR1 stm32446_uart4_cr1_inic(void)
+STM32446USART_CR1* stm32446_uart4_cr1_inic(void)
 {
-	STM32446USART_CR1 stm32446_uart4_cr1;
+
 	// CR1
 	stm32446_uart4_cr1.over8 = STM32446Uart4_over8;
 	stm32446_uart4_cr1.ue = STM32446Uart4_ue;
@@ -2175,11 +2184,11 @@ STM32446USART_CR1 stm32446_uart4_cr1_inic(void)
 	stm32446_uart4_cr1.re = STM32446Uart4_re;
 	stm32446_uart4_cr1.rwu = STM32446Uart4_rwu;
 	stm32446_uart4_cr1.sbk = STM32446Uart4_sbk;
-	return stm32446_uart4_cr1;
+	return &stm32446_uart4_cr1;
 }
-STM32446USART_CR2 stm32446_uart4_cr2_inic(void)
+STM32446USART_CR2* stm32446_uart4_cr2_inic(void)
 {
-	STM32446USART_CR2 stm32446_uart4_cr2;
+
 	// CR2
 	stm32446_uart4_cr2.linen = STM32446Uart4_linen;
 	stm32446_uart4_cr2.stop = STM32446Uart4_stop;
@@ -2190,11 +2199,11 @@ STM32446USART_CR2 stm32446_uart4_cr2_inic(void)
 	stm32446_uart4_cr2.lbdie = STM32446Uart4_lbdie;
 	stm32446_uart4_cr2.lbdl = STM32446Uart4_lbdl;
 	stm32446_uart4_cr2.add = STM32446Uart4_add;
-	return stm32446_uart4_cr2;
+	return &stm32446_uart4_cr2;
 }
-STM32446USART_CR3 stm32446_uart4_cr3_inic(void)
+STM32446USART_CR3* stm32446_uart4_cr3_inic(void)
 {
-	STM32446USART_CR3 stm32446_uart4_cr3;
+
 	// CR3
 	stm32446_uart4_cr3.onebit = STM32446Uart4_onebit;
 	stm32446_uart4_cr3.ctsie = STM32446Uart4_ctsie;
@@ -2208,20 +2217,20 @@ STM32446USART_CR3 stm32446_uart4_cr3_inic(void)
 	stm32446_uart4_cr3.irlp = STM32446Uart4_irlp;
 	stm32446_uart4_cr3.iren = STM32446Uart4_iren;
 	stm32446_uart4_cr3.eie = STM32446Uart4_eie;
-	return stm32446_uart4_cr3;
+	return &stm32446_uart4_cr3;
 }
-STM32446USART_GTPR stm32446_uart4_gtpr_inic(void)
+STM32446USART_GTPR* stm32446_uart4_gtpr_inic(void)
 {
-	STM32446USART_GTPR stm32446_uart4_gtpr;
+
 	// GTPR
 	stm32446_uart4_gtpr.gt = STM32446Uart4_gt;
 	stm32446_uart4_gtpr.psc = STM32446Uart4_psc;
-	return stm32446_uart4_gtpr;
+	return &stm32446_uart4_gtpr;
 }
 /*** UART4 INIC Procedure & Function Definition ***/
 STM32446_UART4 uart4_inic(void)
 {
-	STM32446_UART4 stm32446_uart4;
+
 	stm32446_uart4.reg = UART4;
 	/*** UART4 Bit Mapping Link ***/
 	stm32446_uart4.sr = stm32446_uart4_sr_inic();
@@ -2240,15 +2249,10 @@ STM32446_UART4 uart4_inic(void)
 
 STM32446_UART4*  uart4(void){ return (STM32446_UART4*) &stm32446_uart4; }
 
-STM32446_UART4 UART4enable(void)
-{
-	return uart4_inic();
-}
-
 /*** UART5 Auxiliar ***/
-STM32446USART_SR stm32446_uart5_sr_inic(void)
+STM32446USART_SR* stm32446_uart5_sr_inic(void)
 {
-	STM32446USART_SR stm32446_uart5_sr;
+
 	// SR
 	stm32446_uart5_sr.cts = STM32446Uart5_cts;
 	stm32446_uart5_sr.clear_cts = STM32446Uart5_clear_cts;
@@ -2264,19 +2268,19 @@ STM32446USART_SR stm32446_uart5_sr_inic(void)
 	stm32446_uart5_sr.nf = STM32446Uart5_nf;
 	stm32446_uart5_sr.fe = STM32446Uart5_fe;
 	stm32446_uart5_sr.pe = STM32446Uart5_pe;
-	return stm32446_uart5_sr;
+	return &stm32446_uart5_sr;
 }
-STM32446USART_BRR stm32446_uart5_brr_inic(void)
+STM32446USART_BRR* stm32446_uart5_brr_inic(void)
 {
-	STM32446USART_BRR stm32446_uart5_brr;
+
 	// BRR
 	stm32446_uart5_brr.div_mantissa = STM32446Uart5_div_mantissa;
 	stm32446_uart5_brr.div_fraction = STM32446Uart5_div_fraction;
-	return stm32446_uart5_brr;
+	return &stm32446_uart5_brr;
 }
-STM32446USART_CR1 stm32446_uart5_cr1_inic(void)
+STM32446USART_CR1* stm32446_uart5_cr1_inic(void)
 {
-	STM32446USART_CR1 stm32446_uart5_cr1;
+
 	// CR1
 	stm32446_uart5_cr1.over8 = STM32446Uart5_over8;
 	stm32446_uart5_cr1.ue = STM32446Uart5_ue;
@@ -2293,11 +2297,11 @@ STM32446USART_CR1 stm32446_uart5_cr1_inic(void)
 	stm32446_uart5_cr1.re = STM32446Uart5_re;
 	stm32446_uart5_cr1.rwu = STM32446Uart5_rwu;
 	stm32446_uart5_cr1.sbk = STM32446Uart5_sbk;
-	return stm32446_uart5_cr1;
+	return &stm32446_uart5_cr1;
 }
-STM32446USART_CR2 stm32446_uart5_cr2_inic(void)
+STM32446USART_CR2* stm32446_uart5_cr2_inic(void)
 {
-	STM32446USART_CR2 stm32446_uart5_cr2;
+
 	// CR2
 	stm32446_uart5_cr2.linen = STM32446Uart5_linen;
 	stm32446_uart5_cr2.stop = STM32446Uart5_stop;
@@ -2308,11 +2312,11 @@ STM32446USART_CR2 stm32446_uart5_cr2_inic(void)
 	stm32446_uart5_cr2.lbdie = STM32446Uart5_lbdie;
 	stm32446_uart5_cr2.lbdl = STM32446Uart5_lbdl;
 	stm32446_uart5_cr2.add = STM32446Uart5_add;
-	return stm32446_uart5_cr2;
+	return &stm32446_uart5_cr2;
 }
-STM32446USART_CR3 stm32446_uart5_cr3_inic(void)
+STM32446USART_CR3* stm32446_uart5_cr3_inic(void)
 {
-	STM32446USART_CR3 stm32446_uart5_cr3;
+
 	// CR3
 	stm32446_uart5_cr3.onebit = STM32446Uart5_onebit;
 	stm32446_uart5_cr3.ctsie = STM32446Uart5_ctsie;
@@ -2326,20 +2330,20 @@ STM32446USART_CR3 stm32446_uart5_cr3_inic(void)
 	stm32446_uart5_cr3.irlp = STM32446Uart5_irlp;
 	stm32446_uart5_cr3.iren = STM32446Uart5_iren;
 	stm32446_uart5_cr3.eie = STM32446Uart5_eie;
-	return stm32446_uart5_cr3;
+	return &stm32446_uart5_cr3;
 }
-STM32446USART_GTPR stm32446_uart5_gtpr_inic(void)
+STM32446USART_GTPR* stm32446_uart5_gtpr_inic(void)
 {
-	STM32446USART_GTPR stm32446_uart5_gtpr;
+
 	// GTPR
 	stm32446_uart5_gtpr.gt = STM32446Uart5_gt;
 	stm32446_uart5_gtpr.psc = STM32446Uart5_psc;
-	return stm32446_uart5_gtpr;
+	return &stm32446_uart5_gtpr;
 }
 /*** UART5 INIC Procedure & Function Definition ***/
 STM32446_UART5 uart5_inic(void)
 {
-	STM32446_UART5 stm32446_uart5;
+
 	stm32446_uart5.reg = UART5;
 	/*** UART5 Bit Mapping Link ***/
 	stm32446_uart5.sr = stm32446_uart5_sr_inic();
@@ -2358,15 +2362,10 @@ STM32446_UART5 uart5_inic(void)
 
 STM32446_UART5*  uart5(void){ return (STM32446_UART5*) &stm32446_uart5; }
 
-STM32446_UART5 UART5enable(void)
-{
-	return uart5_inic();
-}
-
 /*** USART6 Auxiliar ***/
-STM32446USART_SR stm32446_usart6_sr_inic(void)
+STM32446USART_SR* stm32446_usart6_sr_inic(void)
 {
-	STM32446USART_SR stm32446_usart6_sr;
+
 	// SR
 	stm32446_usart6_sr.cts = STM32446Usart6_cts;
 	stm32446_usart6_sr.clear_cts = STM32446Usart6_clear_cts;
@@ -2382,19 +2381,19 @@ STM32446USART_SR stm32446_usart6_sr_inic(void)
 	stm32446_usart6_sr.nf = STM32446Usart6_nf;
 	stm32446_usart6_sr.fe = STM32446Usart6_fe;
 	stm32446_usart6_sr.pe = STM32446Usart6_pe;
-	return stm32446_usart6_sr;
+	return &stm32446_usart6_sr;
 }
-STM32446USART_BRR stm32446_usart6_brr_inic(void)
+STM32446USART_BRR* stm32446_usart6_brr_inic(void)
 {
-	STM32446USART_BRR stm32446_usart6_brr;
+
 	// BRR
 	stm32446_usart6_brr.div_mantissa = STM32446Usart6_div_mantissa;
 	stm32446_usart6_brr.div_fraction = STM32446Usart6_div_fraction;
-	return stm32446_usart6_brr;
+	return &stm32446_usart6_brr;
 }
-STM32446USART_CR1 stm32446_usart6_cr1_inic(void)
+STM32446USART_CR1* stm32446_usart6_cr1_inic(void)
 {
-	STM32446USART_CR1 stm32446_usart6_cr1;
+
 	// CR1
 	stm32446_usart6_cr1.over8 = STM32446Usart6_over8;
 	stm32446_usart6_cr1.ue = STM32446Usart6_ue;
@@ -2411,11 +2410,11 @@ STM32446USART_CR1 stm32446_usart6_cr1_inic(void)
 	stm32446_usart6_cr1.re = STM32446Usart6_re;
 	stm32446_usart6_cr1.rwu = STM32446Usart6_rwu;
 	stm32446_usart6_cr1.sbk = STM32446Usart6_sbk;
-	return stm32446_usart6_cr1;
+	return &stm32446_usart6_cr1;
 }
-STM32446USART_CR2 stm32446_usart6_cr2_inic(void)
+STM32446USART_CR2* stm32446_usart6_cr2_inic(void)
 {
-	STM32446USART_CR2 stm32446_usart6_cr2;
+
 	// CR2
 	stm32446_usart6_cr2.linen = STM32446Usart6_linen;
 	stm32446_usart6_cr2.stop = STM32446Usart6_stop;
@@ -2426,11 +2425,11 @@ STM32446USART_CR2 stm32446_usart6_cr2_inic(void)
 	stm32446_usart6_cr2.lbdie = STM32446Usart6_lbdie;
 	stm32446_usart6_cr2.lbdl = STM32446Usart6_lbdl;
 	stm32446_usart6_cr2.add = STM32446Usart6_add;
-	return stm32446_usart6_cr2;
+	return &stm32446_usart6_cr2;
 }
-STM32446USART_CR3 stm32446_usart6_cr3_inic(void)
+STM32446USART_CR3* stm32446_usart6_cr3_inic(void)
 {
-	STM32446USART_CR3 stm32446_usart6_cr3;
+
 	// CR3
 	stm32446_usart6_cr3.onebit = STM32446Usart6_onebit;
 	stm32446_usart6_cr3.ctsie = STM32446Usart6_ctsie;
@@ -2444,20 +2443,20 @@ STM32446USART_CR3 stm32446_usart6_cr3_inic(void)
 	stm32446_usart6_cr3.irlp = STM32446Usart6_irlp;
 	stm32446_usart6_cr3.iren = STM32446Usart6_iren;
 	stm32446_usart6_cr3.eie = STM32446Usart6_eie;
-	return stm32446_usart6_cr3;
+	return &stm32446_usart6_cr3;
 }
-STM32446USART_GTPR stm32446_usart6_gtpr_inic(void)
+STM32446USART_GTPR* stm32446_usart6_gtpr_inic(void)
 {
-	STM32446USART_GTPR stm32446_usart6_gtpr;
+
 	// GTPR
 	stm32446_usart6_gtpr.gt = STM32446Usart6_gt;
 	stm32446_usart6_gtpr.psc = STM32446Usart6_psc;
-	return stm32446_usart6_gtpr;
+	return &stm32446_usart6_gtpr;
 }
 /*** USART6 INIC Procedure & Function Definition ***/
 STM32446_USART6 usart6_inic(void)
 {
-	STM32446_USART6 stm32446_usart6;
+
 	stm32446_usart6.reg = USART6;
 	/*** USART6 Bit Mapping Link ***/
 	stm32446_usart6.sr = stm32446_usart6_sr_inic();
@@ -2475,11 +2474,6 @@ STM32446_USART6 usart6_inic(void)
 }
 
 STM32446_USART6*  usart6(void){ return (STM32446_USART6*) &stm32446_usart6; }
-
-STM32446_USART6 USART6enable(void)
-{
-	return usart6_inic();
-}
 
 /*** EOF ***/
 

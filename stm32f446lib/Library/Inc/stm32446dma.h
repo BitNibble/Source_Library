@@ -70,29 +70,31 @@ typedef struct
 {
 	DMA_Stream_TypeDef* reg;
 	/*** Bit Mapping ***/
-	STM32446DMA_STREAM_cr cr;
+	STM32446DMA_STREAM_cr* cr;
 	void (*ndt)(uint16_t value);
 	void (*par)(volatile long unsigned int periferal_addr);
 	void (*m0a)(volatile long unsigned int mem0_addr);
 	void (*m1a)(volatile long unsigned int mem1_addr);
-	STM32446DMA_STREAM_fcr fcr;
+	STM32446DMA_STREAM_fcr* fcr;
 }STM32446DMAStream;
 // DMA
 typedef struct
 {
 	DMA_TypeDef* reg;
-	STM32446DMAStream stream[8];
+	STM32446DMAStream* stream[8];
 	/*** Bit Mapping ***/
-	STM32446DMA_sr sr;
+	STM32446DMA_sr* sr;
 	/*** Other ***/
 	void (*clock)(uint8_t bool);
-	STM32446DMA_func func;
+	STM32446DMA_func* func;
 }STM32446DMAobj, STM32446DMA1obj, STM32446DMA2obj;
 /*************************************/
 /*************************************/
-// INIC
 STM32446DMA1obj dma1_inic(void);
+STM32446DMA1obj* dma1(void);
+
 STM32446DMA2obj dma2_inic(void);
+STM32446DMA2obj* dma2(void);
 /***** DMA Procedure & Function Header ******/
 /*** DMA ***/
 void STM32446Dma1Clock(uint8_t bool);

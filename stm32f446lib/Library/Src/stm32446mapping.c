@@ -61,9 +61,11 @@ STM32446 STM32446enable(void){
 	#endif
 	#if defined(_STM32446DMA_H_)
 	// DMA1
-		stm32446.dma1 = dma1_inic();
+		dma1_inic();
+		stm32446.dma1 = dma1();
 	// DMA2
-		stm32446.dma2 = dma2_inic();
+		dma2_inic();
+		stm32446.dma2 = dma2();
 	#endif
 	// FLASH
 	#if defined(_STM32446FLASH_H_)
@@ -99,7 +101,7 @@ STM32446 STM32446enable(void){
 	#endif
 	// RTC
 	#if defined(_STM32446RTC_H_)
-		RTCenable();
+		rtc_inic();
 		stm32446.rtc = rtc();
 	#endif
 	// SRAM
@@ -131,17 +133,17 @@ STM32446 STM32446enable(void){
 	#endif
 	// USART
 	#if defined(_STM32446USART_H_)
-		USART1enable();
+		usart1_inic();
 		stm32446.usart1 = (STM32446_USART1*) usart1();
-		USART2enable();
+		usart2_inic();
 		stm32446.usart2 = (STM32446_USART2*) usart2();
-		USART3enable();
+		usart3_inic();
 		stm32446.usart3 = (STM32446_USART3*) usart3();
-		UART4enable();
+		uart4_inic();
 		stm32446.uart4 = (STM32446_UART4*) uart4();
-		UART5enable();
+		uart5_inic();
 		stm32446.uart5 = (STM32446_UART5*) uart5();
-		USART6enable();
+		usart6_inic();
 		stm32446.usart6 = (STM32446_USART6*) usart6();
 	#endif
 
