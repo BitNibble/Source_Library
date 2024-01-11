@@ -21,33 +21,34 @@ typedef struct
 {
 	ADC_TypeDef* reg;
 	STM32446ADCCOMMONobj* common;
-	STM32446ADC_SR sr;
-	STM32446ADC_CR1 cr1;
-	STM32446ADC_CR2 cr2;
-	STM32446ADC_SMPR1 smpr1;
-	STM32446ADC_SMPR2 smpr2;
+	STM32446ADC_SR* sr;
+	STM32446ADC_CR1* cr1;
+	STM32446ADC_CR2* cr2;
+	STM32446ADC_SMPR1* smpr1;
+	STM32446ADC_SMPR2* smpr2;
 	void (*jofr1)(uint16_t value);
 	void (*jofr2)(uint16_t value);
 	void (*jofr3)(uint16_t value);
 	void (*jofr4)(uint16_t value);
 	void (*htr)(uint16_t value);
 	void (*ltr)(uint16_t value);
-	STM32446ADC_SQR1 sqr1;
-	STM32446ADC_SQR2 sqr2;
-	STM32446ADC_SQR3 sqr3;
-	STM32446ADC_JSQR jsqr;
+	STM32446ADC_SQR1* sqr1;
+	STM32446ADC_SQR2* sqr2;
+	STM32446ADC_SQR3* sqr3;
+	STM32446ADC_JSQR* jsqr;
 	uint16_t (*jdr1)(void);
 	uint16_t (*jdr2)(void);
 	uint16_t (*jdr3)(void);
 	uint16_t (*jdr4)(void);
 	uint16_t (*dr)(void);
-	STM32446ADC3single single;
+	STM32446ADC3single* single;
 	void (*iclock)(uint8_t bool);
 	void (*clock)(uint8_t bool);
 	void (*nvic)(uint8_t bool);
 }STM32446ADC3obj;
 
 STM32446ADC3obj adc3_inic(void);
+STM32446ADC3obj* adc3(void);
 
 /*** ADC3 ***/
 void STM32446Adc3IClock(uint8_t bool);

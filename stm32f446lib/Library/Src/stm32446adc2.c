@@ -12,18 +12,32 @@ Comment:
 /*** File Library ***/
 #include "stm32446adc2.h"
 
+/*** File Variables ***/
+// ADC1
+static STM32446ADC_SR stm32446_adc2_sr;
+static STM32446ADC_CR1 stm32446_adc2_cr1;
+static STM32446ADC_CR2 stm32446_adc2_cr2;
+static STM32446ADC_SMPR1 stm32446_adc2_smpr1;
+static STM32446ADC_SMPR2 stm32446_adc2_smpr2;
+static STM32446ADC_SQR1 stm32446_adc2_sqr1;
+static STM32446ADC_SQR2 stm32446_adc2_sqr2;
+static STM32446ADC_SQR3 stm32446_adc2_sqr3;
+static STM32446ADC_JSQR stm32446_adc2_jsqr;
+static STM32446ADC2obj stm32446_adc2;
+static STM32446ADC2single stm32446_adc2_single;
+
 /*** File Procedure & Function Header ***/
-STM32446ADC_SR stm32446_adc2_sr_inic(void);
-STM32446ADC_CR1 stm32446_adc2_cr1_inic(void);
-STM32446ADC_CR2 stm32446_adc2_cr2_inic(void);
-STM32446ADC_SMPR1 stm32446_adc2_smpr1_inic(void);
-STM32446ADC_SMPR2 stm32446_adc2_smpr2_inic(void);
-STM32446ADC_SQR1 stm32446_adc2_sqr1_inic(void);
-STM32446ADC_SQR2 stm32446_adc2_sqr2_inic(void);
-STM32446ADC_SQR3 stm32446_adc2_sqr3_inic(void);
-STM32446ADC_JSQR stm32446_adc2_jsqr_inic(void);
-STM32446ADC2single stm32446_adc2_single_inic(void);
-/*** ADC Procedure & Function Definition ***/
+/*** Auxiliar ***/
+STM32446ADC_SR* stm32446_adc2_sr_inic(void);
+STM32446ADC_CR1* stm32446_adc2_cr1_inic(void);
+STM32446ADC_CR2* stm32446_adc2_cr2_inic(void);
+STM32446ADC_SMPR1* stm32446_adc2_smpr1_inic(void);
+STM32446ADC_SMPR2* stm32446_adc2_smpr2_inic(void);
+STM32446ADC_SQR1* stm32446_adc2_sqr1_inic(void);
+STM32446ADC_SQR2* stm32446_adc2_sqr2_inic(void);
+STM32446ADC_SQR3* stm32446_adc2_sqr3_inic(void);
+STM32446ADC_JSQR* stm32446_adc2_jsqr_inic(void);
+STM32446ADC2single* stm32446_adc2_single_inic(void);
 /*** ADC2 Bit Mapping ***/
 // SR
 uint8_t STM32446ADC2_sr_ovr(void)
@@ -400,9 +414,9 @@ uint16_t STM32446ADC2_dr(void)
 	return readreg(ADC2->DR, 16, 0);
 }
 /*** ADC2 Auxiliar ***/
-STM32446ADC_SR stm32446_adc2_sr_inic(void)
+STM32446ADC_SR* stm32446_adc2_sr_inic(void)
 {
-	STM32446ADC_SR stm32446_adc2_sr;
+
 	// SR
 	stm32446_adc2_sr.ovr = STM32446ADC2_sr_ovr;
 	stm32446_adc2_sr.clear_ovr = STM32446ADC2_sr_clear_ovr;
@@ -416,11 +430,11 @@ STM32446ADC_SR stm32446_adc2_sr_inic(void)
 	stm32446_adc2_sr.clear_eoc = STM32446ADC2_sr_clear_eoc;
 	stm32446_adc2_sr.awd =  STM32446ADC2_sr_awd;
 	stm32446_adc2_sr.clear_awd = STM32446ADC2_sr_clear_awd;
-	return stm32446_adc2_sr;
+	return &stm32446_adc2_sr;
 }
-STM32446ADC_CR1 stm32446_adc2_cr1_inic(void)
+STM32446ADC_CR1* stm32446_adc2_cr1_inic(void)
 {
-	STM32446ADC_CR1 stm32446_adc2_cr1;
+
 	// CR1
 	stm32446_adc2_cr1.ovrie = STM32446ADC2_cr1_ovrie;
 	stm32446_adc2_cr1.res = STM32446ADC2_cr1_res;
@@ -436,11 +450,11 @@ STM32446ADC_CR1 stm32446_adc2_cr1_inic(void)
 	stm32446_adc2_cr1.awdie = STM32446ADC2_cr1_awdie;
 	stm32446_adc2_cr1.eocie = STM32446ADC2_cr1_eocie;
 	stm32446_adc2_cr1.awdch = STM32446ADC2_cr1_awdch;
-	return stm32446_adc2_cr1;
+	return &stm32446_adc2_cr1;
 }
-STM32446ADC_CR2 stm32446_adc2_cr2_inic(void)
+STM32446ADC_CR2* stm32446_adc2_cr2_inic(void)
 {
-	STM32446ADC_CR2 stm32446_adc2_cr2;
+
 	// CR2
 	stm32446_adc2_cr2.swstart = STM32446ADC2_cr2_swstart;
 	stm32446_adc2_cr2.read_swstart = STM32446ADC2_cr2_read_swstart;
@@ -455,11 +469,11 @@ STM32446ADC_CR2 stm32446_adc2_cr2_inic(void)
 	stm32446_adc2_cr2.dma = STM32446ADC2_cr2_dma;
 	stm32446_adc2_cr2.cont = STM32446ADC2_cr2_cont;
 	stm32446_adc2_cr2.adon = STM32446ADC2_cr2_adon;
-	return stm32446_adc2_cr2;
+	return &stm32446_adc2_cr2;
 }
-STM32446ADC_SMPR1 stm32446_adc2_smpr1_inic(void)
+STM32446ADC_SMPR1* stm32446_adc2_smpr1_inic(void)
 {
-	STM32446ADC_SMPR1 stm32446_adc2_smpr1;
+
 	// SMPR1
 	stm32446_adc2_smpr1.smp18 = STM32446ADC2_smpr1_smp18;
 	stm32446_adc2_smpr1.smp17 = STM32446ADC2_smpr1_smp17;
@@ -470,11 +484,11 @@ STM32446ADC_SMPR1 stm32446_adc2_smpr1_inic(void)
 	stm32446_adc2_smpr1.smp12 = STM32446ADC2_smpr1_smp12;
 	stm32446_adc2_smpr1.smp11 = STM32446ADC2_smpr1_smp11;
 	stm32446_adc2_smpr1.smp10 = STM32446ADC2_smpr1_smp10;
-	return stm32446_adc2_smpr1;
+	return &stm32446_adc2_smpr1;
 }
-STM32446ADC_SMPR2 stm32446_adc2_smpr2_inic(void)
+STM32446ADC_SMPR2* stm32446_adc2_smpr2_inic(void)
 {
-	STM32446ADC_SMPR2 stm32446_adc2_smpr2;
+
 	// SMPR2
 	stm32446_adc2_smpr2.smp9 = STM32446ADC2_smpr2_smp9;
 	stm32446_adc2_smpr2.smp8 = STM32446ADC2_smpr2_smp8;
@@ -486,22 +500,22 @@ STM32446ADC_SMPR2 stm32446_adc2_smpr2_inic(void)
 	stm32446_adc2_smpr2.smp2 = STM32446ADC2_smpr2_smp2;
 	stm32446_adc2_smpr2.smp1 = STM32446ADC2_smpr2_smp1;
 	stm32446_adc2_smpr2.smp0 = STM32446ADC2_smpr2_smp0;
-	return stm32446_adc2_smpr2;
+	return &stm32446_adc2_smpr2;
 }
-STM32446ADC_SQR1 stm32446_adc2_sqr1_inic(void)
+STM32446ADC_SQR1* stm32446_adc2_sqr1_inic(void)
 {
-	STM32446ADC_SQR1 stm32446_adc2_sqr1;
+
 	// SQR1
 	stm32446_adc2_sqr1.l = STM32446ADC2_sqr1_l;
 	stm32446_adc2_sqr1.sq16 = STM32446ADC2_sqr1_sq16;
 	stm32446_adc2_sqr1.sq15 = STM32446ADC2_sqr1_sq15;
 	stm32446_adc2_sqr1.sq14 = STM32446ADC2_sqr1_sq14;
 	stm32446_adc2_sqr1.sq13 = STM32446ADC2_sqr1_sq13;
-	return stm32446_adc2_sqr1;
+	return &stm32446_adc2_sqr1;
 }
-STM32446ADC_SQR2 stm32446_adc2_sqr2_inic(void)
+STM32446ADC_SQR2* stm32446_adc2_sqr2_inic(void)
 {
-	STM32446ADC_SQR2 stm32446_adc2_sqr2;
+
 	// SQR2
 	stm32446_adc2_sqr2.sq12 = STM32446ADC2_sqr2_sq12;
 	stm32446_adc2_sqr2.sq11 = STM32446ADC2_sqr2_sq11;
@@ -509,11 +523,11 @@ STM32446ADC_SQR2 stm32446_adc2_sqr2_inic(void)
 	stm32446_adc2_sqr2.sq9 = STM32446ADC2_sqr2_sq9;
 	stm32446_adc2_sqr2.sq8 = STM32446ADC2_sqr2_sq8;
 	stm32446_adc2_sqr2.sq7 = STM32446ADC2_sqr2_sq7;
-	return stm32446_adc2_sqr2;
+	return &stm32446_adc2_sqr2;
 }
-STM32446ADC_SQR3 stm32446_adc2_sqr3_inic(void)
+STM32446ADC_SQR3* stm32446_adc2_sqr3_inic(void)
 {
-	STM32446ADC_SQR3 stm32446_adc2_sqr3;
+
 	// SQ3
 	stm32446_adc2_sqr3.sq6 = STM32446ADC2_sqr3_sq6;
 	stm32446_adc2_sqr3.sq5 = STM32446ADC2_sqr3_sq5;
@@ -521,18 +535,18 @@ STM32446ADC_SQR3 stm32446_adc2_sqr3_inic(void)
 	stm32446_adc2_sqr3.sq3 = STM32446ADC2_sqr3_sq3;
 	stm32446_adc2_sqr3.sq2 = STM32446ADC2_sqr3_sq2;
 	stm32446_adc2_sqr3.sq1 = STM32446ADC2_sqr3_sq1;
-	return stm32446_adc2_sqr3;
+	return &stm32446_adc2_sqr3;
 }
-STM32446ADC_JSQR stm32446_adc2_jsqr_inic(void)
+STM32446ADC_JSQR* stm32446_adc2_jsqr_inic(void)
 {
-	STM32446ADC_JSQR stm32446_adc2_jsqr;
+
 	// JSQR
 	stm32446_adc2_jsqr.jl = STM32446ADC2_jsqr_jl;
 	stm32446_adc2_jsqr.jsq4 = STM32446ADC2_jsqr_jsq4;
 	stm32446_adc2_jsqr.jsq3 = STM32446ADC2_jsqr_jsq3;
 	stm32446_adc2_jsqr.jsq2 = STM32446ADC2_jsqr_jsq2;
 	stm32446_adc2_jsqr.jsq1 = STM32446ADC2_jsqr_jsq1;
-	return stm32446_adc2_jsqr;
+	return &stm32446_adc2_jsqr;
 }
 /*** ADC2 ***/
 void STM32446Adc2IClock(uint8_t bool)
@@ -568,18 +582,18 @@ void STM32446Adc2Start()
 	//
 	STM32446ADC2_cr2_swstart(1); // SWSTART: Start conversion of regular channels
 }
-STM32446ADC2single stm32446_adc2_single_inic(void)
+STM32446ADC2single* stm32446_adc2_single_inic(void)
 {
-	STM32446ADC2single stm32446_adc2_single;
+
 	stm32446_adc2_single.inic = STM32446Adc2Inic;
 	stm32446_adc2_single.start = STM32446Adc2Start;
-	return stm32446_adc2_single;
+	return &stm32446_adc2_single;
 }
 
 /*** ADC2 INIC Procedure & Function Definition ***/
 STM32446ADC2obj adc2_inic(void)
 {
-	STM32446ADC2obj stm32446_adc2;
+
 	stm32446_adc2.reg = ADC2;
 	/*** ADC2 Bit Mapping Link ***/
 	stm32446_adc2.sr = stm32446_adc2_sr_inic();
@@ -610,6 +624,8 @@ STM32446ADC2obj adc2_inic(void)
 	stm32446_adc2.nvic = STM32446Adc2Nvic;
 	return stm32446_adc2;
 }
+
+STM32446ADC2obj* adc2(void){ return (STM32446ADC2obj*) &stm32446_adc2; }
 
 /*** EOF ***/
 

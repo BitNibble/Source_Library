@@ -10,6 +10,10 @@ Comment:
 *******************************************************************************/
 /*** File Library ***/
 #include "stm32446crc.h"
+
+/***File Variable ***/
+static STM32446CRCobj stm32446_crc;
+
 /*** File Procedure & Function Header ***/
 /*** CRC Bit Mapping ***/
 void STM32446CRC_dr(uint32_t value)
@@ -39,7 +43,7 @@ void STM32446CRC_clock(uint8_t bool)
 /*** INIC Procedure & Function Definition ***/
 STM32446CRCobj crc_inic(void)
 {
-	STM32446CRCobj stm32446_crc;
+
 	stm32446_crc.reg = CRC;
 	/***CRC Bit Mapping Link***/
 	stm32446_crc.dr = STM32446CRC_dr;
@@ -49,6 +53,8 @@ STM32446CRCobj crc_inic(void)
 	stm32446_crc.reset = STM32446CRC_reset;
 	return stm32446_crc;
 }
+
+STM32446CRCobj* crc(void){ return (STM32446CRCobj*) &stm32446_crc; }
 
 /*** EOF ***/
 

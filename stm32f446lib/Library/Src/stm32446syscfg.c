@@ -10,20 +10,32 @@ Comment:
 *******************************************************************************/
 /*** File Library ***/
 #include "stm32446syscfg.h"
+
+/*** File Variables ***/
+static SYSCFG_memrmp memrmp;
+static SYSCFG_pmc pmc;
+static SYSCFG_exticr1 exticr1;
+static SYSCFG_exticr2 exticr2;
+static SYSCFG_exticr3 exticr3;
+static SYSCFG_exticr4 exticr4;
+static SYSCFG_cmpcr cmpcr;
+static SYSCFG_cfgr cfgr;
+static STM32446SYSCFGobj syscfg;
+
 /****************************************/
 /*** File Procedure & Function Header ***/
 /****************************************/
 /***********************************************/
 /****** LINK Procedure & Function Header *******/
 /***********************************************/
-SYSCFG_memrmp SYSCFG_memrmp_inic(void);
-SYSCFG_pmc SYSCFG_pmc_inic(void);
-SYSCFG_exticr1 SYSCFG_exticr1_inic(void);
-SYSCFG_exticr2 SYSCFG_exticr2_inic(void);
-SYSCFG_exticr3 SYSCFG_exticr3_inic(void);
-SYSCFG_exticr4 SYSCFG_exticr4_inic(void);
-SYSCFG_cmpcr SYSCFG_cmpcr_inic(void);
-SYSCFG_cfgr SYSCFG_cfgr_inic(void);
+SYSCFG_memrmp* SYSCFG_memrmp_inic(void);
+SYSCFG_pmc* SYSCFG_pmc_inic(void);
+SYSCFG_exticr1* SYSCFG_exticr1_inic(void);
+SYSCFG_exticr2* SYSCFG_exticr2_inic(void);
+SYSCFG_exticr3* SYSCFG_exticr3_inic(void);
+SYSCFG_exticr4* SYSCFG_exticr4_inic(void);
+SYSCFG_cmpcr* SYSCFG_cmpcr_inic(void);
+SYSCFG_cfgr* SYSCFG_cfgr_inic(void);
 /***********************************************/
 /******* Procedure & Function Definition *******/
 /***********************************************/
@@ -148,78 +160,78 @@ void SYSCFG_Clock(uint8_t bool)
 /***********************************************/
 /**** LINK Procedure & Function Definition *****/
 /***********************************************/
-SYSCFG_memrmp SYSCFG_memrmp_inic(void)
+SYSCFG_memrmp* SYSCFG_memrmp_inic(void)
 {
-	SYSCFG_memrmp memrmp;
+
 	memrmp.swp_fmc = SYSCFG_memrmp_swp_fmc;
 	memrmp.mem_mode = SYSCFG_memrmp_mem_mode;
-	return memrmp;
+	return &memrmp;
 }
-SYSCFG_pmc SYSCFG_pmc_inic(void)
+SYSCFG_pmc* SYSCFG_pmc_inic(void)
 {
-	SYSCFG_pmc pmc;
+
 	pmc.adcxdc2 = SYSCFG_pmc_adcxdc2;
 	pmc.adc1dc2 = SYSCFG_pmc_adc1dc2;
 	pmc.adc2dc2 = SYSCFG_pmc_adc2dc2;
 	pmc.adc3dc2 = SYSCFG_pmc_adc3dc2;
-	return pmc;
+	return &pmc;
 }
-SYSCFG_exticr1 SYSCFG_exticr1_inic(void)
+SYSCFG_exticr1* SYSCFG_exticr1_inic(void)
 {
-	SYSCFG_exticr1 exticr;
-	exticr.exti3 = SYSCFG_exticr1_exti3;
-	exticr.exti2 = SYSCFG_exticr1_exti2;
-	exticr.exti1 = SYSCFG_exticr1_exti1;
-	exticr.exti0 = SYSCFG_exticr1_exti0;
-	return exticr;
+
+	exticr1.exti3 = SYSCFG_exticr1_exti3;
+	exticr1.exti2 = SYSCFG_exticr1_exti2;
+	exticr1.exti1 = SYSCFG_exticr1_exti1;
+	exticr1.exti0 = SYSCFG_exticr1_exti0;
+	return &exticr1;
 }
-SYSCFG_exticr2 SYSCFG_exticr2_inic(void)
+SYSCFG_exticr2* SYSCFG_exticr2_inic(void)
 {
-	SYSCFG_exticr2 exticr;
-	exticr.exti7 = SYSCFG_exticr2_exti7;
-	exticr.exti7 = SYSCFG_exticr2_exti6;
-	exticr.exti5 = SYSCFG_exticr2_exti5;
-	exticr.exti4 = SYSCFG_exticr2_exti4;
-	return exticr;
+
+	exticr2.exti7 = SYSCFG_exticr2_exti7;
+	exticr2.exti7 = SYSCFG_exticr2_exti6;
+	exticr2.exti5 = SYSCFG_exticr2_exti5;
+	exticr2.exti4 = SYSCFG_exticr2_exti4;
+	return &exticr2;
 }
-SYSCFG_exticr3 SYSCFG_exticr3_inic(void)
+SYSCFG_exticr3* SYSCFG_exticr3_inic(void)
 {
-	SYSCFG_exticr3 exticr;
-	exticr.exti11 = SYSCFG_exticr3_exti11;
-	exticr.exti10 = SYSCFG_exticr3_exti10;
-	exticr.exti9 = SYSCFG_exticr3_exti9;
-	exticr.exti8 = SYSCFG_exticr3_exti8;
-	return exticr;
+
+	exticr3.exti11 = SYSCFG_exticr3_exti11;
+	exticr3.exti10 = SYSCFG_exticr3_exti10;
+	exticr3.exti9 = SYSCFG_exticr3_exti9;
+	exticr3.exti8 = SYSCFG_exticr3_exti8;
+	return &exticr3;
 }
-SYSCFG_exticr4 SYSCFG_exticr4_inic(void)
+SYSCFG_exticr4* SYSCFG_exticr4_inic(void)
 {
-	SYSCFG_exticr4 exticr;
-	exticr.exti15 = SYSCFG_exticr4_exti15;
-	exticr.exti14 = SYSCFG_exticr4_exti14;
-	exticr.exti13 = SYSCFG_exticr4_exti13;
-	exticr.exti12 = SYSCFG_exticr4_exti12;
-	return exticr;
+
+	exticr4.exti15 = SYSCFG_exticr4_exti15;
+	exticr4.exti14 = SYSCFG_exticr4_exti14;
+	exticr4.exti13 = SYSCFG_exticr4_exti13;
+	exticr4.exti12 = SYSCFG_exticr4_exti12;
+	return &exticr4;
 }
-SYSCFG_cmpcr SYSCFG_cmpcr_inic(void)
+SYSCFG_cmpcr* SYSCFG_cmpcr_inic(void)
 {
-	SYSCFG_cmpcr cmpcr;
+
 	cmpcr.ready = SYSCFG_cmpcr_ready;
 	cmpcr.cmp_pd = SYSCFG_cmpcr_cmp_pd;
-	return cmpcr;
+	return &cmpcr;
 }
-SYSCFG_cfgr SYSCFG_cfgr_inic(void)
+SYSCFG_cfgr* SYSCFG_cfgr_inic(void)
 {
-	SYSCFG_cfgr cfgr;
+
 	cfgr.fmpi2c1_sda = SYSCFG_cfgr_fmpi2c1_sda;
 	cfgr.fmpi2c1_scl = SYSCFG_cfgr_fmpi2c1_scl;
-	return cfgr;
+	return &cfgr;
 }
 /************************************************/
 /**** SYSCFG Procedure & Function Definition ****/
 /************************************************/
 STM32446SYSCFGobj STM32446SYSCFG_inic(void)
 {
-	STM32446SYSCFGobj syscfg;
+
 	syscfg.reg = SYSCFG;
 	/*** LINK ***/
 	syscfg.memrmp = SYSCFG_memrmp_inic();
@@ -234,7 +246,8 @@ STM32446SYSCFGobj STM32446SYSCFG_inic(void)
 	syscfg.clock = SYSCFG_Clock;
 	return syscfg;
 }
-/************************************************/
+
+STM32446SYSCFGobj* STM32446SYSCFG(void){ return (STM32446SYSCFGobj*) &syscfg; }
 
 /*** EOF ***/
 

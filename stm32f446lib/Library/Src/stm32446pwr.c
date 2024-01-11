@@ -10,9 +10,15 @@ Comment:
 *******************************************************************************/
 /*** File Library ***/
 #include "stm32446pwr.h"
+
+/*** File Variable ***/
+static STM32446PWR_cr stm32446_pwr_cr;
+static STM32446PWR_csr stm32446_pwr_csr;
+static STM32446PWRobj stm32446_pwr;
+
 /*** File Procedure & Function Header ***/
-STM32446PWR_cr stm32446_pwr_cr_inic(void);
-STM32446PWR_csr stm32446_pwr_csr_inic(void);
+STM32446PWR_cr* stm32446_pwr_cr_inic(void);
+STM32446PWR_csr* stm32446_pwr_csr_inic(void);
 /*** PWR Bit Mapping ***/
 // CR
 void STM32446PWR_cr_fissr(uint8_t bool)
@@ -143,9 +149,9 @@ void STM32446PWR_clock(uint8_t bool)
 	else{ RCC->APB1ENR &= ~(1 << 28); }
 }
 /*** Auxiliar ***/
-STM32446PWR_cr stm32446_pwr_cr_inic(void)
+STM32446PWR_cr* stm32446_pwr_cr_inic(void)
 {
-	STM32446PWR_cr stm32446_pwr_cr;
+
 	// CR
 	stm32446_pwr_cr.fissr = STM32446PWR_cr_fissr;
 	stm32446_pwr_cr.fmssr = STM32446PWR_cr_fmssr;
@@ -165,11 +171,11 @@ STM32446PWR_cr stm32446_pwr_cr_inic(void)
 	stm32446_pwr_cr.clear_cwuf = STM32446PWR_cr_clear_cwuf;
 	stm32446_pwr_cr.pdds =STM32446PWR_cr_pdds;
 	stm32446_pwr_cr.lpds = STM32446PWR_cr_lpds;
-	return stm32446_pwr_cr;
+	return &stm32446_pwr_cr;
 }
-STM32446PWR_csr stm32446_pwr_csr_inic(void)
+STM32446PWR_csr* stm32446_pwr_csr_inic(void)
 {
-	STM32446PWR_csr stm32446_pwr_csr;
+
 	// CSR
 	stm32446_pwr_csr.udrdy = STM32446PWR_udrdy;
 	stm32446_pwr_csr.clear_udrdy = STM32446PWR_csr_clear_udrdy;
@@ -183,12 +189,12 @@ STM32446PWR_csr stm32446_pwr_csr_inic(void)
 	stm32446_pwr_csr.pvdo = STM32446PWR_csr_pvdo;
 	stm32446_pwr_csr.sbf = STM32446PWR_csr_sbf;
 	stm32446_pwr_csr.wuf = STM32446PWR_csr_wuf;
-	return stm32446_pwr_csr;
+	return &stm32446_pwr_csr;
 }
 /*** INIC Procedure & Function Definition ***/
 STM32446PWRobj pwr_inic(void)
 {
-	STM32446PWRobj stm32446_pwr;
+
 	stm32446_pwr.reg = PWR;
 	stm32446_pwr.clock = STM32446PWR_clock;
 	/*** PWR Bit Mapping Link ***/
@@ -196,6 +202,8 @@ STM32446PWRobj pwr_inic(void)
 	stm32446_pwr.csr = stm32446_pwr_csr_inic();
 	return stm32446_pwr;
 }
+
+STM32446PWRobj* pwr(void){ return (STM32446PWRobj*) &stm32446_pwr; }
 
 /*** EOF ***/
 

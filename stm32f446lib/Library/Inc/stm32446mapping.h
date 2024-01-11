@@ -32,14 +32,14 @@ Comment:
 #endif
 /*** Module Library ***/
 // Comment out modules not being used
-//#include "stm32446flash.h"
-//#include "stm32446crc.h"
-//#include "stm32446pwr.h"
+#include "stm32446flash.h"
+#include "stm32446crc.h"
+#include "stm32446pwr.h"
 #include "stm32446rcc.h"
 #include "stm32446nvic.h"
-//#include "stm32446sram.h"
+#include "stm32446sram.h"
 #include "stm32446gpio.h"
-//#include "stm32446syscfg.h"
+#include "stm32446syscfg.h"
 #include "stm32446dma.h"
 #include "stm32446adc1.h"
 #include "stm32446adc2.h"
@@ -260,7 +260,7 @@ typedef struct
 	STM32446SCBobj scb;
 
 	#if defined(_STM32446NVIC_H_)
-		STM32446NVICobj nvic;
+		STM32446NVICobj* nvic;
 	#endif
 
 	// MCU
@@ -270,21 +270,15 @@ typedef struct
 	#endif
 
 	#if defined(_STM32446ADC2_H_)
-		STM32446ADC2obj adc2;
+		STM32446ADC2obj* adc2;
 	#endif
 
 	#if defined(_STM32446ADC3_H_)
-		STM32446ADC3obj adc3;
-	#endif
-
-	#if defined(_STM32446ADC123_H_)
-		STM32446ADC1obj* adc1;
-		STM32446ADC2obj adc2;
-		STM32446ADC3obj adc3;
+		STM32446ADC3obj* adc3;
 	#endif
 
 	#if defined(_STM32446CRC_H_)
-		STM32446CRCobj crc;
+		STM32446CRCobj* crc;
 	#endif
 
 	#if defined(_STM32446DMA_H_)
@@ -293,7 +287,7 @@ typedef struct
 	#endif
 
 	#if defined(_STM32446FLASH_H_)
-		STM32446FLASHobj flash;
+		STM32446FLASHobj* flash;
 	#endif
 
 	#if defined(_STM32446GPIO_H_)
@@ -306,11 +300,11 @@ typedef struct
 	#endif
 
 	#if defined(_STM32446SYSCFG_H_)
-		STM32446SYSCFGobj syscfg;
+		STM32446SYSCFGobj* syscfg;
 	#endif
 
 	#if defined(_STM32446PWR_H_)
-		STM32446PWRobj pwr;
+		STM32446PWRobj* pwr;
 	#endif
 
 	#if defined(_STM32446RCC_H_)
@@ -322,7 +316,7 @@ typedef struct
 	#endif
 
 	#if defined(_STM32446SRAM_H_)
-		STM32446SRAMobj sram;
+		STM32446SRAMobj* sram;
 	#endif
 
 	#if defined(_STM32446TIM1AND8_H_)

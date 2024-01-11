@@ -93,10 +93,10 @@ typedef struct
 {
 	FLASH_TypeDef* reg;
 	/*** Bit Mapping ***/
-	STM32446FLASH_acr acr;
-	STM32446FLASH_sr sr;
-	STM32446FLASH_cr cr;
-	STM32446FLASH_optcr optcr;
+	STM32446FLASH_acr* acr;
+	STM32446FLASH_sr* sr;
+	STM32446FLASH_cr* cr;
+	STM32446FLASH_optcr* optcr;
 	void (*keyr)(uint32_t);
 	void (*optkeyr)(uint32_t);
 	/*** Other ***/
@@ -104,6 +104,7 @@ typedef struct
 }STM32446FLASHobj;
 
 STM32446FLASHobj flash_inic(void);
+STM32446FLASHobj* flash(void);
 
 /*** Procedure & Function Header ***/
 void STM32446FLASH_nvic(uint8_t bool);

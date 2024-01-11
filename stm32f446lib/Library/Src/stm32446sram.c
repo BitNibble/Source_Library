@@ -11,9 +11,11 @@ Comment:
 /*** File Library ***/
 #include "stm32446sram.h"
 
+/*** File Variable ***/
+static STM32446SRAMobj stm32446_sram;
+
 static uint32_t sram_time_out;
 
-/*** File Procedure & Function Header ***/
 /*** SRAM Procedure & Function Definition ***/
 void STM32446SramAccess(void)
 {
@@ -40,10 +42,12 @@ void STM32446SramAccess(void)
 /*** INIC Procedure & Function Definition ***/
 STM32446SRAMobj sram_inic(void)
 {
-	STM32446SRAMobj stm32446_sram;
+
 	stm32446_sram.access = STM32446SramAccess;
 	return stm32446_sram;
 }
+
+STM32446SRAMobj* sram(void){ return (STM32446SRAMobj*) &stm32446_sram; }
 
 /*** EOF ***/
 

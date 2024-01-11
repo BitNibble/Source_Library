@@ -10,11 +10,19 @@ Comment:
 *******************************************************************************/
 /*** File Library ***/
 #include "stm32446flash.h"
+
+/*** File Variable ***/
+static STM32446FLASH_acr stm32446_flash_acr;
+static STM32446FLASH_sr stm32446_flash_sr;
+static STM32446FLASH_cr stm32446_flash_cr;
+static STM32446FLASH_optcr stm32446_flash_optcr;
+static STM32446FLASHobj stm32446_flash;
+
 /*** File Procedure & Function Header ***/
-STM32446FLASH_acr stm32446_flash_acr_inic(void);
-STM32446FLASH_sr stm32446_flash_sr_inic(void);
-STM32446FLASH_cr stm32446_flash_cr_inic(void);
-STM32446FLASH_optcr stm32446_flash_optcr_inic(void);
+STM32446FLASH_acr* stm32446_flash_acr_inic(void);
+STM32446FLASH_sr* stm32446_flash_sr_inic(void);
+STM32446FLASH_cr* stm32446_flash_cr_inic(void);
+STM32446FLASH_optcr* stm32446_flash_optcr_inic(void);
 /*** FLASH Bit Mapping ***/
 // ACR
 void STM32446FLASH_acr_dcrst(uint8_t bool)
@@ -200,9 +208,9 @@ void STM32446FLASH_nvic(uint8_t bool)
 	if(bool){ setbit(NVIC->ISER, 1, 4, 1); } else{ setbit(NVIC->ICER, 1, 4, 1); }
 }
 /*** FLASH Auxiliar ***/
-STM32446FLASH_acr stm32446_flash_acr_inic(void)
+STM32446FLASH_acr* stm32446_flash_acr_inic(void)
 {
-	STM32446FLASH_acr stm32446_flash_acr;
+
 	// ACR
 	stm32446_flash_acr.dcrst = STM32446FLASH_acr_dcrst;
 	stm32446_flash_acr.icrst = STM32446FLASH_acr_icrst;
@@ -210,11 +218,11 @@ STM32446FLASH_acr stm32446_flash_acr_inic(void)
 	stm32446_flash_acr.icen = STM32446FLASH_acr_icen;
 	stm32446_flash_acr.prften = STM32446FLASH_acr_prften;
 	stm32446_flash_acr.latency = STM32446FLASH_acr_latency;
-	return stm32446_flash_acr;
+	return &stm32446_flash_acr;
 }
-STM32446FLASH_sr stm32446_flash_sr_inic(void)
+STM32446FLASH_sr* stm32446_flash_sr_inic(void)
 {
-	STM32446FLASH_sr stm32446_flash_sr;
+
 	// SR
 	stm32446_flash_sr.bsy = STM32446FLASH_sr_bsy;
 	stm32446_flash_sr.rderr = STM32446FLASH_sr_rderr;
@@ -231,11 +239,11 @@ STM32446FLASH_sr stm32446_flash_sr_inic(void)
 	stm32446_flash_sr.clear_operr = STM32446FLASH_sr_clear_operr;
 	stm32446_flash_sr.eop = STM32446FLASH_sr_eop;
 	stm32446_flash_sr.clear_eop = STM32446FLASH_sr_clear_eop;
-	return stm32446_flash_sr;
+	return &stm32446_flash_sr;
 }
-STM32446FLASH_cr stm32446_flash_cr_inic(void)
+STM32446FLASH_cr* stm32446_flash_cr_inic(void)
 {
-	STM32446FLASH_cr stm32446_flash_cr;
+
 	// CR
 	stm32446_flash_cr.lock = STM32446FLASH_cr_lock;
 	stm32446_flash_cr.errie = STM32446FLASH_cr_errie;
@@ -246,11 +254,11 @@ STM32446FLASH_cr stm32446_flash_cr_inic(void)
 	stm32446_flash_cr.mer = STM32446FLASH_cr_mer;
 	stm32446_flash_cr.ser = STM32446FLASH_cr_ser;
 	stm32446_flash_cr.pg = STM32446FLASH_cr_pg;
-	return stm32446_flash_cr;
+	return &stm32446_flash_cr;
 }
-STM32446FLASH_optcr stm32446_flash_optcr_inic(void)
+STM32446FLASH_optcr* stm32446_flash_optcr_inic(void)
 {
-	STM32446FLASH_optcr stm32446_flash_optcr;
+
 	// OPTCR
 	stm32446_flash_optcr.sprmod = STM32446FLASH_optcr_sprmod;
 	stm32446_flash_optcr.n_wrp = STM32446FLASH_optcr_n_wrp;
@@ -263,12 +271,12 @@ STM32446FLASH_optcr stm32446_flash_optcr_inic(void)
 	stm32446_flash_optcr.bor_lev = STM32446FLASH_optcr_bor_lev;
 	stm32446_flash_optcr.optstrt = STM32446FLASH_optcr_optstrt;
 	stm32446_flash_optcr.optlock = STM32446FLASH_optcr_optlock;
-	return stm32446_flash_optcr;
+	return &stm32446_flash_optcr;
 }
 /*** INIC Procedure & Function Definition ***/
 STM32446FLASHobj flash_inic(void)
 {
-	STM32446FLASHobj stm32446_flash;
+
 
 	stm32446_flash.reg = FLASH;
 	/*** FLASH Bit Mapping Link ***/
@@ -281,6 +289,8 @@ STM32446FLASHobj flash_inic(void)
 
 	return stm32446_flash;
 }
+
+STM32446FLASHobj* flash(void){ return (STM32446FLASHobj*) &stm32446_flash; }
 
 /*** EOF ***/
 

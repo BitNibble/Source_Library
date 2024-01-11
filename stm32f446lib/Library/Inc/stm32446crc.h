@@ -27,6 +27,7 @@ typedef struct
 }STM32446CRCobj;
 
 STM32446CRCobj crc_inic(void);
+STM32446CRCobj* crc(void);
 
 /***** CRC Procedure & Function Header ******/
 

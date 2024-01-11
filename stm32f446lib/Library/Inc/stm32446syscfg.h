@@ -73,14 +73,14 @@ typedef struct
 {
 	SYSCFG_TypeDef* reg;
 	/*** Bit Mapping ***/
-	SYSCFG_memrmp memrmp;
-	SYSCFG_pmc pmc;
-	SYSCFG_exticr1 exticr1;
-	SYSCFG_exticr2 exticr2;
-	SYSCFG_exticr3 exticr3;
-	SYSCFG_exticr4 exticr4;
-	SYSCFG_cmpcr cmpcr;
-	SYSCFG_cfgr cfgr;
+	SYSCFG_memrmp* memrmp;
+	SYSCFG_pmc* pmc;
+	SYSCFG_exticr1* exticr1;
+	SYSCFG_exticr2* exticr2;
+	SYSCFG_exticr3* exticr3;
+	SYSCFG_exticr4* exticr4;
+	SYSCFG_cmpcr* cmpcr;
+	SYSCFG_cfgr* cfgr;
 	/*** Other ***/
 	void (*clock)(uint8_t bool);
 	void (*nvic)(uint8_t value);
@@ -89,6 +89,7 @@ typedef struct
 /************ INIC SYSCFG ************/
 /*************************************/
 STM32446SYSCFGobj STM32446SYSCFG_inic(void);
+STM32446SYSCFGobj* STM32446SYSCFG(void);
 /***********************************************/
 /********* Procedure & Function Header *********/
 /***********************************************/

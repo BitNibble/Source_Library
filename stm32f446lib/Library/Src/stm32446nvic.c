@@ -10,7 +10,10 @@ Comment:
 *******************************************************************************/
 /*** File Library ***/
 #include "stm32446nvic.h"
-/*** File Procedure & Function Header ***/
+
+/*** File Variable ***/
+static STM32446NVICobj stm32446_nvic;
+
 /*** NVIC Procedure & Function Definition ***/
 void STM32446NVIC_set_enable( uint8_t IRQn )
 {
@@ -49,7 +52,7 @@ void STM32446NVIC_trigger(uint32_t IRQn)
 /*** INIC Procedure & Function Definition ***/
 STM32446NVICobj nvic_inic(void)
 {
-	STM32446NVICobj stm32446_nvic;
+
 	stm32446_nvic.reg = NVIC;
 	/*** NVIC Bit Mapping Link ***/
 	stm32446_nvic.set_enable = STM32446NVIC_set_enable;
@@ -61,6 +64,8 @@ STM32446NVICobj nvic_inic(void)
 	stm32446_nvic.trigger = STM32446NVIC_trigger;
 	return stm32446_nvic;
 }
+
+STM32446NVICobj* nvic(void){ return (STM32446NVICobj*) &stm32446_nvic; }
 
 /*** EOF ***/
 

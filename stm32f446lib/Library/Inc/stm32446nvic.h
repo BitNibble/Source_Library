@@ -28,6 +28,7 @@ typedef struct
 }STM32446NVICobj;
 
 STM32446NVICobj nvic_inic(void);
+STM32446NVICobj* nvic(void);
 
 /*** NVIC Bit Mapping Header ***/
 // NVIC

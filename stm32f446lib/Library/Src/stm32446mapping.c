@@ -32,7 +32,8 @@ STM32446 STM32446enable(void){
 	stm32446.scb.reg = ((SCB_Type*) STM32446_SCB_BASE;
 	// NVIC
 	#if defined(_STM32446NVIC_H_)
-		stm32446.nvic = nvic_inic();
+		nvic_inic();
+		stm32446.nvic = nvic();
 	#endif
 	/************ MCU ************/
 	// ADC -> ADC1
@@ -42,22 +43,18 @@ STM32446 STM32446enable(void){
 	#endif
 	// ADC -> ADC2
 	#if defined(_STM32446ADC2_H_)
-		stm32446.adc2 = adc2_inic();
+		adc2_inic();
+		stm32446.adc2 = adc2();
 	#endif
 	// ADC -> ADC3
 	#if defined(_STM32446ADC3_H_)
-		stm32446.adc3 = adc3_inic();
-	#endif
-	// ADC -> ADC123
-	#if defined(_STM32446ADC123_H_)
-		adc1_inic();
-		stm32446.adc1 = adc1();
-		stm32446.adc2 = adc2_inic();
-		stm32446.adc3 = adc3_inic();
+		adc3_inic();
+		stm32446.adc3 = adc3();
 	#endif
 	// CRC
 	#if defined(_STM32446CRC_H_)
-		stm32446.crc = crc_inic();
+		crc_inic();
+		stm32446.crc = crc();
 	#endif
 	#if defined(_STM32446DMA_H_)
 	// DMA1
@@ -69,7 +66,8 @@ STM32446 STM32446enable(void){
 	#endif
 	// FLASH
 	#if defined(_STM32446FLASH_H_)
-		stm32446.flash = flash_inic();
+		flash_inic();
+		stm32446.flash = flash();
 	#endif
 	// GPIO
 	#if defined(_STM32446GPIO_H_)
@@ -88,11 +86,13 @@ STM32446 STM32446enable(void){
 	#endif
 	// SYSCFG
 	#if defined(_STM32446SYSCFG_H_)
-		stm32446.syscfg.reg = SYSCFG;
+		STM32446SYSCFG_inic();
+		stm32446.syscfg = STM32446SYSCFG();
 	#endif
 	// PWR
 	#if defined(_STM32446PWR_H_)
-		stm32446.pwr = pwr_inic();
+		pwr_inic();
+		stm32446.pwr = pwr();
 	#endif
 	// RCC
 	#if defined(_STM32446RCC_H_)
@@ -106,7 +106,8 @@ STM32446 STM32446enable(void){
 	#endif
 	// SRAM
 	#if defined(_STM32446SRAM_H_)
-		stm32446.sram = sram_inic();
+		sram_inic();
+		stm32446.sram = sram();
 	#endif
 	// TIM
 	#if defined(_STM32446TIM1AND8_H_)

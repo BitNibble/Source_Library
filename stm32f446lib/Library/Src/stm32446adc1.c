@@ -38,7 +38,6 @@ STM32446ADC_SQR2* stm32446_adc1_sqr2_inic(void);
 STM32446ADC_SQR3* stm32446_adc1_sqr3_inic(void);
 STM32446ADC_JSQR* stm32446_adc1_jsqr_inic(void);
 STM32446ADC1single* stm32446_adc1_single_inic(void);
-/*** ADC Procedure & Function Definition ***/
 /*** ADC1 Bit Mapping ***/
 // SR
 uint8_t STM32446ADC1_sr_ovr(void)
