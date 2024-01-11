@@ -42,7 +42,9 @@ Comment:
 #include "stm32446gpio.h"
 //#include "stm32446syscfg.h"
 #include "stm32446dma.h"
-#include "stm32446adc.h"
+#include "stm32446adc1.h"
+#include "stm32446adc2.h"
+#include "stm32446adc3.h"
 #include "stm32446rtc.h"
 #include "stm32446usart.h"
 //#include "stm32446tim1and8.h"
@@ -263,8 +265,21 @@ typedef struct
 	#endif
 
 	// MCU
-	#if defined(_STM32446ADC_H_)
-		STM32446ADC1obj adc1;
+	#if defined(_STM32446ADC1_H_)
+		STM32446ADC1obj* adc1;
+
+	#endif
+
+	#if defined(_STM32446ADC2_H_)
+		STM32446ADC2obj adc2;
+	#endif
+
+	#if defined(_STM32446ADC3_H_)
+		STM32446ADC3obj adc3;
+	#endif
+
+	#if defined(_STM32446ADC123_H_)
+		STM32446ADC1obj* adc1;
 		STM32446ADC2obj adc2;
 		STM32446ADC3obj adc3;
 	#endif

@@ -19,7 +19,7 @@ uint32_t getclocksource(void)
 {
 	uint32_t reg = RCC->CR;
 	uint32_t source;
-	if(reg & (1 << 1)){source = HSI_RC;}else if(reg & (1 << 17)){source = HSE_OSC;}
+	if(reg & (1 << 1)){source = HSI_RC;} else if(reg & (1 << 17)){source = HSE_OSC;}
 	return source;
 }
 uint32_t getpllsource(void)

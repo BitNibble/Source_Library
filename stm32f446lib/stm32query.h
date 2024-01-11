@@ -74,8 +74,8 @@ uint32_t getsysclk(void);
 
 STM32446CLOCK_prescaler* CLOCK_prescaler_inic(void);
 STM32446PLL_parameter* PLL_parameter_inic(void);
-STM32446Query query_inic(void);
 
+STM32446Query query_inic(void);
 STM32446Query* query(void);
 
 #endif

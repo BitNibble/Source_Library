@@ -36,8 +36,22 @@ STM32446 STM32446enable(void){
 	#endif
 	/************ MCU ************/
 	// ADC -> ADC1
-	#if defined(_STM32446ADC_H_)
-		stm32446.adc1 = adc1_inic();
+	#if defined(_STM32446ADC1_H_)
+		adc1_inic();
+		stm32446.adc1 = adc1();
+	#endif
+	// ADC -> ADC2
+	#if defined(_STM32446ADC2_H_)
+		stm32446.adc2 = adc2_inic();
+	#endif
+	// ADC -> ADC3
+	#if defined(_STM32446ADC3_H_)
+		stm32446.adc3 = adc3_inic();
+	#endif
+	// ADC -> ADC123
+	#if defined(_STM32446ADC123_H_)
+		adc1_inic();
+		stm32446.adc1 = adc1();
 		stm32446.adc2 = adc2_inic();
 		stm32446.adc3 = adc3_inic();
 	#endif
@@ -181,12 +195,5 @@ void STM32446VecSetup( volatile uint32_t vec[], const unsigned int size_block, u
 4º Casting
 ******/
 
-/*********
-1º Make struct
-2º Make SUB struct with vars
-3º Make Function pointers
-4º Make Function that returns SUB struct with initialised vars
-5º Make Functions that initialises SUB struct links
-6º Make Function that returns the struct with the above functions
-*********/
+
 
