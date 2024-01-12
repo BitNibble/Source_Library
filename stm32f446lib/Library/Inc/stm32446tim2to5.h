@@ -180,16 +180,16 @@ typedef struct
 {
 	TIM_TypeDef* reg;
 	/*** Bit Mapping ***/
-	STM32446TIM2_CR1 cr1;
-	STM32446TIM2_CR2 cr2;
-	STM32446TIM2_SMCR smcr;
-	STM32446TIM2_DIER dier;
-	STM32446TIM2_SR sr;
-	STM32446TIM2_EGR egr;
-	STM32446TIM2_CCMR1 ccmr1;
-	STM32446TIM2_CCMR2 ccmr2;
-	STM32446TIM2_CCER ccer;
-	STM32446TIM2_DCR dcr;
+	STM32446TIM2_CR1* cr1;
+	STM32446TIM2_CR2* cr2;
+	STM32446TIM2_SMCR* smcr;
+	STM32446TIM2_DIER* dier;
+	STM32446TIM2_SR* sr;
+	STM32446TIM2_EGR* egr;
+	STM32446TIM2_CCMR1* ccmr1;
+	STM32446TIM2_CCMR2* ccmr2;
+	STM32446TIM2_CCER* ccer;
+	STM32446TIM2_DCR* dcr;
 	void (*cnt)(uint32_t value);
 	uint32_t (*get_cnt)(void);
 	void (*psc)(uint16_t value);
@@ -209,16 +209,16 @@ typedef struct
 {
 	TIM_TypeDef* reg;
 	/*** Bit Mapping ***/
-	STM32446TIM3_CR1 cr1;
-	STM32446TIM3_CR2 cr2;
-	STM32446TIM3_SMCR smcr;
-	STM32446TIM3_DIER dier;
-	STM32446TIM3_SR sr;
-	STM32446TIM3_EGR egr;
-	STM32446TIM3_CCMR1 ccmr1;
-	STM32446TIM3_CCMR2 ccmr2;
-	STM32446TIM3_CCER ccer;
-	STM32446TIM3_DCR dcr;
+	STM32446TIM3_CR1* cr1;
+	STM32446TIM3_CR2* cr2;
+	STM32446TIM3_SMCR* smcr;
+	STM32446TIM3_DIER* dier;
+	STM32446TIM3_SR* sr;
+	STM32446TIM3_EGR* egr;
+	STM32446TIM3_CCMR1* ccmr1;
+	STM32446TIM3_CCMR2* ccmr2;
+	STM32446TIM3_CCER* ccer;
+	STM32446TIM3_DCR* dcr;
 	void (*cnt)(uint16_t value);
 	uint16_t (*get_cnt)(void);
 	void (*psc)(uint16_t value);
@@ -236,9 +236,13 @@ typedef struct
 /*** INIC TIM 2 to 5 ***/
 /***********************/
 STM32446TIM2obj tim2_inic(void);
+STM32446TIM2obj* tim2(void);
 STM32446TIM3obj tim3_inic(void);
-STM32446TIM3obj tim4_inic(void);
+STM32446TIM3obj* tim3(void);
+STM32446TIM4obj tim4_inic(void);
+STM32446TIM4obj* tim4(void);
 STM32446TIM5obj tim5_inic(void);
+STM32446TIM5obj* tim5(void);
 /****************************************/
 /*** TIM2 Procedure & Function Header ***/
 /****************************************/

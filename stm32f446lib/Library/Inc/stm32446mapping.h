@@ -46,9 +46,9 @@ Comment:
 #include "stm32446adc3.h"
 #include "stm32446rtc.h"
 #include "stm32446usart.h"
-//#include "stm32446tim1and8.h"
-//#include "stm32446tim2to5.h"
-//#include "stm32446tim6and7.h"
+#include "stm32446tim1and8.h"
+#include "stm32446tim2to5.h"
+#include "stm32446tim6and7.h"
 #include "stm32446tim9to14.h"
 /************ STM32F446RE ************/
 /******************* CORE TypeDef ********************/

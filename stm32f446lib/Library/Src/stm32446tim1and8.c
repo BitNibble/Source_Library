@@ -11,30 +11,56 @@ Comment:
 /*** File Library ***/
 #include "stm32446tim1and8.h"
 
+/*** File Variables ***/
+static STM32446TIM1_CR1 stm32446_tim1_cr1;
+static STM32446TIM1_CR2 stm32446_tim1_cr2;
+static STM32446TIM1_SMCR stm32446_tim1_smcr;
+static STM32446TIM1_DIER stm32446_tim1_dier;
+static STM32446TIM1_SR stm32446_tim1_sr;
+static STM32446TIM1_EGR stm32446_tim1_egr;
+static STM32446TIM1_CCMR1 stm32446_tim1_ccmr1;
+static STM32446TIM1_CCMR2 stm32446_tim1_ccmr2;
+static STM32446TIM1_CCER stm32446_tim1_ccer;
+static STM32446TIM1_BDTR stm32446_tim1_bdtr;
+static STM32446TIM1_DCR stm32446_tim1_dcr;
+static STM32446TIM1obj stm32446_tim1;
+static STM32446TIM8_CR1 stm32446_tim8_cr1;
+static STM32446TIM8_CR2 stm32446_tim8_cr2;
+static STM32446TIM8_SMCR stm32446_tim8_smcr;
+static STM32446TIM8_DIER stm32446_tim8_dier;
+static STM32446TIM8_SR stm32446_tim8_sr;
+static STM32446TIM8_EGR stm32446_tim8_egr;
+static STM32446TIM8_CCMR1 stm32446_tim8_ccmr1;
+static STM32446TIM8_CCMR2 stm32446_tim8_ccmr2;
+static STM32446TIM8_CCER stm32446_tim8_ccer;
+static STM32446TIM8_BDTR stm32446_tim8_bdtr;
+static STM32446TIM8_DCR stm32446_tim8_dcr;
+static STM32446TIM8obj stm32446_tim8;
+
 /*** File Procedure & Function Header ***/
 /*** TIM Auxiliar ***/
-STM32446TIM1_CR1 stm32446_tim1_cr1_inic(void);
-STM32446TIM1_CR2 stm32446_tim1_cr2_inic(void);
-STM32446TIM1_SMCR stm32446_tim1_smcr_inic(void);
-STM32446TIM1_DIER stm32446_tim1_dier_inic(void);
-STM32446TIM1_SR stm32446_tim1_sr_inic(void);
-STM32446TIM1_EGR stm32446_tim1_egr_inic(void);
-STM32446TIM1_CCMR1 stm32446_tim1_ccmr1_inic(void);
-STM32446TIM1_CCMR2 stm32446_tim1_ccmr2_inic(void);
-STM32446TIM1_CCER stm32446_tim1_ccer_inic(void);
-STM32446TIM1_BDTR stm32446_tim1_bdtr_inic(void);
-STM32446TIM1_DCR stm32446_tim1_dcr_inic(void);
-STM32446TIM8_CR1 stm32446_tim8_cr1_inic(void);
-STM32446TIM8_CR2 stm32446_tim8_cr2_inic(void);
-STM32446TIM8_SMCR stm32446_tim8_smcr_inic(void);
-STM32446TIM8_DIER stm32446_tim8_dier_inic(void);
-STM32446TIM8_SR stm32446_tim8_sr_inic(void);
-STM32446TIM8_EGR stm32446_tim8_egr_inic(void);
-STM32446TIM8_CCMR1 stm32446_tim8_ccmr1_inic(void);
-STM32446TIM8_CCMR2 stm32446_tim8_ccmr2_inic(void);
-STM32446TIM8_CCER stm32446_tim8_ccer_inic(void);
-STM32446TIM8_BDTR stm32446_tim8_bdtr_inic(void);
-STM32446TIM8_DCR stm32446_tim8_dcr_inic(void);
+STM32446TIM1_CR1* stm32446_tim1_cr1_inic(void);
+STM32446TIM1_CR2* stm32446_tim1_cr2_inic(void);
+STM32446TIM1_SMCR* stm32446_tim1_smcr_inic(void);
+STM32446TIM1_DIER* stm32446_tim1_dier_inic(void);
+STM32446TIM1_SR* stm32446_tim1_sr_inic(void);
+STM32446TIM1_EGR* stm32446_tim1_egr_inic(void);
+STM32446TIM1_CCMR1* stm32446_tim1_ccmr1_inic(void);
+STM32446TIM1_CCMR2* stm32446_tim1_ccmr2_inic(void);
+STM32446TIM1_CCER* stm32446_tim1_ccer_inic(void);
+STM32446TIM1_BDTR* stm32446_tim1_bdtr_inic(void);
+STM32446TIM1_DCR* stm32446_tim1_dcr_inic(void);
+STM32446TIM8_CR1* stm32446_tim8_cr1_inic(void);
+STM32446TIM8_CR2* stm32446_tim8_cr2_inic(void);
+STM32446TIM8_SMCR* stm32446_tim8_smcr_inic(void);
+STM32446TIM8_DIER* stm32446_tim8_dier_inic(void);
+STM32446TIM8_SR* stm32446_tim8_sr_inic(void);
+STM32446TIM8_EGR* stm32446_tim8_egr_inic(void);
+STM32446TIM8_CCMR1* stm32446_tim8_ccmr1_inic(void);
+STM32446TIM8_CCMR2* stm32446_tim8_ccmr2_inic(void);
+STM32446TIM8_CCER* stm32446_tim8_ccer_inic(void);
+STM32446TIM8_BDTR* stm32446_tim8_bdtr_inic(void);
+STM32446TIM8_DCR* stm32446_tim8_dcr_inic(void);
 /*** TIMER Procedure & Function Definition ***/
 /************/
 /*** TIM1 ***/
@@ -1282,9 +1308,9 @@ uint16_t STM32446Tim8_get_dmab(void)
 /*** INIC Procedure & Function Definition ***/
 /********************************************/
 /*** TIM1 Auxiliar ***/
-STM32446TIM1_CR1 stm32446_tim1_cr1_inic(void)
+STM32446TIM1_CR1* stm32446_tim1_cr1_inic(void)
 {
-	STM32446TIM1_CR1 stm32446_tim1_cr1;
+
 	// CR1
 	stm32446_tim1_cr1.ckd = STM32446Tim1_ckd;
 	stm32446_tim1_cr1.get_ckd = STM32446Tim1_get_ckd;
@@ -1295,11 +1321,11 @@ STM32446TIM1_CR1 stm32446_tim1_cr1_inic(void)
 	stm32446_tim1_cr1.urs = STM32446Tim1_set_urs;
 	stm32446_tim1_cr1.udis = STM32446Tim1_set_udis;
 	stm32446_tim1_cr1.cen = STM32446Tim1_cen;
-	return stm32446_tim1_cr1;
+	return &stm32446_tim1_cr1;
 }
-STM32446TIM1_CR2 stm32446_tim1_cr2_inic(void)
+STM32446TIM1_CR2* stm32446_tim1_cr2_inic(void)
 {
-	STM32446TIM1_CR2 stm32446_tim1_cr2;
+
 	// CR2
 	stm32446_tim1_cr2.ois4 = STM32446Tim1_ois4;
 	stm32446_tim1_cr2.ois3n = STM32446Tim1_ois3n;
@@ -1311,11 +1337,11 @@ STM32446TIM1_CR2 stm32446_tim1_cr2_inic(void)
 	stm32446_tim1_cr2.ccds = STM32446Tim1_ccds;
 	stm32446_tim1_cr2.ccus = STM32446Tim1_ccus;
 	stm32446_tim1_cr2.ccpc = STM32446Tim1_ccpc;
-	return stm32446_tim1_cr2;
+	return &stm32446_tim1_cr2;
 }
-STM32446TIM1_SMCR stm32446_tim1_smcr_inic(void)
+STM32446TIM1_SMCR* stm32446_tim1_smcr_inic(void)
 {
-	STM32446TIM1_SMCR stm32446_tim1_smcr;
+
 	// SMCR
 	stm32446_tim1_smcr.etp = STM32446Tim1_etp;
 	stm32446_tim1_smcr.ece = STM32446Tim1_ece;
@@ -1324,11 +1350,11 @@ STM32446TIM1_SMCR stm32446_tim1_smcr_inic(void)
 	stm32446_tim1_smcr.msm = STM32446Tim1_msm;
 	stm32446_tim1_smcr.ts = STM32446Tim1_ts;
 	stm32446_tim1_smcr.sms = STM32446Tim1_sms;
-	return stm32446_tim1_smcr;
+	return &stm32446_tim1_smcr;
 }
-STM32446TIM1_DIER stm32446_tim1_dier_inic(void)
+STM32446TIM1_DIER* stm32446_tim1_dier_inic(void)
 {
-	STM32446TIM1_DIER stm32446_tim1_dier;
+
 	// DIER
 	stm32446_tim1_dier.tde = STM32446Tim1_tde;
 	stm32446_tim1_dier.cc4de = STM32446Tim1_cc4de;
@@ -1344,11 +1370,11 @@ STM32446TIM1_DIER stm32446_tim1_dier_inic(void)
 	stm32446_tim1_dier.cc2ie = STM32446Tim1_cc2ie;
 	stm32446_tim1_dier.cc1ie = STM32446Tim1_cc1ie;
 	stm32446_tim1_dier.uie = STM32446Tim1_uie;
-	return stm32446_tim1_dier;
+	return &stm32446_tim1_dier;
 }
-STM32446TIM1_SR stm32446_tim1_sr_inic(void)
+STM32446TIM1_SR* stm32446_tim1_sr_inic(void)
 {
-	STM32446TIM1_SR stm32446_tim1_sr;
+
 	// SR
 	stm32446_tim1_sr.cc4of = STM32446Tim1_cc4of;
 	stm32446_tim1_sr.clear_cc4of = STM32446Tim1_clear_cc4of;
@@ -1374,11 +1400,11 @@ STM32446TIM1_SR stm32446_tim1_sr_inic(void)
 	stm32446_tim1_sr.clear_cc1if = STM32446Tim1_clear_cc1if;
 	stm32446_tim1_sr.uif = STM32446Tim1_uif;
 	stm32446_tim1_sr.clear_uif = STM32446Tim1_clear_uif;
-	return stm32446_tim1_sr;
+	return &stm32446_tim1_sr;
 }
-STM32446TIM1_EGR stm32446_tim1_egr_inic(void)
+STM32446TIM1_EGR* stm32446_tim1_egr_inic(void)
 {
-	STM32446TIM1_EGR stm32446_tim1_egr;
+
 	// EGR
 	stm32446_tim1_egr.tg = STM32446Tim1_tg;
 	stm32446_tim1_egr.cc4g = STM32446Tim1_cc4g;
@@ -1386,11 +1412,11 @@ STM32446TIM1_EGR stm32446_tim1_egr_inic(void)
 	stm32446_tim1_egr.cc2g = STM32446Tim1_cc2g;
 	stm32446_tim1_egr.cc1g = STM32446Tim1_cc1g;
 	stm32446_tim1_egr.ug = STM32446Tim1_ug;
-	return stm32446_tim1_egr;
+	return &stm32446_tim1_egr;
 }
-STM32446TIM1_CCMR1 stm32446_tim1_ccmr1_inic(void)
+STM32446TIM1_CCMR1* stm32446_tim1_ccmr1_inic(void)
 {
-	STM32446TIM1_CCMR1 stm32446_tim1_ccmr1;
+
 	// CCMR1
 	stm32446_tim1_ccmr1.oc2ce = STM32446Tim1_oc2ce;
 	stm32446_tim1_ccmr1.oc2m = STM32446Tim1_oc2m;
@@ -1406,11 +1432,11 @@ STM32446TIM1_CCMR1 stm32446_tim1_ccmr1_inic(void)
 	stm32446_tim1_ccmr1.oc1fe = STM32446Tim1_oc1fe;
 	stm32446_tim1_ccmr1.ic1psc = STM32446Tim1_ic1psc;
 	stm32446_tim1_ccmr1.cc1s = STM32446Tim1_cc1s;
-	return stm32446_tim1_ccmr1;
+	return &stm32446_tim1_ccmr1;
 }
-STM32446TIM1_CCMR2 stm32446_tim1_ccmr2_inic(void)
+STM32446TIM1_CCMR2* stm32446_tim1_ccmr2_inic(void)
 {
-	STM32446TIM1_CCMR2 stm32446_tim1_ccmr2;
+
 	// CCMR2
 	stm32446_tim1_ccmr2.oc4ce = STM32446Tim1_oc4ce;
 	stm32446_tim1_ccmr2.oc4m = STM32446Tim1_oc4m;
@@ -1426,11 +1452,11 @@ STM32446TIM1_CCMR2 stm32446_tim1_ccmr2_inic(void)
 	stm32446_tim1_ccmr2.oc3fe = STM32446Tim1_oc3fe;
 	stm32446_tim1_ccmr2.ic3psc = STM32446Tim1_ic3psc;
 	stm32446_tim1_ccmr2.cc3s = STM32446Tim1_cc3s;
-	return stm32446_tim1_ccmr2;
+	return &stm32446_tim1_ccmr2;
 }
-STM32446TIM1_CCER stm32446_tim1_ccer_inic(void)
+STM32446TIM1_CCER* stm32446_tim1_ccer_inic(void)
 {
-	STM32446TIM1_CCER stm32446_tim1_ccer;
+
 	// CCER
 	stm32446_tim1_ccer.cc4p = STM32446Tim1_cc4p;
 	stm32446_tim1_ccer.cc4e = STM32446Tim1_cc4e;
@@ -1446,11 +1472,11 @@ STM32446TIM1_CCER stm32446_tim1_ccer_inic(void)
 	stm32446_tim1_ccer.cc1ne = STM32446Tim1_cc1ne;
 	stm32446_tim1_ccer.cc1p = STM32446Tim1_cc1p;
 	stm32446_tim1_ccer.cc1e = STM32446Tim1_cc1e;
-	return stm32446_tim1_ccer;
+	return &stm32446_tim1_ccer;
 }
-STM32446TIM1_BDTR stm32446_tim1_bdtr_inic(void)
+STM32446TIM1_BDTR* stm32446_tim1_bdtr_inic(void)
 {
-	STM32446TIM1_BDTR stm32446_tim1_bdtr;
+
 	// CCER
 	stm32446_tim1_bdtr.moe = STM32446Tim1_moe;
 	stm32446_tim1_bdtr.aoe = STM32446Tim1_aoe;
@@ -1460,20 +1486,20 @@ STM32446TIM1_BDTR stm32446_tim1_bdtr_inic(void)
 	stm32446_tim1_bdtr.ossi = STM32446Tim1_ossi;
 	stm32446_tim1_bdtr.lock = STM32446Tim1_lock;
 	stm32446_tim1_bdtr.dtg = STM32446Tim1_dtg;
-	return stm32446_tim1_bdtr;
+	return &stm32446_tim1_bdtr;
 }
-STM32446TIM1_DCR stm32446_tim1_dcr_inic(void)
+STM32446TIM1_DCR* stm32446_tim1_dcr_inic(void)
 {
-	STM32446TIM1_DCR stm32446_tim1_dcr;
+
 	// CCER
 	stm32446_tim1_dcr.dbl = STM32446Tim1_dbl;
 	stm32446_tim1_dcr.dba = STM32446Tim1_dba;
-	return stm32446_tim1_dcr;
+	return &stm32446_tim1_dcr;
 }
 /*** TIM1 INIC Procedure & Function Definition ***/
 STM32446TIM1obj tim1_inic(void)
 {
-	STM32446TIM1obj stm32446_tim1;
+
 	stm32446_tim1.reg = TIM1;
 	// CLOCK
 	stm32446_tim1.clock = STM32446Tim1Clock;
@@ -1503,10 +1529,13 @@ STM32446TIM1obj tim1_inic(void)
 	stm32446_tim1.dmar = STM32446Tim1_dmab;
 	return stm32446_tim1;
 }
+
+STM32446TIM1obj* tim1(void){ return (STM32446TIM1obj*) &stm32446_tim1;}
+
 /*** TIM8 Auxiliar ***/
-STM32446TIM8_CR1 stm32446_tim8_cr1_inic(void)
+STM32446TIM8_CR1* stm32446_tim8_cr1_inic(void)
 {
-	STM32446TIM8_CR1 stm32446_tim8_cr1;
+
 	// CR1
 	stm32446_tim8_cr1.get_ckd = STM32446Tim8_get_ckd;
 	stm32446_tim8_cr1.apre = STM32446Tim8_set_apre;
@@ -1516,11 +1545,11 @@ STM32446TIM8_CR1 stm32446_tim8_cr1_inic(void)
 	stm32446_tim8_cr1.urs = STM32446Tim8_set_urs;
 	stm32446_tim8_cr1.udis = STM32446Tim8_set_udis;
 	stm32446_tim8_cr1.cen = STM32446Tim8_cen;
-	return stm32446_tim8_cr1;
+	return &stm32446_tim8_cr1;
 }
-STM32446TIM8_CR2 stm32446_tim8_cr2_inic(void)
+STM32446TIM8_CR2* stm32446_tim8_cr2_inic(void)
 {
-	STM32446TIM8_CR2 stm32446_tim8_cr2;
+
 	// CR2
 	stm32446_tim8_cr2.ois4 = STM32446Tim8_ois4;
 	stm32446_tim8_cr2.ois3n = STM32446Tim8_ois3n;
@@ -1532,11 +1561,11 @@ STM32446TIM8_CR2 stm32446_tim8_cr2_inic(void)
 	stm32446_tim8_cr2.ccds = STM32446Tim8_ccds;
 	stm32446_tim8_cr2.ccus = STM32446Tim8_ccus;
 	stm32446_tim8_cr2.ccpc = STM32446Tim8_ccpc;
-	return stm32446_tim8_cr2;
+	return &stm32446_tim8_cr2;
 }
-STM32446TIM8_SMCR stm32446_tim8_smcr_inic(void)
+STM32446TIM8_SMCR* stm32446_tim8_smcr_inic(void)
 {
-	STM32446TIM8_SMCR stm32446_tim8_smcr;
+
 	// SMCR
 	stm32446_tim8_smcr.etp = STM32446Tim8_etp;
 	stm32446_tim8_smcr.ece = STM32446Tim8_ece;
@@ -1545,11 +1574,11 @@ STM32446TIM8_SMCR stm32446_tim8_smcr_inic(void)
 	stm32446_tim8_smcr.msm = STM32446Tim8_msm;
 	stm32446_tim8_smcr.ts = STM32446Tim8_ts;
 	stm32446_tim8_smcr.sms = STM32446Tim8_sms;
-	return stm32446_tim8_smcr;
+	return &stm32446_tim8_smcr;
 }
-STM32446TIM8_DIER stm32446_tim8_dier_inic(void)
+STM32446TIM8_DIER* stm32446_tim8_dier_inic(void)
 {
-	STM32446TIM8_DIER stm32446_tim8_dier;
+
 	// DIER
 	stm32446_tim8_dier.tde = STM32446Tim8_tde;
 	stm32446_tim8_dier.cc4de = STM32446Tim8_cc4de;
@@ -1565,11 +1594,11 @@ STM32446TIM8_DIER stm32446_tim8_dier_inic(void)
 	stm32446_tim8_dier.cc2ie = STM32446Tim8_cc2ie;
 	stm32446_tim8_dier.cc1ie = STM32446Tim8_cc1ie;
 	stm32446_tim8_dier.uie = STM32446Tim8_uie;
-	return stm32446_tim8_dier;
+	return &stm32446_tim8_dier;
 }
-STM32446TIM8_SR stm32446_tim8_sr_inic(void)
+STM32446TIM8_SR* stm32446_tim8_sr_inic(void)
 {
-	STM32446TIM8_SR stm32446_tim8_sr;
+
 	// SR
 	stm32446_tim8_sr.cc4of = STM32446Tim8_cc4of;
 	stm32446_tim8_sr.clear_cc4of = STM32446Tim8_clear_cc4of;
@@ -1595,11 +1624,11 @@ STM32446TIM8_SR stm32446_tim8_sr_inic(void)
 	stm32446_tim8_sr.clear_cc1if = STM32446Tim8_clear_cc1if;
 	stm32446_tim8_sr.uif = STM32446Tim8_uif;
 	stm32446_tim8_sr.clear_uif = STM32446Tim8_clear_uif;
-	return stm32446_tim8_sr;
+	return &stm32446_tim8_sr;
 }
-STM32446TIM8_EGR stm32446_tim8_egr_inic(void)
+STM32446TIM8_EGR* stm32446_tim8_egr_inic(void)
 {
-	STM32446TIM8_EGR stm32446_tim8_egr;
+
 	// EGR
 	stm32446_tim8_egr.bg = STM32446Tim8_bg;
 	stm32446_tim8_egr.tg = STM32446Tim8_tg;
@@ -1608,11 +1637,11 @@ STM32446TIM8_EGR stm32446_tim8_egr_inic(void)
 	stm32446_tim8_egr.cc2g = STM32446Tim8_cc2g;
 	stm32446_tim8_egr.cc1g = STM32446Tim8_cc1g;
 	stm32446_tim8_egr.ug = STM32446Tim8_ug;
-	return stm32446_tim8_egr;
+	return &stm32446_tim8_egr;
 }
-STM32446TIM8_CCMR1 stm32446_tim8_ccmr1_inic(void)
+STM32446TIM8_CCMR1* stm32446_tim8_ccmr1_inic(void)
 {
-	STM32446TIM8_CCMR1 stm32446_tim8_ccmr1;
+
 	// CCMR1
 	stm32446_tim8_ccmr1.oc2ce = STM32446Tim8_oc2ce;
 	stm32446_tim8_ccmr1.oc2m = STM32446Tim8_oc2m;
@@ -1628,11 +1657,11 @@ STM32446TIM8_CCMR1 stm32446_tim8_ccmr1_inic(void)
 	stm32446_tim8_ccmr1.oc1fe = STM32446Tim8_oc1fe;
 	stm32446_tim8_ccmr1.ic1psc = STM32446Tim8_ic1psc;
 	stm32446_tim8_ccmr1.cc1s = STM32446Tim8_cc1s;
-	return stm32446_tim8_ccmr1;
+	return &stm32446_tim8_ccmr1;
 }
-STM32446TIM8_CCMR2 stm32446_tim8_ccmr2_inic(void)
+STM32446TIM8_CCMR2* stm32446_tim8_ccmr2_inic(void)
 {
-	STM32446TIM8_CCMR2 stm32446_tim8_ccmr2;
+
 	// CCMR2
 	stm32446_tim8_ccmr2.oc4ce = STM32446Tim8_oc4ce;
 	stm32446_tim8_ccmr2.oc4m = STM32446Tim8_oc4m;
@@ -1648,11 +1677,11 @@ STM32446TIM8_CCMR2 stm32446_tim8_ccmr2_inic(void)
 	stm32446_tim8_ccmr2.oc3fe = STM32446Tim8_oc3fe;
 	stm32446_tim8_ccmr2.ic3psc = STM32446Tim8_ic3psc;
 	stm32446_tim8_ccmr2.cc3s = STM32446Tim8_cc3s;
-	return stm32446_tim8_ccmr2;
+	return &stm32446_tim8_ccmr2;
 }
-STM32446TIM8_CCER stm32446_tim8_ccer_inic(void)
+STM32446TIM8_CCER* stm32446_tim8_ccer_inic(void)
 {
-	STM32446TIM8_CCER stm32446_tim8_ccer;
+
 	// CCER
 	stm32446_tim8_ccer.cc4p = STM32446Tim8_cc4p;
 	stm32446_tim8_ccer.cc4e = STM32446Tim8_cc4e;
@@ -1668,11 +1697,11 @@ STM32446TIM8_CCER stm32446_tim8_ccer_inic(void)
 	stm32446_tim8_ccer.cc1ne = STM32446Tim8_cc1ne;
 	stm32446_tim8_ccer.cc1p = STM32446Tim8_cc1p;
 	stm32446_tim8_ccer.cc1e = STM32446Tim8_cc1e;
-	return stm32446_tim8_ccer;
+	return &stm32446_tim8_ccer;
 }
-STM32446TIM8_BDTR stm32446_tim8_bdtr_inic(void)
+STM32446TIM8_BDTR* stm32446_tim8_bdtr_inic(void)
 {
-	STM32446TIM8_BDTR stm32446_tim8_bdtr;
+
 	// CCER
 	stm32446_tim8_bdtr.moe = STM32446Tim8_moe;
 	stm32446_tim8_bdtr.aoe = STM32446Tim8_aoe;
@@ -1682,20 +1711,20 @@ STM32446TIM8_BDTR stm32446_tim8_bdtr_inic(void)
 	stm32446_tim8_bdtr.ossi = STM32446Tim8_ossi;
 	stm32446_tim8_bdtr.lock = STM32446Tim8_lock;
 	stm32446_tim8_bdtr.dtg = STM32446Tim8_dtg;
-	return stm32446_tim8_bdtr;
+	return &stm32446_tim8_bdtr;
 }
-STM32446TIM8_DCR stm32446_tim8_dcr_inic(void)
+STM32446TIM8_DCR* stm32446_tim8_dcr_inic(void)
 {
-	STM32446TIM8_DCR stm32446_tim8_dcr;
+
 	// CCER
 	stm32446_tim8_dcr.dbl = STM32446Tim8_dbl;
 	stm32446_tim8_dcr.dba = STM32446Tim8_dba;
-	return stm32446_tim8_dcr;
+	return &stm32446_tim8_dcr;
 }
 /*** TIM8 INIC Procedure & Function Definition ***/
 STM32446TIM8obj tim8_inic(void)
 {
-	STM32446TIM8obj stm32446_tim8;
+
 	stm32446_tim8.reg = TIM8;
 	// CLOCK
 	stm32446_tim8.clock = STM32446Tim8Clock;
@@ -1725,6 +1754,8 @@ STM32446TIM8obj tim8_inic(void)
 	stm32446_tim8.dmar = STM32446Tim8_dmab;
 	return stm32446_tim8;
 }
+
+STM32446TIM8obj* tim8(void){ return (STM32446TIM8obj*) &stm32446_tim8; }
 
 /*** EOF ***/
 

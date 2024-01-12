@@ -111,18 +111,26 @@ STM32446 STM32446enable(void){
 	#endif
 	// TIM
 	#if defined(_STM32446TIM1AND8_H_)
-		stm32446.tim1 = tim1_inic();
-		stm32446.tim8 = tim8_inic();
+		tim1_inic();
+		stm32446.tim1 = tim1();
+		tim8_inic();
+		stm32446.tim8 = tim8();
 	#endif
 	#if defined(_STM32446TIM2TO5_H_)
-		stm32446.tim2 = tim2_inic();
-		stm32446.tim3 = tim3_inic();
-		stm32446.tim4 = tim4_inic();
-		stm32446.tim5 = tim5_inic();
+		tim2_inic();
+		stm32446.tim2 = tim2();
+		tim3_inic();
+		stm32446.tim3 = tim3();
+		tim4_inic();
+		stm32446.tim4 = tim4();
+		tim5_inic();
+		stm32446.tim5 = tim5();
 	#endif
 	#if defined(_STM32446TIM6AND7_H_)
-		stm32446.tim6 = tim6_inic();
-		stm32446.tim7 = tim7_inic();
+		tim6_inic();
+		stm32446.tim6 = tim6();
+		tim7_inic();
+		stm32446.tim7 = tim7();
 	#endif
 	#if defined(_STM32446TIM9TO14_H_)
 		tim9_inic();

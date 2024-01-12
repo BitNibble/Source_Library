@@ -45,11 +45,11 @@ typedef struct
 {
 	TIM_TypeDef* reg;
 	/*** Bit Mapping ***/
-	STM32446TIM6_CR1 cr1;
-	STM32446TIM6_CR2 cr2;
-	STM32446TIM6_DIER dier;
-	STM32446TIM6_SR sr;
-	STM32446TIM6_EGR egr;
+	STM32446TIM6_CR1* cr1;
+	STM32446TIM6_CR2* cr2;
+	STM32446TIM6_DIER* dier;
+	STM32446TIM6_SR* sr;
+	STM32446TIM6_EGR* egr;
 	void (*cnt)(uint16_t value);
 	uint16_t (*get_cnt)(void);
 	void (*psc)(uint16_t value);
@@ -62,7 +62,9 @@ typedef struct
 /*** INIC TIM 6 AND 7 ***/
 /***********************/
 STM32446TIM6obj tim6_inic(void);
+STM32446TIM6obj* tim6(void);
 STM32446TIM7obj tim7_inic(void);
+STM32446TIM7obj* tim7(void);
 /****************************************/
 /*** TIM6 Procedure & Function Header ***/
 /****************************************/

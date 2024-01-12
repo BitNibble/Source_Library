@@ -168,15 +168,15 @@ typedef struct
 {
 	TIM_TypeDef* reg;
 	/*** Bit Mapping ***/
-	STM32446TIM1_CR1 cr1;
-	STM32446TIM1_CR2 cr2;
-	STM32446TIM1_SMCR smcr;
-	STM32446TIM1_DIER dier;
-	STM32446TIM1_SR sr;
-	STM32446TIM1_EGR egr;
-	STM32446TIM1_CCMR1 ccmr1;
-	STM32446TIM1_CCMR2 ccmr2;
-	STM32446TIM1_CCER ccer;
+	STM32446TIM1_CR1* cr1;
+	STM32446TIM1_CR2* cr2;
+	STM32446TIM1_SMCR* smcr;
+	STM32446TIM1_DIER* dier;
+	STM32446TIM1_SR* sr;
+	STM32446TIM1_EGR* egr;
+	STM32446TIM1_CCMR1* ccmr1;
+	STM32446TIM1_CCMR2* ccmr2;
+	STM32446TIM1_CCER* ccer;
 	void (*cnt)(uint16_t value);
 	uint16_t (*get_cnt)(void);
 	void (*psc)(uint16_t value);
@@ -186,8 +186,8 @@ typedef struct
 	void (*ccr2)(uint16_t value);
 	void (*ccr3)(uint16_t value);
 	void (*ccr4)(uint16_t value);
-	STM32446TIM1_BDTR bdtr;
-	STM32446TIM1_DCR dcr;
+	STM32446TIM1_BDTR* bdtr;
+	STM32446TIM1_DCR* dcr;
 	void (*dmar)(uint16_t value);
 	/*** Other ***/
 	void (*clock)(uint8_t bool);
@@ -197,7 +197,9 @@ typedef struct
 /*** INIC 1 and 8 ***/
 /*******************/
 STM32446TIM1obj tim1_inic(void);
+STM32446TIM1obj* tim1(void);
 STM32446TIM8obj tim8_inic(void);
+STM32446TIM1obj* tim8(void);
 /****************************************/
 /*** TIM1 Procedure & Function Header ***/
 /****************************************/
