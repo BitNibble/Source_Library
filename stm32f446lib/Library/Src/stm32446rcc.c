@@ -80,33 +80,36 @@ STM32446RCCPLLI2S* stm32446_rcc_plli2s_inic(void);
 STM32446RCCPLLSAI* stm32446_rcc_pllsai_inic(void);
 
 /*** RCC Procedure & Function Definition ***/
-void STM32446RccInic(void)
+void rcc_start(void)
 {
 	// Setup PLL
 	// PLLDIVISION parameters
 	// source 0 or 1		M 2 to 63		N 50 to 432		P 2,4,6,8
 	// Q 2 to 15			R 2 to 7        (2Mhz ideal, N/m  *  clkx)
+	//STM32446PLLDivision(uint8_t pllsrc, uint8_t pllm, uint16_t plln, uint8_t pllp, uint8_t pllq, uint8_t pllr)
+	// STM32446PLLDivision(0, 8, 336, 2, 14, 7); // 0,8,360,4,15,6; 0,8,336,2,14,7;
+	STM32446PLLDivision(0, 16, 336, 4, 2, 2); // factory default
 
-	STM32446PLLDivision(0, 8, 336, 2, 14, 7); // 0,8,360,4,15,6; 0,8,336,2,14,7;
 	// Enable PLL
-	// STM32446RccPLLCLKEnable(); // Only enable when Division is configured correctly.
+	STM32446RccPLLCLKEnable(); // Only enable when Division is configured correctly.
 
 	// SysClock prescaler parameters
 	// AHB 1,2,4,8,16,64,128,256,512 		APB1 1,2,4,8,16		APB2 1,2,4,8,16
 	// RTC 2 to 31
-
+	// STM32446Prescaler(uint16_t ahbpre, uint8_t ppre1, uint8_t ppre2, uint8_t rtcpre)
 	// STM32446Prescaler(8, 1, 1, 0);
 	// STM32446Prescaler(2, 1, 1, 0);
 	STM32446Prescaler(1, 1, 1, 0);
+
 	// System Clock Source
-	STM32446RccHEnable(0);
+	STM32446RccHEnable(0); // 0
 	// System Clock Select or Enable
-	STM32446RccHSelect(0); // SW[1:0]: System clock switch 00 - HSI, 01 - HSE pg133
-	// Low Speed Internal Clock turned on as default
+	STM32446RccHSelect(0); // SW[1:0]: System clock switch 00 - HSI, 01 - HSE pg133 0
+
 	// Internal low-speed oscillator enable and Internal low-speed oscillator ready
-	STM32446RccLEnable(2);
+	STM32446RccLEnable(1);
 	// Low speed oscillator select
-	STM32446RccLSelect(2);
+	STM32446RccLSelect(1);
 }
 // RCC
 void STM32446RccHEnable(uint8_t hclock)
@@ -1973,7 +1976,7 @@ STM32446RCCobj rcc_inic(void)
 	stm32446_rcc.pllclk_enable = STM32446RccPLLCLKEnable;
 	stm32446_rcc.plli2s_enable = STM32446RccPLLI2SEnable;
 	stm32446_rcc.pllsai_enable = STM32446RccPLLSAIEnable;
-	stm32446_rcc.inic = STM32446RccInic;
+	stm32446_rcc.inic = rcc_start;
 	stm32446_rcc.henable = STM32446RccHEnable;
 	stm32446_rcc.hselect = STM32446RccHSelect;
 	stm32446_rcc.lenable = STM32446RccLEnable;

@@ -164,6 +164,7 @@ STM32446 STM32446enable(void){
 	#endif
 
 	query_inic();
+	rcc_start();
 	systick_start();
 
 	return stm32446;

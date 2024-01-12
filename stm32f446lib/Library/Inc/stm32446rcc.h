@@ -494,7 +494,7 @@ void STM32446RccPLLCLKEnable(void);
 void STM32446RccPLLI2SEnable(void);
 void STM32446RccPLLSAIEnable(void);
 // RCC
-void STM32446RccInic(void);
+void rcc_start(void);
 void STM32446RccHEnable(uint8_t hclock);
 uint8_t STM32446RccHSelect(uint8_t hclock);
 void STM32446RccLEnable(uint8_t lclock);
