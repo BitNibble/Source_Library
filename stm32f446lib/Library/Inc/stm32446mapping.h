@@ -257,7 +257,7 @@ typedef struct
 typedef struct
 {
 	// SCB
-	STM32446SCBobj scb;
+	STM32446SCBobj* scb;
 
 	#if defined(_STM32446NVIC_H_)
 		STM32446NVICobj* nvic;

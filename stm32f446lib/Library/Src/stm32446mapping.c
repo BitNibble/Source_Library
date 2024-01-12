@@ -17,19 +17,20 @@ Comment:
 #include "stm32446mapping.h"
 #include <stdarg.h>
 #include <math.h>
-/*** File Constant & Macros ***/
-// CPACR is located at address 0xE000ED88
-#define STM32446_SCB_BASE ((0xE000E000UL) + 0x0D00UL))
-/*** File Variable ***/
-static STM32446 stm32446;
 
-/*** File Header ***/
+/*** File Constant & Macros ***/
+#define STM32446_SCB_BASE ((0xE000E000UL) + 0x0D00UL)
+
+/*** File Variables ***/
+static STM32446SCBobj STM32446_SCB;
+static STM32446 stm32446;
 
 /******* STM32F446RE Procedure & Function Definition *******/
 STM32446 STM32446enable(void){
 	/************* CORE ************/
 	// SCB
-	stm32446.scb.reg = ((SCB_Type*) STM32446_SCB_BASE;
+	stm32446.scb = &STM32446_SCB;
+	stm32446.scb->reg = (SCB_Type*) STM32446_SCB_BASE;
 	// NVIC
 	#if defined(_STM32446NVIC_H_)
 		nvic_inic();
