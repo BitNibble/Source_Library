@@ -320,26 +320,26 @@ typedef struct
 	#endif
 
 	#if defined(_STM32446TIM1AND8_H_)
-		STM32446TIM1obj tim1;
-		STM32446TIM8obj tim8;
+		STM32446TIM1obj* tim1;
+		STM32446TIM8obj* tim8;
 	#endif
 	#if defined(_STM32446TIM2TO5_H_)
-		STM32446TIM2obj tim2;
-		STM32446TIM3obj tim3;
-		STM32446TIM4obj tim4;
-		STM32446TIM5obj tim5;
+		STM32446TIM2obj* tim2;
+		STM32446TIM3obj* tim3;
+		STM32446TIM4obj* tim4;
+		STM32446TIM5obj* tim5;
 	#endif
 	#if defined(_STM32446TIM6AND7_H_)
-		STM32446TIM6obj tim6;
-		STM32446TIM7obj tim7;
+		STM32446TIM6obj* tim6;
+		STM32446TIM7obj* tim7;
 	#endif
 	#if defined(_STM32446TIM9TO14_H_)
-		STM32446TIM9obj tim9;
-		STM32446TIM10obj tim10;
-		STM32446TIM11obj tim11;
-		STM32446TIM12obj tim12;
-		STM32446TIM13obj tim13;
-		STM32446TIM14obj tim14;
+		STM32446TIM9obj* tim9;
+		STM32446TIM10obj* tim10;
+		STM32446TIM11obj* tim11;
+		STM32446TIM12obj* tim12;
+		STM32446TIM13obj* tim13;
+		STM32446TIM14obj* tim14;
 	#endif
 	#if defined(_STM32446USART_H_)
 		STM32446_USART1* usart1;

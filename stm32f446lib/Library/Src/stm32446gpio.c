@@ -22,8 +22,6 @@ static STM32446GpioDobj stm32446_gpiod;
 static STM32446GpioEobj stm32446_gpioe;
 static STM32446GpioHobj stm32446_gpioh;
 
-
-
 /*** GPIO Procedure & Function Definition ***/
 /*** GPIOA ***/
 void STM32446GpioAclock( uint8_t bool )
