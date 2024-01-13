@@ -43,51 +43,98 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
 static uint32_t DelayCounter;
+static uint32_t systick_sysclk_calc_4us;
+static uint32_t systick_sysclk_calc_5us;
+static uint32_t systick_sysclk_calc_10us;
+static uint32_t systick_sysclk_calc_ms;
+static uint32_t systick_sysclk_calc_s;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN PFP */
-
+void systick_sysclk_4us(void);
+void systick_sysclk_5us(void);
+void systick_sysclk_10us(void);
+void systick_sysclk_ms(void);
+void systick_sysclk_s(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void _delay_ms(uint32_t ms)
+void systick_sysclk_4us(void)
+{systick_sysclk_calc_4us = getsysclk(); systick_sysclk_calc_4us /= 250000; systick_sysclk_calc_4us -= 1;}
+void systick_sysclk_5us(void)
+{systick_sysclk_calc_5us = getsysclk(); systick_sysclk_calc_5us /= 200000; systick_sysclk_calc_5us -= 1;}
+void systick_sysclk_10us(void)
+{systick_sysclk_calc_10us = getsysclk(); systick_sysclk_calc_10us /= 100000; systick_sysclk_calc_10us -= 1;}
+void systick_sysclk_ms(void)
+{systick_sysclk_calc_ms = getsysclk(); systick_sysclk_calc_ms /= 1000; systick_sysclk_calc_ms -= 1;}
+void systick_sysclk_s(void)
+{systick_sysclk_calc_s = getsysclk(); systick_sysclk_calc_s -= 1;}
+
+void _delay_4us(uint32_t quatro_us)
 {
-	SysTick->LOAD = (uint32_t)(( getsysclk() / 1000 ) - 1);
+	DelayCounter = 0;
+	SysTick->LOAD = systick_sysclk_calc_4us;
 	// Enable the SysTick timer
 	SysTick->CTRL |= (1 << 0);
 	// Wait for a specified number of milliseconds
+	while (DelayCounter < quatro_us);
+	// Disable the SysTick timer
+	SysTick->CTRL &= (uint32_t) ~(1 << 0);
+}
+void _delay_5us(uint32_t cinco_us)
+{
 	DelayCounter = 0;
+	SysTick->LOAD = systick_sysclk_calc_5us;
+	// Enable the SysTick timer
+	SysTick->CTRL |= (1 << 0);
+	// Wait for a specified number of milliseconds
+	while (DelayCounter < cinco_us);
+	// Disable the SysTick timer
+	SysTick->CTRL &= (uint32_t) ~(1 << 0);
+}
+void _delay_10us(uint32_t dez_us)
+{
+	DelayCounter = 0;
+	SysTick->LOAD = systick_sysclk_calc_10us;
+	// Enable the SysTick timer
+	SysTick->CTRL |= (1 << 0);
+	// Wait for a specified number of milliseconds
+	while (DelayCounter < dez_us);
+	// Disable the SysTick timer
+	SysTick->CTRL &= (uint32_t) ~(1 << 0);
+}
+void _delay_ms(uint32_t ms)
+{
+	DelayCounter = 0;
+	SysTick->LOAD = systick_sysclk_calc_ms;
+	// Enable the SysTick timer
+	SysTick->CTRL |= (1 << 0);
+	// Wait for a specified number of milliseconds
 	while (DelayCounter < ms);
 	// Disable the SysTick timer
 	SysTick->CTRL &= (uint32_t) ~(1 << 0);
 }
-void _delay_10us(uint32_t ten_us)
+void _delay_s(uint32_t s)
 {
-	SysTick->LOAD = (uint32_t)(( getsysclk() / 100000) - 1);
+	DelayCounter = 0;
+	SysTick->LOAD = systick_sysclk_calc_s;
 	// Enable the SysTick timer
 	SysTick->CTRL |= (1 << 0);
 	// Wait for a specified number of milliseconds
-	DelayCounter = 0;
-	while (DelayCounter < ten_us);
-	// Disable the SysTick timer
-	SysTick->CTRL &= (uint32_t) ~(1 << 0);
-}
-void _delay_us(uint32_t us)
-{
-	SysTick->LOAD = (uint32_t)(( getsysclk() / 1000000) - 1);
-	// Enable the SysTick timer
-	SysTick->CTRL |= (1 << 0);
-	// Wait for a specified number of milliseconds
-	DelayCounter = 0;
-	while (DelayCounter < us);
+	while (DelayCounter < s);
 	// Disable the SysTick timer
 	SysTick->CTRL &= (uint32_t) ~(1 << 0);
 }
 void systick_start(void)
 {
-	SysTick->LOAD = (uint32_t)( getsysclk() - 1);
+	systick_sysclk_4us();
+	systick_sysclk_5us();
+	systick_sysclk_10us();
+	systick_sysclk_ms();
+	systick_sysclk_s();
+	SysTick->LOAD = systick_sysclk_calc_s;
 	SysTick->VAL = 0UL;
 	SysTick->CTRL |= ((1 << 1) | (1 << 2));
 }

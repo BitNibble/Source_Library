@@ -58,9 +58,11 @@ void DebugMon_Handler(void);
 void PendSV_Handler(void);
 void SysTick_Handler(void);
 /* USER CODE BEGIN EFP */
+void _delay_4us(uint32_t quatro_us);
+void _delay_5us(uint32_t cinco_us);
+void _delay_10us(uint32_t dez_us);
 void _delay_ms(uint32_t ms);
-void _delay_10us(uint32_t ten_us);
-void _delay_us(uint32_t us);
+void _delay_s(uint32_t s);
 void systick_start(void);
 /* USER CODE END EFP */
 

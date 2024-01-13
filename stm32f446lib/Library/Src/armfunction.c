@@ -58,6 +58,7 @@ char* function_print_binary(unsigned int n_bits, unsigned int number);
 char* function_i16toa(int16_t n);
 char* function_ui16toa(uint16_t n);
 char* function_i32toa(int32_t n);
+char* FUNCui32toa(uint32_t n);
 char* function_ftoa(double num, char* res, uint8_t afterpoint);
 /*** 6 ***/
 long function_trimmer(long x, long in_min, long in_max, long out_min, long out_max);
@@ -117,6 +118,7 @@ FUNC FUNCenable( void )
 	setup_func.i16toa = function_i16toa;
 	setup_func.ui16toa = function_ui16toa;
 	setup_func.i32toa = function_i32toa;
+	setup_func.ui32toa = FUNCui32toa;
 	setup_func.ftoa = function_ftoa;
 
 	// 6
@@ -385,6 +387,16 @@ char* function_i32toa(int32_t n)
 	}while ((n /= 10) > 0); // delete it
 	if (sign < 0)
 		FUNCstr[i++] = '-';
+	FUNCstr[i] = '\0';
+	function_Reverse(FUNCstr);
+	return FUNCstr;
+}
+char* FUNCui32toa(uint32_t n)
+{
+	uint8_t i = 0;
+	do { // generate digits in reverse order
+		FUNCstr[i++] = (char) (n % 10 + '0'); // get next digit
+	}while ((n /= 10) > 0); // delete it
 	FUNCstr[i] = '\0';
 	function_Reverse(FUNCstr);
 	return FUNCstr;

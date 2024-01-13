@@ -8,6 +8,15 @@
   * Copyright (c) 2024 STMicroelectronics.
   * All rights reserved.
   *
+  * Author: Sergio Manuel Santos
+  * <sergio.salazar.santos@gmail.com>
+  *
+  * License: GNU General Public License
+  * File: MAIN 12/01/2024
+  *
+  * Software: STM32CubeIDE Version: 1.14.0 Build: 19471_20231121_1200 (UTC)
+  * Hardware: Nucleo-F446RE
+  *
   * This software is licensed under terms that can be found in the LICENSE file
   * in the root directory of this software component.
   * If no LICENSE file comes with this software, it is provided AS-IS.
@@ -21,6 +30,7 @@
 #endif
 
 #include "stm32446mapping.h"
+//#include "stm32446tim9to14.h"
 #include "armfunction.h"
 #include "explode.h"
 #include "74hc595.h"
@@ -83,6 +93,7 @@ void USART1_IRQHandler(void);
 int main(void)
 {
 STM32446enable();
+//tim9_inic();
 FUNCenable();
 portinic();
 
@@ -92,6 +103,7 @@ button_press = 0;
 charcount=0;
 time_out = 0;
 test_var = 0;
+uint32_t test_var;
 
 //func = FUNCenable();
 PINA = EXPLODEenable();
@@ -101,16 +113,16 @@ circ1 = CIRCBUFFenable(8, buffer1);
 circ2 = CIRCBUFFenable(8, buffer2);
 
 // FPU full access
-func()->setreg(&stm()->scb.reg->CPACR, 2, 20, 3);
-func()->setreg(&stm()->scb.reg->CPACR, 2, 22, 3);
+setreg(&stm()->scb->reg->CPACR, 2, 20, 3);
+setreg(&stm()->scb->reg->CPACR, 2, 22, 3);
 
 choice = 3;
 count1 = 0;
 count2 = 0;
 dir = 0;
 
-hc = HC595enable(&stm()->gpioc.reg->MODER, &stm()->gpioc.reg->ODR, 2, 1, 0);
-lcd = ARMLCD0enable(stm()->gpiob.reg);
+hc = HC595enable(&stm()->gpioc->reg->MODER, &stm()->gpioc->reg->ODR, 2, 1, 0);
+lcd = ARMLCD0enable(stm()->gpiob->reg);
 
 
 circ1.putstr(&circ1.par, "Welcome\r\n");
@@ -123,10 +135,15 @@ for ( zone = 0 ; ass ; zone++)
 
 if(zone == 1){ // Preamble
 	/*** PREAMBLE PREAMBLE COMMON IO ***/
-	PINA.update(&PINA.par, stm()->gpioa.reg->IDR);
-	PINB.update(&PINB.par, stm()->gpiob.reg->IDR);
-	PINC.update(&PINC.par, stm()->gpioc.reg->IDR);
+	PINA.update(&PINA.par, stm()->gpioa->reg->IDR);
+	PINB.update(&PINB.par, stm()->gpiob->reg->IDR);
+	PINC.update(&PINC.par, stm()->gpioc->reg->IDR);
 	lcd.reboot();
+
+	lcd.gotoxy(0,4);
+	test_var = getsysclk(); test_var /= 1000000; test_var -=1 ;
+	lcd.string_size(func()->ui32toa(test_var),9);
+	_delay_5us(2000000);
 }
 /******************************************************************************/
 /******************************************************************************/
@@ -172,9 +189,9 @@ if(zone == 4){ // workspace 3 USART1 TX RX
 
 	lcd.gotoxy(1,11);
 	lcd.string_size(received, 9);
-	if( stm()->usart1->sr.tc() ){ // TC: Transmission complete
+	if( stm()->usart1->sr->tc() ){ // TC: Transmission complete
 		transmit = circ1.get(&circ1.par);
-		if(transmit){ stm()->usart1->dr(transmit); for(time_out = 20; (!stm()->usart1->sr.tc()) && time_out; time_out--);}
+		if(transmit){ stm()->usart1->dr(transmit); for(time_out = 20; (!stm()->usart1->sr->tc()) && time_out; time_out--);}
 		}
 		zone = 0;
 	} // if
@@ -187,59 +204,58 @@ if(zone == 4){ // workspace 3 USART1 TX RX
 void portinic(void)
 {
 	//Enable clock for IO peripherals
-	stm()->rcc->apb1enr->pwren(yes);
-	stm()->rcc->apb2enr->usart1en(yes);
-	stm()->rcc->bdcr->rtcen(yes);
-	stm()->rcc->apb2enr->adc1en(yes);
-	stm()->rcc->ahb1enr->gpioaen(yes);
-	stm()->rcc->ahb1enr->gpioben(yes);
-	stm()->rcc->ahb1enr->gpiocen(yes);
-	stm()->rcc->apb2enr->tim9en(yes);
+	//stm()->rcc->apb1enr->pwren(yes);
+	//stm()->rcc->apb2enr->usart1en(yes);
+	//stm()->rcc->bdcr->rtcen(yes);
+	//stm()->rcc->apb2enr->adc1en(yes);
+	//stm()->rcc->ahb1enr->gpioaen(yes);
+	//stm()->rcc->ahb1enr->gpioben(yes);
+	//stm()->rcc->ahb1enr->gpiocen(yes);
+	//stm()->rcc->apb2enr->tim9en(yes);
 	/***************************/
-	stm()->gpioa.clock(on);
-	stm()->gpiob.clock(on);
-	stm()->gpioc.clock(on);
+	gpioa()->clock(on);
+	gpiob()->clock(on);
+	gpioc()->clock(on);
   	// PA5 or PB13 is green user led
-	stm()->gpioa.moder(1,5);
-	stm()->gpioa.pupdr(0,5);
+	stm()->gpioa->moder(1,5);
+	stm()->gpioa->pupdr(0,5);
 	//stm.gpiob.moder(1,13);
 	// PC13 is user button
-	stm()->gpioc.moder(0,13);
-	stm()->gpioc.pupdr(1,13);
+	stm()->gpioc->moder(0,13);
+	stm()->gpioc->pupdr(1,13);
 	/********** USART1 *********/
 	stm()->usart1->clock(on);
-	stm()->nvic.set_enable(37);
-	stm()->usart1->cr1.ue(on);
-	stm()->gpioa.moder(2,9);
-	stm()->gpioa.moder(2,10);
-	stm()->gpioa.afr(7,9);
-	stm()->gpioa.afr(7,10);
+	stm()->nvic->set_enable(37);
+	stm()->usart1->cr1->ue(on);
+	stm()->gpioa->moder(2,9);
+	stm()->gpioa->moder(2,10);
+	stm()->gpioa->afr(7,9);
+	stm()->gpioa->afr(7,10);
 	stm()->usart1->parameter(8, 16, 1, 38400);
-	stm()->usart1->cr3.dmat(off);
-	stm()->usart1->cr1.te(on);
-	stm()->usart1->cr3.dmar(off);
-	stm()->usart1->cr1.re(on);
-	stm()->usart1->cr1.rxneie(on);
+	stm()->usart1->cr3->dmat(off);
+	stm()->usart1->cr1->te(on);
+	stm()->usart1->cr3->dmar(off);
+	stm()->usart1->cr1->re(on);
+	stm()->usart1->cr1->rxneie(on);
 	/******* TIMER9 SETUP ******/
-	stm()->tim9.clock(on);
+	tim9()->clock(on);
 	// NVIC
-	stm()->tim9.nvic(on);
+	tim9()->nvic(on);
 	// Frequency
-	stm()->tim9.arr(45535);
+	tim9()->arr(45535);
 	// Compare
-	stm()->tim9.ccr1(7530);
-	// prescaler
-	stm()->tim9.psc(20);
+	tim9()->ccr1(7530);
+	// pre-scaler
+	tim9()->psc(20);
 	// interrupt
-	stm()->tim9.dier.cc1ie(on);
+	tim9()->dier->cc1ie(on);
 	// Enable (Start/Stop)
-	stm()->tim9.cr1.apre(on);
-	stm()->tim9.cr1.cen(on);
+	tim9()->cr1->apre(on);
+	tim9()->cr1->cen(on);
 	/********** ADC1 ***********/
-	stm()->gpioa.pupdr(1,0);
-	stm()->gpioa.moder(3,0);
+	stm()->gpioa->pupdr(1,0);
+	stm()->gpioa->moder(3,0);
 	// ADC Clock
-	//STM32446Adc1IClock(1); // DACEN: DAC interface clock enable
 	STM32446Adc1Clock(1); // ADC1EN: ADC1 clock enable
 
 	STM32446ADC1_cr2_adon(0); // ADON: A/D Converter ON / OFF
@@ -256,15 +272,15 @@ void portinic(void)
 	stm()->adc1->single->temp();
 	//stm.adc1.single.vbat();
 	STM32446ADC1_cr2_eocs(1);
-	stm()->adc1->cr2->dma(1);
+	adc1()->cr2->dma(1);
 	stm()->adc1->cr2->dds(1);
 	// turn on select source and start reading
 	STM32446Adc1Start();
 	stm()->adc1->cr2->cont(1);
 	stm()->adc1->cr1->scan(1);
 
-	stm()->dma2.clock(on);
-	stm()->dma2.func.circ_cfg(&ADC1->DR, (volatile long unsigned int*)temperature, 0, 0, 32, 1, 1, 0, 0);
+	stm()->dma2->clock(on);
+	stm()->dma2->func->circ_cfg(&ADC1->DR, (volatile long unsigned int*)temperature, 0, 0, 32, 1, 1, 0, 0);
 
 	/*********** RTC ***********/
 	// Three ways to kill a rabbit
@@ -522,17 +538,17 @@ void calendario(void)
 /*** TIM9 Interrupt Definition ***/
 void TIM1_BRK_TIM9_IRQHandler(void)
 {
-	if(stm()->tim9.sr.uif()){ // status register (view interrupt flags)
-		stm()->tim9.sr.clear_uif();
+	if(tim9()->sr->uif()){ // status register (view interrupt flags)
+		tim9()->sr->clear_uif();
 
 		if(dir){
-			stm()->gpioa.reset(1 << 5);
+			stm()->gpioa->reset(1 << 5);
 
 			hc.byte(&hc.par, (uint8_t)~(1 << count1--));
 			if(count1 < 0)
 				dir = 0;
 		}else{
-			stm()->gpioa.set(1 << 5);
+			stm()->gpioa->set(1 << 5);
 
 			hc.byte(&hc.par, (uint8_t)~(1 << count1++));
 			if(count1 > 7)
@@ -540,8 +556,8 @@ void TIM1_BRK_TIM9_IRQHandler(void)
 		}
 		count2++;
 	}
-	if(stm()->tim9.sr.cc1if()){
-		stm()->tim9.sr.clear_cc1if();
+	if(tim9()->sr->cc1if()){
+		tim9()->sr->clear_cc1if();
 
 
 	}
@@ -552,7 +568,7 @@ void TIM1_BRK_TIM9_IRQHandler(void)
 void USART1_IRQHandler(void)
 {
 	charcount++;
-	if( stm()->usart1->sr.rxne() ){ // RXNE: Read data register not empty
+	if( stm()->usart1->sr->rxne() ){ // RXNE: Read data register not empty
 		receive = stm()->usart1->get_dr();
 		if(receive){
 			circ2.put(&circ2.par, receive);
@@ -563,7 +579,7 @@ void USART1_IRQHandler(void)
 			}
 		}
 	}
-	if( stm()->usart1->sr.ore() ){ receive = usart1()->get_dr(); }
+	if( stm()->usart1->sr->ore() ){ receive = usart1()->get_dr(); }
 
 }
 /******************************************************************************/
@@ -587,3 +603,4 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
+
