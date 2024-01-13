@@ -15,15 +15,13 @@ Comment:
 *******************************************************************************/
 /*** File Library ***/
 #include "stm32446mapping.h"
-#include <stdarg.h>
-#include <math.h>
 
 /*** File Constant & Macros ***/
 #define STM32446_SCB_BASE ((0xE000E000UL) + 0x0D00UL)
 
 /*** File Variables ***/
-static STM32446SCBobj STM32446_SCB;
 static STM32446 stm32446;
+static STM32446SCBobj STM32446_SCB;
 
 /******* STM32F446RE Procedure & Function Definition *******/
 STM32446 STM32446enable(void){
@@ -150,17 +148,17 @@ STM32446 STM32446enable(void){
 	// USART
 	#if defined(_STM32446USART_H_)
 		usart1_inic();
-		stm32446.usart1 = (STM32446_USART1*) usart1();
+		stm32446.usart1 = usart1();
 		usart2_inic();
-		stm32446.usart2 = (STM32446_USART2*) usart2();
+		stm32446.usart2 = usart2();
 		usart3_inic();
-		stm32446.usart3 = (STM32446_USART3*) usart3();
+		stm32446.usart3 = usart3();
 		uart4_inic();
-		stm32446.uart4 = (STM32446_UART4*) uart4();
+		stm32446.uart4 = uart4();
 		uart5_inic();
-		stm32446.uart5 = (STM32446_UART5*) uart5();
+		stm32446.uart5 = uart5();
 		usart6_inic();
-		stm32446.usart6 = (STM32446_USART6*) usart6();
+		stm32446.usart6 = usart6();
 	#endif
 
 	query_inic();
@@ -171,42 +169,6 @@ STM32446 STM32446enable(void){
 }
 
 STM32446* stm(void){return (STM32446*) &stm32446;}
-
-/*** File Procedure & Function Definition ***/
-/***/
-void STM32446RegSetBits( unsigned int* reg, int n_bits, ... )
-{
-	uint8_t i;
-	if(n_bits > 0 && n_bits < 33){ // Filter input
-		va_list list;
-		va_start(list, n_bits);
-		for(i = 0; i < n_bits; i++){
-			*reg |= (unsigned int)(1 << va_arg(list, int));
-		}
-		va_end(list);
-	}
-}
-void STM32446RegResetBits( unsigned int* reg, int n_bits, ... )
-{
-	uint8_t i;
-	if(n_bits > 0 && n_bits < 33){ // Filter input
-		va_list list;
-		va_start(list, n_bits);
-		for(i = 0; i < n_bits; i++){
-			*reg &= (unsigned int)~((1 << va_arg(list, int)) << 16);
-		}
-		va_end(list);
-	}
-}
-void STM32446VecSetup( volatile uint32_t vec[], const unsigned int size_block, unsigned int data, unsigned int block_n )
-{
-	const unsigned int n_bits = sizeof(data) * 8;
-	const unsigned int mask = (unsigned int) (pow(2, size_block) - 1);
-	unsigned int index = (block_n * size_block) / n_bits;
-	data &= mask;
-	vec[index] &= ~( mask << ((block_n * size_block) - (index * n_bits)) );
-	vec[index] |= ( data << ((block_n * size_block) - (index * n_bits)) );
-}
 
 /***EOF***/
 

@@ -68,17 +68,6 @@ long function_gcd_v2(long a, long b);
 /*** 7 ***/
 int function_StrToInt (const char string[]);
 /*** 8 ***/
-/***/
-uint32_t function_readreg(uint32_t reg, uint8_t size_block, uint8_t bit_n);
-uint32_t function_getsetbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n);
-void function_setreg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
-void function_setbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
-void function_writereg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
-/***/
-void function_RegSetBits( unsigned int* reg, int n_bits, ... );
-void function_RegResetBits( unsigned int* reg, int n_bits, ... );
-void function_VecSetup( volatile uint32_t vec[], const unsigned int size_block, unsigned int data, unsigned int block_n );
-/*** 9 ***/
 uint32_t function_triggerA(uint32_t hllh_io, uint8_t pin, uint32_t counter);
 uint32_t function_triggerB(uint32_t hl_io, uint32_t lh_io, uint8_t pin, uint32_t counter);
 uint32_t read_value(void);
@@ -128,15 +117,6 @@ FUNC FUNCenable( void )
 	setup_func.gcd_v2 = function_gcd_v2;
 	// 8
 	setup_func.strToInt = function_StrToInt;
-	// 9
-	setup_func.readreg = function_readreg;
-	setup_func.writereg = function_writereg;
-	setup_func.setreg = function_setreg;
-	setup_func.setbit = function_setbit;
-	setup_func.getsetbit = function_getsetbit;
-	setup_func.regsetbits = function_RegSetBits;
-	setup_func.regresetbits = function_RegResetBits;
-	setup_func.vecsetup = function_VecSetup;
 	// 9
 	setup_func.triggerA = function_triggerA;
 	setup_func.triggerB = function_triggerB;
@@ -478,89 +458,6 @@ int function_StrToInt (const char string[])
 	}
 	return result;
 }
-/******/
-uint32_t function_readreg(uint32_t reg, uint8_t size_block, uint8_t bit_n)
-{
-	if(bit_n > DATA_BITS){ bit_n = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	reg &= (mask << bit_n);
-	reg = (reg >> bit_n);
-	return reg;
-}
-uint32_t function_getsetbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n)
-{
-	uint32_t n = 0;
-	if(bit_n > DATA_BITS){ n = bit_n/DATA_SIZE; bit_n = bit_n - (n * DATA_SIZE); } if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
-	uint32_t value = *(reg + n );
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	value &= (mask << bit_n);
-	value = (value >> bit_n);
-	return value;
-}
-void function_setreg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data)
-{
-	if(bit_n > DATA_BITS){ bit_n = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	data &= mask;
-	*reg &= ~(mask << bit_n);
-	*reg |= (data << bit_n);
-}
-void function_setbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data)
-{
-	uint32_t n = 0;
-	if(bit_n > DATA_BITS){ n = bit_n/DATA_SIZE; bit_n = bit_n - (n * DATA_SIZE); } if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	data &= mask;
-	*(reg + n ) &= ~(mask << bit_n);
-	*(reg + n ) |= (data << bit_n);
-}
-void function_writereg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data)
-{
-	if(bit_n > DATA_BITS){ bit_n = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
-	uint32_t value = *reg;
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	data &= mask; value &= ~(mask << bit_n);
-	data = (data << bit_n);
-	value |= data;
-	*reg = value;
-}
-/***/
-void function_RegSetBits( unsigned int* reg, int n_bits, ... )
-{
-	uint8_t i;
-	if(n_bits > 0 && n_bits < 33){ // Filter input
-		va_list list;
-		va_start(list, n_bits);
-		for(i = 0; i < n_bits; i++){
-			*reg |= (unsigned int)(1 << va_arg(list, int));
-		}
-		va_end(list);
-	}
-}
-
-void function_RegResetBits( unsigned int* reg, int n_bits, ... )
-{
-	uint8_t i;
-	if(n_bits > 0 && n_bits < 33){ // Filter input
-		va_list list;
-		va_start(list, n_bits);
-		for(i = 0; i < n_bits; i++){
-			*reg &= (unsigned int)~((1 << va_arg(list, int)) << 16);
-		}
-		va_end(list);
-	}
-}
-
-void function_VecSetup( volatile uint32_t vec[], const unsigned int size_block, unsigned int data, unsigned int block_n )
-{
-	const unsigned int n_bits = sizeof(data) * 8;
-	const unsigned int mask = (unsigned int) (pow(2, size_block) - 1);
-	unsigned int index = (block_n * size_block) / n_bits;
-	data &= mask;
-	vec[index] &= ~( mask << ((block_n * size_block) - (index * n_bits)) );
-	vec[index] |= ( data << ((block_n * size_block) - (index * n_bits)) );
-}
-
 /******/
 // triggerA
 uint32_t function_triggerA(uint32_t ll_io, uint8_t pin, uint32_t counter)

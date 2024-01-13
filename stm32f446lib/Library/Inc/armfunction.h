@@ -17,13 +17,6 @@ Comment:
 #include <inttypes.h>
 /*** Global Define & Macro ***/
 #define FUNCSTRSIZE 31
-/*****************************/
-#ifndef DATA_BITS
-	#define DATA_BITS 31
-#endif
-#ifndef DATA_SIZE
-	#define DATA_SIZE 32
-#endif
 
 /*** PROCEDURE & FUNCTION TypeDef ***/
 typedef struct
@@ -66,17 +59,6 @@ typedef struct
 	int (*pmax)(int a1, int a2);
 	int (*gcd_v1)(int u, int v);
 	long (*gcd_v2)(long a, long b);
-	/******/
-	/***/
-	uint32_t (*readreg)(uint32_t reg, uint8_t size_block, uint8_t bit_n);
-	uint32_t (*getsetbit)(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n);
-	void (*setreg)(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
-	void (*setbit)(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
-	void (*writereg)(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
-	/***/
-	void (*regsetbits)( unsigned int* reg, int n_bits, ... );
-	void (*regresetbits)( unsigned int* reg, int n_bits, ... );
-	void (*vecsetup)( volatile uint32_t vec[], const unsigned int size_block, unsigned int data, unsigned int block_n );
 	/******/
 	uint32_t (*triggerA)(uint32_t hllh_io, uint8_t pin, uint32_t counter);
 	uint32_t (*triggerB)(uint32_t hl_io, uint32_t lh_io, uint8_t pin, uint32_t counter);

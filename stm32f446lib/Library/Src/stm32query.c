@@ -10,10 +10,15 @@ Comment:
 	Tested STM32F446RE
 ************************************************************************/
 #include "stm32query.h"
+#include <stdarg.h>
+#include <math.h>
 
 static STM32446Query stm32446_query;
 static STM32446CLOCK_prescaler stm32446_CLOCK_prescaler;
 static STM32446PLL_parameter stm32446_PLL_parameter;
+
+STM32446CLOCK_prescaler* CLOCK_prescaler_inic(void);
+STM32446PLL_parameter* PLL_parameter_inic(void);
 
 uint32_t getclocksource(void)
 {
@@ -294,14 +299,47 @@ void writereg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_
 	value |= data;
 	*reg = value;
 }
+void STM32446RegSetBits( unsigned int* reg, int n_bits, ... )
+{
+	uint8_t i;
+	if(n_bits > 0 && n_bits < 33){ // Filter input
+		va_list list;
+		va_start(list, n_bits);
+		for(i = 0; i < n_bits; i++){
+			*reg |= (unsigned int)(1 << va_arg(list, int));
+		}
+		va_end(list);
+	}
+}
+void STM32446RegResetBits( unsigned int* reg, int n_bits, ... )
+{
+	uint8_t i;
+	if(n_bits > 0 && n_bits < 33){ // Filter input
+		va_list list;
+		va_start(list, n_bits);
+		for(i = 0; i < n_bits; i++){
+			*reg &= (unsigned int)~((1 << va_arg(list, int)) << 16);
+		}
+		va_end(list);
+	}
+}
+void STM32446VecSetup( volatile uint32_t vec[], const unsigned int size_block, unsigned int data, unsigned int block_n )
+{
+	const unsigned int n_bits = sizeof(data) * 8;
+	const unsigned int mask = (unsigned int) (pow(2, size_block) - 1);
+	unsigned int index = (block_n * size_block) / n_bits;
+	data &= mask;
+	vec[index] &= ~( mask << ((block_n * size_block) - (index * n_bits)) );
+	vec[index] |= ( data << ((block_n * size_block) - (index * n_bits)) );
+}
 void setpin( GPIO_TypeDef* reg, int pin )
 {
 	reg->BSRR = (1 << pin);
 }
-
 void resetpin( GPIO_TypeDef* reg, int pin )
 {
 	reg->BSRR = (unsigned int)((1 << pin) << 16);
 }
+
 /***EOF***/
 
