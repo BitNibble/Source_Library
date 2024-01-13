@@ -18,10 +18,6 @@ Comment:
 #include <stdarg.h>
 #include <math.h>
 
-/*** File Constant & Macro ***/
-#define MAXafterpoint 6
-#define DEFAULTafterpoint 2
-
 /*** File Variable ***/
 static FUNC setup_func;
 static char FUNCstr[FUNCSTRSIZE + 1];
@@ -31,7 +27,7 @@ static uint32_t nen[4];
 /*** File Header ***/
 int function_StringLength (const char string[]);
 void function_Reverse(char s[]);
-uint8_t function_intinvstr(uint32_t num, char* res, uint8_t n_digit);
+uint8_t function_IntInvStr(uint32_t num, uint8_t index);
 void function_swap(long *px, long *py);
 /*** 1 ***/
 uint16_t function_SwapByte(uint16_t num);
@@ -59,7 +55,7 @@ char* function_i16toa(int16_t n);
 char* function_ui16toa(uint16_t n);
 char* function_i32toa(int32_t n);
 char* FUNCui32toa(uint32_t n);
-char* function_ftoa(double num, char* res, uint8_t afterpoint);
+char* function_ftoa(double num, uint8_t afterpoint);
 /*** 6 ***/
 long function_trimmer(long x, long in_min, long in_max, long out_min, long out_max);
 int function_pmax(int a1, int a2);
@@ -147,21 +143,14 @@ void function_Reverse(char s[])
 		c = s[i]; s[i] = s[j]; s[j] = c;
 	}
 }
-// intinvstr
-uint8_t function_intinvstr(uint32_t num, char* res, uint8_t n_digit)
+uint8_t function_IntInvStr(uint32_t num, uint8_t index)
 {
-	uint8_t k = 0;
-	for(res[k++] = (char)((num % 10) + '0'); (num /= 10) > 0 ; res[k++] = (char)((num % 10) + '0'));
-	for( ; k < n_digit ; res[k++] = '0');
-	res[k] = '\0';
-	return k;
+	for(FUNCstr[index++] = (char)((num % 10) + '0'); (num /= 10) > 0 ; FUNCstr[index++] = (char)((num % 10) + '0'));
+	FUNCstr[index] = '\0'; return index;
 }
 void function_swap(long *px, long *py)
 {
-	long temp;
-	temp = *px;
-	*px = *py;
-	*py = temp;
+	long temp = *px; *px = *py; *py = temp;
 }
 uint16_t function_SwapByte(uint16_t num)
 {
@@ -171,15 +160,14 @@ uint16_t function_SwapByte(uint16_t num)
 }
 void function_copy(char to[], char from[])
 {
-	int i; i = 0;
+	int i = 0;
 	while ((to[i] = from[i]) != '\0') ++i;
 }
 void function_squeeze(char s[], int c)
 {
 	int i, j;
 	for (i = 0, j = 0; (s[i] != '\0'); i++){
-		if (s[i] != c)
-			s[j++] = s[i];
+		if (s[i] != c) s[j++] = s[i];
 	}
 	s[j] = '\0';
 }
@@ -189,9 +177,7 @@ void function_shellsort(int v[], int n)
 	for (gap = n / 2; gap > 0; gap /= 2)
 		for (i = gap; i < n; i++)
 			for (j = i - gap; j >= 0 && v[j] > v[j + gap]; j -= gap){
-				temp = v[j];
-				v[j] = v[j + gap];
-				v[j + gap] = temp;
+				temp = v[j]; v[j] = v[j + gap]; v[j + gap] = temp;
 			}
 }
 char* function_resizestr(char *string, int size)
@@ -229,14 +215,11 @@ uint8_t function_bcd2bin(uint8_t val)
 }
 char* function_dectohex(int32_t num)
 {
-	int32_t remainder;
-	uint8_t j;
+	int32_t remainder; uint8_t j;
 	for(j = 0, FUNCstr[j] = '\0'; num; FUNCstr[j] = '\0', num = num / 16){
 		remainder = num % 16;
-		if (remainder < 10)
-			FUNCstr[j++] = (char) (48 + remainder);
-		else
-			FUNCstr[j++] = (char) (55 + remainder);
+		if (remainder < 10) FUNCstr[j++] = (char) (48 + remainder);
+		else FUNCstr[j++] = (char) (55 + remainder);
 	}
 	function_Reverse(FUNCstr);
 	return FUNCstr;
@@ -288,7 +271,6 @@ int function_twocomptointnbit(int twoscomp, uint8_t nbits){
   unsigned int mask;
   signmask = (1 << (nbits - 1));
   mask = signmask - 1;
-  // Let's see if the number is negative
   if ((unsigned int) twoscomp & signmask){
 	twoscomp &= mask;
     twoscomp -= signmask;
@@ -300,49 +282,31 @@ int function_twocomptointnbit(int twoscomp, uint8_t nbits){
 /******/
 char* function_print_v1( char* str, uint8_t size_str, const char* format, ... )
 {
-	va_list aptr;
-	int ret;
-
+	va_list aptr; int ret;
 	va_start(aptr, format);
 	ret = vsnprintf( str, size_str, (const char*) format, aptr );
-	//ret = vsnprintf( ptr, size_str, format, aptr );
 	va_end(aptr);
-
-	if(ret < 0){
-		return NULL;
-		//str[0]='/0';str[1]='/0';str[2]='/0';str[3]='/0';
-	}else
-		return str;
+	if(ret < 0){ return NULL; }else return str;
 }
 char* function_print_v2( const char* format, ... )
 {
-	va_list aptr;
-	int ret;
-
+	va_list aptr; int ret;
 	va_start(aptr, format);
 	ret = vsnprintf( FUNCstr, FUNCSTRSIZE, (const char*) format, aptr );
-	// ret = vsnprintf( ptr, FUNCSTRSIZE, format, aptr );
 	va_end(aptr);
-
-	if(ret < 0){
-		return NULL;
-		// FUNCstr[0]='/0';FUNCstr[1]='/0';FUNCstr[2]='/0';FUNCstr[3]='/0';
-	}else
-		return FUNCstr;
+	if(ret < 0){ return NULL; }else return FUNCstr;
 }
 /******/
 char* function_i16toa(int16_t n)
 {
 	uint8_t i;
 	int16_t sign;
-	if ((sign = n) < 0) // record sign
-		n = -n; // make n positive
+	if ((sign = n) < 0) n = -n;
 	i = 0;
-	do { // generate digits in reverse order
-		FUNCstr[i++] = (char) (n % 10 + '0'); // get next digit
-	}while ((n /= 10) > 0); // delete it
-	if (sign < 0)
-		FUNCstr[i++] = '-';
+	do {
+		FUNCstr[i++] = (char) (n % 10 + '0');
+	}while ((n /= 10) > 0);
+	if (sign < 0) FUNCstr[i++] = '-';
 	FUNCstr[i] = '\0';
 	function_Reverse(FUNCstr);
 	return FUNCstr;
@@ -359,24 +323,20 @@ char* function_i32toa(int32_t n)
 {
 	uint8_t i;
 	int32_t sign;
-	if ((sign = n) < 0) // record sign
-	n = -n; // make n positive
+	if ((sign = n) < 0) n = -n;
 	i = 0;
-	do { // generate digits in reverse order
-		FUNCstr[i++] = (char) (n % 10 + '0'); // get next digit
-	}while ((n /= 10) > 0); // delete it
-	if (sign < 0)
-		FUNCstr[i++] = '-';
+	do {
+		FUNCstr[i++] = (char) (n % 10 + '0');
+	}while ((n /= 10) > 0);
+	if (sign < 0) FUNCstr[i++] = '-';
 	FUNCstr[i] = '\0';
 	function_Reverse(FUNCstr);
 	return FUNCstr;
 }
 char* FUNCui32toa(uint32_t n)
 {
-	uint8_t i = 0;
-	do { // generate digits in reverse order
-		FUNCstr[i++] = (char) (n % 10 + '0'); // get next digit
-	}while ((n /= 10) > 0); // delete it
+	uint8_t i;
+	for(i = 0, FUNCstr[i++] = n % 10 + '0'; (n /= 10) > 0; FUNCstr[i++] = n % 10 + '0');
 	FUNCstr[i] = '\0';
 	function_Reverse(FUNCstr);
 	return FUNCstr;
@@ -389,32 +349,15 @@ char* function_print_binary(unsigned int n_bits, unsigned int number)
 	FUNCstr[c] = '\0';
 	return FUNCstr;
 }
-char* function_ftoa(double num, char* res, uint8_t afterpoint)
+char* function_ftoa(double num, uint8_t afterpoint)
 {
-	uint32_t ipart;
-	double n, fpart;
-	uint8_t k = 0;
-	int8_t sign;
-	if (num < 0){
-		n = -num; sign = -1;
-	}else{
-		n = num; sign = 1;
-	}
+	uint32_t ipart; double n, fpart; uint8_t k = 0; int8_t sign;
+	if (num < 0){ n = -num; sign = -1;}else{n = num; sign = 1;}
 	ipart = (uint32_t) n; fpart = n - (double)ipart;
-	k = function_intinvstr((int)ipart, res, 1);
-	if (sign < 0) res[k++] = '-'; else res[k++] = ' ';
-	res[k] = '\0';
-	function_Reverse(res);
-	if (afterpoint > 0 && afterpoint < (8 + 1)){
-		res[k++] = '.';
-		function_intinvstr( (int32_t)(fpart * pow(10, afterpoint)), (res + k), afterpoint );
-		function_Reverse(res + k);
-	}else{
-		res[k++] = '.';
-		function_intinvstr( (int32_t)(fpart * pow(10, 2)), (res + k), 2 );
-		function_Reverse(res + k);
-	}
-	return res;
+	k = function_IntInvStr(ipart, 0); if (sign < 0) FUNCstr[k++] = '-'; FUNCstr[k] = '\0'; function_Reverse(FUNCstr);
+	FUNCstr[k++] = '.';
+	function_IntInvStr((fpart * pow(10, afterpoint)), k); function_Reverse(FUNCstr + k);
+	return FUNCstr;
 }
 /******/
 long function_trimmer(long x, long in_min, long in_max, long out_min, long out_max)
@@ -425,8 +368,7 @@ long function_trimmer(long x, long in_min, long in_max, long out_min, long out_m
 int function_pmax(int a1, int a2)
 {
 	int biggest;
-	if(a1 > a2){ biggest = a1;
-	}else{ biggest = a2; }
+	if(a1 > a2){ biggest = a1; }else{ biggest = a2; }
 	return biggest;
 }
 int function_gcd_v1 (int u, int v)
@@ -495,28 +437,19 @@ uint32_t read_value(void){ return mem[2];}
 
 /*** Not Used ***/
 unsigned int function_mayia(unsigned int xi, unsigned int xf, uint8_t nbits)
-{// magic formula
-	unsigned int mask;
+{
 	unsigned int diff;
 	unsigned int trans;
-	mask = (unsigned int)(pow(2, nbits) - 1);
-	xi &= mask;
-	xf &= mask;
-	diff = xf ^ xi;
-	trans = diff & xf;
+	unsigned int mask = (unsigned int)(pow(2, nbits) - 1);
+	xi &= mask; xf &= mask; diff = xf ^ xi; trans = diff & xf;
 	return (trans << nbits) | diff;
 }
-
 uint8_t leap_year_check(uint16_t year){
 	uint8_t i;
-	if (!(year % 400))
-    	i = 1;
-  	else if (!(year % 100))
-    	i = 0;
-  	else if (!(year % 4) )
-    	i = 1;
-  	else
-    	i = 0;
+	if (!(year % 400)) i = 1;
+  	else if (!(year % 100)) i = 0;
+  	else if (!(year % 4) ) i = 1;
+  	else i = 0;
 	return i;
 }
 

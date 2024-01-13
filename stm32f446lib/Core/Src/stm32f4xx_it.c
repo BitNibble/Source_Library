@@ -60,13 +60,33 @@ void systick_sysclk_ms(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 void systick_sysclk_us(void)
-{systick_sysclk_calc_us = getsysclk()/gethpre(); systick_sysclk_calc_us /= 1000000; systick_sysclk_calc_us -= 1;}
+{
+	uint32_t sysclk_ticks = getsysclk()/1000; sysclk_ticks /= 1000; sysclk_ticks -= 1;
+	systick_sysclk_calc_us = getsysclk()/gethpre(); systick_sysclk_calc_us /= 1000; systick_sysclk_calc_us /= 1000; systick_sysclk_calc_us -= 1;
+	sysclk_ticks -= systick_sysclk_calc_us;
+	if(sysclk_ticks < 63) systick_sysclk_calc_us = 63; // prevent block program
+}
 void systick_sysclk_5us(void)
-{systick_sysclk_calc_5us = getsysclk()/gethpre(); systick_sysclk_calc_5us /= 200000; systick_sysclk_calc_5us -= 1;}
+{
+	uint32_t sysclk_ticks = getsysclk()/1000; sysclk_ticks /= 1000; sysclk_ticks -= 1;
+	systick_sysclk_calc_5us = getsysclk()/gethpre(); systick_sysclk_calc_5us /= 200000; systick_sysclk_calc_5us -= 1;
+	sysclk_ticks -= systick_sysclk_calc_5us;
+	if(sysclk_ticks < 63) systick_sysclk_calc_5us = 63; // prevent block program
+}
 void systick_sysclk_10us(void)
-{systick_sysclk_calc_10us = getsysclk()/gethpre(); systick_sysclk_calc_10us /= 100000; systick_sysclk_calc_10us -= 1;}
+{
+	uint32_t sysclk_ticks = getsysclk()/1000; sysclk_ticks /= 1000; sysclk_ticks -= 1;
+	systick_sysclk_calc_10us = getsysclk()/gethpre(); systick_sysclk_calc_10us /= 100000; systick_sysclk_calc_10us -= 1;
+	sysclk_ticks -= systick_sysclk_calc_10us;
+	if(sysclk_ticks < 63) systick_sysclk_calc_10us = 63; // prevent block program
+}
 void systick_sysclk_ms(void)
-{systick_sysclk_calc_ms = getsysclk()/gethpre(); systick_sysclk_calc_ms /= 1000; systick_sysclk_calc_ms -= 1;}
+{
+	uint32_t sysclk_ticks = getsysclk()/1000; sysclk_ticks /= 1000; sysclk_ticks -= 1;
+	systick_sysclk_calc_ms = getsysclk()/gethpre(); systick_sysclk_calc_ms /= 1000; systick_sysclk_calc_ms -= 1;
+	sysclk_ticks -= systick_sysclk_calc_ms;
+	if(sysclk_ticks < 63) systick_sysclk_calc_ms = 63; // prevent block program
+}
 
 void _delay_us(uint32_t us)
 {

@@ -51,7 +51,7 @@ typedef struct
 	char* (*ui16toa)(uint16_t n);
 	char* (*i32toa)(int32_t n);
 	char* (*ui32toa)(uint32_t n);
-	char* (*ftoa)(double num, char* res, uint8_t afterpoint);
+	char* (*ftoa)(double num, uint8_t afterpoint);
 	/*******/
 	int (*strToInt)(const char string[]);
 	/*******/

@@ -128,7 +128,7 @@ circ1.putstr(&circ1.par, "Welcome\r\n");
 //stm()->rtc.run->BckWrite(2,33);
 //stm.func.setreg(&test_var,2,30,3);
 /*************************************/
-for ( zone = 0 ; ass ; zone++)
+for ( zone = 1 ; ass ; zone++)
 {// COMMON
 
 if(zone == 1){ // Preamble
@@ -137,9 +137,11 @@ if(zone == 1){ // Preamble
 	PINB.update(&PINB.par, stm()->gpiob->reg->IDR);
 	PINC.update(&PINC.par, stm()->gpioc->reg->IDR);
 	lcd.reboot();
-	lcd.gotoxy(0,4);
-	lcd.string_size(func()->ui32toa(getsysclk()),15);
-	//_delay_5us(2000000); // microseconds does not work at 16Mhz.
+	//lcd.gotoxy(0,4);
+	//lcd.string_size(func()->ui32toa( getsysclk()/gethpre()/1000000 - 1 ),15 );
+	//lcd.string_size(func()->ftoa( (double) getsysclk()/gethpre(), 4 ),15 );
+	//lcd.string_size(func()->ftoa( (double) 75/12 ,4 ),15);
+	//_delay_5us(2000000);
 }
 /******************************************************************************/
 /******************************************************************************/

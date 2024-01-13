@@ -100,6 +100,7 @@ void rcc_start(void)
 	// STM32446Prescaler(uint16_t ahbpre, uint8_t ppre1, uint8_t ppre2, uint8_t rtcpre)
 	//STM32446Prescaler(8, 1, 1, 0);
 	//STM32446Prescaler(2, 1, 1, 0);
+	//STM32446Prescaler(1, 1, 1, 0);
 	STM32446Prescaler(2, 2, 1, 0); // 42Mhz, 21Mhz
 	//STM32446Prescaler(4, 3, 1, 0); // (manual 4,3,1,0)
 
