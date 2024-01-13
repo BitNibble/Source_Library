@@ -87,8 +87,9 @@ void rcc_start(void)
 	// source 0 or 1		M 2 to 63		N 50 to 432		P 2,4,6,8
 	// Q 2 to 15			R 2 to 7        (2Mhz ideal, N/m  *  clkx)
 	//STM32446PLLDivision(uint8_t pllsrc, uint8_t pllm, uint16_t plln, uint8_t pllp, uint8_t pllq, uint8_t pllr)
-	// STM32446PLLDivision(0, 8, 336, 2, 14, 7); // 0,8,360,4,15,6; 0,8,336,2,14,7;
-	STM32446PLLDivision(0, 16, 336, 4, 2, 2); // factory default
+	//STM32446PLLDivision(0, 8, 336, 2, 14, 7); // 0,8,360,4,15,6; 0,8,336,2,14,7;
+	STM32446PLLDivision(0, 16, 336, 4, 2, 2); // factory default (factory 0,16,336,4,2,2) 84Mhz
+	//STM32446PLLDivision(0, 8, 360, 4, 2, 2); // manual setting (manual 0,8,360,4,2,2) (sysclk*360)/(8*4)
 
 	// Enable PLL
 	STM32446RccPLLCLKEnable(); // Only enable when Division is configured correctly.
@@ -97,14 +98,15 @@ void rcc_start(void)
 	// AHB 1,2,4,8,16,64,128,256,512 		APB1 1,2,4,8,16		APB2 1,2,4,8,16
 	// RTC 2 to 31
 	// STM32446Prescaler(uint16_t ahbpre, uint8_t ppre1, uint8_t ppre2, uint8_t rtcpre)
-	// STM32446Prescaler(8, 1, 1, 0);
-	// STM32446Prescaler(2, 1, 1, 0);
-	STM32446Prescaler(1, 1, 1, 0);
+	//STM32446Prescaler(8, 1, 1, 0);
+	//STM32446Prescaler(2, 1, 1, 0);
+	STM32446Prescaler(2, 2, 1, 0); // 42Mhz, 21Mhz
+	//STM32446Prescaler(4, 3, 1, 0); // (manual 4,3,1,0)
 
 	// System Clock Source
 	STM32446RccHEnable(0); // 0
 	// System Clock Select or Enable
-	STM32446RccHSelect(0); // SW[1:0]: System clock switch 00 - HSI, 01 - HSE pg133 0
+	STM32446RccHSelect(2); // SW[1:0]: System clock switch 00 - HSI, 01 - HSE, 02 - PLL_P, 03 - PLL_R pg133 (manual 2)
 
 	// Internal low-speed oscillator enable and Internal low-speed oscillator ready
 	STM32446RccLEnable(1);

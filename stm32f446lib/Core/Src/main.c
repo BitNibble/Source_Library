@@ -92,9 +92,9 @@ void USART1_IRQHandler(void);
 /*************************************/
 int main(void)
 {
-STM32446enable();
+STM32446_enable();
 //tim9_inic();
-FUNCenable();
+FUNC_enable();
 portinic();
 
 unsigned int zone;
@@ -103,14 +103,13 @@ button_press = 0;
 charcount=0;
 time_out = 0;
 test_var = 0;
-uint32_t test_var;
 
 //func = FUNCenable();
-PINA = EXPLODEenable();
-PINB = EXPLODEenable();
-PINC = EXPLODEenable();
-circ1 = CIRCBUFFenable(8, buffer1);
-circ2 = CIRCBUFFenable(8, buffer2);
+PINA = EXPLODE_enable();
+PINB = EXPLODE_enable();
+PINC = EXPLODE_enable();
+circ1 = CIRCBUFF_enable(8, buffer1);
+circ2 = CIRCBUFF_enable(8, buffer2);
 
 // FPU full access
 setreg(&stm()->scb->reg->CPACR, 2, 20, 3);
@@ -121,14 +120,13 @@ count1 = 0;
 count2 = 0;
 dir = 0;
 
-hc = HC595enable(&stm()->gpioc->reg->MODER, &stm()->gpioc->reg->ODR, 2, 1, 0);
-lcd = ARMLCD0enable(stm()->gpiob->reg);
+hc = HC595_enable(&stm()->gpioc->reg->MODER, &stm()->gpioc->reg->ODR, 2, 1, 0);
+lcd = ARMLCD0_enable(stm()->gpiob->reg);
 
 
 circ1.putstr(&circ1.par, "Welcome\r\n");
 //stm()->rtc.run->BckWrite(2,33);
 //stm.func.setreg(&test_var,2,30,3);
-
 /*************************************/
 for ( zone = 0 ; ass ; zone++)
 {// COMMON
@@ -139,11 +137,9 @@ if(zone == 1){ // Preamble
 	PINB.update(&PINB.par, stm()->gpiob->reg->IDR);
 	PINC.update(&PINC.par, stm()->gpioc->reg->IDR);
 	lcd.reboot();
-
 	lcd.gotoxy(0,4);
-	test_var = getsysclk(); test_var /= 1000000; test_var -=1 ;
-	lcd.string_size(func()->ui32toa(test_var),9);
-	_delay_5us(2000000);
+	lcd.string_size(func()->ui32toa(getsysclk()),15);
+	//_delay_5us(2000000); // microseconds does not work at 16Mhz.
 }
 /******************************************************************************/
 /******************************************************************************/
@@ -160,7 +156,7 @@ if(zone == 2){ // workspace 1 RTC CALENDAR
 	//lcd.gotoxy(3,15); lcd.string_size(stm()->func->i32toa(stm()->func->value()),5);
 	//lcd.gotoxy(0,15); lcd.string(stm.func.i32toa(test_var));
 	//lcd.gotoxy(0,15); lcd.string(stm.func.i32toa(stm.query.SystemClock()));
-	lcd.gotoxy(0,15); lcd.string(func()->i32toa(stm()->rtc->BckRead(2)));
+	//lcd.gotoxy(0,15); lcd.string(func()->i32toa(stm()->rtc->BckRead(2)));
 	//lcd.gotoxy(0,15); lcd.string(stm.func.i32toa(stm.func.getsetbit(&regist, 2, 24)));
 	//lcd.gotoxy(0,11); lcd.string(stm.func.ftoa((double)regist,message,1));
 	//if(PINC.par.LL & (1 << 13)){stm.func.setbit(&stm.gpioa.reg->ODR, 1, 5, 2);}
@@ -365,7 +361,7 @@ void calendario(void)
 
 		case 3: // message
 			lcd.gotoxy(0,0);
-			lcd.string_size("Cal",3);
+			lcd.string_size("Cal",4);
 
 			rtc()->dr2vec(vecD);
 			lcd.gotoxy(2,0);

@@ -205,23 +205,27 @@ uint8_t getpllr(void)
 }
 uint32_t getsysclk(void)
 {
-	uint32_t value = readreg(RCC->CFGR, 2, 2);
+	long value = readreg(RCC->CFGR, 2, 2);
 	switch(value) // SWS[2]: System clock switch status
 	{
 		case 1: // 01: HSE oscillator used as the system clock
 			value = HSE_OSC;
 		break;
 		case 2: // 10: PLL used as the system clock
-			value = ( getclocksource() / getpllm() ) * ( getplln() / getpllp() );
+			value = getclocksource() / getpllm();
+			value /= getpllp();
+			value *= getplln();
 		break;
 		case 3: // 11: PLL_R used as the system clock
-			value = ( getclocksource() / getpllm() ) * ( getplln() / getpllr() );
+			value = getclocksource() / getpllm();
+			value /= getpllr();
+			value *= getplln();
 		break;
 		default: // 00: HSI oscillator used as the system clock
 			value = HSI_RC;
 		break;
 	}
-	return value;
+	return (uint32_t)value;
 }
 STM32446CLOCK_prescaler* CLOCK_prescaler_inic(void)
 {
