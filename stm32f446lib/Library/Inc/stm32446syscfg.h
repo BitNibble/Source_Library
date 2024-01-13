@@ -88,8 +88,8 @@ typedef struct
 /*************************************/
 /************ INIC SYSCFG ************/
 /*************************************/
-STM32446SYSCFGobj STM32446SYSCFG_inic(void);
-STM32446SYSCFGobj* STM32446SYSCFG(void);
+STM32446SYSCFGobj syscfg_enable(void);
+STM32446SYSCFGobj* syscfg(void);
 /***********************************************/
 /********* Procedure & Function Header *********/
 /***********************************************/

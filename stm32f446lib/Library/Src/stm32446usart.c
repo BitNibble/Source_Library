@@ -1887,7 +1887,7 @@ STM32446USART_GTPR* stm32446_usart1_gtpr_inic(void)
 	return &stm32446_usart1_gtpr;
 }
 /*** USART1 INIC Procedure & Function Definition ***/
-STM32446_USART1 usart1_inic(void)
+STM32446_USART1 usart1_enable(void)
 {
 
 	// STM32446USART1obj stm32446_usart1;
@@ -2002,7 +2002,7 @@ STM32446USART_GTPR* stm32446_usart2_gtpr_inic(void)
 	return &stm32446_usart2_gtpr;
 }
 /*** USART2 INIC Procedure & Function Definition ***/
-STM32446_USART2 usart2_inic(void)
+STM32446_USART2 usart2_enable(void)
 {
 
 	stm32446_usart2.reg = USART2;
@@ -2115,7 +2115,7 @@ STM32446USART_GTPR* stm32446_usart3_gtpr_inic(void)
 	return &stm32446_usart3_gtpr;
 }
 /*** USART3 INIC Procedure & Function Definition ***/
-STM32446_USART3 usart3_inic(void)
+STM32446_USART3 usart3_enable(void)
 {
 
 	stm32446_usart3.reg = USART3;
@@ -2228,7 +2228,7 @@ STM32446USART_GTPR* stm32446_uart4_gtpr_inic(void)
 	return &stm32446_uart4_gtpr;
 }
 /*** UART4 INIC Procedure & Function Definition ***/
-STM32446_UART4 uart4_inic(void)
+STM32446_UART4 uart4_enable(void)
 {
 
 	stm32446_uart4.reg = UART4;
@@ -2341,7 +2341,7 @@ STM32446USART_GTPR* stm32446_uart5_gtpr_inic(void)
 	return &stm32446_uart5_gtpr;
 }
 /*** UART5 INIC Procedure & Function Definition ***/
-STM32446_UART5 uart5_inic(void)
+STM32446_UART5 uart5_enable(void)
 {
 
 	stm32446_uart5.reg = UART5;
@@ -2454,7 +2454,7 @@ STM32446USART_GTPR* stm32446_usart6_gtpr_inic(void)
 	return &stm32446_usart6_gtpr;
 }
 /*** USART6 INIC Procedure & Function Definition ***/
-STM32446_USART6 usart6_inic(void)
+STM32446_USART6 usart6_enable(void)
 {
 
 	stm32446_usart6.reg = USART6;

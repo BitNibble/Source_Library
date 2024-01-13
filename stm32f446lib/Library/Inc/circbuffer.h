@@ -37,7 +37,7 @@ struct circ_buf_template
 };
 typedef struct circ_buf_template circbuff;
 
-circbuff CIRCBUFFenable(uint8_t size_buff, CIRCBUFF_var* buff);
+circbuff CIRCBUFF_enable(uint8_t size_buff, CIRCBUFF_var* buff);
 
 #endif
 

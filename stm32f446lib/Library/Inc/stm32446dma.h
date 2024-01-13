@@ -90,10 +90,10 @@ typedef struct
 }STM32446DMAobj, STM32446DMA1obj, STM32446DMA2obj;
 /*************************************/
 /*************************************/
-STM32446DMA1obj dma1_inic(void);
+STM32446DMA1obj dma1_enable(void);
 STM32446DMA1obj* dma1(void);
 
-STM32446DMA2obj dma2_inic(void);
+STM32446DMA2obj dma2_enable(void);
 STM32446DMA2obj* dma2(void);
 /***** DMA Procedure & Function Header ******/
 /*** DMA ***/

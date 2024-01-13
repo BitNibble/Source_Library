@@ -24,144 +24,144 @@ static STM32446 stm32446;
 static STM32446SCBobj STM32446_SCB;
 
 /******* STM32F446RE Procedure & Function Definition *******/
-STM32446 STM32446enable(void){
+STM32446 STM32446_enable(void){
 	/************* CORE ************/
 	// SCB
 	stm32446.scb = &STM32446_SCB;
 	stm32446.scb->reg = (SCB_Type*) STM32446_SCB_BASE;
 	// NVIC
 	#if defined(_STM32446NVIC_H_)
-		nvic_inic();
+		nvic_enable();
 		stm32446.nvic = nvic();
 	#endif
 	/************ MCU ************/
 	// ADC -> ADC1
 	#if defined(_STM32446ADC1_H_)
-		adc1_inic();
+		adc1_enable();
 		stm32446.adc1 = adc1();
 	#endif
 	// ADC -> ADC2
 	#if defined(_STM32446ADC2_H_)
-		adc2_inic();
+		adc2_enable();
 		stm32446.adc2 = adc2();
 	#endif
 	// ADC -> ADC3
 	#if defined(_STM32446ADC3_H_)
-		adc3_inic();
+		adc3_enable();
 		stm32446.adc3 = adc3();
 	#endif
 	// CRC
 	#if defined(_STM32446CRC_H_)
-		crc_inic();
+		crc_enable();
 		stm32446.crc = crc();
 	#endif
 	#if defined(_STM32446DMA_H_)
 	// DMA1
-		dma1_inic();
+		dma1_enable();
 		stm32446.dma1 = dma1();
 	// DMA2
-		dma2_inic();
+		dma2_enable();
 		stm32446.dma2 = dma2();
 	#endif
 	// FLASH
 	#if defined(_STM32446FLASH_H_)
-		flash_inic();
+		flash_enable();
 		stm32446.flash = flash();
 	#endif
 	// GPIO
 	#if defined(_STM32446GPIO_H_)
-		gpioa_inic();
+		gpioa_enable();
 		stm32446.gpioa = gpioa();
-		gpiob_inic();
+		gpiob_enable();
 		stm32446.gpiob = gpiob();
-		gpioc_inic();
+		gpioc_enable();
 		stm32446.gpioc = gpioc();
-		gpiod_inic();
+		gpiod_enable();
 		stm32446.gpiod = gpiod();
-		gpioe_inic();
+		gpioe_enable();
 		stm32446.gpioe = gpioe();
-		gpioh_inic();
+		gpioh_enable();
 		stm32446.gpioh = gpioh();
 	#endif
 	// SYSCFG
 	#if defined(_STM32446SYSCFG_H_)
-		STM32446SYSCFG_inic();
-		stm32446.syscfg = STM32446SYSCFG();
+		syscfg_enable();
+		stm32446.syscfg = syscfg();
 	#endif
 	// PWR
 	#if defined(_STM32446PWR_H_)
-		pwr_inic();
+		pwr_enable();
 		stm32446.pwr = pwr();
 	#endif
 	// RCC
 	#if defined(_STM32446RCC_H_)
-		rcc_inic();
+		rcc_enable();
 		stm32446.rcc = rcc();
 	#endif
 	// RTC
 	#if defined(_STM32446RTC_H_)
-		rtc_inic();
+		rtc_enable();
 		stm32446.rtc = rtc();
 	#endif
 	// SRAM
 	#if defined(_STM32446SRAM_H_)
-		sram_inic();
+		sram_enable();
 		stm32446.sram = sram();
 	#endif
 	// TIM
 	#if defined(_STM32446TIM1AND8_H_)
-		tim1_inic();
+		tim1_enable();
 		stm32446.tim1 = tim1();
-		tim8_inic();
+		tim8_enable();
 		stm32446.tim8 = tim8();
 	#endif
 	#if defined(_STM32446TIM2TO5_H_)
-		tim2_inic();
+		tim2_enable();
 		stm32446.tim2 = tim2();
-		tim3_inic();
+		tim3_enable();
 		stm32446.tim3 = tim3();
-		tim4_inic();
+		tim4_enable();
 		stm32446.tim4 = tim4();
-		tim5_inic();
+		tim5_enable();
 		stm32446.tim5 = tim5();
 	#endif
 	#if defined(_STM32446TIM6AND7_H_)
-		tim6_inic();
+		tim6_enable();
 		stm32446.tim6 = tim6();
-		tim7_inic();
+		tim7_enable();
 		stm32446.tim7 = tim7();
 	#endif
 	#if defined(_STM32446TIM9TO14_H_)
-		tim9_inic();
+		tim9_enable();
 		stm32446.tim9 = tim9();
-		tim10_inic();
+		tim10_enable();
 		stm32446.tim10 = tim10();
-		tim11_inic();
+		tim11_enable();
 		stm32446.tim11 = tim11();
-		tim12_inic();
+		tim12_enable();
 		stm32446.tim12 = tim12();
-		tim13_inic();
+		tim13_enable();
 		stm32446.tim13 = tim13();
-		tim14_inic();
+		tim14_enable();
 		stm32446.tim14 = tim14();
 	#endif
 	// USART
 	#if defined(_STM32446USART_H_)
-		usart1_inic();
+		usart1_enable();
 		stm32446.usart1 = usart1();
-		usart2_inic();
+		usart2_enable();
 		stm32446.usart2 = usart2();
-		usart3_inic();
+		usart3_enable();
 		stm32446.usart3 = usart3();
-		uart4_inic();
+		uart4_enable();
 		stm32446.uart4 = uart4();
-		uart5_inic();
+		uart5_enable();
 		stm32446.uart5 = uart5();
-		usart6_inic();
+		usart6_enable();
 		stm32446.usart6 = usart6();
 	#endif
 
-	query_inic();
+	query_enable();
 	rcc_start();
 	systick_start();
 

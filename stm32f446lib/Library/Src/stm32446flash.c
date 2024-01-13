@@ -274,7 +274,7 @@ STM32446FLASH_optcr* stm32446_flash_optcr_inic(void)
 	return &stm32446_flash_optcr;
 }
 /*** INIC Procedure & Function Definition ***/
-STM32446FLASHobj flash_inic(void)
+STM32446FLASHobj flash_enable(void)
 {
 
 

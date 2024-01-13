@@ -192,7 +192,7 @@ STM32446PWR_csr* stm32446_pwr_csr_inic(void)
 	return &stm32446_pwr_csr;
 }
 /*** INIC Procedure & Function Definition ***/
-STM32446PWRobj pwr_inic(void)
+STM32446PWRobj pwr_enable(void)
 {
 
 	stm32446_pwr.reg = PWR;

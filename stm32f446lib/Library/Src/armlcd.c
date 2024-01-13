@@ -41,7 +41,7 @@ void ARMLCD0_reboot(void);
 void ARMLCD0_strobe(void);
 
 /*** LCD0 Procedure & Function Definition ***/
-ARMLCD0 ARMLCD0enable(GPIO_TypeDef* reg)
+ARMLCD0 ARMLCD0_enable(GPIO_TypeDef* reg)
 {
 	// ALLOCACAO MEMORIA PARA Estrutura
 

@@ -61,9 +61,9 @@ typedef struct
 /************************/
 /*** INIC TIM 6 AND 7 ***/
 /***********************/
-STM32446TIM6obj tim6_inic(void);
+STM32446TIM6obj tim6_enable(void);
 STM32446TIM6obj* tim6(void);
-STM32446TIM7obj tim7_inic(void);
+STM32446TIM7obj tim7_enable(void);
 STM32446TIM7obj* tim7(void);
 /****************************************/
 /*** TIM6 Procedure & Function Header ***/

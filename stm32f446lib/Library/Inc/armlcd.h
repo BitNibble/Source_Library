@@ -43,7 +43,7 @@ typedef struct
 	void (*reboot)(void);
 }ARMLCD0;
 
-ARMLCD0 ARMLCD0enable(GPIO_TypeDef* reg);
+ARMLCD0 ARMLCD0_enable(GPIO_TypeDef* reg);
 ARMLCD0* lcd0(void);
 
 #endif

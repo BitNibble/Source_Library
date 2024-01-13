@@ -591,7 +591,7 @@ STM32446ADC2single* stm32446_adc2_single_inic(void)
 }
 
 /*** ADC2 INIC Procedure & Function Definition ***/
-STM32446ADC2obj adc2_inic(void)
+STM32446ADC2obj adc2_enable(void)
 {
 
 	stm32446_adc2.reg = ADC2;

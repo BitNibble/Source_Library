@@ -32,7 +32,7 @@ CIRCBUFFER_par circ_par_inic( uint8_t size_buff, CIRCBUFF_var* buff )
 	return circ_par;
 }
 /*** CIRCBUFF Procedure & Function Definition ***/
-circbuff CIRCBUFFenable( uint8_t size_buff, CIRCBUFF_var* buff )
+circbuff CIRCBUFF_enable( uint8_t size_buff, CIRCBUFF_var* buff )
 {
 	// OBJECT STRUCT
 	struct circ_buf_template circ;

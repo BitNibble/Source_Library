@@ -482,7 +482,7 @@ typedef struct
 	void (*nvic)(uint8_t bool);
 }STM32446RCCobj;
 
-STM32446RCCobj rcc_inic(void);
+STM32446RCCobj rcc_enable(void);
 STM32446RCCobj* rcc(void);
 
 /*** Procedure & Function Header ***/

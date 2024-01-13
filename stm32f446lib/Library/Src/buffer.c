@@ -30,7 +30,7 @@ bufferparameter buff_par_inic( uint8_t size_buff, BUFFvar* buff )
 	return buff_par;
 }
 /*** BUFF Procedure & Function Definition ***/
-BUFF BUFFenable( uint8_t size_buff, BUFFvar* buff )
+BUFF BUFF_enable( uint8_t size_buff, BUFFvar* buff )
 {
 	// OBJECT STRUCT
 	BUFF ret;

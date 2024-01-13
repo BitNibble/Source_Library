@@ -40,7 +40,7 @@ void STM32446SramAccess(void)
 /*** SRAM Bit Mapping Definition ***/
 
 /*** INIC Procedure & Function Definition ***/
-STM32446SRAMobj sram_inic(void)
+STM32446SRAMobj sram_enable(void)
 {
 
 	stm32446_sram.access = STM32446SramAccess;

@@ -49,7 +49,7 @@ typedef struct
 }STM32446ADC1obj;
 
 // INIC
-STM32446ADC1obj adc1_inic(void);
+STM32446ADC1obj adc1_enable(void);
 STM32446ADC1obj* adc1(void);
 
 /***** ADC1 Procedure & Function Header ******/

@@ -1497,7 +1497,7 @@ STM32446TIM1_DCR* stm32446_tim1_dcr_inic(void)
 	return &stm32446_tim1_dcr;
 }
 /*** TIM1 INIC Procedure & Function Definition ***/
-STM32446TIM1obj tim1_inic(void)
+STM32446TIM1obj tim1_enable(void)
 {
 
 	stm32446_tim1.reg = TIM1;
@@ -1722,7 +1722,7 @@ STM32446TIM8_DCR* stm32446_tim8_dcr_inic(void)
 	return &stm32446_tim8_dcr;
 }
 /*** TIM8 INIC Procedure & Function Definition ***/
-STM32446TIM8obj tim8_inic(void)
+STM32446TIM8obj tim8_enable(void)
 {
 
 	stm32446_tim8.reg = TIM8;

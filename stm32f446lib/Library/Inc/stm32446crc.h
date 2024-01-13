@@ -26,7 +26,7 @@ typedef struct
 	void (*clock)(uint8_t bool);
 }STM32446CRCobj;
 
-STM32446CRCobj crc_inic(void);
+STM32446CRCobj crc_enable(void);
 STM32446CRCobj* crc(void);
 
 /***** CRC Procedure & Function Header ******/

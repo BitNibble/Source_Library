@@ -353,7 +353,7 @@ typedef struct
 }STM32446;
 
 /*** Global ***/
-STM32446 STM32446enable(void);
+STM32446 STM32446_enable(void);
 STM32446* stm(void);
 
 /*** INTERRUPT HEADER ***/

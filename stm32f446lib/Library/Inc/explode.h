@@ -43,7 +43,7 @@ typedef struct {
 	void (*update)(explode_parameter* par, IO_var x);
 }EXPLODE;
 
-EXPLODE EXPLODEenable(void);
+EXPLODE EXPLODE_enable(void);
 
 #endif
 

@@ -235,13 +235,13 @@ typedef struct
 /***********************/
 /*** INIC TIM 2 to 5 ***/
 /***********************/
-STM32446TIM2obj tim2_inic(void);
+STM32446TIM2obj tim2_enable(void);
 STM32446TIM2obj* tim2(void);
-STM32446TIM3obj tim3_inic(void);
+STM32446TIM3obj tim3_enable(void);
 STM32446TIM3obj* tim3(void);
-STM32446TIM4obj tim4_inic(void);
+STM32446TIM4obj tim4_enable(void);
 STM32446TIM4obj* tim4(void);
-STM32446TIM5obj tim5_inic(void);
+STM32446TIM5obj tim5_enable(void);
 STM32446TIM5obj* tim5(void);
 /****************************************/
 /*** TIM2 Procedure & Function Header ***/

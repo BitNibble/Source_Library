@@ -541,7 +541,7 @@ void STM32446GpioHafr( uint8_t data, uint8_t pin )
 	}
 }
 /*** INIC Procedure & Function Definition ***/
-STM32446GpioAobj gpioa_inic(void)
+STM32446GpioAobj gpioa_enable(void)
 {
 
 	// GPIOA
@@ -561,7 +561,7 @@ STM32446GpioAobj gpioa_inic(void)
 
 STM32446GpioAobj* gpioa(void){ return &stm32446_gpioa; }
 
-STM32446GpioBobj gpiob_inic(void)
+STM32446GpioBobj gpiob_enable(void)
 {
 
 	// GPIOB
@@ -581,7 +581,7 @@ STM32446GpioBobj gpiob_inic(void)
 
 STM32446GpioBobj* gpiob(void){ return &stm32446_gpiob; }
 
-STM32446GpioCobj gpioc_inic(void)
+STM32446GpioCobj gpioc_enable(void)
 {
 
 	// GPIOC
@@ -601,7 +601,7 @@ STM32446GpioCobj gpioc_inic(void)
 
 STM32446GpioCobj* gpioc(void){ return &stm32446_gpioc; }
 
-STM32446GpioDobj gpiod_inic(void)
+STM32446GpioDobj gpiod_enable(void)
 {
 
 	// GPIOD
@@ -621,7 +621,7 @@ STM32446GpioDobj gpiod_inic(void)
 
 STM32446GpioDobj* gpiod(void){ return &stm32446_gpiod; }
 
-STM32446GpioEobj gpioe_inic(void)
+STM32446GpioEobj gpioe_enable(void)
 {
 
 	// GPIOE
@@ -641,7 +641,7 @@ STM32446GpioEobj gpioe_inic(void)
 
 STM32446GpioEobj* gpioe(void){ return &stm32446_gpioe; }
 
-STM32446GpioHobj gpioh_inic(void)
+STM32446GpioHobj gpioh_enable(void)
 {
 
 	// GPIOH

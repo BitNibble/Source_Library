@@ -75,7 +75,7 @@ uint32_t read_value(void);
 void FUNC_var(void);
 
 /*** FUNC Procedure & Function Definition ***/
-FUNC FUNCenable( void )
+FUNC FUNC_enable( void )
 {
 	FUNC_var();
 	/*** TOP ***/

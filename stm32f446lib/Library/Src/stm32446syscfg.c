@@ -20,7 +20,7 @@ static SYSCFG_exticr3 exticr3;
 static SYSCFG_exticr4 exticr4;
 static SYSCFG_cmpcr cmpcr;
 static SYSCFG_cfgr cfgr;
-static STM32446SYSCFGobj syscfg;
+static STM32446SYSCFGobj stm32446_syscfg;
 
 /****************************************/
 /*** File Procedure & Function Header ***/
@@ -229,25 +229,25 @@ SYSCFG_cfgr* SYSCFG_cfgr_inic(void)
 /************************************************/
 /**** SYSCFG Procedure & Function Definition ****/
 /************************************************/
-STM32446SYSCFGobj STM32446SYSCFG_inic(void)
+STM32446SYSCFGobj syscfg_enable(void)
 {
 
-	syscfg.reg = SYSCFG;
+	stm32446_syscfg.reg = SYSCFG;
 	/*** LINK ***/
-	syscfg.memrmp = SYSCFG_memrmp_inic();
-	syscfg.pmc = SYSCFG_pmc_inic();
-	syscfg.exticr1 = SYSCFG_exticr1_inic();
-	syscfg.exticr2 = SYSCFG_exticr2_inic();
-	syscfg.exticr3 = SYSCFG_exticr3_inic();
-	syscfg.exticr4 = SYSCFG_exticr4_inic();
-	syscfg.cmpcr = SYSCFG_cmpcr_inic();
-	syscfg.cfgr = SYSCFG_cfgr_inic();
+	stm32446_syscfg.memrmp = SYSCFG_memrmp_inic();
+	stm32446_syscfg.pmc = SYSCFG_pmc_inic();
+	stm32446_syscfg.exticr1 = SYSCFG_exticr1_inic();
+	stm32446_syscfg.exticr2 = SYSCFG_exticr2_inic();
+	stm32446_syscfg.exticr3 = SYSCFG_exticr3_inic();
+	stm32446_syscfg.exticr4 = SYSCFG_exticr4_inic();
+	stm32446_syscfg.cmpcr = SYSCFG_cmpcr_inic();
+	stm32446_syscfg.cfgr = SYSCFG_cfgr_inic();
 	/*** Oyher ***/
-	syscfg.clock = SYSCFG_Clock;
-	return syscfg;
+	stm32446_syscfg.clock = SYSCFG_Clock;
+	return stm32446_syscfg;
 }
 
-STM32446SYSCFGobj* STM32446SYSCFG(void){ return (STM32446SYSCFGobj*) &syscfg; }
+STM32446SYSCFGobj* syscfg(void){ return (STM32446SYSCFGobj*) &stm32446_syscfg; }
 
 /*** EOF ***/
 

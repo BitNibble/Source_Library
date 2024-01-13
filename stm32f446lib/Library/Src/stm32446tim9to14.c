@@ -1613,7 +1613,7 @@ STM32446TIM9_CCER* stm32446_tim9_ccer_inic(void)
 	return &stm32446_tim9_ccer;
 }
 /*** TIM9 Procedure & Function Definition ***/
-STM32446TIM9obj tim9_inic(void)
+STM32446TIM9obj tim9_enable(void)
 {
 
 	stm32446_tim9.reg = TIM9;
@@ -1702,7 +1702,7 @@ STM32446TIM10_CCER* stm32446_tim10_ccer_inic(void)
 	return &stm32446_tim10_ccer;
 }
 /*** TIM10 Procedure & Function Definition***/
-STM32446TIM10obj tim10_inic(void)
+STM32446TIM10obj tim10_enable(void)
 {
 
 	stm32446_tim10.reg = TIM10;
@@ -1790,7 +1790,7 @@ STM32446TIM11_CCER* stm32446_tim11_ccer_inic(void)
 	return &stm32446_tim11_ccer;
 }
 /*** TIM11 Procedure & Function Definition***/
-STM32446TIM11obj tim11_inic(void)
+STM32446TIM11obj tim11_enable(void)
 {
 
 	stm32446_tim11.reg = TIM11;
@@ -1907,7 +1907,7 @@ STM32446TIM12_CCER* stm32446_tim12_ccer_inic(void)
 	return &stm32446_tim12_ccer;
 }
 /*** TIM12 Procedure & Function Definition***/
-STM32446TIM12obj tim12_inic(void)
+STM32446TIM12obj tim12_enable(void)
 {
 
 	stm32446_tim12.reg = TIM12;
@@ -1996,7 +1996,7 @@ STM32446TIM13_CCER* stm32446_tim13_ccer_inic(void)
 	return &stm32446_tim13_ccer;
 }
 /*** TIM13 Procedure & Function Definition***/
-STM32446TIM13obj tim13_inic(void)
+STM32446TIM13obj tim13_enable(void)
 {
 
 	stm32446_tim13.reg = TIM13;
@@ -2084,7 +2084,7 @@ STM32446TIM14_CCER* stm32446_tim14_ccer_inic(void)
 	return &stm32446_tim14_ccer;
 }
 /*** TIM14 Procedure & Function Definition ***/
-STM32446TIM14obj tim14_inic(void)
+STM32446TIM14obj tim14_enable(void)
 {
 
 	stm32446_tim14.reg = TIM14;

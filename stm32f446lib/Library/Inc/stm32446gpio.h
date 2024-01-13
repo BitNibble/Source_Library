@@ -144,22 +144,22 @@ typedef struct
 	#endif
 }STM32446GpioHobj;
 // INIC
-STM32446GpioAobj gpioa_inic(void);
+STM32446GpioAobj gpioa_enable(void);
 STM32446GpioAobj* gpioa(void);
 
-STM32446GpioBobj gpiob_inic(void);
+STM32446GpioBobj gpiob_enable(void);
 STM32446GpioBobj* gpiob(void);
 
-STM32446GpioCobj gpioc_inic(void);
+STM32446GpioCobj gpioc_enable(void);
 STM32446GpioCobj* gpioc(void);
 
-STM32446GpioDobj gpiod_inic(void);
+STM32446GpioDobj gpiod_enable(void);
 STM32446GpioDobj* gpiod(void);
 
-STM32446GpioEobj gpioe_inic(void);
+STM32446GpioEobj gpioe_enable(void);
 STM32446GpioEobj* gpioe(void);
 
-STM32446GpioHobj gpioh_inic(void);
+STM32446GpioHobj gpioh_enable(void);
 STM32446GpioHobj* gpioh(void);
 
 /***** GPIO Procedure & Funtion Header ******/

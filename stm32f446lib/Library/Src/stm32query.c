@@ -242,7 +242,7 @@ STM32446PLL_parameter* PLL_parameter_inic(void)
 	stm32446_PLL_parameter.R = getpllr;
 	return &stm32446_PLL_parameter;
 }
-STM32446Query query_inic(void)
+STM32446Query query_enable(void)
 {
 	stm32446_query.CLOCK_prescaler = CLOCK_prescaler_inic();
 	stm32446_query.PLL_parameter = PLL_parameter_inic();

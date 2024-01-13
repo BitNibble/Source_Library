@@ -172,17 +172,17 @@ typedef struct
 /************************/
 /*** INIC TIM 9 to 14 ***/
 /************************/
-STM32446TIM9obj tim9_inic(void);
+STM32446TIM9obj tim9_enable(void);
 STM32446TIM9obj* tim9(void);
-STM32446TIM10obj tim10_inic(void);
+STM32446TIM10obj tim10_enable(void);
 STM32446TIM10obj* tim10(void);
-STM32446TIM11obj tim11_inic(void);
+STM32446TIM11obj tim11_enable(void);
 STM32446TIM11obj* tim11(void);
-STM32446TIM12obj tim12_inic(void);
+STM32446TIM12obj tim12_enable(void);
 STM32446TIM12obj* tim12(void);
-STM32446TIM13obj tim13_inic(void);
+STM32446TIM13obj tim13_enable(void);
 STM32446TIM13obj* tim13(void);
-STM32446TIM14obj tim14_inic(void);
+STM32446TIM14obj tim14_enable(void);
 STM32446TIM14obj* tim14(void);
 /****************************************/
 /*** TIM9 Procedure & Function Header ***/

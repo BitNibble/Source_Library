@@ -34,7 +34,7 @@ struct buffer
 };
 typedef struct buffer BUFF;
 
-BUFF BUFFenable(uint8_t size_buff, BUFFvar* buff);
+BUFF BUFF_enable(uint8_t size_buff, BUFFvar* buff);
 
 #endif
 

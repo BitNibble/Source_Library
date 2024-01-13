@@ -47,7 +47,7 @@ typedef struct
 	void (*nvic)(uint8_t bool);
 }STM32446ADC2obj;
 
-STM32446ADC2obj adc2_inic(void);
+STM32446ADC2obj adc2_enable(void);
 STM32446ADC2obj* adc2(void);
 
 /*** ADC2 ***/

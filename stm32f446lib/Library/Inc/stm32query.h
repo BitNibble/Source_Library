@@ -72,7 +72,7 @@ uint8_t getpllq(void);
 uint8_t getpllr(void);
 uint32_t getsysclk(void);
 
-STM32446Query query_inic(void);
+STM32446Query query_enable(void);
 STM32446Query* query(void);
 
 #endif

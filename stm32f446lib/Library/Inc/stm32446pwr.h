@@ -63,7 +63,7 @@ typedef struct
 	void (*clock)(uint8_t bool);
 }STM32446PWRobj;
 
-STM32446PWRobj pwr_inic(void);
+STM32446PWRobj pwr_enable(void);
 STM32446PWRobj* pwr(void);
 
 /*** PWR Bit Mapping Header ***/

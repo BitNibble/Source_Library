@@ -589,7 +589,7 @@ STM32446ADC3single* stm32446_adc3_single_inic(void)
 	return &stm32446_adc3_single;
 }
 /*** ADC3 INIC Procedure & Function Definition ***/
-STM32446ADC3obj adc3_inic(void)
+STM32446ADC3obj adc3_enable(void)
 {
 
 	stm32446_adc3.reg = ADC3;

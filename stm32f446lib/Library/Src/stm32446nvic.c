@@ -50,7 +50,7 @@ void STM32446NVIC_trigger(uint32_t IRQn)
 	writereg(&NVIC->STIR, 9, 0, IRQn);
 }
 /*** INIC Procedure & Function Definition ***/
-STM32446NVICobj nvic_inic(void)
+STM32446NVICobj nvic_enable(void)
 {
 
 	stm32446_nvic.reg = NVIC;

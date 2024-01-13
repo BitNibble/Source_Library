@@ -65,7 +65,7 @@ typedef struct
 	uint32_t (*value)(void);
 }FUNC;
 
-FUNC FUNCenable(void);
+FUNC FUNC_enable(void);
 FUNC* func(void);
 
 #endif

@@ -1934,7 +1934,7 @@ STM32446RCCPLLSAI* stm32446_rcc_pllsai_inic(void)
 	return &stm32446_rcc_pllsai;
 }
 /*** INIC Procedure & Function Definition ***/
-STM32446RCCobj rcc_inic(void)
+STM32446RCCobj rcc_enable(void)
 {
 
 	stm32446_rcc.reg = RCC;

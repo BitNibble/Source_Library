@@ -35,7 +35,7 @@ char rtc_dec2bcd(char num);
 void rtc_lenable(unsigned int lclock);
 void rtc_lselect(uint8_t lclock);
 /*** RTC Procedure & Function Definition ***/
-STM32446_RTC rtc_inic(void)
+STM32446_RTC rtc_enable(void)
 {
 	stm32446_rtc.reg = RTC;
 	/***/

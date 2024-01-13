@@ -103,7 +103,7 @@ typedef struct
 	void (*nvic)(uint8_t bool);
 }STM32446FLASHobj;
 
-STM32446FLASHobj flash_inic(void);
+STM32446FLASHobj flash_enable(void);
 STM32446FLASHobj* flash(void);
 
 /*** Procedure & Function Header ***/

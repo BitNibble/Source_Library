@@ -1732,7 +1732,7 @@ STM32446DMA_func* stm32446_dma1_func_inic(void)
 /****************************************************/
 /**** DMA1 INIC Procedure & Function Definition *****/
 /****************************************************/
-STM32446DMA1obj dma1_inic(void)
+STM32446DMA1obj dma1_enable(void)
 {
 
 	stm32446_dma1.reg = DMA1;
@@ -3363,7 +3363,7 @@ STM32446DMA_func* stm32446_dma2_func_inic(void)
 /****************************************************/
 /**** DMA2 INIC Procedure & Function Definition *****/
 /****************************************************/
-STM32446DMA2obj dma2_inic(void)
+STM32446DMA2obj dma2_enable(void)
 {
 
 	stm32446_dma2.reg = DMA2;

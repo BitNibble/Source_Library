@@ -31,7 +31,7 @@ explode_parameter explode_par_inic(void)
 	return setup_explode_par;
 }
 /*** EXPLODE Procedure & Function Definition ***/
-EXPLODE EXPLODEenable( void )
+EXPLODE EXPLODE_enable( void )
 {
 	// struct object
 	EXPLODE setup_explode;

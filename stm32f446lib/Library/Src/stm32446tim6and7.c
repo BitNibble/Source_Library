@@ -256,7 +256,7 @@ STM32446TIM6_EGR* stm32446_tim6_egr_inic(void)
 	return &stm32446_tim6_egr;
 }
 /*** TIM6 INIC Procedure & Function Definition ***/
-STM32446TIM6obj tim6_inic(void)
+STM32446TIM6obj tim6_enable(void)
 {
 
 	stm32446_tim6.reg = TIM6;
@@ -322,7 +322,7 @@ STM32446TIM7_EGR* stm32446_tim7_egr_inic(void)
 	return &stm32446_tim7_egr;
 }
 /*** TIM7 INIC Procedure & Function Definition ***/
-STM32446TIM7obj tim7_inic(void)
+STM32446TIM7obj tim7_enable(void)
 {
 
 	stm32446_tim7.reg = TIM7;

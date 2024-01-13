@@ -2158,7 +2158,7 @@ STM32446TIM2_DCR* stm32446_tim2_dcr_inic(void)
 	return &stm32446_tim2_dcr;
 }
 /*** TIM2 INIC Procedure & Function Definition ***/
-STM32446TIM2obj tim2_inic(void)
+STM32446TIM2obj tim2_enable(void)
 {
 
 	stm32446_tim2.reg = TIM2;
@@ -2352,7 +2352,7 @@ STM32446TIM3_DCR* stm32446_tim3_dcr_inic(void)
 	return &stm32446_tim3_dcr;
 }
 /*** TIM3 INIC Procedure & Function Definition ***/
-STM32446TIM3obj tim3_inic(void)
+STM32446TIM3obj tim3_enable(void)
 {
 
 	stm32446_tim3.reg = TIM3;
@@ -2545,7 +2545,7 @@ STM32446TIM4_DCR* stm32446_tim4_dcr_inic(void)
 	return &stm32446_tim4_dcr;
 }
 /*** TIM4 INIC Procedure & Function Definition ***/
-STM32446TIM4obj tim4_inic(void)
+STM32446TIM4obj tim4_enable(void)
 {
 
 	stm32446_tim4.reg = TIM4;
@@ -2738,7 +2738,7 @@ STM32446TIM5_DCR* stm32446_tim5_dcr_inic(void)
 	return &stm32446_tim5_dcr;
 }
 /*** TIM5 INIC Procedure & Function Definition ***/
-STM32446TIM5obj tim5_inic(void)
+STM32446TIM5obj tim5_enable(void)
 {
 
 	stm32446_tim5.reg = TIM5;
