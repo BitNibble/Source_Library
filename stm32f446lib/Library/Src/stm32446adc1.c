@@ -585,7 +585,7 @@ void STM32446Adc1TEMP(void)
 	// Temperature (in degrees) = {(VSENSE V25) / Avg_Slope} + 25
 	STM32446ADC_ccr_tsvrefe(1); // TSVREFE: Temperature sensor and VREFINT enable
 }
-void STM32446Adc1Start()
+void STM32446Adc1Start(void)
 {
 	uint32_t time_out;
 	// turn on select source and start reading
@@ -630,6 +630,7 @@ STM32446ADC1obj adc1_enable(void)
 	stm32446_adc1.common = stm32446_adc_common_inic();
 	/*** Other ***/
 	stm32446_adc1.single = stm32446_adc1_single_inic();
+	stm32446_adc1.start = STM32446Adc1Start;
 	stm32446_adc1.iclock = STM32446Adc1IClock;
 	stm32446_adc1.clock = STM32446Adc1Clock;
 	stm32446_adc1.nvic = STM32446Adc1Nvic;

@@ -43,6 +43,7 @@ typedef struct
 	uint16_t (*dr)(void);
 	/*** Other ***/
 	STM32446ADC1single* single;
+	void (*start)(void);
 	void (*iclock)(uint8_t bool);
 	void (*clock)(uint8_t bool);
 	void (*nvic)(uint8_t bool);

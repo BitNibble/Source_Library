@@ -175,11 +175,9 @@ typedef struct
 typedef struct
 {
 	ADC_Common_TypeDef* reg;
-	#if defined(_STM32446ADC_H_)
-		STM32446ADC_CSR csr;
-		STM32446ADC_CCR ccr;
-		uint32_t (*cdr)(void);
-	#endif
+	STM32446ADC_CSR* csr;
+	STM32446ADC_CCR* ccr;
+	uint32_t (*cdr)(void);
 }STM32446ADCCOMMONobj;
 /*** ADC1 Procedure & Function TypeDef ***/
 typedef struct
@@ -220,8 +218,8 @@ void STM32446ADC_ccr_multi(uint8_t value);
 // CDR
 uint32_t STM32446ADC_cdr(void);
 
-STM32446ADC_CSR stm32446_adc_common_csr_inic(void);
-STM32446ADC_CCR stm32446_adc_common_ccr_inic(void);
+STM32446ADC_CSR* stm32446_adc_common_csr_inic(void);
+STM32446ADC_CCR* stm32446_adc_common_ccr_inic(void);
 STM32446ADCCOMMONobj* stm32446_adc_common_inic(void);
 
 /*** INTERRUPT HEADER ***/

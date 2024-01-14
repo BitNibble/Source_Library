@@ -126,7 +126,7 @@ uint32_t STM32446ADC_cdr(void)
 	return readreg(ADC->CDR, 32, 0);
 }
 /*** Auxiliar ***/
-STM32446ADC_CSR stm32446_adc_common_csr_inic(void)
+STM32446ADC_CSR* stm32446_adc_common_csr_inic(void)
 {
 	// CSR
 	stm32446_adc_common_csr.ovr3 = STM32446ADC_csr_ovr3;
@@ -147,9 +147,9 @@ STM32446ADC_CSR stm32446_adc_common_csr_inic(void)
 	stm32446_adc_common_csr.jeoc1 = STM32446ADC_csr_jeoc1;
 	stm32446_adc_common_csr.eoc1 = STM32446ADC_csr_eoc1;
 	stm32446_adc_common_csr.awd1 = STM32446ADC_csr_awd1;
-	return stm32446_adc_common_csr;
+	return &stm32446_adc_common_csr;
 }
-STM32446ADC_CCR stm32446_adc_common_ccr_inic(void)
+STM32446ADC_CCR* stm32446_adc_common_ccr_inic(void)
 {
 	// CCR
 	stm32446_adc_common_ccr.tsvrefe = STM32446ADC_ccr_tsvrefe;
@@ -159,7 +159,7 @@ STM32446ADC_CCR stm32446_adc_common_ccr_inic(void)
 	stm32446_adc_common_ccr.dds = STM32446ADC_ccr_dds;
 	stm32446_adc_common_ccr.delay = STM32446ADC_ccr_delay;
 	stm32446_adc_common_ccr.multi = STM32446ADC_ccr_multi;
-	return stm32446_adc_common_ccr;
+	return &stm32446_adc_common_ccr;
 }
 STM32446ADCCOMMONobj* stm32446_adc_common_inic(void)
 {
