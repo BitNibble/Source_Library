@@ -34,7 +34,7 @@ typedef struct ntrrpt INTERRUPT;
 
 /*** Global Header ***/
 INTERRUPT* exint(void);
-INTERRUPT INTERRUPTenable(void);
+INTERRUPT INTERRUPT_enable(void);
 
 #endif
 /***EOF***/

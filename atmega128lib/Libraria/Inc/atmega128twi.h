@@ -93,7 +93,7 @@ typedef struct twowire TWI;
 
 /*** Global Header ***/
 TWI* twi(void);
-TWI TWIenable(uint8_t atmega_ID, uint8_t prescaler);
+TWI TWI_enable(uint8_t atmega_ID, uint8_t prescaler);
 
 #endif
 /***EOF***/

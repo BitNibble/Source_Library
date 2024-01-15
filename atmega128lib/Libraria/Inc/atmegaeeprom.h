@@ -40,7 +40,7 @@ typedef struct prm EEPROM;
 
 /*** Global ***/
 EEPROM* eeprom(void);
-EEPROM EEPROMenable(void);
+EEPROM EEPROM_enable(void);
 
 #endif
 

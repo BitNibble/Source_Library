@@ -47,7 +47,7 @@ typedef struct tmr_cntr1 TIMER_COUNTER1;
 
 /*** Global Header ***/
 TIMER_COUNTER1* tc1(void);
-TIMER_COUNTER1 TIMER_COUNTER1enable(unsigned char wavegenmode, unsigned char interrupt);
+TIMER_COUNTER1 TIMER_COUNTER1_enable(unsigned char wavegenmode, unsigned char interrupt);
 
 #endif
 /***EOF***/

@@ -23,7 +23,7 @@ void INTERRUPT_on(uint8_t channel);
 uint8_t INTERRUPT_reset_status(void);
 
 /*** Procedure & Function ***/
-INTERRUPT INTERRUPTenable(void)
+INTERRUPT INTERRUPT_enable(void)
 {
 	// ATMEGA128enable();
 	

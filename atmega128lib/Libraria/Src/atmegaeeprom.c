@@ -17,7 +17,7 @@ static EEPROM atmega128_eeprom;
 /*** File Header ***/
 
 /*** Procedure & Function ***/
-EEPROM EEPROMenable(void){
+EEPROM EEPROM_enable(void){
 	atmega128_eeprom.read_byte = eeprom_read_byte;
 	atmega128_eeprom.write_byte = eeprom_write_byte;
 	atmega128_eeprom.update_byte = eeprom_update_byte;

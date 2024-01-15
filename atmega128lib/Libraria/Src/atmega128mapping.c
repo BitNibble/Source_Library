@@ -35,14 +35,14 @@ ATMEGA128 ATMEGA128enable(void){
 	atmega.cpu_reg = (Atmega128CPURegister_TypeDef*) Atmega128CPURegister_Address;
 	#ifdef _EEPROM_MODULE_
 		atmega.eeprom_reg = (Atmega128Eeprom_TypeDef*) Atmega128Eeprom_Address;
-		atmega.eeprom_enable = EEPROMenable;
+		atmega.eeprom_enable = EEPROM_enable;
 		atmega.eeprom = eeprom();
 	#else
 		atmega.eeprom_reg = (Atmega128Eeprom_TypeDef*) Atmega128Eeprom_Address;
 	#endif
 	#ifdef _INTERRUPT_MODULE_
 		atmega.exint_reg = (Atmega128ExternalInterrupts_TypeDef*) Atmega128ExternalInterrupts_Address;
-		atmega.exint_enable = INTERRUPTenable;
+		atmega.exint_enable = INTERRUPT_enable;
 		atmega.exint = exint();
 	#else
 		atmega.exint_reg = (Atmega128ExternalInterrupts_TypeDef*) Atmega128ExternalInterrupts_Address;
@@ -66,7 +66,7 @@ ATMEGA128 ATMEGA128enable(void){
 	#ifdef _TIMER1_MODULE_
 		atmega.tc1_reg = (Atmega128TimerCounter1_TypeDef*) Atmega128TimerCounter1_Address;
 		atmega.tc1_misc = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
-		atmega.tc1_enable = TIMER_COUNTER1enable;
+		atmega.tc1_enable = TIMER_COUNTER1_enable;
 		atmega.tc1 = tc1();
 	#else
 		atmega.tc1_reg = (Atmega128TimerCounter1_TypeDef*) Atmega128TimerCounter1_Address;
@@ -75,7 +75,7 @@ ATMEGA128 ATMEGA128enable(void){
 	#ifdef _TIMER3_MODULE_
 		atmega.tc3_reg = (Atmega128TimerCounter3_TypeDef*) Atmega128TimerCounter3_Address;
 		atmega.tc3_misc = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
-		atmega.tc3_enable = TIMER_COUNTER3enable;
+		atmega.tc3_enable = TIMER_COUNTER3_enable;
 		atmega.tc3 = tc3();
 	#else
 		atmega.tc3_reg = (Atmega128TimerCounter3_TypeDef*) Atmega128TimerCounter3_Address;
@@ -83,7 +83,7 @@ ATMEGA128 ATMEGA128enable(void){
 	#endif
 	#ifdef _TIMER2_MODULE_
 		atmega.tc2_reg = (Atmega128TimerCounter2_TypeDef*) Atmega128TimerCounter2_Address;
-		atmega.tc2_enable = TIMER_COUNTER2enable;
+		atmega.tc2_enable = TIMER_COUNTER2_enable;
 		atmega.tc2 = tc2();
 	#else
 		atmega.tc2_reg = (Atmega128TimerCounter2_TypeDef*) Atmega128TimerCounter2_Address;
@@ -91,7 +91,7 @@ ATMEGA128 ATMEGA128enable(void){
 	#ifdef _TIMER0_MODULE_
 		atmega.tc0_reg = (Atmega128TimerCounter0_TypeDef*) Atmega128TimerCounter0_Address;
 		atmega.tc0_misc = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
-		atmega.tc0_enable = TIMER_COUNTER0enable;
+		atmega.tc0_enable = TIMER_COUNTER0_enable;
 		atmega.tc0 = tc0();
 	#else
 		atmega.tc0_reg = (Atmega128TimerCounter0_TypeDef*) Atmega128TimerCounter0_Address;
@@ -99,7 +99,7 @@ ATMEGA128 ATMEGA128enable(void){
 	#endif
 	#ifdef _TWI_MODULE_
 		atmega.twi_reg = (Atmega128TwoWireSerialInterface_TypeDef*) Atmega128TwoWireSerialInterface_Address;
-		atmega.twi_enable = TWIenable;
+		atmega.twi_enable = TWI_enable;
 		atmega.twi = twi();
 	#else
 		atmega.twi_reg = (Atmega128TwoWireSerialInterface_TypeDef*) Atmega128TwoWireSerialInterface_Address;

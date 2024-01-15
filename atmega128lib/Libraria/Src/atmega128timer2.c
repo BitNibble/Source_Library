@@ -23,7 +23,7 @@ uint8_t TIMER_COUNTER2_start(unsigned int prescaler);
 uint8_t TIMER_COUNTER2_stop(void);
 
 /*** Procedure & Function ***/
-TIMER_COUNTER2 TIMER_COUNTER2enable(unsigned char wavegenmode, unsigned char interrupt)
+TIMER_COUNTER2 TIMER_COUNTER2_enable(unsigned char wavegenmode, unsigned char interrupt)
 // PARAMETER SETTING
 // wavegen mode: Normal; PWM phase correct; Fast PWM; default-Normasl;
 // interrupt: off; overflow; output compare; both; default - non.

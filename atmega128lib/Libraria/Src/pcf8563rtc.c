@@ -44,7 +44,7 @@ PCF8563RTC PCF8563RTCenable(uint8_t prescaler)
 {
 	PCF8563RTC setup_pcf;
 	
-	i2c = TWIenable('A', prescaler); // Initialize the I2c module.
+	i2c = TWI_enable('A', prescaler); // Initialize the I2c module.
 	// Vtable
 	setup_pcf.SetTime = PCF8563RTC_SetTime;
 	setup_pcf.SetHour = PCF8563RTC_SetHour;
