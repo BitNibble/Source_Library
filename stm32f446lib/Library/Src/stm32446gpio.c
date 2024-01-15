@@ -546,7 +546,7 @@ STM32446GpioAobj gpioa_enable(void)
 {
 
 	// GPIOA
-	stm32446_gpioa.reg = GPIOA;
+
 	/*** GPIOA RCC Clock Enable ***/
 	stm32446_gpioa.clock = STM32446GpioAclock;
 	/*** GPIOA Bit Mapping Link ***/
@@ -568,7 +568,7 @@ STM32446GpioBobj gpiob_enable(void)
 {
 
 	// GPIOB
-	stm32446_gpiob.reg = GPIOB;
+
 	/*** GPIOB RCC Clock Enable ***/
 	stm32446_gpiob.clock = STM32446GpioBclock;
 	/*** GPIOB Bit Mapping Link ***/
@@ -590,7 +590,7 @@ STM32446GpioCobj gpioc_enable(void)
 {
 
 	// GPIOC
-	stm32446_gpioc.reg = GPIOC;
+
 	/*** GPIOC RCC Clock Enable ***/
 	stm32446_gpioc.clock = STM32446GpioCclock;
 	/*** GPIOC Bit Mapping Link ***/
@@ -612,7 +612,7 @@ STM32446GpioDobj gpiod_enable(void)
 {
 
 	// GPIOD
-	stm32446_gpiod.reg = GPIOD;
+
 	/*** GPIOD RCC Clock Enable ***/
 	stm32446_gpiod.clock = STM32446GpioDclock;
 	/*** GPIOD Bit Mapping Link ***/
@@ -634,7 +634,7 @@ STM32446GpioEobj gpioe_enable(void)
 {
 
 	// GPIOE
-	stm32446_gpioe.reg = GPIOE;
+
 	/*** GPIOE RCC Clock Enable ***/
 	stm32446_gpioe.clock = STM32446GpioEclock;
 	/*** GPIOE Bit Mapping Link ***/
@@ -656,7 +656,7 @@ STM32446GpioHobj gpioh_enable(void)
 {
 
 	// GPIOH
-	stm32446_gpioh.reg = GPIOH;
+
 	/*** GPIOH RCC Clock Enable ***/
 	stm32446_gpioh.clock = STM32446GpioHclock;
 	/*** GPIOH Bit Mapping Link ***/

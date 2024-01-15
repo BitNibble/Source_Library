@@ -37,7 +37,7 @@ void rtc_lselect(uint8_t lclock);
 /*** RTC Procedure & Function Definition ***/
 STM32446_RTC rtc_enable(void)
 {
-	stm32446_rtc.reg = RTC;
+
 	/***/
 	stm32446_rtc.Day = STM32446RtcDay;
 	stm32446_rtc.Month = STM32446RtcMonth;

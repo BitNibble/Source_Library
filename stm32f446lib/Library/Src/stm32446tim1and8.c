@@ -67,11 +67,7 @@ STM32446TIM8_DCR* stm32446_tim8_dcr_inic(void);
 /************/
 void STM32446Tim1Clock(uint8_t bool)
 {
-	if(bool){
-		RCC->APB2ENR |= (1 << 0); // timer 1 clock enabled
-	}else{
-		RCC->APB2ENR &= ~(1 << 0); //timer 1 clock disabled
-	}
+	if(bool){RCC->APB2ENR |= (1 << 0);}else{RCC->APB2ENR &= ~(1 << 0);}
 }
 void STM32446Tim1Nvic(uint8_t value)
 { // 24, 25, 26, 27
@@ -688,11 +684,7 @@ uint16_t STM32446Tim1_get_dmab(void)
 /************/
 void STM32446Tim8Clock(uint8_t bool)
 {
-	if(bool){
-		RCC->APB2ENR |= (1 << 1); // timer 8 clock enabled
-	}else{
-		RCC->APB2ENR &= ~(1 << 1); //timer 8 clock disabled
-	}
+	if(bool){RCC->APB2ENR |= (1 << 1);}else{RCC->APB2ENR &= ~(1 << 1);}
 }
 void STM32446Tim8Nvic(uint8_t value)
 { // 43, 44, 45, 46
@@ -1500,7 +1492,7 @@ STM32446TIM1_DCR* stm32446_tim1_dcr_inic(void)
 STM32446TIM1obj tim1_enable(void)
 {
 
-	stm32446_tim1.reg = TIM1;
+
 	// CLOCK
 	stm32446_tim1.clock = STM32446Tim1Clock;
 	// NVIC
@@ -1725,7 +1717,7 @@ STM32446TIM8_DCR* stm32446_tim8_dcr_inic(void)
 STM32446TIM8obj tim8_enable(void)
 {
 
-	stm32446_tim8.reg = TIM8;
+
 	// CLOCK
 	stm32446_tim8.clock = STM32446Tim8Clock;
 	// NVIC

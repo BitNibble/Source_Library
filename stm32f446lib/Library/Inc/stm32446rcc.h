@@ -435,7 +435,7 @@ typedef struct
 /*** RCC TypeDef ***/
 typedef struct
 {
-	RCC_TypeDef* reg;
+
 	/*** Bit Mapping ***/
 	STM32446RCC_cr* cr;
 	STM32446RCC_pllcfgr* pllcfgr;

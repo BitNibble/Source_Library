@@ -91,7 +91,7 @@ typedef struct
 /*** FLASH TypeDef ***/
 typedef struct
 {
-	FLASH_TypeDef* reg;
+
 	/*** Bit Mapping ***/
 	STM32446FLASH_acr* acr;
 	STM32446FLASH_sr* sr;

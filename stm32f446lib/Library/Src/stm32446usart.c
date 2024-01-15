@@ -1891,7 +1891,7 @@ STM32446_USART1 usart1_enable(void)
 {
 
 	// STM32446USART1obj stm32446_usart1;
-	stm32446_usart1.reg = USART1;
+
 	/*** USART1 Bit Mapping Link ***/
 	stm32446_usart1.sr = stm32446_usart1_sr_inic();
 	stm32446_usart1.dr = STM32446Usart1_dr;
@@ -2005,7 +2005,7 @@ STM32446USART_GTPR* stm32446_usart2_gtpr_inic(void)
 STM32446_USART2 usart2_enable(void)
 {
 
-	stm32446_usart2.reg = USART2;
+
 	/*** USART2 Bit Mapping Link ***/
 	stm32446_usart2.sr = stm32446_usart2_sr_inic();
 	stm32446_usart2.dr = STM32446Usart2_dr;
@@ -2118,7 +2118,7 @@ STM32446USART_GTPR* stm32446_usart3_gtpr_inic(void)
 STM32446_USART3 usart3_enable(void)
 {
 
-	stm32446_usart3.reg = USART3;
+
 	/*** USART3 Bit Mapping Link ***/
 	stm32446_usart3.sr = stm32446_usart3_sr_inic();
 	stm32446_usart3.dr = STM32446Usart3_dr;
@@ -2231,7 +2231,7 @@ STM32446USART_GTPR* stm32446_uart4_gtpr_inic(void)
 STM32446_UART4 uart4_enable(void)
 {
 
-	stm32446_uart4.reg = UART4;
+
 	/*** UART4 Bit Mapping Link ***/
 	stm32446_uart4.sr = stm32446_uart4_sr_inic();
 	stm32446_uart4.dr = STM32446Uart4_dr;
@@ -2344,7 +2344,7 @@ STM32446USART_GTPR* stm32446_uart5_gtpr_inic(void)
 STM32446_UART5 uart5_enable(void)
 {
 
-	stm32446_uart5.reg = UART5;
+
 	/*** UART5 Bit Mapping Link ***/
 	stm32446_uart5.sr = stm32446_uart5_sr_inic();
 	stm32446_uart5.dr = STM32446Uart5_dr;
@@ -2457,7 +2457,7 @@ STM32446USART_GTPR* stm32446_usart6_gtpr_inic(void)
 STM32446_USART6 usart6_enable(void)
 {
 
-	stm32446_usart6.reg = USART6;
+
 	/*** USART6 Bit Mapping Link ***/
 	stm32446_usart6.sr = stm32446_usart6_sr_inic();
 	stm32446_usart6.dr = STM32446Usart6_dr;

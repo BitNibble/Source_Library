@@ -163,7 +163,7 @@ STM32446ADC_CCR* stm32446_adc_common_ccr_inic(void)
 }
 STM32446ADCCOMMONobj* stm32446_adc_common_inic(void)
 {
-	stm32446_adc_common.reg = ADC123_COMMON;
+
 	// CSR
 	stm32446_adc_common.csr = stm32446_adc_common_csr_inic();
 	// CCR

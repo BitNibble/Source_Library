@@ -31,7 +31,7 @@ Comment:
 /*** RTC TypeDef ***/
 typedef struct
 {
-	RTC_TypeDef* reg;
+
 	/***/
 	void (*Day)(uint8_t day);
 	void (*Month)(uint8_t month);

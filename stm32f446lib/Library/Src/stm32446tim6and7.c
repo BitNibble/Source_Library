@@ -259,7 +259,7 @@ STM32446TIM6_EGR* stm32446_tim6_egr_inic(void)
 STM32446TIM6obj tim6_enable(void)
 {
 
-	stm32446_tim6.reg = TIM6;
+
 	// CLOCK
 	stm32446_tim6.clock = STM32446Tim6Clock;
 	// NVIC
@@ -325,7 +325,7 @@ STM32446TIM7_EGR* stm32446_tim7_egr_inic(void)
 STM32446TIM7obj tim7_enable(void)
 {
 
-	stm32446_tim7.reg = TIM7;
+
 	// CLOCK
 	stm32446_tim7.clock = STM32446Tim7Clock;
 	// NVIC

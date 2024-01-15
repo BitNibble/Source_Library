@@ -44,7 +44,7 @@ void STM32446CRC_clock(uint8_t bool)
 STM32446CRCobj crc_enable(void)
 {
 
-	stm32446_crc.reg = CRC;
+
 	/***CRC Bit Mapping Link***/
 	stm32446_crc.dr = STM32446CRC_dr;
 	stm32446_crc.get_dr = STM32446CRC_get_dr;

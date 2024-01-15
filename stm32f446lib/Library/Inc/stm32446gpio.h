@@ -16,10 +16,10 @@ Comment:
 #include "stm32query.h"
 
 /*** GPIO TypeDef ***/
-// GPIO -> GPIOA
+// GPIO -> GPIO
 typedef struct
 {
-	GPIO_TypeDef* reg;
+
 	/*** Bit Mapping ***/
 	void (*moder)( uint8_t pin, uint8_t data );
 	void (*otyper)( uint8_t pin, uint8_t bool );

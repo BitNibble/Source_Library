@@ -174,7 +174,7 @@ typedef struct
 /*** ADC_Common TypeDef ***/
 typedef struct
 {
-	ADC_Common_TypeDef* reg;
+
 	STM32446ADC_CSR* csr;
 	STM32446ADC_CCR* ccr;
 	uint32_t (*cdr)(void);

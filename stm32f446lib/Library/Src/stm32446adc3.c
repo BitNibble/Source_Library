@@ -592,7 +592,7 @@ STM32446ADC3single* stm32446_adc3_single_inic(void)
 STM32446ADC3obj adc3_enable(void)
 {
 
-	stm32446_adc3.reg = ADC3;
+
 	/*** ADC3 Bit Mapping Link ***/
 	stm32446_adc3.sr = stm32446_adc3_sr_inic();
 	stm32446_adc3.cr1 = stm32446_adc3_cr1_inic();

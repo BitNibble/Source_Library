@@ -1935,7 +1935,7 @@ STM32446RCCPLLSAI* stm32446_rcc_pllsai_inic(void)
 STM32446RCCobj rcc_enable(void)
 {
 
-	stm32446_rcc.reg = RCC;
+
 	/*** RCC Bit Mapping Link ***/
 	stm32446_rcc.cr = stm32446_rcc_cr_inic();
 	stm32446_rcc.pllcfgr = stm32446_rcc_pllcfgr_inic();

@@ -605,7 +605,7 @@ STM32446ADC1single* stm32446_adc1_single_inic(void)
 /*** ADC1 INIC Procedure & Function Definition ***/
 STM32446ADC1obj adc1_enable(void)
 {
-	stm32446_adc1.reg = ADC1;
+
 	/*** ADC1 Bit Mapping Link ***/
 	stm32446_adc1.sr = stm32446_adc1_sr_inic();
 	stm32446_adc1.cr1 = stm32446_adc1_cr1_inic();

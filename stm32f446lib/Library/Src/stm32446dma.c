@@ -1735,59 +1735,58 @@ STM32446DMA_func* stm32446_dma1_func_inic(void)
 STM32446DMA1obj dma1_enable(void)
 {
 
-	stm32446_dma1.reg = DMA1;
 	/*** DMA1 Bit Mapping Link ***/
 	stm32446_dma1.sr = stm32446_dma1_sr_inic();
-	stm32446_dma1.stream[0]->reg = DMA1_Stream0;
+
 	stm32446_dma1.stream[0]->cr = stm32446_dma1_stream0_cr_inic();
 	stm32446_dma1.stream[0]->fcr = stm32446_dma1_stream0_fcr_inic();
 	stm32446_dma1.stream[0]->ndt = stm32446_dma1_stream0_ndt;
 	stm32446_dma1.stream[0]->par = stm32446_dma1_stream0_par;
 	stm32446_dma1.stream[0]->m0a = stm32446_dma1_stream0_m0a;
 	stm32446_dma1.stream[0]->m1a = stm32446_dma1_stream0_m1a;
-	stm32446_dma1.stream[1]->reg = DMA1_Stream1;
+
 	stm32446_dma1.stream[1]->cr = stm32446_dma1_stream1_cr_inic();
 	stm32446_dma1.stream[1]->fcr = stm32446_dma1_stream1_fcr_inic();
 	stm32446_dma1.stream[1]->ndt = stm32446_dma1_stream1_ndt;
 	stm32446_dma1.stream[1]->par = stm32446_dma1_stream1_par;
 	stm32446_dma1.stream[1]->m0a = stm32446_dma1_stream1_m0a;
 	stm32446_dma1.stream[1]->m1a = stm32446_dma1_stream1_m1a;
-	stm32446_dma1.stream[2]->reg = DMA1_Stream2;
+
 	stm32446_dma1.stream[2]->cr = stm32446_dma1_stream2_cr_inic();
 	stm32446_dma1.stream[2]->fcr = stm32446_dma1_stream2_fcr_inic();
 	stm32446_dma1.stream[2]->ndt = stm32446_dma1_stream2_ndt;
 	stm32446_dma1.stream[2]->par = stm32446_dma1_stream2_par;
 	stm32446_dma1.stream[2]->m0a = stm32446_dma1_stream2_m0a;
 	stm32446_dma1.stream[2]->m1a = stm32446_dma1_stream2_m1a;
-	stm32446_dma1.stream[3]->reg = DMA1_Stream3;
+
 	stm32446_dma1.stream[3]->cr = stm32446_dma1_stream3_cr_inic();
 	stm32446_dma1.stream[3]->fcr = stm32446_dma1_stream3_fcr_inic();
 	stm32446_dma1.stream[3]->ndt = stm32446_dma1_stream3_ndt;
 	stm32446_dma1.stream[3]->par = stm32446_dma1_stream3_par;
 	stm32446_dma1.stream[3]->m0a = stm32446_dma1_stream3_m0a;
 	stm32446_dma1.stream[3]->m1a = stm32446_dma1_stream3_m1a;
-	stm32446_dma1.stream[4]->reg = DMA1_Stream4;
+
 	stm32446_dma1.stream[4]->cr = stm32446_dma1_stream4_cr_inic();
 	stm32446_dma1.stream[4]->fcr = stm32446_dma1_stream4_fcr_inic();
 	stm32446_dma1.stream[4]->ndt = stm32446_dma1_stream4_ndt;
 	stm32446_dma1.stream[4]->par = stm32446_dma1_stream4_par;
 	stm32446_dma1.stream[4]->m0a = stm32446_dma1_stream4_m0a;
 	stm32446_dma1.stream[4]->m1a = stm32446_dma1_stream4_m1a;
-	stm32446_dma1.stream[5]->reg = DMA1_Stream5;
+
 	stm32446_dma1.stream[5]->cr = stm32446_dma1_stream5_cr_inic();
 	stm32446_dma1.stream[5]->fcr = stm32446_dma1_stream5_fcr_inic();
 	stm32446_dma1.stream[5]->ndt = stm32446_dma1_stream5_ndt;
 	stm32446_dma1.stream[5]->par = stm32446_dma1_stream5_par;
 	stm32446_dma1.stream[5]->m0a = stm32446_dma1_stream5_m0a;
 	stm32446_dma1.stream[5]->m1a = stm32446_dma1_stream5_m1a;
-	stm32446_dma1.stream[6]->reg = DMA1_Stream6;
+
 	stm32446_dma1.stream[6]->cr = stm32446_dma1_stream6_cr_inic();
 	stm32446_dma1.stream[6]->fcr = stm32446_dma1_stream6_fcr_inic();
 	stm32446_dma1.stream[6]->ndt = stm32446_dma1_stream6_ndt;
 	stm32446_dma1.stream[6]->par = stm32446_dma1_stream6_par;
 	stm32446_dma1.stream[6]->m0a = stm32446_dma1_stream6_m0a;
 	stm32446_dma1.stream[6]->m1a = stm32446_dma1_stream6_m1a;
-	stm32446_dma1.stream[7]->reg = DMA1_Stream7;
+
 	stm32446_dma1.stream[7]->cr = stm32446_dma1_stream7_cr_inic();
 	stm32446_dma1.stream[7]->fcr = stm32446_dma1_stream7_fcr_inic();
 	stm32446_dma1.stream[7]->ndt = stm32446_dma1_stream7_ndt;
@@ -3366,59 +3365,58 @@ STM32446DMA_func* stm32446_dma2_func_inic(void)
 STM32446DMA2obj dma2_enable(void)
 {
 
-	stm32446_dma2.reg = DMA2;
 	/*** DMA2 Bit Mapping Link ***/
 	stm32446_dma2.sr = stm32446_dma2_sr_inic();
-	stm32446_dma2.stream[0]->reg = DMA2_Stream0;
+
 	stm32446_dma2.stream[0]->cr = stm32446_dma2_stream0_cr_inic();
 	stm32446_dma2.stream[0]->fcr = stm32446_dma2_stream0_fcr_inic();
 	stm32446_dma2.stream[0]->ndt = stm32446_dma2_stream0_ndt;
 	stm32446_dma2.stream[0]->par = stm32446_dma2_stream0_par;
 	stm32446_dma2.stream[0]->m0a = stm32446_dma2_stream0_m0a;
 	stm32446_dma2.stream[0]->m1a = stm32446_dma2_stream0_m1a;
-	stm32446_dma2.stream[1]->reg = DMA2_Stream1;
+
 	stm32446_dma2.stream[1]->cr = stm32446_dma2_stream1_cr_inic();
 	stm32446_dma2.stream[1]->fcr = stm32446_dma2_stream1_fcr_inic();
 	stm32446_dma2.stream[1]->ndt = stm32446_dma2_stream1_ndt;
 	stm32446_dma2.stream[1]->par = stm32446_dma2_stream1_par;
 	stm32446_dma2.stream[1]->m0a = stm32446_dma2_stream1_m0a;
 	stm32446_dma2.stream[1]->m1a = stm32446_dma2_stream1_m1a;
-	stm32446_dma2.stream[2]->reg = DMA2_Stream2;
+
 	stm32446_dma2.stream[2]->cr = stm32446_dma2_stream2_cr_inic();
 	stm32446_dma2.stream[2]->fcr = stm32446_dma2_stream2_fcr_inic();
 	stm32446_dma2.stream[2]->ndt = stm32446_dma2_stream2_ndt;
 	stm32446_dma2.stream[2]->par = stm32446_dma2_stream2_par;
 	stm32446_dma2.stream[2]->m0a = stm32446_dma2_stream2_m0a;
 	stm32446_dma2.stream[2]->m1a = stm32446_dma2_stream2_m1a;
-	stm32446_dma2.stream[3]->reg = DMA2_Stream3;
+
 	stm32446_dma2.stream[3]->cr = stm32446_dma2_stream3_cr_inic();
 	stm32446_dma2.stream[3]->fcr = stm32446_dma2_stream3_fcr_inic();
 	stm32446_dma2.stream[3]->ndt = stm32446_dma2_stream3_ndt;
 	stm32446_dma2.stream[3]->par = stm32446_dma2_stream3_par;
 	stm32446_dma2.stream[3]->m0a = stm32446_dma2_stream3_m0a;
 	stm32446_dma2.stream[3]->m1a = stm32446_dma2_stream3_m1a;
-	stm32446_dma2.stream[4]->reg = DMA2_Stream4;
+
 	stm32446_dma2.stream[4]->cr = stm32446_dma2_stream4_cr_inic();
 	stm32446_dma2.stream[4]->fcr = stm32446_dma2_stream4_fcr_inic();
 	stm32446_dma2.stream[4]->ndt = stm32446_dma2_stream4_ndt;
 	stm32446_dma2.stream[4]->par = stm32446_dma2_stream4_par;
 	stm32446_dma2.stream[4]->m0a = stm32446_dma2_stream4_m0a;
 	stm32446_dma2.stream[4]->m1a = stm32446_dma2_stream4_m1a;
-	stm32446_dma2.stream[5]->reg = DMA2_Stream5;
+
 	stm32446_dma2.stream[5]->cr = stm32446_dma2_stream5_cr_inic();
 	stm32446_dma2.stream[5]->fcr = stm32446_dma2_stream5_fcr_inic();
 	stm32446_dma2.stream[5]->ndt = stm32446_dma2_stream5_ndt;
 	stm32446_dma2.stream[5]->par = stm32446_dma2_stream5_par;
 	stm32446_dma2.stream[5]->m0a = stm32446_dma2_stream5_m0a;
 	stm32446_dma2.stream[5]->m1a = stm32446_dma2_stream5_m1a;
-	stm32446_dma2.stream[6]->reg = DMA2_Stream6;
+
 	stm32446_dma2.stream[6]->cr = stm32446_dma2_stream6_cr_inic();
 	stm32446_dma2.stream[6]->fcr = stm32446_dma2_stream6_fcr_inic();
 	stm32446_dma2.stream[6]->ndt = stm32446_dma2_stream6_ndt;
 	stm32446_dma2.stream[6]->par = stm32446_dma2_stream6_par;
 	stm32446_dma2.stream[6]->m0a = stm32446_dma2_stream6_m0a;
 	stm32446_dma2.stream[6]->m1a = stm32446_dma2_stream6_m1a;
-	stm32446_dma2.stream[7]->reg = DMA2_Stream7;
+
 	stm32446_dma2.stream[7]->cr = stm32446_dma2_stream7_cr_inic();
 	stm32446_dma2.stream[7]->fcr = stm32446_dma2_stream7_fcr_inic();
 	stm32446_dma2.stream[7]->ndt = stm32446_dma2_stream7_ndt;

@@ -2161,7 +2161,7 @@ STM32446TIM2_DCR* stm32446_tim2_dcr_inic(void)
 STM32446TIM2obj tim2_enable(void)
 {
 
-	stm32446_tim2.reg = TIM2;
+
 	// CLOCK
 	stm32446_tim2.clock = STM32446Tim2Clock;
 	// NVIC
@@ -2355,7 +2355,7 @@ STM32446TIM3_DCR* stm32446_tim3_dcr_inic(void)
 STM32446TIM3obj tim3_enable(void)
 {
 
-	stm32446_tim3.reg = TIM3;
+
 	// CLOCK
 	stm32446_tim3.clock = STM32446Tim3Clock;
 	// NVIC
@@ -2548,7 +2548,7 @@ STM32446TIM4_DCR* stm32446_tim4_dcr_inic(void)
 STM32446TIM4obj tim4_enable(void)
 {
 
-	stm32446_tim4.reg = TIM4;
+
 	// CLOCK
 	stm32446_tim4.clock = STM32446Tim4Clock;
 	// NVIC
@@ -2741,7 +2741,7 @@ STM32446TIM5_DCR* stm32446_tim5_dcr_inic(void)
 STM32446TIM5obj tim5_enable(void)
 {
 
-	stm32446_tim5.reg = TIM5;
+
 	// CLOCK
 	stm32446_tim5.clock = STM32446Tim5Clock;
 	// NVIC

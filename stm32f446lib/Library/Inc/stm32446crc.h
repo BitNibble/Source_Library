@@ -15,7 +15,7 @@ Comment:
 /*** CRC TypeDef ***/
 typedef struct
 {
-	CRC_TypeDef* reg;
+
 	/*** Bit Mapping ***/
 	void (*dr)(uint32_t value);
 	uint32_t (*get_dr)(void);

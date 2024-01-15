@@ -594,7 +594,7 @@ STM32446ADC2single* stm32446_adc2_single_inic(void)
 STM32446ADC2obj adc2_enable(void)
 {
 
-	stm32446_adc2.reg = ADC2;
+
 	/*** ADC2 Bit Mapping Link ***/
 	stm32446_adc2.sr = stm32446_adc2_sr_inic();
 	stm32446_adc2.cr1 = stm32446_adc2_cr1_inic();

@@ -232,7 +232,7 @@ SYSCFG_cfgr* SYSCFG_cfgr_inic(void)
 STM32446SYSCFGobj syscfg_enable(void)
 {
 
-	stm32446_syscfg.reg = SYSCFG;
+
 	/*** LINK ***/
 	stm32446_syscfg.memrmp = SYSCFG_memrmp_inic();
 	stm32446_syscfg.pmc = SYSCFG_pmc_inic();

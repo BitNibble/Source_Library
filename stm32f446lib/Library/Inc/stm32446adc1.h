@@ -18,7 +18,7 @@ Comment:
 // ADC -> ADC1
 typedef struct
 {
-	ADC_TypeDef* reg;
+
 	STM32446ADCCOMMONobj* common;
 	/*** Bit Mapping ***/
 	STM32446ADC_SR* sr;

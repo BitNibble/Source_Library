@@ -195,7 +195,7 @@ STM32446PWR_csr* stm32446_pwr_csr_inic(void)
 STM32446PWRobj pwr_enable(void)
 {
 
-	stm32446_pwr.reg = PWR;
+
 	stm32446_pwr.clock = STM32446PWR_clock;
 	/*** PWR Bit Mapping Link ***/
 	stm32446_pwr.cr = stm32446_pwr_cr_inic();

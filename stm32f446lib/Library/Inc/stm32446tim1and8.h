@@ -166,7 +166,7 @@ typedef struct{
 // ( 1 and 8 ) TIM 
 typedef struct
 {
-	TIM_TypeDef* reg;
+
 	/*** Bit Mapping ***/
 	STM32446TIM1_CR1* cr1;
 	STM32446TIM1_CR2* cr2;

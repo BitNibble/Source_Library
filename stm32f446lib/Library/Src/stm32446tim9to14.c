@@ -1616,7 +1616,7 @@ STM32446TIM9_CCER* stm32446_tim9_ccer_inic(void)
 STM32446TIM9obj tim9_enable(void)
 {
 
-	stm32446_tim9.reg = TIM9;
+
 	// CLOCK
 	stm32446_tim9.clock = STM32446Tim9Clock;
 	// NVIC
@@ -1705,7 +1705,7 @@ STM32446TIM10_CCER* stm32446_tim10_ccer_inic(void)
 STM32446TIM10obj tim10_enable(void)
 {
 
-	stm32446_tim10.reg = TIM10;
+
 	// CLOCK
 	stm32446_tim10.clock = STM32446Tim10Clock;
 	// NVIC
@@ -1793,7 +1793,7 @@ STM32446TIM11_CCER* stm32446_tim11_ccer_inic(void)
 STM32446TIM11obj tim11_enable(void)
 {
 
-	stm32446_tim11.reg = TIM11;
+
 	// CLOCK
 	stm32446_tim11.clock = STM32446Tim11Clock;
 	// NVIC
@@ -1910,7 +1910,7 @@ STM32446TIM12_CCER* stm32446_tim12_ccer_inic(void)
 STM32446TIM12obj tim12_enable(void)
 {
 
-	stm32446_tim12.reg = TIM12;
+
 	// CLOCK
 	stm32446_tim12.clock = STM32446Tim12Clock;
 	// NVIC
@@ -1999,7 +1999,7 @@ STM32446TIM13_CCER* stm32446_tim13_ccer_inic(void)
 STM32446TIM13obj tim13_enable(void)
 {
 
-	stm32446_tim13.reg = TIM13;
+
 	// CLOCK
 	stm32446_tim13.clock = STM32446Tim13Clock;
 	// NVIC
@@ -2087,7 +2087,7 @@ STM32446TIM14_CCER* stm32446_tim14_ccer_inic(void)
 STM32446TIM14obj tim14_enable(void)
 {
 
-	stm32446_tim14.reg = TIM14;
+
 	// CLOCK
 	stm32446_tim14.clock = STM32446Tim14Clock;
 	// NVIC

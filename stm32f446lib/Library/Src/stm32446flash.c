@@ -278,7 +278,7 @@ STM32446FLASHobj flash_enable(void)
 {
 
 
-	stm32446_flash.reg = FLASH;
+
 	/*** FLASH Bit Mapping Link ***/
 	stm32446_flash.acr = stm32446_flash_acr_inic();
 	stm32446_flash.sr = stm32446_flash_sr_inic();
