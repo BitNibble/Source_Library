@@ -31,7 +31,7 @@ Comment:
 	#define no 0
 #endif
 /*** Module Library ***/
-// Comment out modules not being used
+// May comment out modules not being used
 #include "stm32446flash.h"
 #include "stm32446crc.h"
 #include "stm32446pwr.h"

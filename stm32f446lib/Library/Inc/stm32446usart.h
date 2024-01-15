@@ -96,6 +96,7 @@ typedef struct
 	uint32_t (*get_dr)(void);
 	/*** Other ***/
 	void (*clock)(uint8_t bool);
+	void (*nvic)(uint8_t bool);
 	void (*enable)(void);
 
 	void (*parameter)( uint8_t wordlength, uint8_t samplingmode, double stopbits, uint32_t baudrate );
@@ -115,6 +116,7 @@ typedef struct
 	uint32_t (*get_dr)(void);
 	/*** Other ***/
 	void (*clock)(uint8_t bool);
+	void (*nvic)(uint8_t bool);
 	void (*parameter)( uint8_t wordlength, uint8_t samplingmode, double stopbits, uint32_t baudrate );
 }STM32446_UART4, STM32446_UART5;
 
@@ -202,6 +204,7 @@ void STM32446Usart1_gt(uint8_t value);
 void STM32446Usart1_psc(uint8_t value);
 // Other
 void STM32446Usart1Clock( uint8_t bool );
+void STM32446Usart1Nvic( uint8_t bool );
 void STM32446Usart1Inic( uint8_t wordlength, uint8_t samplingmode, double stopbits, uint32_t baudrate );
 void STM32446Usart1Parameter( uint8_t wordlength, uint8_t samplingmode, double stopbits, uint32_t baudrate );
 /*** USART2 Bit Mapping Header ***/
@@ -270,6 +273,7 @@ void STM32446Usart2_gt(uint8_t value);
 void STM32446Usart2_psc(uint8_t value);
 // Other
 void STM32446Usart2Clock( uint8_t bool );
+void STM32446Usart2Nvic( uint8_t bool );
 void STM32446Usart2Parameter( uint8_t wordlength, uint8_t samplingmode, double stopbits, uint32_t baudrate );
 /*** USART3 Bit Mapping Header ***/
 // SR
@@ -337,6 +341,7 @@ void STM32446Usart3_gt(uint8_t value);
 void STM32446Usart3_psc(uint8_t value);
 // Other
 void STM32446Usart3Clock( uint8_t bool );
+void STM32446Usart3Nvic( uint8_t bool );
 void STM32446Usart3Parameter( uint8_t wordlength, uint8_t samplingmode, double stopbits, uint32_t baudrate );
 /*** UART4 Bit Mapping Header ***/
 // SR
@@ -404,6 +409,7 @@ void STM32446Uart4_gt(uint8_t value);
 void STM32446Uart4_psc(uint8_t value);
 // Other
 void STM32446Uart4Clock( uint8_t bool );
+void STM32446Uart4Nvic( uint8_t bool );
 void STM32446Uart4Parameter( uint8_t wordlength, uint8_t samplingmode, double stopbits, uint32_t baudrate );
 /*** UART5 Bit Mapping Header ***/
 // SR
@@ -471,6 +477,7 @@ void STM32446Uart5_gt(uint8_t value);
 void STM32446Uart5_psc(uint8_t value);
 // Other
 void STM32446Uart5Clock( uint8_t bool );
+void STM32446Uart5Nvic( uint8_t bool );
 void STM32446Uart5Parameter( uint8_t wordlength, uint8_t samplingmode, double stopbits, uint32_t baudrate );
 /*** USART6 Bit Mapping Header ***/
 // SR
@@ -538,6 +545,7 @@ void STM32446Usart6_gt(uint8_t value);
 void STM32446Usart6_psc(uint8_t value);
 // Other
 void STM32446Usart6Clock( uint8_t bool );
+void STM32446Usart6Nvic( uint8_t bool );
 void STM32446Usart6Parameter( uint8_t wordlength, uint8_t samplingmode, double stopbits, uint32_t baudrate );
 
 /*** INTERRUPT HEADER ***/

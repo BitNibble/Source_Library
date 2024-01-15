@@ -103,15 +103,11 @@ STM32446TIM14_CCER* stm32446_tim14_ccer_inic(void);
 /************/
 void STM32446Tim9Clock(uint8_t bool)
 {
-	if(bool){
-		RCC->APB2ENR |= (1 << 16); // timer 9 clock enabled
-	}else{
-		RCC->APB2ENR &= ~(1 << 16); //timer 9 clock disabled
-	}
+	if(bool){RCC->APB2ENR |= (1 << 16);}else{RCC->APB2ENR &= ~(1 << 16);}
 }
 void STM32446Tim9Nvic(uint8_t bool)
 { // 24
-	if(bool){setbit(NVIC->ISER, 1, 24, 1);} else{setbit(NVIC->ICER, 1, 24, 1);}
+	if(bool){setbit(NVIC->ISER, 1, 24, 1);}else{setbit(NVIC->ICER, 1, 24, 1);}
 }
 /************************/
 /*** TIM9 Bit Mapping ***/
