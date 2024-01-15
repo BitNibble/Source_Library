@@ -248,7 +248,9 @@ void ARMLCD0_hspace(uint32_t n)
 void ARMLCD0_clear(void)
 {
 	ARMLCD0_write(0x01, ARMLCD0_INST);
-	_delay_ms(2);
+	_delay_10us(200);
+	ARMLCD0_write(0x01, ARMLCD0_INST);
+	_delay_10us(20);
 }
 
 void ARMLCD0_gotoxy(unsigned int y, unsigned int x)
