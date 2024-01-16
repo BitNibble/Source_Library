@@ -16,7 +16,7 @@ Comment:
 	#define _STM32446MAPPING_H_
 /***** Global Libraries *****/
 #include "stm32query.h"
-#include "stm32f4xx_it.h"
+#include "armsystick.h"
 /****** Define & Macros******/
 #ifndef on
 	#define on 1

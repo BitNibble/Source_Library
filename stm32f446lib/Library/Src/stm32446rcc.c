@@ -98,6 +98,7 @@ void rcc_start(void)
 	// RTC 2 to 31
 	// STM32446Prescaler(uint16_t ahbpre, uint8_t ppre1, uint8_t ppre2, uint8_t rtcpre)
 	STM32446Prescaler(2, 2, 1, 0); // 160Mhs -> ahb:80Mhz - pre1:40Mhz - pre2:80, 80Mhz -> ahb:40Mhz pre1:20Mhz pre2:40Mhz
+	//STM32446Prescaler(1, 1, 1, 0);
 
 	// System Clock Source
 	STM32446RccHEnable(0); // 0

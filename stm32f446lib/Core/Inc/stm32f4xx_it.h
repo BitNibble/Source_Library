@@ -27,7 +27,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <inttypes.h>
+
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -56,14 +56,9 @@ void UsageFault_Handler(void);
 void SVC_Handler(void);
 void DebugMon_Handler(void);
 void PendSV_Handler(void);
-void SysTick_Handler(void);
+//void SysTick_Handler(void);
 /* USER CODE BEGIN EFP */
-void _delay_us(uint32_t us);
-void _delay_5us(uint32_t cinco_us);
-void _delay_10us(uint32_t dez_us);
-void _delay_ms(uint32_t ms);
-void _delay_xs(uint32_t xs);
-void systick_start(void);
+
 /* USER CODE END EFP */
 
 #ifdef __cplusplus

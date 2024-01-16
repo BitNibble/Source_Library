@@ -139,9 +139,10 @@ if(zone == 1){ // Preamble
 	//lcd.string_size(func()->ui32toa( getsysclk()/gethpre()/1000000 - 1 ),15 );
 	//lcd.string_size(func()->ui32toa( USART1_IRQn ),15 );
 	//lcd.string_size(func()->ftoa( (double)(40000000/1000000)-1, 4 ),16 );
-	//lcd.string_size(func()->ftoa( (double) 75/12 ,4 ),15);
+	//lcd.string_size(func()->ftoa( (double) 45/560 ,4 ),15);
 	//_delay_5us(2000000);
-	_delay_us(2000000);
+	//_delay_5us(400000);
+	//_delay_us(4000000); //only works if systick clock is inferior to sysclk.
 }
 /******************************************************************************/
 /******************************************************************************/
