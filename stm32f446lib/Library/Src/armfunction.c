@@ -27,7 +27,7 @@ static uint32_t nen[4];
 /*** File Header ***/
 int function_StringLength (const char string[]);
 void function_Reverse(char s[]);
-uint8_t function_IntInvStr(uint32_t num, uint8_t index);
+uint8_t function_UintInvStr(uint32_t num, uint8_t index);
 uint8_t function_fPartStr(double num, uint8_t index, uint8_t afterpoint);
 void function_swap(long *px, long *py);
 /*** 1 ***/
@@ -144,7 +144,7 @@ void function_Reverse(char s[])
 		c = s[i]; s[i] = s[j]; s[j] = c;
 	}
 }
-uint8_t function_IntInvStr(uint32_t num, uint8_t index)
+uint8_t function_UintInvStr(uint32_t num, uint8_t index)
 {
 	for(FUNCstr[index++] = (uint8_t)((num % 10) + '0'); (num /= 10) > 0 ; FUNCstr[index++] = (char)((num % 10) + '0'));
 	FUNCstr[index] = '\0'; return index;
@@ -360,9 +360,8 @@ char* function_ftoa(double num, uint8_t afterpoint)
 	double ipart, fpart, n; uint8_t k = 0; int8_t sign;
 	if (num < 0){ n = -num; sign = -1;}else{n = num; sign = 1;}
 	ipart = (uint32_t) n; fpart = n - ipart;
-	k = function_IntInvStr(ipart, 0); if (sign < 0) FUNCstr[k++] = '-'; FUNCstr[k] = '\0'; function_Reverse(FUNCstr);
+	k = function_UintInvStr(ipart, 0); if (sign < 0) FUNCstr[k++] = '-'; FUNCstr[k] = '\0'; function_Reverse(FUNCstr);
 	FUNCstr[k++] = '.';
-	//function_IntInvStr((fpart * pow(10, afterpoint)), k);
 	function_fPartStr(fpart, k, afterpoint);
 	return FUNCstr;
 }
