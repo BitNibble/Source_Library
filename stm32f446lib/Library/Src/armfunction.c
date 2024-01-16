@@ -28,6 +28,7 @@ static uint32_t nen[4];
 int function_StringLength (const char string[]);
 void function_Reverse(char s[]);
 uint8_t function_IntInvStr(uint32_t num, uint8_t index);
+uint8_t function_fPartStr(double num, uint8_t index, uint8_t afterpoint);
 void function_swap(long *px, long *py);
 /*** 1 ***/
 uint16_t function_SwapByte(uint16_t num);
@@ -145,7 +146,12 @@ void function_Reverse(char s[])
 }
 uint8_t function_IntInvStr(uint32_t num, uint8_t index)
 {
-	for(FUNCstr[index++] = (char)((num % 10) + '0'); (num /= 10) > 0 ; FUNCstr[index++] = (char)((num % 10) + '0'));
+	for(FUNCstr[index++] = (uint8_t)((num % 10) + '0'); (num /= 10) > 0 ; FUNCstr[index++] = (char)((num % 10) + '0'));
+	FUNCstr[index] = '\0'; return index;
+}
+uint8_t function_fPartStr(double num, uint8_t index, uint8_t afterpoint)
+{
+	for( num *= 10; afterpoint ; FUNCstr[index++] = (uint8_t)(num + '0'), num -= (uint8_t)num, num *= 10, afterpoint--);
 	FUNCstr[index] = '\0'; return index;
 }
 void function_swap(long *px, long *py)
@@ -351,12 +357,13 @@ char* function_print_binary(unsigned int n_bits, unsigned int number)
 }
 char* function_ftoa(double num, uint8_t afterpoint)
 {
-	uint32_t ipart; double n, fpart; uint8_t k = 0; int8_t sign;
+	double ipart, fpart, n; uint8_t k = 0; int8_t sign;
 	if (num < 0){ n = -num; sign = -1;}else{n = num; sign = 1;}
-	ipart = (uint32_t) n; fpart = n - (double)ipart;
+	ipart = (uint32_t) n; fpart = n - ipart;
 	k = function_IntInvStr(ipart, 0); if (sign < 0) FUNCstr[k++] = '-'; FUNCstr[k] = '\0'; function_Reverse(FUNCstr);
 	FUNCstr[k++] = '.';
-	function_IntInvStr((fpart * pow(10, afterpoint)), k); function_Reverse(FUNCstr + k);
+	//function_IntInvStr((fpart * pow(10, afterpoint)), k);
+	function_fPartStr(fpart, k, afterpoint);
 	return FUNCstr;
 }
 /******/

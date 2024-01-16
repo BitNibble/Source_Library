@@ -25,7 +25,8 @@ static char FUNCstr[FUNCSTRSIZE + 1];
 int StringLength (const char string[]);
 void Reverse(char s[]);
 uint8_t FUNCintinvstr(uint32_t num, uint8_t index);
-void FUNCswap(long *px, long *py);
+uint8_t function_fPartStr(double num, uint8_t index, uint8_t afterpoint);
+void FUNC_swap(long *px, long *py);
 /***/
 uint8_t  bintobcd(uint8_t bin);
 uint8_t leap_year_check(uint16_t year);
@@ -76,7 +77,7 @@ FUNC FUNCenable( void )
 	setup_func.stringlength = StringLength;
 	setup_func.reverse = Reverse;
 	setup_func.mayia = FUNCmayia;
-	setup_func.swap = FUNCswap;
+	setup_func.swap = FUNC_swap;
 	setup_func.copy = FUNCcopy;
 	setup_func.squeeze = FUNCsqueeze;
 	setup_func.shellsort = FUNCshellsort;
@@ -121,22 +122,17 @@ FUNC* func(void){ return &setup_func; }
 
 // mayia
 unsigned int FUNCmayia(unsigned int xi, unsigned int xf, uint8_t nbits)
-{ // magic formula
-	unsigned int mask;
+{
 	unsigned int diff;
 	unsigned int trans;
-	mask = (unsigned int)((1 << nbits) - 1);
-	xi &= mask;
-	xf &= mask;
-	diff = xf ^ xi;
-	trans = diff & xf;
+	unsigned int mask = (unsigned int)((1 << nbits) - 1);
+	xi &= mask; xf &= mask; diff = xf ^ xi; trans = diff & xf;
 	return (trans << nbits) | diff;
 }
 // interchange *px and *py
-void FUNCswap(long *px, long *py)
+void FUNC_swap(long *px, long *py)
 {
-	long temp = *px;
-	*px = *py; *py = temp;
+	long temp = *px; *px = *py; *py = temp;
 }
 // copy: copy 'from' into 'to'; assume to is big enough
 void FUNCcopy(char to[], char from[])
@@ -149,8 +145,7 @@ void FUNCsqueeze(char s[], int c)
 {
 	int i, j;
 	for (i = 0, j = 0; (s[i] != '\0'); i++){
-		if (s[i] != c)
-			s[j++] = s[i];
+		if (s[i] != c) s[j++] = s[i];
 	}
 	s[j] = '\0';
 }
@@ -161,18 +156,14 @@ void FUNCshellsort(int v[], int n)
 	for (gap = n / 2; gap > 0; gap /= 2)
 		for (i = gap; i < n; i++)
 			for (j = i - gap; j >= 0 && v[j] > v[j + gap]; j -= gap){
-				temp = v[j];
-				v[j] = v[j + gap];
-				v[j + gap] = temp;
+				temp = v[j]; v[j] = v[j + gap]; v[j + gap] = temp;
 			}
 }
 // ui32toa: convert n to characters in s
 char* FUNCui32toa(uint32_t n)
 {
-	uint8_t i = 0;
-	do { // generate digits in reverse order
-		FUNCstr[i++] = (char) (n % 10 + '0'); // get next digit
-	}while ((n /= 10) > 0); // delete it
+	uint8_t i;
+	for(i = 0, FUNCstr[i++] = n % 10 + '0'; (n /= 10) > 0; FUNCstr[i++] = n % 10 + '0');
 	FUNCstr[i] = '\0';
 	Reverse(FUNCstr);
 	return FUNCstr;
@@ -182,12 +173,11 @@ char* FUNCi32toa(int32_t n)
 {
 	uint8_t i;
 	int32_t sign;
-	if ((sign = n) < 0) // record sign
-	n = -n; // make n positive
+	if ((sign = n) < 0) n = -n;
 	i = 0;
-	do { // generate digits in reverse order
-		FUNCstr[i++] = (char) (n % 10 + '0'); // get next digit
-	}while ((n /= 10) > 0); // delete it
+	do {
+		FUNCstr[i++] = (char) (n % 10 + '0');
+	}while ((n /= 10) > 0);
 	if (sign < 0) FUNCstr[i++] = '-';
 	FUNCstr[i] = '\0';
 	Reverse(FUNCstr);
@@ -198,12 +188,11 @@ char* FUNCi16toa(int16_t n)
 {
 	uint8_t i;
 	int16_t sign;
-	if ((sign = n) < 0) // record sign
-		n = -n; // make n positive
+	if ((sign = n) < 0) n = -n;
 	i = 0;
-	do { // generate digits in reverse order
-		FUNCstr[i++] = (char) (n % 10 + '0'); // get next digit
-	}while ((n /= 10) > 0); // delete it
+	do {
+		FUNCstr[i++] = (char) (n % 10 + '0');
+	}while ((n /= 10) > 0);
 	if (sign < 0) FUNCstr[i++] = '-';
 	FUNCstr[i] = '\0';
 	Reverse(FUNCstr);
@@ -223,8 +212,7 @@ int FUNCtrim(char s[])
 {
 	int n;
 	for (n = StringLength(s) - 1; n >= 0; n--)
-		if (s[n] != ' ' && s[n] != '\t' && s[n] != '\n')
-			break;
+		if (s[n] != ' ' && s[n] != '\t' && s[n] != '\n') break;
 	s[n + 1] = '\0';
 	return n;
 }
@@ -243,6 +231,17 @@ int FUNCgcd (int u, int v)
 		temp = u % v; u = v; v = temp;
 	}
 	return u;
+}
+long function_gcd_v2(long a, long b)
+{
+	long r;
+	if (a < b) FUNC_swap(&a, &b);
+	if (!b){
+		while ((r = a % b) != 0) {
+			a = b; b = r;
+		}
+	}
+	return b;
 }
 // Function to convert a string to an integer
 int FUNCstrToInt (const char string[])
@@ -328,9 +327,7 @@ char* FUNCresizestr(char *string, int size)
 	FUNCstr[size] = '\0';
 	for(i = 0; i < size; i++){
 		if(*(string + i) == '\0'){
-			for(; i < size; i++){
-				FUNCstr[i] = ' ';
-			}
+			for(; i < size; i++){ FUNCstr[i] = ' '; }
 			break;
 		}
 		FUNCstr[i] = *(string + i);
@@ -353,8 +350,7 @@ int StringLength (const char string[])
 // reverse: reverse string s in place
 void Reverse(char s[])
 {
-	char c;
-	int i, j;
+	char c; int i, j;
 	for (i = 0, j = StringLength(s) - 1; i < j; i++, j--){
 		c = s[i]; s[i] = s[j]; s[j] = c;
 	}
@@ -373,12 +369,10 @@ unsigned char FUNCbin2bcd(unsigned int val)
 long FUNCgcd1(long a, long b)
 {
 	long r;
-	if (a < b)
-		FUNCswap(&a, &b);
+	if (a < b) FUNC_swap(&a, &b);
 	if (!b){
 		while ((r = a % b) != 0) {
-			a = b;
-			b = r;
+			a = b; b = r;
 		}
 	}
 	return b;
@@ -395,14 +389,10 @@ char* FUNCprint_binary(unsigned int n_bits, unsigned int number)
 // leapyearcheck
 uint8_t leap_year_check(uint16_t year){
 	uint8_t i;
-	if (!(year % 400))
-    	i = 1;
-  	else if (!(year % 100))
-    	i = 0;
-  	else if (!(year % 4) )
-    	i = 1;
-  	else
-    	i = 0;
+	if (!(year % 400)) i = 1;
+  	else if (!(year % 100)) i = 0;
+  	else if (!(year % 4) ) i = 1;
+  	else i = 0;
 	return i;
 }
 // bintobcd
@@ -416,6 +406,12 @@ uint8_t FUNCintinvstr(uint32_t num, uint8_t index)
 	for(FUNCstr[index++] = (char)((num % 10) + '0'); (num /= 10) > 0 ; FUNCstr[index++] = (char)((num % 10) + '0'));
 	FUNCstr[index] = '\0'; return index;
 }
+// fPartStr
+uint8_t function_fPartStr(double num, uint8_t index, uint8_t afterpoint)
+{
+	for( num *= 10; afterpoint ; FUNCstr[index++] = (uint8_t)(num + '0'), num -= (uint8_t)num, num *= 10, afterpoint--);
+	FUNCstr[index] = '\0'; return index;
+}
 // ftoa
 char* FUNCftoa(double num, uint8_t afterpoint)
 {
@@ -424,14 +420,13 @@ char* FUNCftoa(double num, uint8_t afterpoint)
 	ipart = (uint32_t) n; fpart = n - (double)ipart;
 	k = FUNCintinvstr(ipart, 0); if (sign < 0) FUNCstr[k++] = '-'; FUNCstr[k] = '\0'; Reverse(FUNCstr);
 	FUNCstr[k++] = '.';
-	FUNCintinvstr((fpart * pow(10, afterpoint)), k); Reverse(FUNCstr + k);
+	function_fPartStr(fpart, k, afterpoint);
 	return FUNCstr;
 }
 // dectohex
 char* FUNCdectohex(int32_t num)
 {
-	int32_t remainder;
-	uint8_t j;
+	int32_t remainder; uint8_t j;
 	for(j = 0, FUNCstr[j] = '\0'; num; FUNCstr[j] = '\0', num = num / 16){
 		remainder = num % 16;
 		if (remainder < 10) FUNCstr[j++] = (char) (48 + remainder);
@@ -446,6 +441,15 @@ uint16_t FUNCSwapByte(uint16_t num)
 	uint16_t tp;
 	tp = (uint16_t)(num << 8);
 	return (num >> 8) | tp;
+}
+char* function_print_v1( char* str, uint8_t size_str, const char* format, ... )
+{
+	va_list aptr; int ret;
+	va_start(aptr, format);
+	ret = vsnprintf( str, size_str, (const char*) format, aptr );
+	//ret = vsnprintf( ptr, size_str, format, aptr );
+	va_end(aptr);
+	if(ret < 0){ return NULL; }else return str;
 }
 // print
 char* FUNCprint( const char* format, ... )
