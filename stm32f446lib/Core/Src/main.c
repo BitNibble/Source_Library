@@ -30,7 +30,7 @@
 #endif
 
 #include "stm32446mapping.h"
-//#include "stm32446tim9to14.h"
+#include <arm_math.h>
 #include "armfunction.h"
 #include "explode.h"
 #include "74hc595.h"
@@ -58,7 +58,6 @@ static char buffer2[32]; // for circular buffer
 
 volatile unsigned int time_out;
 static uint32_t index_var;
-static uint32_t test_var;
 static uint8_t choice;
 static uint8_t hour = 0;
 static uint8_t minute = 0;
@@ -102,26 +101,25 @@ unsigned int zone;
 button_press = 0;
 charcount=0;
 time_out = 0;
-test_var = 0;
 
 //func = FUNCenable();
 PINA = EXPLODE_enable();
 PINB = EXPLODE_enable();
 PINC = EXPLODE_enable();
-circ1 = CIRCBUFF_enable(8, buffer1);
-circ2 = CIRCBUFF_enable(8, buffer2);
+circ1 = CIRCBUFF_enable(32, buffer1);
+circ2 = CIRCBUFF_enable(32, buffer2);
 
 // FPU full access
-setreg(&stm()->scb->reg->CPACR, 2, 20, 3);
-setreg(&stm()->scb->reg->CPACR, 2, 22, 3);
+setreg(&stm()->scb_reg->CPACR, 2, 20, 3);
+setreg(&stm()->scb_reg->CPACR, 2, 22, 3);
 
 choice = 3;
 count1 = 0;
 count2 = 0;
 dir = 0;
 
-hc = HC595_enable(&stm()->gpioc->reg->MODER, &stm()->gpioc->reg->ODR, 2, 1, 0);
-lcd = ARMLCD0_enable(stm()->gpiob->reg);
+hc = HC595_enable(&stm()->gpioc_reg->MODER, &stm()->gpioc_reg->ODR, 2, 1, 0);
+lcd = ARMLCD0_enable(stm()->gpiob_reg);
 
 
 circ1.putstr(&circ1.par, "Welcome\r\n");
@@ -133,12 +131,13 @@ for ( zone = 1 ; ass ; zone++)
 
 if(zone == 1){ // Preamble
 	/*** PREAMBLE PREAMBLE COMMON IO ***/
-	PINA.update(&PINA.par, stm()->gpioa->reg->IDR);
-	PINB.update(&PINB.par, stm()->gpiob->reg->IDR);
-	PINC.update(&PINC.par, stm()->gpioc->reg->IDR);
+	PINA.update(&PINA.par, stm()->gpioa_reg->IDR);
+	PINB.update(&PINB.par, stm()->gpiob_reg->IDR);
+	PINC.update(&PINC.par, stm()->gpioc_reg->IDR);
 	lcd.reboot();
-	//lcd.gotoxy(0,4);
+	lcd.gotoxy(0,4);
 	//lcd.string_size(func()->ui32toa( getsysclk()/gethpre()/1000000 - 1 ),15 );
+	lcd.string_size(func()->ui32toa( USART1_IRQn ),15 );
 	//lcd.string_size(func()->ftoa( (double) getsysclk()/gethpre(), 4 ),15 );
 	//lcd.string_size(func()->ftoa( (double) 75/12 ,4 ),15);
 	//_delay_5us(2000000);
@@ -154,14 +153,10 @@ if(zone == 2){ // workspace 1 RTC CALENDAR
 		circ1.putstr(&circ1.par, "Welcome\r\n");
 		//transmit = 'Z';
 	}
-	//lcd.gotoxy(0,11); lcd.string_size(stm.func.i32toa(stm.tim8.get_cnt()),5);
-	//lcd.gotoxy(3,15); lcd.string_size(stm()->func->i32toa(stm()->func->value()),5);
-	//lcd.gotoxy(0,15); lcd.string(stm.func.i32toa(test_var));
-	//lcd.gotoxy(0,15); lcd.string(stm.func.i32toa(stm.query.SystemClock()));
+	//lcd.gotoxy(0,4); lcd.string_size(func()->i32toa(tim8()->get_cnt()),5);
+	//lcd.gotoxy(0,4); lcd.string(func()->i32toa(query()->SystemClock()));
 	//lcd.gotoxy(0,15); lcd.string(func()->i32toa(stm()->rtc->BckRead(2)));
-	//lcd.gotoxy(0,15); lcd.string(stm.func.i32toa(stm.func.getsetbit(&regist, 2, 24)));
-	//lcd.gotoxy(0,11); lcd.string(stm.func.ftoa((double)regist,message,1));
-	//if(PINC.par.LL & (1 << 13)){stm.func.setbit(&stm.gpioa.reg->ODR, 1, 5, 2);}
+	//if(PINC.par.LL & (1 << 13)){setbit(&stm()->gpioa_reg->ODR, 1, 5, 3);}
 
 	calendario();
 
@@ -177,8 +172,7 @@ if(zone == 3){ // workspace 2 ADC1 TEMPERATURE
 
 	lcd.gotoxy(1,0);
 	lcd.string_size( func()->print_v1(message, 10, "%d %cC", (unsigned int)valuet, (char) 0xDF ), 6);
-	//lcd.string_size( stm.func.print_v1(message, 10, "%d %cC", (unsigned int)tempt, (char) 0xDF ), 10);
-	//lcd.gotoxy(1,6);
+	lcd.gotoxy(1,6);
 	lcd.string_size( func()->print_v1(message, 10, "%d", (unsigned int)temperature[3], (char) 0xDF ), 4);
 } // if
 /******************************************************************************/
@@ -202,33 +196,24 @@ if(zone == 4){ // workspace 3 USART1 TX RX
 void portinic(void)
 {
 	//Enable clock for IO peripherals
-	//stm()->rcc->apb1enr->pwren(yes);
-	//stm()->rcc->apb2enr->usart1en(yes);
-	//stm()->rcc->bdcr->rtcen(yes);
-	//stm()->rcc->apb2enr->adc1en(yes);
-	//stm()->rcc->ahb1enr->gpioaen(yes);
-	//stm()->rcc->ahb1enr->gpioben(yes);
-	//stm()->rcc->ahb1enr->gpiocen(yes);
-	//stm()->rcc->apb2enr->tim9en(yes);
-	/***************************/
 	gpioa()->clock(on);
 	gpiob()->clock(on);
 	gpioc()->clock(on);
   	// PA5 or PB13 is green user led
-	stm()->gpioa->moder(1,5);
-	stm()->gpioa->pupdr(0,5);
-	//stm.gpiob.moder(1,13);
+	stm()->gpioa->moder(5,1);
+	stm()->gpioa->pupdr(5,0); // 2-pull down 1-pull up 0-non
+	gpioa()->ospeedr(5,3); // 3-100Mhz 2-50Mhz 1-25Mhz 0-2Mhz
 	// PC13 is user button
-	stm()->gpioc->moder(0,13);
-	stm()->gpioc->pupdr(1,13);
+	stm()->gpioc->moder(13,0);
+	stm()->gpioc->pupdr(13,1);
 	/********** USART1 *********/
 	stm()->usart1->clock(on);
-	stm()->nvic->set_enable(37);
-	stm()->usart1->cr1->ue(on);
-	stm()->gpioa->moder(2,9);
-	stm()->gpioa->moder(2,10);
-	stm()->gpioa->afr(7,9);
-	stm()->gpioa->afr(7,10);
+	usart1()->nvic(on);
+	usart1()->cr1->ue(on);
+	stm()->gpioa->moder(9,2);
+	stm()->gpioa->moder(10,2); // 0-input 1-output 2-Af 3-Analog
+	stm()->gpioa->afr(9,7);
+	stm()->gpioa->afr(10,7);
 	stm()->usart1->parameter(8, 16, 1, 38400);
 	stm()->usart1->cr3->dmat(off);
 	stm()->usart1->cr1->te(on);
@@ -240,54 +225,41 @@ void portinic(void)
 	// NVIC
 	tim9()->nvic(on);
 	// Frequency
-	tim9()->arr(45535);
+	tim9()->arr(4535);
 	// Compare
-	tim9()->ccr1(7530);
+	tim9()->ccr1(1400);
 	// pre-scaler
-	tim9()->psc(20);
+	tim9()->psc(300);
 	// interrupt
 	tim9()->dier->cc1ie(on);
 	// Enable (Start/Stop)
 	tim9()->cr1->apre(on);
 	tim9()->cr1->cen(on);
 	/********** ADC1 ***********/
-	stm()->gpioa->pupdr(1,0);
-	stm()->gpioa->moder(3,0);
+	gpioa()->pupdr(0,1);
+	gpioa()->moder(0,3);
 	// ADC Clock
-	STM32446Adc1Clock(1); // ADC1EN: ADC1 clock enable
-
-	STM32446ADC1_cr2_adon(0); // ADON: A/D Converter ON / OFF
-
-	STM32446ADC_ccr_adcpre(3); // ADCPRE: ADC prescaler, 11: PCLK2 divided by 8
-
-	STM32446ADC1_smpr1_smp18(7); // SMPx[2:0]: Channel x sampling time selection
-	STM32446ADC1_smpr2_smp0(7); // SMPx[2:0]: Channel x sampling time selection
-
-	STM32446ADC1_sqr1_l(1); // 0 -> read one channel, 1 -> read two channels
-	STM32446ADC1_sqr3_sq1(18); // SQ1[4:0]: 1st conversion in regular sequence
-	STM32446ADC1_sqr3_sq2(0); // SQ2[4:0]: 2st conversion in regular sequence
-
-	stm()->adc1->single->temp();
-	//stm.adc1.single.vbat();
-	STM32446ADC1_cr2_eocs(1);
+	adc1()->clock(on); // ADC1EN: ADC1 clock enable
+	adc1()->cr2->adon(off); // ADON: A/D Converter ON / OFF
+	adc1()->common->ccr->adcpre(3); // ADCPRE: ADC prescaler, 11: PCLK2 divided by 8
+	adc1()->smpr1->smp18(7); // SMPx[2:0]: Channel x sampling time selection
+	adc1()->smpr2->smp0(7); // SMPx[2:0]: Channel x sampling time selection
+	adc1()->sqr1->l(1); // 0 -> read one channel, 1 -> read two channels
+	adc1()->sqr3->sq1(18); // SQ1[4:0]: 1st conversion in regular sequence
+	adc1()->sqr3->sq2(0); // SQ2[4:0]: 2st conversion in regular sequence
+	adc1()->single->temp();
+	adc1()->cr2->eocs(1);
 	adc1()->cr2->dma(1);
 	stm()->adc1->cr2->dds(1);
-	// turn on select source and start reading
-	STM32446Adc1Start();
-	stm()->adc1->cr2->cont(1);
-	stm()->adc1->cr1->scan(1);
+	adc1()->start();
+	adc1()->cr2->cont(1);
+	adc1()->cr1->scan(1);
 
-	stm()->dma2->clock(on);
-	stm()->dma2->func->circ_cfg(&ADC1->DR, (volatile long unsigned int*)temperature, 0, 0, 32, 1, 1, 0, 0);
-
+	dma2()->clock(on);
+	dma2()->func->circ_cfg(&ADC1->DR, (volatile long unsigned int*)temperature, 0, 0, 32, 1, 1, 0, 0);
 	/*********** RTC ***********/
-	// Three ways to kill a rabbit
-	//stm()->rtc.run()->clock(on);
-	stm()->rtc->clock(on);
-	//rtc()->clock(on);
-	//stm()->rtc.run()->inic(1); // 2 - LSI, 1 - LSE
+	rtc()->clock(on);
 	rtc()->inic(1); // 2 - LSI, 1 - LSE
-	//rtc()->inic(1); // 2 - LSI, 1 - LSE
 	/***************************/
 }
 /******************************************************************************/
@@ -313,50 +285,50 @@ void calendario(void)
 	switch(choice){
 		case 1: // show time
 			lcd.gotoxy(0,0);
-			lcd.string_size("Relogio",7);
+			lcd.string_size("Rel",4);
 			rtc()->tr2vec(vecT);
 			lcd.gotoxy(3,0);
 			lcd.string_size(func()->print_v2("hora: %d%d:%d%d:%d%d", vecT[0],vecT[1],vecT[2],vecT[3],vecT[4],vecT[5]),14);
 			value = func()->triggerA(PINC.par.LL,13,rtc()->get_ss());
 			if( value > min1 && value < max1 ){
-				lcd.clear();
 				rtc()->dr2vec(vecD);
-				circ1.putstr(&circ1.par, func()->print_v2("data: %d%d:%d%d:20%d%d\r\n", vecD[5],vecD[6],vecD[3],vecD[4],vecD[0],vecD[1]) );
+				circ1.putstr(&circ1.par, func()->print_v2("data: %d%d:%d%d:20%d%d\r\n", vecD[5],vecD[6],vecD[3],vecD[4],vecD[0],vecD[1]));
+				lcd.clear();
 				choice = 2;
 			}
 			if( value > min2 && value < max2 ){
-				lcd.clear();
 				circ1.putstr(&circ1.par, "acertar hora\r\n");
+				lcd.clear();
 				choice = 4;
 			}
 			if( value > min3 && value < max3 ){
-				lcd.clear();
 				circ1.putstr(&circ1.par, "Calendario\r\n");
+				lcd.clear();
 				choice = 3;
 			}
 			break;
 
 		case 2: // show date
 			lcd.gotoxy(0,0);
-			lcd.string_size("Data",4);
+			lcd.string_size("Dat",4);
 			rtc()->dr2vec(vecD);
 			lcd.gotoxy(3,0);
 			lcd.string_size(func()->print_v2("data: %d%d:%d%d:20%d%d", vecD[5],vecD[6],vecD[3],vecD[4],vecD[0],vecD[1]),16);
 			value = func()->triggerA(PINC.par.LL,13,rtc()->get_ss());
 			if( value > min1 && value < max1 ){
-				lcd.clear();
 				rtc()->tr2vec(vecT);
 				circ1.putstr(&circ1.par, func()->print_v2("hora: %d%d:%d%d:%d%d\r\n", vecT[0],vecT[1],vecT[2],vecT[3],vecT[4],vecT[5]) );
+				lcd.clear();
 				choice = 1;
 			}
 			if( value > min2 && value < max2 ){
-				lcd.clear();
 				circ1.putstr(&circ1.par, "acertar ano\r\n");
+				lcd.clear();
 				choice = 7;
 			}
 			if( value > min3 && value < max3 ){
-				lcd.clear();
 				circ1.putstr(&circ1.par, "Calendario\r\n");
+				lcd.clear();
 				choice = 3;
 			}
 			break;
@@ -375,8 +347,8 @@ void calendario(void)
 
 			value = func()->triggerA(PINC.par.LL,13,rtc()->get_ss());
 			if( value > min3 && value < max3 ){
-				lcd.clear();
 				circ1.putstr(&circ1.par, "Relogio\r\n");
+				lcd.clear();
 				choice = 1;
 			}
 			break;
@@ -384,7 +356,7 @@ void calendario(void)
 		// Relogio
 		case 4: // Set Hour
 			lcd.gotoxy(0,0);
-			lcd.string_size("Hora:",5);
+			lcd.string_size("Hr",4);
 			value = func()->triggerA(PINC.par.LL,13,rtc()->get_ss());
 			if( value > minp1 && value < maxp1 ){
 				hour ++;
@@ -394,21 +366,21 @@ void calendario(void)
 				lcd.string_size(func()->print_v2("hora: %d", hour),8);
 			}
 			if( value > minp2 && value < maxp2 ){
-				lcd.clear();
 				circ1.putstr(&circ1.par, "acertar minutos\r\n");
+				lcd.clear();
 				choice = 5;
 			}
 			if( value > minp3 ){
-				lcd.clear();
 				circ1.putstr(&circ1.par, "Relogio\r\n");
 				choice = 1;
 				rtc()->Hour(hour);
+				lcd.clear();
 			}
 			break;
 
 		case 5: // Set Minute
 			lcd.gotoxy(0,0);
-			lcd.string_size("Minutos:",8);
+			lcd.string_size("Min",4);
 			value = func()->triggerA(PINC.par.LL,13,rtc()->get_ss());
 			if( value > minp1 && value < maxp1 ){
 				minute ++;
@@ -418,21 +390,21 @@ void calendario(void)
 				lcd.string_size(func()->print_v2("minuto: %d", minute),10);
 			}
 			if( value > minp2 && value < maxp2 ){
-				lcd.clear();
 				circ1.putstr(&circ1.par, "acertar segundos\r\n");
+				lcd.clear();
 				choice = 6;
 			}
 			if( value > minp3 ){
-				lcd.clear();
 				circ1.putstr(&circ1.par, "Relogio\r\n");
 				choice = 1;
 				rtc()->Minute(minute);
+				lcd.clear();
 			}
 			break;
 
 		case 6: // Set Second
 			lcd.gotoxy(0,0);
-			lcd.string_size("Segundos:",9);
+			lcd.string_size("Seg",4);
 			value = func()->triggerA(PINC.par.LL,13,rtc()->get_ss());
 			if( value > minp1 && value < maxp1 ){
 				second ++;
@@ -442,22 +414,22 @@ void calendario(void)
 				lcd.string_size(func()->print_v2("segundo: %d", second),11);
 			}
 			if( value > minp2 && value < maxp2 ){
-				lcd.clear();
 				circ1.putstr(&circ1.par, "Relogio\r\n");
+				lcd.clear();
 				choice = 1;
 			}
 			if( value > minp3 ){
-				lcd.clear();
 				circ1.putstr(&circ1.par, "Relogio\r\n");
 				choice = 1;
 				rtc()->Second(second);
+				lcd.clear();
 			}
 			break;
 
 			// Calendario
 		case 7: // Set Year
 			lcd.gotoxy(0,0);
-			lcd.string_size("Ano:",4);
+			lcd.string_size("Ano",4);
 			value = func()->triggerA(PINC.par.LL,13,rtc()->get_ss());
 			if( value > minp1 && value < maxp1 ){
 				ano ++;
@@ -481,7 +453,7 @@ void calendario(void)
 
 		case 8: // Set Month
 			lcd.gotoxy(0,0);
-			lcd.string_size("Mes:",4);
+			lcd.string_size("Mes",4);
 			value = func()->triggerA(PINC.par.LL,13,rtc()->get_ss());
 			if( value > minp1 && value < maxp1 ){
 				mes ++;
@@ -505,7 +477,7 @@ void calendario(void)
 
 		case 9: // Set Day
 			lcd.gotoxy(0,0);
-			lcd.string_size("Dia:",4);
+			lcd.string_size("Dia",4);
 			value = func()->triggerA(PINC.par.LL,13,rtc()->get_ss());
 			if( value > minp1 && value < maxp1 ){
 				dia ++;
@@ -554,13 +526,9 @@ void TIM1_BRK_TIM9_IRQHandler(void)
 		}
 		count2++;
 	}
-	if(tim9()->sr->cc1if()){
-		tim9()->sr->clear_cc1if();
-
-
-	}
-	//stm.tim9.reg->SR &=  (uint32_t) ~1;
-	//stm.tim9.reg->SR &=  (uint32_t) ~2;
+	if(tim9()->sr->cc1if()){tim9()->sr->clear_cc1if();}
+	//stm()->tim9_reg->SR &=  (uint32_t) ~1;
+	//stm()->tim9_reg->SR &=  (uint32_t) ~2;
 }
 /******************************************************************************/
 void USART1_IRQHandler(void)

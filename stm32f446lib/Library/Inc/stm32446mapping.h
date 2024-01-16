@@ -54,7 +54,9 @@ Comment:
 typedef struct
 {
 	// SCB
-	SCB_Type* scb_reg;
+		SCB_Type* scb_reg;
+	// SysTick
+		SysTick_Type* systick_reg;
 	// NVIC
 	#if defined(_STM32446NVIC_H_)
 		NVIC_Type* nvic_reg;
@@ -65,7 +67,6 @@ typedef struct
 		ADC_TypeDef* adc1_reg;
 		ADC_Common_TypeDef* adc1_common_reg;
 		STM32446ADC1obj* adc1;
-
 	#endif
 	#if defined(_STM32446ADC2_H_)
 		ADC_TypeDef* adc2_reg;

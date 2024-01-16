@@ -76,12 +76,13 @@ typedef struct
 	void (*m0a)(volatile long unsigned int mem0_addr);
 	void (*m1a)(volatile long unsigned int mem1_addr);
 	STM32446DMA_STREAM_fcr* fcr;
-}STM32446DMAStream;
+	void (*nvic)(uint8_t bool);
+}STM32446DMAStreamx;
 // DMA
 typedef struct
 {
 
-	STM32446DMAStream* stream[8];
+	STM32446DMAStreamx* stream[8];
 	/*** Bit Mapping ***/
 	STM32446DMA_sr* sr;
 	/*** Other ***/

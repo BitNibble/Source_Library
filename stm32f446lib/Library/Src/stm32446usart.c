@@ -101,7 +101,7 @@ void STM32446Usart1Clock( uint8_t bool )
 }
 void STM32446Usart1Nvic( uint8_t bool )
 {
-	if(bool){ setbit(NVIC->ISER, 1, 37, 1); }else{ setbit(NVIC->ICER, 1, 37, 1); }
+	if(bool){ setbit(NVIC->ISER, 1, USART1_IRQn, 1); }else{ setbit(NVIC->ICER, 1, USART1_IRQn, 1); }
 }
 void STM32446Usart1Parameter( uint8_t wordlength, uint8_t samplingmode, double stopbits, uint32_t baudrate )
 // Sets the usart parameters, using real values.
@@ -387,7 +387,7 @@ void STM32446Usart2Clock( uint8_t bool )
 }
 void STM32446Usart2Nvic( uint8_t bool )
 {
-	if(bool){ setbit(NVIC->ISER, 1, 38, 1); }else{ setbit(NVIC->ICER, 1, 38, 1); }
+	if(bool){ setbit(NVIC->ISER, 1, USART2_IRQn, 1); }else{ setbit(NVIC->ICER, 1, USART2_IRQn, 1); }
 }
 void STM32446Usart2Parameter( uint8_t wordlength, uint8_t samplingmode, double stopbits, uint32_t baudrate )
 // Sets the usart parameters, using real values.
@@ -672,7 +672,7 @@ void STM32446Usart3Clock( uint8_t bool )
 }
 void STM32446Usart3Nvic( uint8_t bool )
 {
-	if(bool){ setbit(NVIC->ISER, 1, 39, 1); }else{ setbit(NVIC->ICER, 1, 39, 1); }
+	if(bool){ setbit(NVIC->ISER, 1, USART3_IRQn, 1); }else{ setbit(NVIC->ICER, 1, USART3_IRQn, 1); }
 }
 void STM32446Usart3Parameter( uint8_t wordlength, uint8_t samplingmode, double stopbits, uint32_t baudrate )
 // Sets the usart parameters, using real values.
@@ -958,7 +958,7 @@ void STM32446Uart4Clock( uint8_t bool )
 }
 void STM32446Uart4Nvic( uint8_t bool )
 {
-	if(bool){ setbit(NVIC->ISER, 1, 52, 1); }else{ setbit(NVIC->ICER, 1, 52, 1); }
+	if(bool){ setbit(NVIC->ISER, 1, UART4_IRQn, 1); }else{ setbit(NVIC->ICER, 1, UART4_IRQn, 1); }
 }
 void STM32446Uart4Parameter( uint8_t wordlength, uint8_t samplingmode, double stopbits, uint32_t baudrate )
 // Sets the uart parameters, using real values.
@@ -1244,7 +1244,7 @@ void STM32446Uart5Clock( uint8_t bool )
 }
 void STM32446Uart5Nvic( uint8_t bool )
 {
-	if(bool){ setbit(NVIC->ISER, 1, 53, 1); }else{ setbit(NVIC->ICER, 1, 53, 1); }
+	if(bool){ setbit(NVIC->ISER, 1, UART5_IRQn, 1); }else{ setbit(NVIC->ICER, 1, UART5_IRQn, 1); }
 }
 void STM32446Uart5Parameter( uint8_t wordlength, uint8_t samplingmode, double stopbits, uint32_t baudrate )
 // Sets the uart parameters, using real values.
@@ -1529,7 +1529,7 @@ void STM32446Usart6Clock( uint8_t bool )
 }
 void STM32446Usart6Nvic( uint8_t bool )
 {
-	if(bool){ setbit(NVIC->ISER, 1, 71, 1); }else{ setbit(NVIC->ICER, 1, 71, 1); }
+	if(bool){ setbit(NVIC->ISER, 1, USART6_IRQn, 1); }else{ setbit(NVIC->ICER, 1, USART6_IRQn, 1); }
 }
 void STM32446Usart6Parameter( uint8_t wordlength, uint8_t samplingmode, double stopbits, uint32_t baudrate )
 // Sets the usart parameters, using real values.

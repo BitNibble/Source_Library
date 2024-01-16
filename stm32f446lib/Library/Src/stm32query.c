@@ -17,6 +17,7 @@ static STM32446Query stm32446_query;
 static STM32446CLOCK_prescaler stm32446_CLOCK_prescaler;
 static STM32446PLL_parameter stm32446_PLL_parameter;
 
+
 STM32446CLOCK_prescaler* CLOCK_prescaler_inic(void);
 STM32446PLL_parameter* PLL_parameter_inic(void);
 

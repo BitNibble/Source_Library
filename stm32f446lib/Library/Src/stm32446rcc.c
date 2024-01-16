@@ -1465,7 +1465,7 @@ void STM32446RCC_DCKCFGR2_fmpi2c1sel(uint8_t value)
 /*** Other ***/
 void STM32446RCC_nvic(uint8_t bool)
 {
-	if(bool){ setbit(NVIC->ISER, 1, 5, 1); } else{ setbit(NVIC->ICER, 1, 5, 1); }
+	if(bool){ setbit(NVIC->ISER, 1, RCC_IRQn, 1); } else{ setbit(NVIC->ICER, 1, RCC_IRQn, 1); }
 }
 /*** Auxiliar ***/
 STM32446RCC_cr* stm32446_rcc_cr_inic(void)

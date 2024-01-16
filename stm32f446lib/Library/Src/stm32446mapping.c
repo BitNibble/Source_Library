@@ -24,6 +24,8 @@ STM32446 STM32446_enable(void){
 	/************* CORE ************/
 	// SCB
 	stm32446.scb_reg = SCB;
+	// SysTick
+	stm32446.systick_reg = SysTick;
 	// NVIC
 	#if defined(_STM32446NVIC_H_)
 		nvic_enable();

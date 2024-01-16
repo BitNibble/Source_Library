@@ -105,15 +105,11 @@ STM32446TIM5_DCR* stm32446_tim5_dcr_inic(void);
 /************/
 void STM32446Tim2Clock(uint8_t bool)
 {
-	if(bool){
-		RCC->APB1ENR |= (1 << 0); // timer 2 clock enabled
-	}else{
-		RCC->APB1ENR &= ~(1 << 0); //timer 2 clock disabled
-	}
+	if(bool){RCC->APB1ENR |= (1 << 0);}else{RCC->APB1ENR &= ~(1 << 0);}
 }
 void STM32446Tim2Nvic(uint8_t bool)
 { // 28
-	if(bool){setbit(NVIC->ISER, 1, 28, 1);} else{setbit(NVIC->ICER, 1, 28, 1);}
+	if(bool){setbit(NVIC->ISER, 1, TIM2_IRQn, 1);} else{setbit(NVIC->ICER, 1, TIM2_IRQn, 1);}
 }
 /************************/
 /*** TIM2 Bit Mapping ***/
@@ -582,15 +578,11 @@ void STM32446Tim2_itr1_rmp(uint8_t value)
 /************/
 void STM32446Tim3Clock(uint8_t bool)
 {
-	if(bool){
-		RCC->APB1ENR |= (1 << 1); // timer 3 clock enabled
-	}else{
-		RCC->APB1ENR &= ~(1 << 1); //timer 3 clock disabled
-	}
+	if(bool){RCC->APB1ENR |= (1 << 1);}else{RCC->APB1ENR &= ~(1 << 1);}
 }
 void STM32446Tim3Nvic(uint8_t bool)
 { // 29
-	if(bool){setbit(NVIC->ISER, 1, 29, 1);} else{setbit(NVIC->ICER, 1, 29, 1);}
+	if(bool){setbit(NVIC->ISER, 1, TIM3_IRQn, 1);} else{setbit(NVIC->ICER, 1, TIM3_IRQn, 1);}
 }
 /************************/
 /*** TIM3 Bit Mapping ***/
@@ -1054,15 +1046,11 @@ uint16_t STM32446Tim3_get_dmab(void)
 /************/
 void STM32446Tim4Clock(uint8_t bool)
 {
-	if(bool){
-		RCC->APB1ENR |= (1 << 2); // timer 4 clock enabled
-	}else{
-		RCC->APB1ENR &= ~(1 << 2); //timer 4 clock disabled
-	}
+	if(bool){RCC->APB1ENR |= (1 << 2);}else{RCC->APB1ENR &= ~(1 << 2);}
 }
 void STM32446Tim4Nvic(uint8_t bool)
 { // 30
-	if(bool){setbit(NVIC->ISER, 1, 30, 1);} else{setbit(NVIC->ICER, 1, 30, 1);}
+	if(bool){setbit(NVIC->ISER, 1, TIM4_IRQn, 1);} else{setbit(NVIC->ICER, 1, TIM4_IRQn, 1);}
 }
 /************************/
 /*** TIM4 Bit Mapping ***/
@@ -1526,15 +1514,11 @@ uint16_t STM32446Tim4_get_dmab(void)
 /************/
 void STM32446Tim5Clock(uint8_t bool)
 {
-	if(bool){
-		RCC->APB1ENR |= (1 << 3); // timer 5 clock enabled
-	}else{
-		RCC->APB1ENR &= ~(1 << 3); //timer 5 clock disabled
-	}
+	if(bool){RCC->APB1ENR |= (1 << 3);}else{RCC->APB1ENR &= ~(1 << 3);}
 }
 void STM32446Tim5Nvic(uint8_t bool)
 { // 50
-	if(bool){setbit(NVIC->ISER, 1, 50, 1);} else{setbit(NVIC->ICER, 1, 50, 1);}
+	if(bool){setbit(NVIC->ISER, 1, TIM5_IRQn, 1);} else{setbit(NVIC->ICER, 1, TIM5_IRQn, 1);}
 }
 /************************/
 /*** TIM5 Bit Mapping ***/

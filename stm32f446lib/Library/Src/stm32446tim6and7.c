@@ -43,15 +43,11 @@ STM32446TIM7_EGR* stm32446_tim7_egr_inic(void);
 /************/
 void STM32446Tim6Clock(uint8_t bool)
 {
-	if(bool){
-		RCC->APB1ENR |= (1 << 4); // timer 6 clock enabled
-	}else{
-		RCC->APB1ENR &= ~(1 << 4); //timer 6 clock disabled
-	}
+	if(bool){RCC->APB1ENR |= (1 << 4);}else{RCC->APB1ENR &= ~(1 << 4);}
 }
 void STM32446Tim6Nvic(uint8_t bool)
 { // 54
-	if(bool){setbit(NVIC->ISER, 1, 54, 1);}else{setbit(NVIC->ICER, 1, 54, 1);}
+	if(bool){setbit(NVIC->ISER, 1, TIM6_DAC_IRQn, 1);}else{setbit(NVIC->ICER, 1, TIM6_DAC_IRQn, 1);}
 }
 /************************/
 /*** TIM6 Bit Mapping ***/
@@ -129,15 +125,11 @@ void STM32446Tim6_arr(uint16_t value)
 /************/
 void STM32446Tim7Clock(uint8_t bool)
 {
-	if(bool){
-		RCC->APB1ENR |= (1 << 5); // timer 7 clock enabled
-	}else{
-		RCC->APB1ENR &= ~(1 << 5); //timer 7 clock disabled
-	}
+	if(bool){RCC->APB1ENR |= (1 << 5);}else{RCC->APB1ENR &= ~(1 << 5);}
 }
 void STM32446Tim7Nvic(uint8_t bool)
 { // 55
-	if(bool){setbit(NVIC->ISER, 1, 55, 1);}else{setbit(NVIC->ICER, 1, 55, 1);}
+	if(bool){setbit(NVIC->ISER, 1, TIM7_IRQn, 1);}else{setbit(NVIC->ICER, 1, TIM7_IRQn, 1);}
 }
 /************************/
 /*** TIM7 Bit Mapping ***/

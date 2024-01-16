@@ -83,7 +83,6 @@ typedef struct
 	SYSCFG_cfgr* cfgr;
 	/*** Other ***/
 	void (*clock)(uint8_t bool);
-	void (*nvic)(uint8_t value);
 }STM32446SYSCFGobj;
 /*************************************/
 /************ INIC SYSCFG ************/

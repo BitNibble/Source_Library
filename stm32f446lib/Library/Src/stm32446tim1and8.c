@@ -73,28 +73,28 @@ void STM32446Tim1Nvic(uint8_t value)
 { // 24, 25, 26, 27
 	switch(value){
 		case 0b1000:
-			setbit(NVIC->ISER, 1, 24, 1);
+			setbit(NVIC->ISER, 1, TIM1_BRK_TIM9_IRQn, 1);
 		break;
 		case 0b0100:
-			setbit(NVIC->ISER, 1, 25, 1);
+			setbit(NVIC->ISER, 1, TIM1_UP_TIM10_IRQn, 1);
 		break;
 		case 0b0010:
-			setbit(NVIC->ISER, 1, 26, 1);
+			setbit(NVIC->ISER, 1, TIM1_TRG_COM_TIM11_IRQn, 1);
 		break;
 		case 0b0001:
-			setbit(NVIC->ISER, 1, 27, 1);
+			setbit(NVIC->ISER, 1, TIM1_CC_IRQn, 1);
 		break;
 		case 0b11000:
-			setbit(NVIC->ICER, 1, 24, 1);
+			setbit(NVIC->ICER, 1, TIM1_BRK_TIM9_IRQn, 1);
 		break;
 		case 0b10100:
-			setbit(NVIC->ICER, 1, 25, 1);
+			setbit(NVIC->ICER, 1, TIM1_UP_TIM10_IRQn, 1);
 		break;
 		case 0b10010:
-			setbit(NVIC->ICER, 1, 26, 1);
+			setbit(NVIC->ICER, 1, TIM1_TRG_COM_TIM11_IRQn, 1);
 		break;
 		case 0b10001:
-			setbit(NVIC->ICER, 1, 27, 1);
+			setbit(NVIC->ICER, 1, TIM1_CC_IRQn, 1);
 		break;
 	default:
 	break;
@@ -690,28 +690,28 @@ void STM32446Tim8Nvic(uint8_t value)
 { // 43, 44, 45, 46
 	switch(value){
 		case 0b1000:
-			setbit(NVIC->ISER, 1, 43, 1);
+			setbit(NVIC->ISER, 1, TIM8_BRK_TIM12_IRQn, 1);
 		break;
 		case 0b0100:
-			setbit(NVIC->ISER, 1, 44, 1);
+			setbit(NVIC->ISER, 1, TIM8_UP_TIM13_IRQn, 1);
 		break;
 		case 0b0010:
-			setbit(NVIC->ISER, 1, 45, 1);
+			setbit(NVIC->ISER, 1, TIM8_TRG_COM_TIM14_IRQn, 1);
 		break;
 		case 0b0001:
-			setbit(NVIC->ISER, 1, 46, 1);
+			setbit(NVIC->ISER, 1, TIM8_CC_IRQn, 1);
 		break;
 		case 0b11000:
-			setbit(NVIC->ICER, 1, 43, 1);
+			setbit(NVIC->ICER, 1, TIM8_BRK_TIM12_IRQn, 1);
 		break;
 		case 0b10100:
-			setbit(NVIC->ICER, 1, 44, 1);
+			setbit(NVIC->ICER, 1, TIM8_UP_TIM13_IRQn, 1);
 		break;
 		case 0b10010:
-			setbit(NVIC->ICER, 1, 45, 1);
+			setbit(NVIC->ICER, 1, TIM8_TRG_COM_TIM14_IRQn, 1);
 		break;
 		case 0b10001:
-			setbit(NVIC->ICER, 1, 46, 1);
+			setbit(NVIC->ICER, 1, TIM8_CC_IRQn, 1);
 		break;
 	default:
 	break;

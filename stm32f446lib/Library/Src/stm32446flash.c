@@ -205,7 +205,7 @@ void STM32446FLASH_optcr_optlock(uint8_t bool)
 /*** Other ***/
 void STM32446FLASH_nvic(uint8_t bool)
 {
-	if(bool){ setbit(NVIC->ISER, 1, 4, 1); } else{ setbit(NVIC->ICER, 1, 4, 1); }
+	if(bool){ setbit(NVIC->ISER, 1, FLASH_IRQn, 1); } else{ setbit(NVIC->ICER, 1, FLASH_IRQn, 1); }
 }
 /*** FLASH Auxiliar ***/
 STM32446FLASH_acr* stm32446_flash_acr_inic(void)
@@ -286,6 +286,7 @@ STM32446FLASHobj flash_enable(void)
 	stm32446_flash.optcr = stm32446_flash_optcr_inic();
 	stm32446_flash.keyr = STM32446FLASH_keyr_key;
 	stm32446_flash.optkeyr = STM32446FLASH_optkeyr_optkey;
+	stm32446_flash.nvic = STM32446FLASH_nvic;
 
 	return stm32446_flash;
 }

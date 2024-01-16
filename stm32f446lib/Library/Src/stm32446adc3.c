@@ -550,17 +550,15 @@ STM32446ADC_JSQR* stm32446_adc3_jsqr_inic(void)
 /*** ADC3 ***/
 void STM32446Adc3IClock(uint8_t bool)
 {
-	if(bool){ RCC->APB1ENR |= (1 << 29); } // DACEN: DAC interface clock enable
-	else{ RCC->APB1ENR &= ~(1 << 29); } // DACEN: DAC interface clock disable
+	if(bool){ RCC->APB1ENR |= (1 << 29); }else{ RCC->APB1ENR &= ~(1 << 29); }
 }
 void STM32446Adc3Clock(uint8_t bool)
 {
-	if(bool){ RCC->APB2ENR |= (1 << 10); } // ADC3EN: ADC3 clock enable
-	else{ RCC->APB2ENR &= ~(1 << 10); } // ADC3EN: ADC3 clock disable
+	if(bool){ RCC->APB2ENR |= (1 << 10); }else{ RCC->APB2ENR &= ~(1 << 10); }
 }
 void STM32446Adc3Nvic(uint8_t bool)
 {
-	if(bool){ setbit(NVIC->ISER, 1, 18, 1); } else{ setbit(NVIC->ICER, 1, 18, 1); }
+	if(bool){ setbit(NVIC->ISER, 1, ADC_IRQn, 1); } else{ setbit(NVIC->ICER, 1, ADC_IRQn, 1); }
 }
 void STM32446Adc3Inic(void)
 {

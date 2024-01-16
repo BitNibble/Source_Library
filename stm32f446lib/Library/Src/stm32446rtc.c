@@ -72,16 +72,16 @@ void STM32446RtcNvic(uint8_t value)
 { // 3, 41
 	switch(value){
 		case 0b01:
-			setbit(NVIC->ISER, 1, 3, 1);
+			setbit(NVIC->ISER, 1, RTC_WKUP_IRQn, 1);
 		break;
 		case 0b10:
-			setbit(NVIC->ISER, 1, 41, 1);
+			setbit(NVIC->ISER, 1, RTC_Alarm_IRQn, 1);
 		break;
 		case 0b101:
-			setbit(NVIC->ICER, 1, 3, 1);
+			setbit(NVIC->ICER, 1, RTC_WKUP_IRQn, 1);
 		break;
 		case 0b110:
-			setbit(NVIC->ICER, 1, 41, 1);
+			setbit(NVIC->ICER, 1, RTC_Alarm_IRQn, 1);
 		break;
 	default:
 	break;
