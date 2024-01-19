@@ -348,6 +348,7 @@ void STM32446GpioEafr( uint8_t pin, uint8_t data )
 		GPIOE->AFR[index] |= ( data << ((pin * blocksize) - (index * n_bits)) );
 	}
 }
+#ifdef STM32F446xx
 /*** GPIOF ***/
 void STM32446GpioFclock( uint8_t bool )
 {
@@ -478,6 +479,7 @@ void STM32446GpioGafr( uint8_t pin, uint8_t data )
 		GPIOG->AFR[index] |= ( data << ((pin * blocksize) - (index * n_bits)) );
 	}
 }
+#endif
 /*** GPIOH ***/
 void STM32446GpioHclock( uint8_t bool )
 {
