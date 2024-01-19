@@ -1,10 +1,11 @@
 /******************************************************************************
-	STM32 xxx MAPPING
+	STM32 XXX MAPPING
 Author: Sergio Santos 
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
-Hardware: STM32-xxx
-Update: 17/01/2024
+Hardware: STM32-XXX
+Date: 19/06/2023
+Update: 05/01/2024
 Comment:
 	-manual um1724, m0390, pm0056, pm0214, and other sources.
 	-Virtual Image STM32-446, mapping.
@@ -13,7 +14,7 @@ Comment:
 	-Stable.
 *******************************************************************************/
 /*** File Library ***/
-#include "stm32fxxxmapping.h"
+#include <stm32fxxxmapping.h>
 
 /*** File Variables ***/
 static STM32FXXX stm32fxxx;
@@ -35,21 +36,30 @@ STM32FXXX STM32FXXX_enable(void){
 	// ADC
 	#if defined(_STM32FXXXADC1_H_)
 		adc1_enable();
-		stm32fxxx.adc1_common_reg = ADC123_COMMON;
+		#ifdef STM32F446xx
+			stm32fxxx.adc1_common_reg = ADC123_COMMON;
+		#endif
+		#ifdef STM32F411xE
+			stm32fxxx.adc1_common_reg = ADC1_COMMON;
+		#endif
 		stm32fxxx.adc1_reg = ADC1;
 		stm32fxxx.adc1 = adc1();
 	#endif
 	#if defined(_STM32FXXXADC2_H_)
-		adc2_enable();
-		stm32fxxx.adc2_common_reg = ADC123_COMMON;
-		stm32fxxx.adc2_reg = ADC2;
-		stm32fxxx.adc2 = adc2();
+		#ifdef STM32F446xx
+			adc2_enable();
+			stm32fxxx.adc2_common_reg = ADC123_COMMON;
+			stm32fxxx.adc2_reg = ADC2;
+			stm32fxxx.adc2 = adc2();
+		#endif
 	#endif
 	#if defined(_STM32FXXXADC3_H_)
-		adc3_enable();
-		stm32fxxx.adc3_common_reg = ADC123_COMMON;
-		stm32fxxx.adc3_reg = ADC3;
-		stm32fxxx.adc3 = adc3();
+		#ifdef STM32F446xx
+			adc3_enable();
+			stm32fxxx.adc3_common_reg = ADC123_COMMON;
+			stm32fxxx.adc3_reg = ADC3;
+			stm32fxxx.adc3 = adc3();
+		#endif
 	#endif
 	// CRC
 	#if defined(_STM32FXXXCRC_H_)
@@ -143,9 +153,11 @@ STM32FXXX STM32FXXX_enable(void){
 		tim1_enable();
 		stm32fxxx.tim1_reg = TIM1;
 		stm32fxxx.tim1 = tim1();
-		tim8_enable();
-		stm32fxxx.tim8_reg = TIM8;
-		stm32fxxx.tim8 = tim8();
+		#ifdef STM32F446xx
+			tim8_enable();
+			stm32fxxx.tim8_reg = TIM8;
+			stm32fxxx.tim8 = tim8();
+		#endif
 	#endif
 	#if defined(_STM32FXXXTIM2TO5_H_)
 		tim2_enable();
@@ -162,12 +174,14 @@ STM32FXXX STM32FXXX_enable(void){
 		stm32fxxx.tim5 = tim5();
 	#endif
 	#if defined(_STM32FXXXTIM6AND7_H_)
-		tim6_enable();
-		stm32fxxx.tim6_reg = TIM6;
-		stm32fxxx.tim6 = tim6();
-		tim7_enable();
-		stm32fxxx.tim7_reg = TIM7;
-		stm32fxxx.tim7 = tim7();
+		#ifdef STM32F446xx
+			tim6_enable();
+			stm32fxxx.tim6_reg = TIM6;
+			stm32fxxx.tim6 = tim6();
+			tim7_enable();
+			stm32fxxx.tim7_reg = TIM7;
+			stm32fxxx.tim7 = tim7();
+		#endif
 	#endif
 	#if defined(_STM32FXXXTIM9TO14_H_)
 		tim9_enable();
@@ -179,15 +193,17 @@ STM32FXXX STM32FXXX_enable(void){
 		tim11_enable();
 		stm32fxxx.tim11_reg = TIM11;
 		stm32fxxx.tim11 = tim11();
-		tim12_enable();
-		stm32fxxx.tim12_reg = TIM12;
-		stm32fxxx.tim12 = tim12();
-		tim13_enable();
-		stm32fxxx.tim13_reg = TIM13;
-		stm32fxxx.tim13 = tim13();
-		tim14_enable();
-		stm32fxxx.tim14_reg = TIM14;
-		stm32fxxx.tim14 = tim14();
+		#ifdef STM32F446xx
+			tim12_enable();
+			stm32fxxx.tim12_reg = TIM12;
+			stm32fxxx.tim12 = tim12();
+			tim13_enable();
+			stm32fxxx.tim13_reg = TIM13;
+			stm32fxxx.tim13 = tim13();
+			tim14_enable();
+			stm32fxxx.tim14_reg = TIM14;
+			stm32fxxx.tim14 = tim14();
+		#endif
 	#endif
 	// USART
 	#if defined(_STM32FXXXUSART_H_)
@@ -197,15 +213,17 @@ STM32FXXX STM32FXXX_enable(void){
 		usart2_enable();
 		stm32fxxx.usart2_reg = USART2;
 		stm32fxxx.usart2 = usart2();
-		usart3_enable();
-		stm32fxxx.usart3_reg = USART3;
-		stm32fxxx.usart3 = usart3();
-		uart4_enable();
-		stm32fxxx.uart4_reg = UART4;
-		stm32fxxx.uart4 = uart4();
-		uart5_enable();
-		stm32fxxx.uart5_reg = UART5;
-		stm32fxxx.uart5 = uart5();
+		#ifdef STM32F446xx
+			usart3_enable();
+			stm32fxxx.usart3_reg = USART3;
+			stm32fxxx.usart3 = usart3();
+			uart4_enable();
+			stm32fxxx.uart4_reg = UART4;
+			stm32fxxx.uart4 = uart4();
+			uart5_enable();
+			stm32fxxx.uart5_reg = UART5;
+			stm32fxxx.uart5 = uart5();
+		#endif
 		usart6_enable();
 		stm32fxxx.usart6_reg = USART6;
 		stm32fxxx.usart6 = usart6();

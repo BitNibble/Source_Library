@@ -10,7 +10,6 @@ Comment:
 	- Make sure the delay are working in the inic function.
 ************************************************************************/
 /*** File Library ***/
-#include "stm32446mapping.h"
 #include "armlcd.h"
 
 /*** File Constant & Macro ***/
@@ -79,7 +78,6 @@ void ARMLCD0_inic(void)
 	ireg->PUPDR |= ((1 << (ARMLCD0_DB4 * 2)) | (1 << (ARMLCD0_DB5 * 2)) | (1 << (ARMLCD0_DB6 * 2)) | (1 << (ARMLCD0_DB7 * 2))); // enable pull up resistors
 
 	ireg->MODER &= (uint32_t) ~(3 << (ARMLCD0_NC * 2)); // reboot detect input
-	
 	ireg->PUPDR &= (uint32_t) ~(3 << (ARMLCD0_NC * 2)); // pull up resistors
 	ireg->PUPDR |= (1 << (ARMLCD0_NC * 2)); // pull up resistors
 
@@ -193,7 +191,7 @@ void ARMLCD0_BF(void)
 	char inst = 0x80;
 	for(i=0; 0x80 & inst; i++){
 		inst = ARMLCD0_read(ARMLCD0_INST);
-		if(i > 10) // 1
+		if(i > 20) // 1
 			break;
 	}
 }
@@ -249,8 +247,6 @@ void ARMLCD0_clear(void)
 {
 	ARMLCD0_write(0x01, ARMLCD0_INST);
 	_delay_10us(200);
-	ARMLCD0_write(0x01, ARMLCD0_INST);
-	_delay_10us(20);
 }
 
 void ARMLCD0_gotoxy(unsigned int y, unsigned int x)

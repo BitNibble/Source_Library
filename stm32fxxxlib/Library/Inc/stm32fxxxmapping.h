@@ -1,9 +1,9 @@
 /******************************************************************************
-	STM32 xxx MAPPING
+	STM32 XXX MAPPING
 Author: Sergio Manuel Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
-Hardware: STM32-xxx
+Hardware: STM32-XXX
 Date: 22062023
 Comment:
 	-manual um1724, m0390, pm0056, pm0214, and other sources.
@@ -32,25 +32,25 @@ Comment:
 #endif
 /*** Module Library ***/
 // May comment out modules not being used
-//#include "stm32fxxxflash.h"
-//#include "stm32fxxxcrc.h"
-//#include "stm32fxxxpwr.h"
-//#include "stm32fxxxrcc.h"
-//#include "stm32fxxxnvic.h"
-//#include "stm32fxxxsram.h"
+#include "stm32fxxxflash.h"
+#include "stm32fxxxcrc.h"
+#include "stm32fxxxpwr.h"
+#include "stm32fxxxrcc.h"
+#include "stm32fxxxnvic.h"
+#include "stm32fxxxsram.h"
 #include "stm32fxxxgpio.h"
-//#include "stm32fxxxsyscfg.h"
-//#include "stm32fxxxdma.h"
-//#include "stm32fxxxadc1.h"
-//#include "stm32fxxxadc2.h"
-//#include "stm32fxxxadc3.h"
-//#include "stm32fxxxrtc.h"
-//#include "stm32fxxxusart.h"
-//#include "stm32fxxxtim1and8.h"
-//#include "stm32fxxxtim2to5.h"
-//#include "stm32fxxxtim6and7.h"
-//#include "stm32fxxxtim9to14.h"
-/***************** STM32FXXX TypeDef *****************/
+#include "stm32fxxxsyscfg.h"
+#include "stm32fxxxdma.h"
+#include "stm32fxxxadc1.h"
+#include "stm32fxxxadc2.h"
+#include "stm32fxxxadc3.h"
+#include "stm32fxxxrtc.h"
+#include "stm32fxxxusart.h"
+#include "stm32fxxxtim1and8.h"
+#include "stm32fxxxtim2to5.h"
+#include "stm32fxxxtim6and7.h"
+#include "stm32fxxxtim9to14.h"
+/***************** STM32F446 TypeDef *****************/
 typedef struct
 {
 	// SCB

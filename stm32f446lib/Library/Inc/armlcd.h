@@ -14,6 +14,8 @@ Comment:
 
 /*** Global Library ***/
 //#include <util/delay.h> // if use AVR ATMEL
+#include "armquery.h"
+#include "armsystick.h"
 #include <inttypes.h>
 
 /*** Global Constant & Macro ***/
