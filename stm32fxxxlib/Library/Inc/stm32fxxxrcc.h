@@ -1,9 +1,9 @@
 /******************************************************************************
-	STM32 XXX RCC
+	STM32 FXXX RCC
 Author: Sergio Santos 
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
-Hardware: STM32-XXX
+Hardware: STM32-FXXX
 Date: 19062023
 Comment:
 	
@@ -29,7 +29,7 @@ Comment:
 // RCC -> PLL
 typedef struct
 {
-	void (*division)(uint8_t pllsrc, uint8_t pllm, uint16_t plln, uint8_t pllp, uint8_t pllq, uint8_t pllr);
+	void (*division)(uint8_t pllsrc, uint8_t pllm, uint16_t plln, uint8_t pllp, uint8_t pllq);
 	void (*enable)(void);
 }STM32FXXXRCCPLL;
 // RCC -> PLLI2S
@@ -212,12 +212,6 @@ typedef struct
 	void (*otgfsen)(uint8_t bool);
 	void (*dcmien)(uint8_t bool);
 }STM32FXXXRCC_ahb2enr;
-// AHB3ENR
-typedef struct
-{
-	void (*qspien)(uint8_t bool);
-	void (*fmcen)(uint8_t bool);
-}STM32FXXXRCC_ahb3enr;
 // APB1ENR
 typedef struct
 {
@@ -356,7 +350,9 @@ typedef struct
 {
 	void (*bdrst)(uint8_t bool);
 	void (*rtcen)(uint8_t bool);
+	uint8_t (*get_rtcen)(void);
 	void (*rtcsel)(uint8_t value);
+	uint8_t (*get_rtcsel)(void);
 	void (*lsemod)(uint8_t bool);
 	void (*lsebyp)(uint8_t bool);
 	uint8_t (*get_lserdy)(void);
@@ -393,14 +389,6 @@ typedef struct
 	void (*plli2sn)(uint16_t value);
 	void (*plli2sm)(uint8_t value);
 }STM32FXXXRCC_plli2scfgr;
-// PLLSAICFGR
-typedef struct
-{
-	void (*pllsaiq)(uint8_t value);
-	void (*pllsaip)(uint8_t value);
-	void (*pllsain)(uint16_t value);
-	void (*pllsaim)(uint8_t value);
-}STM32FXXXRCC_pllsaicfgr;
 // DCKCFGR
 typedef struct
 {
@@ -412,26 +400,6 @@ typedef struct
 	void (*pllsaidivq)(uint8_t value);
 	void (*plli2sdivq)(uint8_t value);
 }STM32FXXXRCC_dckcfgr;
-// CKGATENR
-typedef struct
-{
-	void (*rcc_cken)(uint8_t bool);
-	void (*flitf_cken)(uint8_t bool);
-	void (*sram_cken)(uint8_t bool);
-	void (*spare_cken)(uint8_t bool);
-	void (*cm4dbg_cken)(uint8_t bool);
-	void (*ahb2apb2_cken)(uint8_t bool);
-	void (*ahb2apb1_cken)(uint8_t bool);
-}STM32FXXXRCC_ckgatenr;
-// DCKCFGR2
-typedef struct
-{
-	void (*spdifrxsel)(uint8_t bool);
-	void (*sdiosel)(uint8_t bool);
-	void (*ck48msel)(uint8_t bool);
-	void (*cecsel)(uint8_t bool);
-	void (*fmpi2c1sel)(uint8_t value);
-}STM32FXXXRCC_dckcfgr2;
 /*** RCC TypeDef ***/
 typedef struct
 {
@@ -448,7 +416,6 @@ typedef struct
 	STM32FXXXRCC_apb2rstr* apb2rstr;
 	STM32FXXXRCC_ahb1enr* ahb1enr;
 	STM32FXXXRCC_ahb2enr* ahb2enr;
-	STM32FXXXRCC_ahb3enr* ahb3enr;
 	STM32FXXXRCC_apb1enr* apb1enr;
 	STM32FXXXRCC_apb2enr* apb2enr;
 	STM32FXXXRCC_ahb1lpenr* ahb1lpenr;
@@ -460,16 +427,13 @@ typedef struct
 	STM32FXXXRCC_csr* csr;
 	STM32FXXXRCC_sscgr* sscgr;
 	STM32FXXXRCC_plli2scfgr* plli2scfgr;
-	STM32FXXXRCC_pllsaicfgr* pllsaicfgr;
 	STM32FXXXRCC_dckcfgr* dckcfgr;
-	STM32FXXXRCC_ckgatenr* ckgatenr;
-	STM32FXXXRCC_dckcfgr2* dckcfgr2;
 	/*** Extended ***/
 	STM32FXXXRCCPLL* pll;
 	STM32FXXXRCCPLLI2S* plli2s;
 	STM32FXXXRCCPLLSAI* pllsai;
 	/*** Other ***/
-	void (*pll_division)(uint8_t pllsrc, uint8_t pllm, uint16_t plln, uint8_t pllp, uint8_t pllq, uint8_t pllr);
+	void (*pll_division)(uint8_t pllsrc, uint8_t pllm, uint16_t plln, uint8_t pllp, uint8_t pllq);
 	void (*pllclk_enable)(void);
 	void (*plli2s_enable)(void);
 	void (*pllsai_enable)(void);
@@ -489,7 +453,7 @@ STM32FXXXRCCobj* rcc(void);
 void STM32FXXXRCC_nvic(uint8_t bool);
 /*** RCC Procedure & Function Header ***/
 // PLL
-void STM32FXXXPLLDivision(uint8_t pllsrc, uint8_t pllm, uint16_t plln, uint8_t pllp, uint8_t pllq, uint8_t pllr);
+void STM32FXXXPLLDivision(uint8_t pllsrc, uint8_t pllm, uint16_t plln, uint8_t pllp, uint8_t pllq);
 void STM32FXXXRccPLLCLKEnable(void);
 void STM32FXXXRccPLLI2SEnable(void);
 void STM32FXXXRccPLLSAIEnable(void);
@@ -782,17 +746,6 @@ void STM32FXXXRCC_PLLI2SCFGR_plli2sq(uint8_t value);
 void STM32FXXXRCC_PLLI2SCFGR_plli2sp(uint8_t value);
 void STM32FXXXRCC_PLLI2SCFGR_plli2sn(uint16_t value);
 void STM32FXXXRCC_PLLI2SCFGR_plli2sm(uint8_t value);
-// PLLSAICFGR
-//void STM32FXXXRCC_PLLSAICFGR_pllsaiq(uint8_t value);
-//void STM32FXXXRCC_PLLSAICFGR_pllsaip(uint8_t value);
-//void STM32FXXXRCC_PLLSAICFGR_pllsain(uint16_t value);
-//void STM32FXXXRCC_PLLSAICFGR_pllsaim(uint8_t value);
-
-void STM32FXXXRCC_PLLSAICFGR_pllsaiq(uint8_t value);
-void STM32FXXXRCC_PLLSAICFGR_pllsaip(uint8_t value);
-void STM32FXXXRCC_PLLSAICFGR_pllsain(uint16_t value);
-void STM32FXXXRCC_PLLSAICFGR_pllsaim(uint8_t value);
-
 // DCKCFGR
 void STM32FXXXRCC_DCKCFGR_i2s2src(uint8_t value);
 void STM32FXXXRCC_DCKCFGR_i2s1src(uint8_t value);
@@ -801,20 +754,6 @@ void STM32FXXXRCC_DCKCFGR_sai2src(uint8_t value);
 void STM32FXXXRCC_DCKCFGR_sai1src(uint8_t value);
 void STM32FXXXRCC_DCKCFGR_pllsaidivq(uint8_t value);
 void STM32FXXXRCC_DCKCFGR_plli2sdivq(uint8_t value);
-// CKGATENR
-void STM32FXXXRCC_CKGATENR_rcc_cken(uint8_t bool);
-void STM32FXXXRCC_CKGATENR_flitf_cken(uint8_t bool);
-void STM32FXXXRCC_CKGATENR_sram_cken(uint8_t bool);
-void STM32FXXXRCC_CKGATENR_spare_cken(uint8_t bool);
-void STM32FXXXRCC_CKGATENR_cm4dbg_cken(uint8_t bool);
-void STM32FXXXRCC_CKGATENR_ahb2apb2_cken(uint8_t bool);
-void STM32FXXXRCC_CKGATENR_ahb2apb1_cken(uint8_t bool);
-// DCKCFGR2
-void STM32FXXXRCC_DCKCFGR2_spdifrxsel(uint8_t bool);
-void STM32FXXXRCC_DCKCFGR2_sdiosel(uint8_t bool);
-void STM32FXXXRCC_DCKCFGR2_ck48msel(uint8_t bool);
-void STM32FXXXRCC_DCKCFGR2_cecsel(uint8_t bool);
-void STM32FXXXRCC_DCKCFGR2_fmpi2c1sel(uint8_t value);
 
 /*** INTERRUPT HEADER ***/
 void RCC_IRQHandler(void);

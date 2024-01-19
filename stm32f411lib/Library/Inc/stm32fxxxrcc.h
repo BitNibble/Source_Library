@@ -350,7 +350,9 @@ typedef struct
 {
 	void (*bdrst)(uint8_t bool);
 	void (*rtcen)(uint8_t bool);
+	uint8_t (*get_rtcen)(void);
 	void (*rtcsel)(uint8_t value);
+	uint8_t (*get_rtcsel)(void);
 	void (*lsemod)(uint8_t bool);
 	void (*lsebyp)(uint8_t bool);
 	uint8_t (*get_lserdy)(void);

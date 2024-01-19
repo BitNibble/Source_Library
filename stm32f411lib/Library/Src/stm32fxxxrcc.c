@@ -99,9 +99,9 @@ void rcc_start(void)
 	STM32FXXXRccHSelect(2); // SW[1:0]: System clock switch 00 - HSI, 01 - HSE, 02 - PLL_P, 03 - PLL_R pg133 (manual 2)
 
 	// Internal low-speed oscillator enable and Internal low-speed oscillator ready
-	STM32FXXXRccLEnable(0);
+	//STM32FXXXRccLEnable(2);
 	// Low speed oscillator select
-	STM32FXXXRccLSelect(0);
+	//STM32FXXXRccLSelect(2);
 }
 // RCC
 void STM32FXXXRccHEnable(uint8_t hclock)
@@ -1261,9 +1261,17 @@ void STM32FXXXRCC_BDCR_rtcen(uint8_t bool)
 {
 	setreg(&RCC->BDCR, 1, 15, bool);
 }
+uint8_t STM32FXXXRCC_BDCR_get_rtcen(void)
+{
+	return readreg(RCC->BDCR, 1, 15);
+}
 void STM32FXXXRCC_BDCR_rtcsel(uint8_t value)
 {
 	setreg(&RCC->BDCR, 2, 8, value);
+}
+uint8_t STM32FXXXRCC_BDCR_get_rtcsel(void)
+{
+	return readreg(RCC->BDCR, 2, 8);
 }
 void STM32FXXXRCC_BDCR_lsemod(uint8_t bool)
 {
@@ -1723,7 +1731,9 @@ STM32FXXXRCC_bdcr* stm32fxxx_rcc_bdcr_inic(void)
 	// BDCR
 	stm32fxxx_rcc_bdcr.bdrst = STM32FXXXRCC_BDCR_bdrst;
 	stm32fxxx_rcc_bdcr.rtcen = STM32FXXXRCC_BDCR_rtcen;
+	stm32fxxx_rcc_bdcr.get_rtcen = STM32FXXXRCC_BDCR_get_rtcen;
 	stm32fxxx_rcc_bdcr.rtcsel = STM32FXXXRCC_BDCR_rtcsel;
+	stm32fxxx_rcc_bdcr.get_rtcsel = STM32FXXXRCC_BDCR_get_rtcsel;
 	stm32fxxx_rcc_bdcr.lsemod = STM32FXXXRCC_BDCR_lsemod;
 	stm32fxxx_rcc_bdcr.lsebyp = STM32FXXXRCC_BDCR_lsebyp;
 	stm32fxxx_rcc_bdcr.get_lserdy = STM32FXXXRCC_BDCR_get_lserdy;

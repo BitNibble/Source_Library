@@ -304,26 +304,26 @@ void writereg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_
 	value |= data;
 	*reg = value;
 }
-void STM32446RegSetBits( unsigned int* reg, int n_bits, ... )
+void STM32446RegSetBits( uint32_t* reg, uint8_t n_bits, ... )
 {
 	uint8_t i;
 	if(n_bits > 0 && n_bits < 33){ // Filter input
 		va_list list;
 		va_start(list, n_bits);
 		for(i = 0; i < n_bits; i++){
-			*reg |= (unsigned int)(1 << va_arg(list, int));
+			*reg |= (uint32_t)(1 << va_arg(list, uint32_t));
 		}
 		va_end(list);
 	}
 }
-void STM32446RegResetBits( unsigned int* reg, int n_bits, ... )
+void STM32446RegResetBits( uint32_t* reg, uint8_t n_bits, ... )
 {
 	uint8_t i;
 	if(n_bits > 0 && n_bits < 33){ // Filter input
 		va_list list;
 		va_start(list, n_bits);
 		for(i = 0; i < n_bits; i++){
-			*reg &= (unsigned int)~((1 << va_arg(list, int)) << 16);
+			*reg &= (uint32_t)~((1 << va_arg(list, uint32_t)) << 16);
 		}
 		va_end(list);
 	}

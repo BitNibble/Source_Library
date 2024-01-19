@@ -1,9 +1,9 @@
 /******************************************************************************
-	STM32 XXX RCC
+	STM32 FXXX RCC
 Author: Sergio Santos 
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
-Hardware: STM32-XXX
+Hardware: STM32-FXXX
 Date: 19062023
 Comment:
 	
@@ -18,33 +18,25 @@ static STM32FXXXRCC_cfgr stm32fxxx_rcc_cfgr;
 static STM32FXXXRCC_cir stm32fxxx_rcc_cir;
 static STM32FXXXRCC_ahb1rstr stm32fxxx_rcc_ahb1rstr;
 static STM32FXXXRCC_ahb2rstr stm32fxxx_rcc_ahb2rstr;
-static STM32FXXXRCC_ahb3rstr stm32fxxx_rcc_ahb3rstr;
 static STM32FXXXRCC_apb1rstr stm32fxxx_rcc_apb1rstr;
 static STM32FXXXRCC_apb2rstr stm32fxxx_rcc_apb2rstr;
 static STM32FXXXRCC_ahb1enr stm32fxxx_rcc_ahb1enr;
 static STM32FXXXRCC_ahb2enr stm32fxxx_rcc_ahb2enr;
-static STM32FXXXRCC_ahb3enr stm32fxxx_rcc_ahb3enr;
 static STM32FXXXRCC_apb1enr stm32fxxx_rcc_apb1enr;
 static STM32FXXXRCC_apb2enr stm32fxxx_rcc_apb2enr;
 static STM32FXXXRCC_ahb1lpenr stm32fxxx_rcc_ahb1lpenr;
 static STM32FXXXRCC_ahb2lpenr stm32fxxx_rcc_ahb2lpenr;
-static STM32FXXXRCC_ahb3lpenr stm32fxxx_rcc_ahb3lpenr;
 static STM32FXXXRCC_apb1lpenr stm32fxxx_rcc_apb1lpenr;
 static STM32FXXXRCC_apb2lpenr stm32fxxx_rcc_apb2lpenr;
 static STM32FXXXRCC_bdcr stm32fxxx_rcc_bdcr;
 static STM32FXXXRCC_csr stm32fxxx_rcc_csr;
 static STM32FXXXRCC_sscgr stm32fxxx_rcc_sscgr;
 static STM32FXXXRCC_plli2scfgr stm32fxxx_rcc_plli2scfgr;
-static STM32FXXXRCC_pllsaicfgr stm32fxxx_rcc_pllsaicfgr;
 static STM32FXXXRCC_dckcfgr stm32fxxx_rcc_dckcfgr;
-static STM32FXXXRCC_ckgatenr stm32fxxx_rcc_ckgatenr;
-static STM32FXXXRCC_dckcfgr2 stm32fxxx_rcc_dckcfgr2;
 static STM32FXXXRCCPLL stm32fxxx_rcc_pll;
 static STM32FXXXRCCPLLI2S stm32fxxx_rcc_plli2s;
 static STM32FXXXRCCPLLSAI stm32fxxx_rcc_pllsai;
 static STM32FXXXRCCobj stm32fxxx_rcc;
-
-static uint32_t rcc_time_out;
 
 /*** File Procedure & Function Header ***/
 STM32FXXXRCC_cr* stm32fxxx_rcc_cr_inic(void);
@@ -58,7 +50,6 @@ STM32FXXXRCC_apb1rstr* stm32fxxx_rcc_apb1rstr_inic(void);
 STM32FXXXRCC_apb2rstr* stm32fxxx_rcc_apb2rstr_inic(void);
 STM32FXXXRCC_ahb1enr* stm32fxxx_rcc_ahb1enr_inic(void);
 STM32FXXXRCC_ahb2enr* stm32fxxx_rcc_ahb2enr_inic(void);
-STM32FXXXRCC_ahb3enr* stm32fxxx_rcc_ahb3enr_inic(void);
 STM32FXXXRCC_apb1enr* stm32fxxx_rcc_apb1enr_inic(void);
 STM32FXXXRCC_apb2enr* stm32fxxx_rcc_apb2enr_inic(void);
 STM32FXXXRCC_ahb1lpenr* stm32fxxx_rcc_ahb1lpenr_inic(void);
@@ -70,10 +61,7 @@ STM32FXXXRCC_bdcr* stm32fxxx_rcc_bdcr_inic(void);
 STM32FXXXRCC_csr* stm32fxxx_rcc_csr_inic(void);
 STM32FXXXRCC_sscgr* stm32fxxx_rcc_sscgr_inic(void);
 STM32FXXXRCC_plli2scfgr* stm32fxxx_rcc_plli2scfgr_inic(void);
-STM32FXXXRCC_pllsaicfgr* stm32fxxx_rcc_pllsaicfgr_inic(void);
 STM32FXXXRCC_dckcfgr* stm32fxxx_rcc_dckcfgr_inic(void);
-STM32FXXXRCC_ckgatenr* stm32fxxx_rcc_ckgatenr_inic(void);
-STM32FXXXRCC_dckcfgr2* stm32fxxx_rcc_dckcfgr2_inic(void);
 /*** Extended ***/
 STM32FXXXRCCPLL* stm32fxxx_rcc_pll_inic(void);
 STM32FXXXRCCPLLI2S* stm32fxxx_rcc_plli2s_inic(void);
@@ -88,7 +76,10 @@ void rcc_start(void)
 	// Q 2 to 15			R 2 to 7        (2Mhz ideal, N/m  *  clkx)
 	//STM32FXXXPLLDivision(uint8_t pllsrc, uint8_t pllm, uint16_t plln, uint8_t pllp, uint8_t pllq, uint8_t pllr)
 	//STM32FXXXPLLDivision(0, 16, 336, 4, 2, 2); // factory default (factory 0,16,336,4,2,2) p-84Mhz
-	STM32FXXXPLLDivision(0, 16, 320, 4, 2, 2); // manual setting (manual 0,16,320,4,2,2) (sysclk*360)/(8*4) p-80Mhz
+	//STM32FXXXPLLDivision(0, 16, 320, 4, 2); // manual setting (manual 0,16,320,4,2,2) (sysclk*360)/(16*4) p-80Mhz
+	STM32FXXXPLLDivision(0, 16, 192, 2, 4); // manual setting (manual 0,16,192,2,4) (sysclk*360)/(16*4) p-96Mhz
+	//STM32FXXXPLLDivision(0, 16, 96, 2, 4); // manual setting (manual 0,16,96,2,4) (sysclk*360)/(16*2) p-48Mhz
+	//STM32FXXXPLLDivision(0, 16, 384, 4, 4); // manual setting (manual 0,16,384,4,4) (sysclk*360)/(16*4) p-96Mhz
 
 	// Enable PLL
 	STM32FXXXRccPLLCLKEnable(); // Only enable when Division is configured correctly.
@@ -97,8 +88,10 @@ void rcc_start(void)
 	// AHB 1,2,4,8,16,64,128,256,512 		APB1 1,2,4,8,16		APB2 1,2,4,8,16
 	// RTC 2 to 31
 	// STM32FXXXPrescaler(uint16_t ahbpre, uint8_t ppre1, uint8_t ppre2, uint8_t rtcpre)
-	//STM32FXXXPrescaler(2, 2, 1, 0); // 160Mhs -> ahb:80Mhz - pre1:40Mhz - pre2:80, 80Mhz -> ahb:40Mhz pre1:20Mhz pre2:40Mhz
-	STM32FXXXPrescaler(1, 1, 1, 0);
+	//STM32FXXXPrescaler(2, 2, 1, 0); // 80Mhs -> ahb:40Mhz - pre1:20Mhz - pre2:40
+	STM32FXXXPrescaler(4, 1, 1, 0); // (4,2,1,0) 96Mhs -> ahb:24Mhz - pre1:24Mhz - pre2:24Mhz;
+	//STM32FXXXPrescaler(3, 2, 2, 0); // (4,2,1,0) 96Mhs -> ahb:32Mhz - pre1:16Mhz - pre2:16Mhz;
+	//STM32FXXXPrescaler(2, 2, 1, 0); // (2,2,1,0) 48Mhs -> ahb:24Mhz - pre1:12Mhz - pre2:24Mhz;
 
 	// System Clock Source
 	STM32FXXXRccHEnable(0); // 0
@@ -106,9 +99,9 @@ void rcc_start(void)
 	STM32FXXXRccHSelect(2); // SW[1:0]: System clock switch 00 - HSI, 01 - HSE, 02 - PLL_P, 03 - PLL_R pg133 (manual 2)
 
 	// Internal low-speed oscillator enable and Internal low-speed oscillator ready
-	STM32FXXXRccLEnable(1);
+	//STM32FXXXRccLEnable(2);
 	// Low speed oscillator select
-	STM32FXXXRccLSelect(1);
+	//STM32FXXXRccLSelect(2);
 }
 // RCC
 void STM32FXXXRccHEnable(uint8_t hclock)
@@ -131,18 +124,19 @@ void STM32FXXXRccHEnable(uint8_t hclock)
 }
 uint8_t STM32FXXXRccHSelect(uint8_t hclock)
 { // SW[1:0]: System clock switch 00 - HSI, 01 - HSE pg133
-	RCC->CFGR &= (unsigned int) ~(3); // 00: HSI oscillator selected as system clock
+	RCC->CFGR &= (unsigned int) ~(3); // Clear
 	switch(hclock){
-		case 1:
-			RCC->CFGR |= 1; // HSE oscillator selected as system clock
+		case 1: // HSE oscillator selected as system clock
+			RCC->CFGR |= 1;
 		break;
-		case 2:
-			RCC->CFGR |= 2; // PLL_P selected as system clock
+		case 2: // PLL_P selected as system clock
+			RCC->CFGR |= 2;
 		break;
-		case 3:
-			RCC->CFGR |= 3; // PLL_R selected as system clock
+		case 3: // PLL_R selected as system clock
+			RCC->CFGR |= 3;
 		break;
-		default:
+		default: // 00: HSI oscillator selected as system clock
+			RCC->CFGR &= (unsigned int) ~(3);
 		break;
 	}
 	return (RCC->CFGR >> 2) & 3;
@@ -167,19 +161,19 @@ void STM32FXXXRccLEnable(uint8_t lclock)
 }
 void STM32FXXXRccLSelect(uint8_t lclock)
 {
-	RCC->BDCR &= (uint32_t) ~((1 << 9) | (1 << 8)); // RTCSEL[1:0]: RTC clock source selection
+	RCC->BDCR &= (uint32_t) ~((1 << 9) | (1 << 8)); // Clear
 	switch(lclock){
-		case 2:
-			RCC->BDCR |= (1 << 9); // LSI oscillator clock used as the RTC clock
+		case 2: // LSI oscillator clock used as the RTC clock
+			RCC->BDCR |= (1 << 9);
 		break;
-		case 1:
-			RCC->BDCR |= (1 << 8); // LSE oscillator clock used as the RTC clock
+		case 1: // LSE oscillator clock used as the RTC clock
+			RCC->BDCR |= (1 << 8);
 		break;
-		case 3:
-			RCC->BDCR |= ((1 << 8) | (1 << 9)); // HSE oscillator clock divided by a programmable prescaler
+		case 3: // HSE oscillator clock divided by a programmable prescaler
+			RCC->BDCR |= ((1 << 8) | (1 << 9));
 		break;
-		default:
-			RCC->BDCR |= (1 << 8); // LSE oscillator clock used as the RTC clock
+		default: // LSE oscillator clock used as the RTC clock
+			RCC->BDCR |= (1 << 8);
 		break;
 	}
 }
@@ -251,21 +245,16 @@ void STM32FXXXPrescaler(uint16_t ahbpre, uint8_t ppre1, uint8_t ppre2, uint8_t r
 	}
 }
 // PLL
-void STM32FXXXPLLDivision(uint8_t pllsrc, uint8_t pllm, uint16_t plln, uint8_t pllp, uint8_t pllq, uint8_t pllr)
+void STM32FXXXPLLDivision(uint8_t pllsrc, uint8_t pllm, uint16_t plln, uint8_t pllp, uint8_t pllq)
 {
-	const unsigned int mask = 0x7F437FFF;
+	const unsigned int mask = 0x0FC37FFF;
 	RCC->PLLCFGR &= (unsigned int) ~mask; // clear args
-
-	if(pllr > 1 && pllr < 8){ // PLLR[28]: Main PLL division factor for I2Ss, SAIs, SYSTEM and SPDIF-Rx clocks
-		RCC->PLLCFGR |= (pllr << 28);
-	}
 
 	if(pllq > 1 && pllq < 16){ // PLLQ[24]: Main PLL (PLL) division factor for USB OTG FS, SDIOclocks
 		RCC->PLLCFGR |= (pllq << 24);
 	}
 
-	if(pllsrc == 1) // PLLSRC[22]: Main PLL(PLL) and audio PLL (PLLI2S) entry clock source
-		RCC->PLLCFGR |= (1 << 22);
+	if(pllsrc) RCC->PLLCFGR |= (1 << 22); else RCC->PLLCFGR &= ~(1 << 22); // 0 - HSI 1 - HSE
 
 	switch(pllp){ // PLLP[16]: Main PLL (PLL) division factor for main system clock
 		case 4:
@@ -277,7 +266,8 @@ void STM32FXXXPLLDivision(uint8_t pllsrc, uint8_t pllm, uint16_t plln, uint8_t p
 		case 8:
 			RCC->PLLCFGR |= (3 << 16);
 		break;
-		default:
+		default: // 2
+			RCC->PLLCFGR &= ~(3 << 16);
 		break;
 	}
 
@@ -291,23 +281,26 @@ void STM32FXXXPLLDivision(uint8_t pllsrc, uint8_t pllm, uint16_t plln, uint8_t p
 }
 void STM32FXXXRccPLLCLKEnable(void)
 {
+	uint32_t rcc_time_out;
 	//if(onoff){
-		for( rcc_time_out = 100, RCC->CR |= (1 << 24) ; !(RCC->CR & (1 << 25)) && rcc_time_out; rcc_time_out-- ); // PLLON: Main PLL (PLL) enable
+		for( rcc_time_out = 0xFFFFFF, RCC->CR |= (1 << 24) ; !(RCC->CR & (1 << 25)) && rcc_time_out; rcc_time_out-- ); // PLLON: Main PLL (PLL) enable
 	//}else{
 		//RCC->CR &= (unsigned int) ~(1 << 24);
 	//}
 }
 void STM32FXXXRccPLLI2SEnable(void)
 {
+	uint32_t rcc_time_out;
 	//if(onoff)
-		for( rcc_time_out = 100, RCC->CR |= (1 << 26) ; !(RCC->CR & (1 << 27)) && rcc_time_out; rcc_time_out-- ); // PLLI2SON: PLLI2S enable
+		for( rcc_time_out = 0xFFFFFF, RCC->CR |= (1 << 26) ; !(RCC->CR & (1 << 27)) && rcc_time_out; rcc_time_out-- ); // PLLI2SON: PLLI2S enable
 	//else
 		//RCC->CR &= (unsigned int) ~(1 << 26);
 }
 void STM32FXXXRccPLLSAIEnable(void)
 {
+	uint32_t rcc_time_out;
 	//if(onoff)
-		for( rcc_time_out = 100, RCC->CR |= (1 << 28) ; !(RCC->CR & (1 << 29)) && rcc_time_out; rcc_time_out-- ); // PLLSAION: PLLSAI enable
+		for( rcc_time_out = 0xFFFFFF, RCC->CR |= (1 << 28) ; !(RCC->CR & (1 << 29)) && rcc_time_out; rcc_time_out-- ); // PLLSAION: PLLSAI enable
 	//else
 		//RCC->CR &= (unsigned int) ~(1 << 28);
 }
@@ -1268,9 +1261,17 @@ void STM32FXXXRCC_BDCR_rtcen(uint8_t bool)
 {
 	setreg(&RCC->BDCR, 1, 15, bool);
 }
+uint8_t STM32FXXXRCC_BDCR_get_rtcen(void)
+{
+	return readreg(RCC->BDCR, 1, 15);
+}
 void STM32FXXXRCC_BDCR_rtcsel(uint8_t value)
 {
 	setreg(&RCC->BDCR, 2, 8, value);
+}
+uint8_t STM32FXXXRCC_BDCR_get_rtcsel(void)
+{
+	return readreg(RCC->BDCR, 2, 8);
 }
 void STM32FXXXRCC_BDCR_lsemod(uint8_t bool)
 {
@@ -1367,25 +1368,6 @@ void STM32FXXXRCC_PLLI2SCFGR_plli2sm(uint8_t value)
 {
 	setreg(&RCC->PLLI2SCFGR, 6, 0, value);
 }
-// PLLSAICFGR
-#ifdef STM32F446xx
-void STM32FXXXRCC_PLLSAICFGR_pllsaiq(uint8_t value)
-{
-	setreg(&RCC->PLLSAICFGR, 4, 24, value);
-}
-void STM32FXXXRCC_PLLSAICFGR_pllsaip(uint8_t value)
-{
-	setreg(&RCC->PLLSAICFGR, 2, 16, value);
-}
-void STM32FXXXRCC_PLLSAICFGR_pllsain(uint16_t value)
-{
-	setreg(&RCC->PLLSAICFGR, 9, 6, value);
-}
-void STM32FXXXRCC_PLLSAICFGR_pllsaim(uint8_t value)
-{
-	setreg(&RCC->PLLSAICFGR, 6, 0, value);
-}
-#endif
 // DCKCFGR
 void STM32FXXXRCC_DCKCFGR_i2s2src(uint8_t value)
 {
@@ -1415,60 +1397,6 @@ void STM32FXXXRCC_DCKCFGR_plli2sdivq(uint8_t value)
 {
 	setreg(&RCC->DCKCFGR, 5, 0, value);
 }
-// CKGATENR
-#ifdef STM32F446xx
-void STM32FXXXRCC_CKGATENR_rcc_cken(uint8_t bool)
-{
-	setreg(&RCC->CKGATENR, 1, 6, bool);
-}
-void STM32FXXXRCC_CKGATENR_flitf_cken(uint8_t bool)
-{
-	setreg(&RCC->CKGATENR, 1, 5, bool);
-}
-void STM32FXXXRCC_CKGATENR_sram_cken(uint8_t bool)
-{
-	setreg(&RCC->CKGATENR, 1, 4, bool);
-}
-void STM32FXXXRCC_CKGATENR_spare_cken(uint8_t bool)
-{
-	setreg(&RCC->CKGATENR, 1, 3, bool);
-}
-void STM32FXXXRCC_CKGATENR_cm4dbg_cken(uint8_t bool)
-{
-	setreg(&RCC->CKGATENR, 1, 2, bool);
-}
-void STM32FXXXRCC_CKGATENR_ahb2apb2_cken(uint8_t bool)
-{
-	setreg(&RCC->CKGATENR, 1, 1, bool);
-}
-void STM32FXXXRCC_CKGATENR_ahb2apb1_cken(uint8_t bool)
-{
-	setreg(&RCC->CKGATENR, 1, 0, bool);
-}
-#endif
-// DCKCFGR2
-#ifdef STM32F446xx
-void STM32FXXXRCC_DCKCFGR2_spdifrxsel(uint8_t bool)
-{
-	setreg(&RCC->DCKCFGR2, 1, 29, bool);
-}
-void STM32FXXXRCC_DCKCFGR2_sdiosel(uint8_t bool)
-{
-	setreg(&RCC->DCKCFGR2, 1, 28, bool);
-}
-void STM32FXXXRCC_DCKCFGR2_ck48msel(uint8_t bool)
-{
-	setreg(&RCC->DCKCFGR2, 1, 27, bool);
-}
-void STM32FXXXRCC_DCKCFGR2_cecsel(uint8_t bool)
-{
-	setreg(&RCC->DCKCFGR2, 1, 26, bool);
-}
-void STM32FXXXRCC_DCKCFGR2_fmpi2c1sel(uint8_t value)
-{
-	setreg(&RCC->DCKCFGR2, 2, 22, value);
-}
-#endif
 /*** Other ***/
 void STM32FXXXRCC_nvic(uint8_t bool)
 {
@@ -1578,14 +1506,6 @@ STM32FXXXRCC_ahb2rstr* stm32fxxx_rcc_ahb2rstr_inic(void)
 	stm32fxxx_rcc_ahb2rstr.dcmirst = STM32FXXXRCC_AHB2RSTR_dcmirst;
 	return &stm32fxxx_rcc_ahb2rstr;
 }
-STM32FXXXRCC_ahb3rstr* stm32fxxx_rcc_ahb3rstr_inic(void)
-{
-
-	// AHB3RSTR
-	stm32fxxx_rcc_ahb3rstr.qspirst = STM32FXXXRCC_AHB3RSTR_qspirst;
-	stm32fxxx_rcc_ahb3rstr.fmcrst = STM32FXXXRCC_AHB3RSTR_fmcrst;
-	return &stm32fxxx_rcc_ahb3rstr;
-}
 STM32FXXXRCC_apb1rstr* stm32fxxx_rcc_apb1rstr_inic(void)
 {
 
@@ -1665,14 +1585,6 @@ STM32FXXXRCC_ahb2enr* stm32fxxx_rcc_ahb2enr_inic(void)
 	stm32fxxx_rcc_ahb2enr.otgfsen = STM32FXXXRCC_AHB2ENR_otgfsen;
 	stm32fxxx_rcc_ahb2enr.dcmien = STM32FXXXRCC_AHB2ENR_dcmien;
 	return &stm32fxxx_rcc_ahb2enr;
-}
-STM32FXXXRCC_ahb3enr* stm32fxxx_rcc_ahb3enr_inic(void)
-{
-
-	// AHB3ENR
-	stm32fxxx_rcc_ahb3enr.qspien = STM32FXXXRCC_AHB3ENR_qspien;
-	stm32fxxx_rcc_ahb3enr.fmcen = STM32FXXXRCC_AHB3ENR_fmcen;
-	return &stm32fxxx_rcc_ahb3enr;
 }
 STM32FXXXRCC_apb1enr* stm32fxxx_rcc_apb1enr_inic(void)
 {
@@ -1759,14 +1671,6 @@ STM32FXXXRCC_ahb2lpenr* stm32fxxx_rcc_ahb2lpenr_inic(void)
 	stm32fxxx_rcc_ahb2lpenr.dcmilpen = STM32FXXXRCC_AHB2LPENR_dcmilpen;
 	return &stm32fxxx_rcc_ahb2lpenr;
 }
-STM32FXXXRCC_ahb3lpenr* stm32fxxx_rcc_ahb3lpenr_inic(void)
-{
-
-	// AHB3LPENR
-	stm32fxxx_rcc_ahb3lpenr.qspilpen = STM32FXXXRCC_AHB3LPENR_qspilpen;
-	stm32fxxx_rcc_ahb3lpenr.fmclpen = STM32FXXXRCC_AHB3LPENR_fmclpen;
-	return &stm32fxxx_rcc_ahb3lpenr;
-}
 STM32FXXXRCC_apb1lpenr* stm32fxxx_rcc_apb1lpenr_inic(void)
 {
 
@@ -1827,7 +1731,9 @@ STM32FXXXRCC_bdcr* stm32fxxx_rcc_bdcr_inic(void)
 	// BDCR
 	stm32fxxx_rcc_bdcr.bdrst = STM32FXXXRCC_BDCR_bdrst;
 	stm32fxxx_rcc_bdcr.rtcen = STM32FXXXRCC_BDCR_rtcen;
+	stm32fxxx_rcc_bdcr.get_rtcen = STM32FXXXRCC_BDCR_get_rtcen;
 	stm32fxxx_rcc_bdcr.rtcsel = STM32FXXXRCC_BDCR_rtcsel;
+	stm32fxxx_rcc_bdcr.get_rtcsel = STM32FXXXRCC_BDCR_get_rtcsel;
 	stm32fxxx_rcc_bdcr.lsemod = STM32FXXXRCC_BDCR_lsemod;
 	stm32fxxx_rcc_bdcr.lsebyp = STM32FXXXRCC_BDCR_lsebyp;
 	stm32fxxx_rcc_bdcr.get_lserdy = STM32FXXXRCC_BDCR_get_lserdy;
@@ -1871,17 +1777,6 @@ STM32FXXXRCC_plli2scfgr* stm32fxxx_rcc_plli2scfgr_inic(void)
 	stm32fxxx_rcc_plli2scfgr.plli2sm = STM32FXXXRCC_PLLI2SCFGR_plli2sm;
 	return &stm32fxxx_rcc_plli2scfgr;
 }
-STM32FXXXRCC_pllsaicfgr* stm32fxxx_rcc_pllsaicfgr_inic(void)
-{
-#ifdef STM32F446xx
-	// PLLSAICFGR
-	stm32fxxx_rcc_pllsaicfgr.pllsaiq = STM32FXXXRCC_PLLSAICFGR_pllsaiq;
-	stm32fxxx_rcc_pllsaicfgr.pllsaip = STM32FXXXRCC_PLLSAICFGR_pllsaip;
-	stm32fxxx_rcc_pllsaicfgr.pllsain = STM32FXXXRCC_PLLSAICFGR_pllsain;
-	stm32fxxx_rcc_pllsaicfgr.pllsaim = STM32FXXXRCC_PLLSAICFGR_pllsaim;
-#endif
-	return &stm32fxxx_rcc_pllsaicfgr;
-}
 STM32FXXXRCC_dckcfgr* stm32fxxx_rcc_dckcfgr_inic(void)
 {
 
@@ -1894,32 +1789,6 @@ STM32FXXXRCC_dckcfgr* stm32fxxx_rcc_dckcfgr_inic(void)
 	stm32fxxx_rcc_dckcfgr.pllsaidivq = STM32FXXXRCC_DCKCFGR_pllsaidivq;
 	stm32fxxx_rcc_dckcfgr.plli2sdivq = STM32FXXXRCC_DCKCFGR_plli2sdivq;
 	return &stm32fxxx_rcc_dckcfgr;
-}
-STM32FXXXRCC_ckgatenr* stm32fxxx_rcc_ckgatenr_inic(void)
-{
-#ifdef STM32F446xx
-	// CKGATENR
-	stm32fxxx_rcc_ckgatenr.rcc_cken = STM32FXXXRCC_CKGATENR_rcc_cken;
-	stm32fxxx_rcc_ckgatenr.flitf_cken = STM32FXXXRCC_CKGATENR_flitf_cken;
-	stm32fxxx_rcc_ckgatenr.sram_cken = STM32FXXXRCC_CKGATENR_sram_cken;
-	stm32fxxx_rcc_ckgatenr.spare_cken = STM32FXXXRCC_CKGATENR_spare_cken;
-	stm32fxxx_rcc_ckgatenr.cm4dbg_cken = STM32FXXXRCC_CKGATENR_cm4dbg_cken;
-	stm32fxxx_rcc_ckgatenr.ahb2apb2_cken = STM32FXXXRCC_CKGATENR_ahb2apb2_cken;
-	stm32fxxx_rcc_ckgatenr.ahb2apb1_cken = STM32FXXXRCC_CKGATENR_ahb2apb1_cken;
-#endif
-	return &stm32fxxx_rcc_ckgatenr;
-}
-STM32FXXXRCC_dckcfgr2* stm32fxxx_rcc_dckcfgr2_inic(void)
-{
-#ifdef STM32F446xx
-	// DCKCFGR2
-	stm32fxxx_rcc_dckcfgr2.spdifrxsel = STM32FXXXRCC_DCKCFGR2_spdifrxsel;
-	stm32fxxx_rcc_dckcfgr2.sdiosel = STM32FXXXRCC_DCKCFGR2_sdiosel;
-	stm32fxxx_rcc_dckcfgr2.ck48msel = STM32FXXXRCC_DCKCFGR2_ck48msel;
-	stm32fxxx_rcc_dckcfgr2.cecsel = STM32FXXXRCC_DCKCFGR2_cecsel;
-	stm32fxxx_rcc_dckcfgr2.fmpi2c1sel = STM32FXXXRCC_DCKCFGR2_fmpi2c1sel;
-#endif
-	return &stm32fxxx_rcc_dckcfgr2;
 }
 /*** Extended ***/
 STM32FXXXRCCPLL* stm32fxxx_rcc_pll_inic(void)
@@ -1953,27 +1822,21 @@ STM32FXXXRCCobj rcc_enable(void)
 	stm32fxxx_rcc.cir = stm32fxxx_rcc_cir_inic();
 	stm32fxxx_rcc.ahb1rstr = stm32fxxx_rcc_ahb1rstr_inic();
 	stm32fxxx_rcc.ahb2rstr = stm32fxxx_rcc_ahb2rstr_inic();
-	stm32fxxx_rcc.ahb3rstr = stm32fxxx_rcc_ahb3rstr_inic();
 	stm32fxxx_rcc.apb1rstr = stm32fxxx_rcc_apb1rstr_inic();
 	stm32fxxx_rcc.apb2rstr = stm32fxxx_rcc_apb2rstr_inic();
 	stm32fxxx_rcc.ahb1enr = stm32fxxx_rcc_ahb1enr_inic();
 	stm32fxxx_rcc.ahb2enr = stm32fxxx_rcc_ahb2enr_inic();
-	stm32fxxx_rcc.ahb3enr = stm32fxxx_rcc_ahb3enr_inic();
 	stm32fxxx_rcc.apb1enr = stm32fxxx_rcc_apb1enr_inic();
 	stm32fxxx_rcc.apb2enr = stm32fxxx_rcc_apb2enr_inic();
 	stm32fxxx_rcc.ahb1lpenr = stm32fxxx_rcc_ahb1lpenr_inic();
 	stm32fxxx_rcc.ahb2lpenr = stm32fxxx_rcc_ahb2lpenr_inic();
-	stm32fxxx_rcc.ahb3lpenr = stm32fxxx_rcc_ahb3lpenr_inic();
 	stm32fxxx_rcc.apb1lpenr = stm32fxxx_rcc_apb1lpenr_inic();
 	stm32fxxx_rcc.apb2lpenr = stm32fxxx_rcc_apb2lpenr_inic();
 	stm32fxxx_rcc.bdcr = stm32fxxx_rcc_bdcr_inic();
 	stm32fxxx_rcc.csr = stm32fxxx_rcc_csr_inic();
 	stm32fxxx_rcc.sscgr = stm32fxxx_rcc_sscgr_inic();
 	stm32fxxx_rcc.plli2scfgr = stm32fxxx_rcc_plli2scfgr_inic();
-	stm32fxxx_rcc.pllsaicfgr = stm32fxxx_rcc_pllsaicfgr_inic();
 	stm32fxxx_rcc.dckcfgr = stm32fxxx_rcc_dckcfgr_inic();
-	stm32fxxx_rcc.ckgatenr = stm32fxxx_rcc_ckgatenr_inic();
-	stm32fxxx_rcc.dckcfgr2 = stm32fxxx_rcc_dckcfgr2_inic();
 	/*** PLL ***/
 	stm32fxxx_rcc.pll = stm32fxxx_rcc_pll_inic();
 	stm32fxxx_rcc.plli2s = stm32fxxx_rcc_plli2s_inic();

@@ -1,9 +1,9 @@
 /******************************************************************************
-	STM32 XXX RTC
+	STM32 FXXX RTC
 Author: Sergio Santos 
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
-Hardware: STM32-XXX
+Hardware: STM32-FXXX
 Date: 19062023
 Comment:
 	
@@ -65,8 +65,10 @@ STM32FXXX_RTC* rtc(void){ return (STM32FXXX_RTC*) &stm32fxxx_rtc; }
 /*** Procedure & Function Definition ***/
 void STM32FXXXRtcClock(uint8_t bool)
 {
-	if(bool){ RCC->BDCR |= (1 <<  15); } // RTCEN: RTC clock enable
-	else{ RCC->BDCR &= ~(1 <<  15); } // RTCEN: RTC clock disable
+	STM32FXXXRtcWriteEnable();
+	if(bool){ RCC->BDCR |= (1 <<  15); }else{ RCC->BDCR &= ~(1 <<  15); }
+	STM32FXXXRtcWriteDisable();
+
 }
 void STM32FXXXRtcNvic(uint8_t value)
 { // 3, 41
@@ -89,11 +91,15 @@ void STM32FXXXRtcNvic(uint8_t value)
 }
 void STM32FXXXRtcInic(uint8_t clock)
 { // RM0390 pg657
+	STM32FXXXPwrClock(1);
+	STM32FXXXBckSramClock(1);
+	STM32FXXXRtcClock(1);
+
 	rtc_lenable(clock);
 	rtc_lselect(clock);
-	STM32FXXXPwrClock(1);
-	STM32FXXXRtcClock(1);
+
 	STM32FXXXRtcStopRead();
+
 	//STM32FXXXRtcWriteEnable();
 	//STM32FXXXRtcRegUnlock();
 	//STM32FXXXRtcRegWrite(&RTC->TR, 0x130000);
@@ -317,7 +323,10 @@ void STM32FXXXPwrClock(uint8_t bool)
 }
 void STM32FXXXBckSramClock(uint8_t bool)
 {
-	setreg(&RCC->AHB1ENR, 1, 18, bool); // Backup SRAM interface clock enable
+	#ifdef STM32F446xx
+		setreg(&RCC->AHB1ENR, 1, 18, bool); // Backup SRAM interface clock enable
+	#endif
+	setreg(&RCC->AHB1LPENR, 1, 16, bool); // Backup SRAM interface clock enable
 }
 void STM32FXXXRtcWriteEnable(void)
 {
@@ -377,33 +386,44 @@ void rtc_lenable(unsigned int lclock)
 	unsigned int rdy;
 	for( set = 1, rdy = 1; rdy ; ){
 		if(lclock == 2){ // LSION: Internal low-speed oscillator enable
-			if( set ){ RCC->CSR |= ( 1 << 0); set = 0; }else if( RCC->CSR & ( 1 << 1) ) rdy = 0;
+			if( set ){ STM32FXXXRtcWriteEnable(); RCC->CSR |= ( 1 << 0); STM32FXXXRtcWriteDisable(); set = 0; }else if( RCC->CSR & ( 1 << 1) ) rdy = 0;
 		}
 		else if(lclock == 1){ // LSEON: External low-speed oscillator enable
-			if( set ){ RCC->BDCR |= ( 1 << 0); set = 0; }else if( RCC->BDCR & ( 1 << 1) ) rdy = 0;
+			if( set ){ STM32FXXXRtcWriteEnable(); RCC->BDCR |= ( 1 << 0); STM32FXXXRtcWriteDisable(); set = 0; }else if( RCC->BDCR & ( 1 << 1) ) rdy = 0;
 		}
 		else if(lclock == 4){ // LSEBYP: External low-speed oscillator bypass
-			if( set ) RCC->BDCR |= ( 1 << 2 );
+			if( set ){ STM32FXXXRtcWriteEnable(); RCC->BDCR |= ( 1 << 2 ); STM32FXXXRtcWriteDisable(); }
 			lclock = 1;
 		}
 		else lclock = 2; // default
 	}
+
 }
 void rtc_lselect(uint8_t lclock)
 {
-	RCC->BDCR &= (uint32_t) ~((1 << 9) | (1 << 8)); // RTCSEL[1:0]: RTC clock source selection
+	STM32FXXXRtcWriteEnable();
+	RCC->BDCR &= (uint32_t) ~((1 << 9) | (1 << 8)); // Clear
+	STM32FXXXRtcWriteDisable();
 	switch(lclock){
 		case 2:
+			STM32FXXXRtcWriteEnable();
 			RCC->BDCR |= (1 << 9); // LSI oscillator clock used as the RTC clock
+			STM32FXXXRtcWriteDisable();
 		break;
 		case 1:
+			STM32FXXXRtcWriteEnable();
 			RCC->BDCR |= (1 << 8); // LSE oscillator clock used as the RTC clock
+			STM32FXXXRtcWriteDisable();
 		break;
 		case 3:
+			STM32FXXXRtcWriteEnable();
 			RCC->BDCR |= ((1 << 8) | (1 << 9)); // HSE oscillator clock divided by a programmable prescaler
+			STM32FXXXRtcWriteDisable();
 		break;
 		default:
+			STM32FXXXRtcWriteEnable();
 			RCC->BDCR |= (1 << 9); // LSI oscillator clock used as the RTC clock
+			STM32FXXXRtcWriteDisable();
 		break;
 	}
 }

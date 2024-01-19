@@ -106,9 +106,9 @@ void rcc_start(void)
 	STM32446RccHSelect(2); // SW[1:0]: System clock switch 00 - HSI, 01 - HSE, 02 - PLL_P, 03 - PLL_R pg133 (manual 2)
 
 	// Internal low-speed oscillator enable and Internal low-speed oscillator ready
-	STM32446RccLEnable(1);
+	//STM32446RccLEnable(1);
 	// Low speed oscillator select
-	STM32446RccLSelect(1);
+	//STM32446RccLSelect(1);
 }
 // RCC
 void STM32446RccHEnable(uint8_t hclock)

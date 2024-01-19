@@ -82,7 +82,7 @@ void ARMLCD0_inic(void)
 	ireg->PUPDR |= (1 << (ARMLCD0_NC * 2)); // pull up resistors
 
 	ireg->OSPEEDR &= (uint32_t) ~( (3 << (ARMLCD0_RS * 2)) | (3 << (ARMLCD0_RW * 2)) | (3 << (ARMLCD0_EN * 2)) | (3 << (ARMLCD0_DB4 * 2)) | (3 << (ARMLCD0_DB5 * 2)) | (3 << (ARMLCD0_DB6 * 2)) | (3 << (ARMLCD0_DB7 * 2)) ); // set speed
-	ireg->OSPEEDR |= ( (3 << (ARMLCD0_RS * 2)) | (3 << (ARMLCD0_RW * 2)) | (3 << (ARMLCD0_EN * 2)) | (3 << (ARMLCD0_DB4 * 2)) | (3 << (ARMLCD0_DB5 * 2)) | (3 << (ARMLCD0_DB6 * 2)) | (3 << (ARMLCD0_DB7 * 2)) ); // set speed
+	//ireg->OSPEEDR |= ( (3 << (ARMLCD0_RS * 2)) | (3 << (ARMLCD0_RW * 2)) | (3 << (ARMLCD0_EN * 2)) | (3 << (ARMLCD0_DB4 * 2)) | (3 << (ARMLCD0_DB5 * 2)) | (3 << (ARMLCD0_DB6 * 2)) | (3 << (ARMLCD0_DB7 * 2)) ); // set speed
 	 
 	armlcd0_detect = ireg->IDR & (1 << ARMLCD0_NC);
 	
@@ -191,7 +191,7 @@ void ARMLCD0_BF(void)
 	char inst = 0x80;
 	for(i=0; 0x80 & inst; i++){
 		inst = ARMLCD0_read(ARMLCD0_INST);
-		if(i > 5) // 1
+		if(i > 20) // 1
 			break;
 	}
 }

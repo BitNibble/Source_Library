@@ -1,9 +1,9 @@
 /******************************************************************************
-	STM32 XXX RTC
+	STM32 FXXX RTC
 Author: Sergio Santos 
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
-Hardware: STM32-XXX
+Hardware: STM32-FXXX
 Date: 19062023
 Comment:
 	
