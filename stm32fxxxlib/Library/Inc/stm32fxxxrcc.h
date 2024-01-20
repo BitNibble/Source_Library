@@ -29,7 +29,7 @@ Comment:
 // RCC -> PLL
 typedef struct
 {
-	void (*division)(uint8_t pllsrc, uint8_t pllm, uint16_t plln, uint8_t pllp, uint8_t pllq);
+	void (*division)(uint8_t pllm, uint16_t plln, uint8_t pllp, uint8_t pllq);
 	void (*enable)(void);
 }STM32FXXXRCCPLL;
 // RCC -> PLLI2S
@@ -433,7 +433,7 @@ typedef struct
 	STM32FXXXRCCPLLI2S* plli2s;
 	STM32FXXXRCCPLLSAI* pllsai;
 	/*** Other ***/
-	void (*pll_division)(uint8_t pllsrc, uint8_t pllm, uint16_t plln, uint8_t pllp, uint8_t pllq);
+	void (*pll_division)(uint8_t pllm, uint16_t plln, uint8_t pllp, uint8_t pllq);
 	void (*pllclk_enable)(void);
 	void (*plli2s_enable)(void);
 	void (*pllsai_enable)(void);
@@ -453,7 +453,7 @@ STM32FXXXRCCobj* rcc(void);
 void STM32FXXXRCC_nvic(uint8_t bool);
 /*** RCC Procedure & Function Header ***/
 // PLL
-void STM32FXXXPLLDivision(uint8_t pllsrc, uint8_t pllm, uint16_t plln, uint8_t pllp, uint8_t pllq);
+void STM32FXXXPLLDivision(uint8_t pllm, uint16_t plln, uint8_t pllp, uint8_t pllq);
 void STM32FXXXRccPLLCLKEnable(void);
 void STM32FXXXRccPLLI2SEnable(void);
 void STM32FXXXRccPLLSAIEnable(void);

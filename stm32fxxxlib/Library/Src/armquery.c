@@ -14,27 +14,13 @@ Comment:
 #include <math.h>
 
 static STM32FXXXQuery stm32fxxx_query;
-static STM32FXXXCLOCK_prescaler stm32fxxx_CLOCK_prescaler;
+static STM32FXXXSYSTEM_prescaler stm32fxxx_System_prescaler;
 static STM32FXXXPLL_parameter stm32fxxx_PLL_parameter;
 
 
-STM32FXXXCLOCK_prescaler* CLOCK_prescaler_inic(void);
+STM32FXXXSYSTEM_prescaler* System_prescaler_inic(void);
 STM32FXXXPLL_parameter* PLL_parameter_inic(void);
 
-uint32_t getclocksource(void)
-{
-	uint32_t reg = RCC->CR;
-	uint32_t source;
-	if(reg & (1 << 1)){source = HSI_RC;} else if(reg & (1 << 17)){source = HSE_OSC;}
-	return source;
-}
-uint32_t getpllsource(void)
-{
-	uint32_t reg = RCC->CFGR;
-	uint32_t source;
-	if(reg & (1 << 22)) source = HSE_OSC; else source = HSI_RC;
-	return source;
-}
 uint16_t gethpre(void)
 {
 	uint32_t value = readreg(RCC->CFGR, 4, 4);
@@ -204,39 +190,49 @@ uint8_t getpllr(void)
 {
 	return readreg(RCC->PLLCFGR, 3, 28);
 }
+uint32_t getpllclk(void)
+{
+	uint32_t source;
+	if( readreg(RCC->PLLCFGR, 1, 22) ) source = HSE_OSC; else source = HSI_RC;
+	return source;
+}
 uint32_t getsysclk(void)
 {
 	long value = readreg(RCC->CFGR, 2, 2);
 	switch(value) // SWS[2]: System clock switch status
 	{
+		case 0:
+			value = HSI_RC;
+		break;
 		case 1: // 01: HSE oscillator used as the system clock
 			value = HSE_OSC;
 		break;
 		case 2: // 10: PLL used as the system clock
-			value = getclocksource() / getpllm();
+			value = getpllclk() / getpllm();
 			value /= getpllp();
 			value *= getplln();
 		break;
 		case 3: // 11: PLL_R used as the system clock
-			value = getclocksource() / getpllm();
-			value /= getpllr();
-			value *= getplln();
+			#ifdef STM32F446xx
+				value = getpllclk() / getpllm();
+				value /= getpllr();
+				value *= getplln();
+			#endif
 		break;
 		default: // 00: HSI oscillator used as the system clock
-			value = HSI_RC;
 		break;
 	}
 	return (uint32_t)value;
 }
-STM32FXXXCLOCK_prescaler* CLOCK_prescaler_inic(void)
+STM32FXXXSYSTEM_prescaler* System_prescaler_inic(void)
 {
-	stm32fxxx_CLOCK_prescaler.AHB = gethpre;
-	stm32fxxx_CLOCK_prescaler.APB1 = gethppre1;
-	stm32fxxx_CLOCK_prescaler.APB2 = gethppre2;
-	stm32fxxx_CLOCK_prescaler.RTCclk = getrtcpre;
-	stm32fxxx_CLOCK_prescaler.MCO1 = gethmco1pre;
-	stm32fxxx_CLOCK_prescaler.MCO2 = gethmco2pre;
-	return &stm32fxxx_CLOCK_prescaler;
+	stm32fxxx_System_prescaler.AHB = gethpre;
+	stm32fxxx_System_prescaler.APB1 = gethppre1;
+	stm32fxxx_System_prescaler.APB2 = gethppre2;
+	stm32fxxx_System_prescaler.RTCclk = getrtcpre;
+	stm32fxxx_System_prescaler.MCO1 = gethmco1pre;
+	stm32fxxx_System_prescaler.MCO2 = gethmco2pre;
+	return &stm32fxxx_System_prescaler;
 }
 STM32FXXXPLL_parameter* PLL_parameter_inic(void)
 {
@@ -249,10 +245,9 @@ STM32FXXXPLL_parameter* PLL_parameter_inic(void)
 }
 STM32FXXXQuery query_enable(void)
 {
-	stm32fxxx_query.CLOCK_prescaler = CLOCK_prescaler_inic();
+	stm32fxxx_query.System_prescaler = System_prescaler_inic();
 	stm32fxxx_query.PLL_parameter = PLL_parameter_inic();
-	stm32fxxx_query.ClockSource = getclocksource;
-	stm32fxxx_query.PllSource = getpllsource;
+	stm32fxxx_query.PllClock = getpllclk;
 	stm32fxxx_query.SystemClock = getsysclk;
 	return stm32fxxx_query;
 }
