@@ -72,24 +72,35 @@ void STM32FXXXRccWriteEnable(void);
 void STM32FXXXRccWriteDisable(void);
 uint8_t STM32FXXXRccPLLSelect(uint8_t hclock);
 
-/*****   0 -> HSI    1->HSE   *******/
+/*******   0 -> HSI    1->HSE   *********/
 #ifndef H_Clock_Source
 	#define H_Clock_Source 0
 #endif
-/************************************/
+/****************************************/
+/****   PLL ON -> 1    PLL OFF = 0   ****/
+#ifndef PLL_ON_OFF
+	#define PLL_ON_OFF 0
+#endif
+/****************************************/
 
 /*** RCC Procedure & Function Definition ***/
 void rcc_start(void)
 {
-	// M 2 to 63  N 50 to 432  P 2,4,6,8  Q 2 to 15  R 2 to 7  (2Mhz ideal, N/m  *  clkx)
-	STM32FXXXPLLDivision(16, 192, 2, 4);
+	// M 2 to 63  N 50 to 432  P 2,4,6,8  Q 2 to 15  R 2 to 7
+	STM32FXXXPLLDivision((uint32_t)getpllclk()/1000000, 192, 2, 4);
     // AHB 1,2,4,8,16,64,128,256,512  APB1 1,2,4,8,16  APB2 1,2,4,8,16  RTC 2 to 31
-	STM32FXXXPrescaler(8, 1, 1, 0);
+	STM32FXXXPrescaler(1, 1, 1, 0);
 	// Selection
-	STM32FXXXRccHEnable(H_Clock_Source); // 0 - HSI 1 - HSE 2 - HSEBYP
-	STM32FXXXRccPLLCLKEnable();
-	STM32FXXXRccPLLSelect(H_Clock_Source); // 0 - HSI, 1 - HSE
-	STM32FXXXRccHSelect(2); // SW[1:0]: System clock switch 00 - HSI, 01 - HSE, 02 - PLL_P, 03 - PLL_R pg133 (manual 2)
+	STM32FXXXRccHEnable(H_Clock_Source); // 0 - HSI, 1 - HSE, 2 - HSEBYP
+	if(PLL_ON_OFF){
+		STM32FXXXRccPLLCLKEnable();
+		STM32FXXXRccPLLSelect(H_Clock_Source); // 0 - HSI, 1 - HSE
+		// System Clock Switch
+		STM32FXXXRccHSelect(2); // 0 - HSI, 1 - HSE, 2 - PLL_P, 3 - PLL_R pg133 (manual 2) SW[1:0]: System clock switch
+	}else{
+		// System Clock Switch
+		STM32FXXXRccHSelect(H_Clock_Source); // 0 - HSI, 1 - HSE, 2 - PLL_P, 3 - PLL_R pg133 (manual 2) SW[1:0]: System clock switch
+	}
 }
 // RCC
 void STM32FXXXRccHEnable(uint8_t hclock)

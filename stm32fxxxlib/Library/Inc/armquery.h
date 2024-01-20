@@ -26,9 +26,12 @@ Comment:
 	#define HSE_OSC 25000000UL
 #endif
 
-/*****   0 -> HSI    1->HSE   *******/
+/*******   0 -> HSI    1->HSE   *********/
 #define H_Clock_Source 1
-/************************************/
+/****************************************/
+/****   PLL ON -> 1    PLL OFF = 0   ****/
+#define PLL_ON_OFF 0
+/****************************************/
 
 typedef struct{
 uint16_t (*AHB)(void);
