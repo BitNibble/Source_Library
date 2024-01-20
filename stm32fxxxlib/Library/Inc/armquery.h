@@ -47,10 +47,10 @@ uint16_t (*N)(void);
 uint8_t (*P)(void);
 uint8_t (*Q)(void);
 uint8_t (*R)(void);
-}STM32FXXXPLL_parameter;
+}STM32FXXXPLL_prescaler;
 typedef struct{
 STM32FXXXSYSTEM_prescaler* System_prescaler;
-STM32FXXXPLL_parameter* PLL_parameter;
+STM32FXXXPLL_prescaler* PLL_prescaler;
 uint32_t (*PllClock)(void);
 uint32_t (*SystemClock)(void);
 }STM32FXXXQuery;
@@ -60,8 +60,10 @@ uint32_t getsetbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n);
 void setreg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
 void setbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
 void writereg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
-void setpin( GPIO_TypeDef* reg, int pin );
-void resetpin( GPIO_TypeDef* reg, int pin );
+void sethpins( GPIO_TypeDef* reg, uint16_t hpins );
+void resethpins( GPIO_TypeDef* reg, uint16_t hpins );
+void setpin( GPIO_TypeDef* reg, uint8_t pin );
+void resetpin( GPIO_TypeDef* reg, uint8_t pin );
 
 uint32_t getpllclk(void);
 uint32_t getsysclk(void);

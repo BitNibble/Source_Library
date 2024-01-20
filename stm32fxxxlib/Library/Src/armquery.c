@@ -15,11 +15,11 @@ Comment:
 
 static STM32FXXXQuery stm32fxxx_query;
 static STM32FXXXSYSTEM_prescaler stm32fxxx_System_prescaler;
-static STM32FXXXPLL_parameter stm32fxxx_PLL_parameter;
+static STM32FXXXPLL_prescaler stm32fxxx_PLL_prescaler;
 
 
 STM32FXXXSYSTEM_prescaler* System_prescaler_inic(void);
-STM32FXXXPLL_parameter* PLL_parameter_inic(void);
+STM32FXXXPLL_prescaler* PLL_prescaler_inic(void);
 
 uint16_t gethpre(void)
 {
@@ -234,19 +234,19 @@ STM32FXXXSYSTEM_prescaler* System_prescaler_inic(void)
 	stm32fxxx_System_prescaler.MCO2 = gethmco2pre;
 	return &stm32fxxx_System_prescaler;
 }
-STM32FXXXPLL_parameter* PLL_parameter_inic(void)
+STM32FXXXPLL_prescaler* PLL_prescaler_inic(void)
 {
-	stm32fxxx_PLL_parameter.M = getpllm;
-	stm32fxxx_PLL_parameter.N = getplln;
-	stm32fxxx_PLL_parameter.P = getpllp;
-	stm32fxxx_PLL_parameter.Q = getpllq;
-	stm32fxxx_PLL_parameter.R = getpllr;
-	return &stm32fxxx_PLL_parameter;
+	stm32fxxx_PLL_prescaler.M = getpllm;
+	stm32fxxx_PLL_prescaler.N = getplln;
+	stm32fxxx_PLL_prescaler.P = getpllp;
+	stm32fxxx_PLL_prescaler.Q = getpllq;
+	stm32fxxx_PLL_prescaler.R = getpllr;
+	return &stm32fxxx_PLL_prescaler;
 }
 STM32FXXXQuery query_enable(void)
 {
 	stm32fxxx_query.System_prescaler = System_prescaler_inic();
-	stm32fxxx_query.PLL_parameter = PLL_parameter_inic();
+	stm32fxxx_query.PLL_prescaler = PLL_prescaler_inic();
 	stm32fxxx_query.PllClock = getpllclk;
 	stm32fxxx_query.SystemClock = getsysclk;
 	return stm32fxxx_query;
@@ -332,13 +332,21 @@ void STM32446VecSetup( volatile uint32_t vec[], const unsigned int size_block, u
 	vec[index] &= ~( mask << ((block_n * size_block) - (index * n_bits)) );
 	vec[index] |= ( data << ((block_n * size_block) - (index * n_bits)) );
 }
-void setpin( GPIO_TypeDef* reg, int pin )
+void sethpins( GPIO_TypeDef* reg, uint16_t hpins )
+{
+	reg->BSRR = (uint32_t)hpins;
+}
+void resethpins( GPIO_TypeDef* reg, uint16_t hpins )
+{
+	reg->BSRR = (uint32_t)(hpins << 16);
+}
+void setpin( GPIO_TypeDef* reg, uint8_t pin )
 {
 	reg->BSRR = (1 << pin);
 }
-void resetpin( GPIO_TypeDef* reg, int pin )
+void resetpin( GPIO_TypeDef* reg, uint8_t pin )
 {
-	reg->BSRR = (unsigned int)((1 << pin) << 16);
+	reg->BSRR = (uint32_t)((1 << pin) << 16);
 }
 
 /***EOF***/
