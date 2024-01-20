@@ -14,6 +14,9 @@ Comment:
 	#define _ARMFUNCTION_H_
 
 /*** Global Library ***/
+#ifdef STM32F4
+	#include "armquery.h"
+#endif
 #include <inttypes.h>
 /*** Global Define & Macro ***/
 #define FUNCSTRSIZE 31

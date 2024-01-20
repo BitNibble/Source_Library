@@ -385,19 +385,18 @@ void rtc_lenable(unsigned int lclock)
 	unsigned int set;
 	unsigned int rdy;
 	for( set = 1, rdy = 1; rdy ; ){
-		if(lclock == 2){ // LSION: Internal low-speed oscillator enable
+		if(lclock == 0){ // LSION: Internal low-speed oscillator enable
 			if( set ){ STM32FXXXRtcWriteEnable(); RCC->CSR |= ( 1 << 0); STM32FXXXRtcWriteDisable(); set = 0; }else if( RCC->CSR & ( 1 << 1) ) rdy = 0;
 		}
 		else if(lclock == 1){ // LSEON: External low-speed oscillator enable
 			if( set ){ STM32FXXXRtcWriteEnable(); RCC->BDCR |= ( 1 << 0); STM32FXXXRtcWriteDisable(); set = 0; }else if( RCC->BDCR & ( 1 << 1) ) rdy = 0;
 		}
-		else if(lclock == 4){ // LSEBYP: External low-speed oscillator bypass
+		else if(lclock == 2){ // LSEBYP: External low-speed oscillator bypass
 			if( set ){ STM32FXXXRtcWriteEnable(); RCC->BDCR |= ( 1 << 2 ); STM32FXXXRtcWriteDisable(); }
 			lclock = 1;
 		}
-		else lclock = 2; // default
+		else lclock = 0; // default
 	}
-
 }
 void rtc_lselect(uint8_t lclock)
 {
@@ -405,7 +404,7 @@ void rtc_lselect(uint8_t lclock)
 	RCC->BDCR &= (uint32_t) ~((1 << 9) | (1 << 8)); // Clear
 	STM32FXXXRtcWriteDisable();
 	switch(lclock){
-		case 2:
+		case 0:
 			STM32FXXXRtcWriteEnable();
 			RCC->BDCR |= (1 << 9); // LSI oscillator clock used as the RTC clock
 			STM32FXXXRtcWriteDisable();
@@ -417,7 +416,7 @@ void rtc_lselect(uint8_t lclock)
 		break;
 		case 3:
 			STM32FXXXRtcWriteEnable();
-			RCC->BDCR |= ((1 << 8) | (1 << 9)); // HSE oscillator clock divided by a programmable prescaler
+			RCC->BDCR |= ((1 << 8) | (1 << 9)); // HSE oscillator clock divided by a programmable pre-scaler
 			STM32FXXXRtcWriteDisable();
 		break;
 		default:
