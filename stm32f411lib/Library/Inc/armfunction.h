@@ -16,6 +16,7 @@ Comment:
 /*** Global Library ***/
 #ifdef STM32F4
 	#include "armquery.h"
+	#include "armsystick.h"
 #endif
 #include <inttypes.h>
 /*** Global Define & Macro ***/

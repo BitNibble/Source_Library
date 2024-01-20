@@ -15,11 +15,11 @@ Comment:
 
 static STM32FXXXQuery stm32fxxx_query;
 static STM32FXXXSYSTEM_prescaler stm32fxxx_System_prescaler;
-static STM32FXXXPLL_prescaler stm32fxxx_PLL_prescaler;
+static STM32FXXXPLL_prescaler stm32fxxx_Pll_prescaler;
 
 
 STM32FXXXSYSTEM_prescaler* System_prescaler_inic(void);
-STM32FXXXPLL_prescaler* PLL_prescaler_inic(void);
+STM32FXXXPLL_prescaler* Pll_prescaler_inic(void);
 
 uint16_t gethpre(void)
 {
@@ -234,19 +234,19 @@ STM32FXXXSYSTEM_prescaler* System_prescaler_inic(void)
 	stm32fxxx_System_prescaler.MCO2 = gethmco2pre;
 	return &stm32fxxx_System_prescaler;
 }
-STM32FXXXPLL_prescaler* PLL_prescaler_inic(void)
+STM32FXXXPLL_prescaler* Pll_prescaler_inic(void)
 {
-	stm32fxxx_PLL_prescaler.M = getpllm;
-	stm32fxxx_PLL_prescaler.N = getplln;
-	stm32fxxx_PLL_prescaler.P = getpllp;
-	stm32fxxx_PLL_prescaler.Q = getpllq;
-	stm32fxxx_PLL_prescaler.R = getpllr;
-	return &stm32fxxx_PLL_prescaler;
+	stm32fxxx_Pll_prescaler.M = getpllm;
+	stm32fxxx_Pll_prescaler.N = getplln;
+	stm32fxxx_Pll_prescaler.P = getpllp;
+	stm32fxxx_Pll_prescaler.Q = getpllq;
+	stm32fxxx_Pll_prescaler.R = getpllr;
+	return &stm32fxxx_Pll_prescaler;
 }
 STM32FXXXQuery query_enable(void)
 {
 	stm32fxxx_query.System_prescaler = System_prescaler_inic();
-	stm32fxxx_query.PLL_prescaler = PLL_prescaler_inic();
+	stm32fxxx_query.Pll_prescaler = Pll_prescaler_inic();
 	stm32fxxx_query.PllClock = getpllclk;
 	stm32fxxx_query.SystemClock = getsysclk;
 	return stm32fxxx_query;

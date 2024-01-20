@@ -70,6 +70,8 @@ uint32_t function_triggerB(uint32_t hl_io, uint32_t lh_io, uint8_t pin, uint32_t
 uint32_t read_value(void);
 /*** COMMON ***/
 void FUNC_var(void);
+/*** SYSTEM ***/
+void FUNC_ArmParDisplay4x20(void);
 
 /*** FUNC Procedure & Function Definition ***/
 FUNC FUNC_enable( void )
@@ -440,6 +442,41 @@ uint32_t function_triggerB(uint32_t hl_io, uint32_t lh_io, uint8_t pin, uint32_t
 }
 
 uint32_t read_value(void){ return mem[2];}
+
+void FUNC_ArmParDisplay4x20(void)
+{
+#ifdef STM32F4
+	#ifdef _ARMLCD_H_
+		  static uint16_t toggle = 0;
+		  lcd0()->gotoxy(0,0);
+		  lcd0()->string_size("sysclk:",7);
+		  lcd0()->string_size( func()->ui32toa( query()->SystemClock()), 10);
+		  lcd0()->gotoxy(1,0);
+		  lcd0()->string_size("pllclk:",7);
+		  lcd0()->string_size( func()->ui32toa( query()->PllClock()), 10);
+		  _delay_ms(6000);
+		  setreg(&GPIOB->ODR,1,13,1);
+		  if(toggle & 1){ toggle++;
+		  	  lcd0()->gotoxy(2,0);
+		  	  lcd0()->string_size("ahb:",4); lcd0()->string_size( func()->ui32toa( query()->System_prescaler->AHB()), 4);
+		  	  lcd0()->string_size("apb1:",5); lcd0()->string_size( func()->ui32toa( query()->System_prescaler->APB1()), 3);
+		  	  lcd0()->gotoxy(3,0);
+		  	  lcd0()->string_size("apb2:",5); lcd0()->string_size( func()->ui32toa( query()->System_prescaler->APB2()), 3);
+		  	  lcd0()->string_size("rtc:",4); lcd0()->string_size( func()->ui32toa( query()->System_prescaler->RTCclk()), 3);
+		  }else{ toggle++;
+		  	  lcd0()->gotoxy(2,0);
+		  	  lcd0()->string_size("M:",2); lcd0()->string_size( func()->ui32toa( query()->Pll_prescaler->M()), 6);
+		  	  lcd0()->string_size("N:",2); lcd0()->string_size( func()->ui32toa( query()->Pll_prescaler->N()), 6);
+		  	  lcd0()->gotoxy(3,0);
+		  	  lcd0()->string_size("P:",2); lcd0()->string_size( func()->ui32toa( query()->Pll_prescaler->P()), 2);
+		  	  lcd0()->string_size("Q:",2); lcd0()->string_size( func()->ui32toa( query()->Pll_prescaler->Q()), 7);
+		  }
+		  setreg(&GPIOB->ODR,1,13,0);
+		  lcd0()->gotoxy(3,15);
+		  lcd0()->string_size(func()->ui32toa(toggle),5);
+	#endif
+#endif
+}
 
 /*** Not Used ***/
 unsigned int function_mayia(unsigned int xi, unsigned int xf, uint8_t nbits)

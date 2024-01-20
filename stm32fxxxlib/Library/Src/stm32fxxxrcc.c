@@ -86,9 +86,9 @@ uint8_t STM32FXXXRccPLLSelect(uint8_t hclock);
 /*** RCC Procedure & Function Definition ***/
 void rcc_start(void)
 {
-	// M 2 to 63  N 50 to 432  P 2,4,6,8  Q 2 to 15  R 2 to 7
+	// M 2 to 63;  N 50 to 432;  P 2,4,6,8;  Q 2 to 15;
 	STM32FXXXPLLDivision((uint32_t)getpllclk()/1000000, 192, 2, 4);
-    // AHB 1,2,4,8,16,64,128,256,512  APB1 1,2,4,8,16  APB2 1,2,4,8,16  RTC 2 to 31
+    // AHB 1,2,4,8,16,64,128,256,512;  APB1 1,2,4,8,16;  APB2 1,2,4,8,16;  RTC 2 to 31
 	STM32FXXXPrescaler(1, 1, 1, 0);
 	// Selection
 	STM32FXXXRccHEnable(H_Clock_Source); // 0 - HSI, 1 - HSE, 2 - HSEBYP
