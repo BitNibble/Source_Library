@@ -230,8 +230,8 @@ STM32FXXX STM32FXXX_enable(void){
 	#endif
 
 	/*** System ***/
-	query_enable();
 	rcc_start();
+	query_enable();
 	systick_start();
 
 	return stm32fxxx;

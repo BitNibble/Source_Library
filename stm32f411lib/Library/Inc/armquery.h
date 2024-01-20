@@ -30,7 +30,7 @@ Comment:
 #define H_Clock_Source 1
 /****************************************/
 /****   PLL ON -> 1    PLL OFF = 0   ****/
-#define PLL_ON_OFF 0
+#define PLL_ON_OFF 1
 /****************************************/
 
 typedef struct{

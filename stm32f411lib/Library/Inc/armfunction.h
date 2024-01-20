@@ -14,18 +14,22 @@ Comment:
 	#define _ARMFUNCTION_H_
 
 /*** Global Library ***/
-#ifdef STM32F4
-	#include "armquery.h"
-	#include "armsystick.h"
-#endif
-#include <inttypes.h>
+#include "armquery.h"
+#include "armsystick.h"
+#include "armlcd.h"
 /*** Global Define & Macro ***/
 #define FUNCSTRSIZE 31
+
+typedef struct{
+	void (*dispar4x20)(ARMLCD0* func_lcd);
+}ARM_FUNC;
 
 /*** PROCEDURE & FUNCTION TypeDef ***/
 typedef struct
 {
 	// PROTOTYPES VTABLE
+	/*** ARM ***/
+	ARM_FUNC* arm;
 	/******/
 	uint16_t (*SwapByte)(uint16_t num);
 	/******/

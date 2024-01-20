@@ -86,15 +86,15 @@ uint8_t STM32FXXXRccPLLSelect(uint8_t hclock);
 /*** RCC Procedure & Function Definition ***/
 void rcc_start(void)
 {
-	// M 2 to 63;  N 50 to 432;  P 2,4,6,8;  Q 2 to 15;
-	STM32FXXXPLLDivision((uint32_t)getpllclk()/1000000, 192, 2, 4);
     // AHB 1,2,4,8,16,64,128,256,512;  APB1 1,2,4,8,16;  APB2 1,2,4,8,16;  RTC 2 to 31
-	STM32FXXXPrescaler(1, 1, 1, 0);
+	STM32FXXXPrescaler(8, 1, 1, 0);
 	// Selection
 	STM32FXXXRccHEnable(H_Clock_Source); // 0 - HSI, 1 - HSE, 2 - HSEBYP
 	if(PLL_ON_OFF){
 		STM32FXXXRccPLLCLKEnable();
 		STM32FXXXRccPLLSelect(H_Clock_Source); // 0 - HSI, 1 - HSE
+		// M 2 to 63;  N 50 to 432;  P 2,4,6,8;  Q 2 to 15;
+		STM32FXXXPLLDivision((uint32_t)getpllclk()/1000000, 240, 2, 4);
 		// System Clock Switch
 		STM32FXXXRccHSelect(2); // 0 - HSI, 1 - HSE, 2 - PLL_P, 3 - PLL_R pg133 (manual 2) SW[1:0]: System clock switch
 	}else{
@@ -152,7 +152,7 @@ uint8_t STM32FXXXRccHSelect(uint8_t hclock)
 }
 uint8_t STM32FXXXRccPLLSelect(uint8_t hclock)
 { // This bit can be written only when PLL and PLLI2S are disabled
-	setreg(&RCC->CR, 1, 24, 0); setreg(&RCC->CR, 1, 26, 0); setreg(&RCC->CR, 1, 28, 0);
+	setreg(&RCC->CR, 1, 24, 0); setreg(&RCC->CR, 1, 26, 0);
 	switch(hclock){
 		case 0: // HSI
 			setreg(&RCC->PLLCFGR, 1, 22, 0);
@@ -164,7 +164,7 @@ uint8_t STM32FXXXRccPLLSelect(uint8_t hclock)
 			setreg(&RCC->PLLCFGR, 1, 22, 0);
 		break;
 	}
-	setreg(&RCC->CR, 1, 24, 1); setreg(&RCC->CR, 1, 26, 1); setreg(&RCC->CR, 1, 28, 1);
+	setreg(&RCC->CR, 1, 24, 1); setreg(&RCC->CR, 1, 26, 1);
 	return readreg(RCC->PLLCFGR, 1, 22);
 }
 void STM32FXXXRccLEnable(uint8_t lclock)
@@ -217,6 +217,7 @@ void STM32FXXXPrescaler(uint16_t ahbpre, uint8_t ppre1, uint8_t ppre2, uint8_t r
 {
 	const unsigned int mask = 0x001FFCF0;
 	RCC->CFGR &= (unsigned int) ~mask; // clear args
+
 	if(rtcpre > 1 && rtcpre < 32) // 16
 		RCC->CFGR |= (rtcpre << 16);
 	switch(ppre2){ // 13
@@ -283,35 +284,25 @@ void STM32FXXXPrescaler(uint16_t ahbpre, uint8_t ppre1, uint8_t ppre2, uint8_t r
 // PLL
 void STM32FXXXPLLDivision(uint8_t pllm, uint16_t plln, uint8_t pllp, uint8_t pllq)
 {
-	const unsigned int mask = 0x0FC37FFF;
-	RCC->PLLCFGR &= (unsigned int) ~mask; // clear args
-
-	if(pllq > 1 && pllq < 16){ // PLLQ[24]: Main PLL (PLL) division factor for USB OTG FS, SDIOclocks
-		RCC->PLLCFGR |= (pllq << 24);
-	}
-
-	switch(pllp){ // PLLP[16]: Main PLL (PLL) division factor for main system clock
+	setreg(&RCC->CR, 1, 24, 0);
+	setreg(&RCC->PLLCFGR,4,24,pllq);
+	switch(pllp){
 		case 4:
-			RCC->PLLCFGR |= (1 << 16);
+			setreg(&RCC->PLLCFGR,2,16,1);
 		break;
 		case 6:
-			RCC->PLLCFGR |= (2 << 16);
+			setreg(&RCC->PLLCFGR,2,16,2);
 		break;
 		case 8:
-			RCC->PLLCFGR |= (3 << 16);
+			setreg(&RCC->PLLCFGR,2,16,3);
 		break;
 		default: // 2
-			RCC->PLLCFGR &= ~(3 << 16);
+			setreg(&RCC->PLLCFGR,2,16,0);
 		break;
 	}
-
-	if(plln > 49 && plln < 433){ // PLLN[6]: Main PLL (PLL) multiplication factor for VCO
-		RCC->PLLCFGR |= (plln << 6);
-	}
-
-	if(pllm > 1 && pllm < 64){ // PLLM[0]: Division factor for the main PLL (PLL) input clock [2Mhz]
-		RCC->PLLCFGR |= pllm;
-	}
+	setreg(&RCC->PLLCFGR,9,6,plln);
+	setreg(&RCC->PLLCFGR,6,0,pllm);
+	setreg(&RCC->CR, 1, 24, 1);
 }
 void STM32FXXXRccPLLCLKEnable(void)
 {

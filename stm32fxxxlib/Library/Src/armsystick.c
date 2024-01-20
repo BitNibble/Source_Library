@@ -13,7 +13,7 @@ Comment:
 
 /*** File Variables ***/
 volatile uint32_t DelayCounter;
-static uint32_t DelayCounter_top;
+uint32_t DelayCounter_top;
 uint32_t systick_sysclk_calc_xs;
 /*** File Function Prototypes ***/
 uint32_t systick_sysclk_us(void);
@@ -86,6 +86,7 @@ void _delay_xs(uint32_t xs)
 void systick_start(void)
 {
 	DelayCounter_top = getsysclk()/gethpre();
+	//DelayCounter_top = getsysclk();
 	SysTick->LOAD = 0xffffffff;
 	SysTick->VAL = 0UL;
 	SysTick->CTRL |= ((1 << 1) | (1 << 2));
