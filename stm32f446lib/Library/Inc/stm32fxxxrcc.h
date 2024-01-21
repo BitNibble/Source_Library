@@ -1,15 +1,15 @@
 /******************************************************************************
-	STM32 F411 RCC
+	STM32 FXXX RCC
 Author: Sergio Santos 
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
-Hardware: STM32-F411
+Hardware: STM32-FXXX
 Date: 19062023
 Comment:
 	
 *******************************************************************************/
-#ifndef _STM32411RCC_H_
-	#define _STM32411RCC_H_
+#ifndef _STM32FXXXRCC_H_
+	#define _STM32FXXXRCC_H_
 /*** Library ***/
 #include "armquery.h"
 /*** Define & Macros***/

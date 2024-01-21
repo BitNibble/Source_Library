@@ -172,7 +172,7 @@ void ARMFUNC_ArmParDisplay4x20(ARMLCD0* func_lcd)
 		  func_lcd->gotoxy(3,15);
 		  func_lcd->string_size(FUNCui32toa(toggle),5);
 		  toggle++;
-		  _delay_ms(10000);
+		  _delay_ms(6000);
 	#endif
 #endif
 }

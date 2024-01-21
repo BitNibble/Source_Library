@@ -35,7 +35,7 @@ Comment:
 #include "stm32446flash.h"
 #include "stm32446crc.h"
 #include "stm32446pwr.h"
-#include "stm32446rcc.h"
+#include "stm32fxxxrcc.h"
 #include "stm32446nvic.h"
 #include "stm32446sram.h"
 #include "stm32446gpio.h"
@@ -138,9 +138,9 @@ typedef struct
 		STM32446PWRobj* pwr;
 	#endif
 	// RCC
-	#if defined(_STM32446RCC_H_)
+	#if defined(_STM32FXXXRCC_H_)
 		RCC_TypeDef* rcc_reg;
-		STM32446RCCobj* rcc;
+		STM32FXXXRCCobj* rcc;
 	#endif
 	// RTC
 	#if defined(_STM32446RTC_H_)

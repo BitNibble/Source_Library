@@ -1,15 +1,15 @@
 /******************************************************************************
-	STM32 F411 RCC
+	STM32 FXXX RCC
 Author: Sergio Santos 
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
-Hardware: STM32-F411
+Hardware: STM32-FXXX
 Date: 19062023
 Comment:
 	
 *******************************************************************************/
 /*** File Library ***/
-#include <stm32411rcc.h>
+#include <stm32fxxxrcc.h>
 
 /*** File Variables ***/
 static STM32FXXXRCC_cr stm32fxxx_rcc_cr;

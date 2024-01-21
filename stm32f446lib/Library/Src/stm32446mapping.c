@@ -123,7 +123,7 @@ STM32446 STM32446_enable(void){
 		stm32446.pwr = pwr();
 	#endif
 	// RCC
-	#if defined(_STM32446RCC_H_)
+	#if defined(_STM32FXXXRCC_H_)
 		rcc_enable();
 		stm32446.rcc_reg = RCC;
 		stm32446.rcc = rcc();

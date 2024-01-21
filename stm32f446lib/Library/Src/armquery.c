@@ -14,27 +14,13 @@ Comment:
 #include <math.h>
 
 static STM32FXXXQuery stm32fxxx_query;
-static STM32FXXXCLOCK_prescaler stm32fxxx_CLOCK_prescaler;
-static STM32FXXXPLL_parameter stm32fxxx_PLL_parameter;
+static STM32FXXXSYSTEM_prescaler stm32fxxx_System_prescaler;
+static STM32FXXXPLL_prescaler stm32fxxx_Pll_prescaler;
 
 
-STM32FXXXCLOCK_prescaler* CLOCK_prescaler_inic(void);
-STM32FXXXPLL_parameter* PLL_parameter_inic(void);
+STM32FXXXSYSTEM_prescaler* System_prescaler_inic(void);
+STM32FXXXPLL_prescaler* Pll_prescaler_inic(void);
 
-uint32_t getclocksource(void)
-{
-	uint32_t reg = RCC->CR;
-	uint32_t source;
-	if(reg & (1 << 1)){source = HSI_RC;} else if(reg & (1 << 17)){source = HSE_OSC;}
-	return source;
-}
-uint32_t getpllsource(void)
-{
-	uint32_t reg = RCC->CFGR;
-	uint32_t source;
-	if(reg & (1 << 22)) source = HSE_OSC; else source = HSI_RC;
-	return source;
-}
 uint16_t gethpre(void)
 {
 	uint32_t value = readreg(RCC->CFGR, 4, 4);
@@ -204,55 +190,64 @@ uint8_t getpllr(void)
 {
 	return readreg(RCC->PLLCFGR, 3, 28);
 }
+uint32_t getpllclk(void)
+{
+	uint32_t source;
+	if( readreg(RCC->PLLCFGR, 1, 22) ) source = HSE_OSC; else source = HSI_RC;
+	return source;
+}
 uint32_t getsysclk(void)
 {
 	long value = readreg(RCC->CFGR, 2, 2);
 	switch(value) // SWS[2]: System clock switch status
 	{
+		case 0:
+			value = HSI_RC;
+		break;
 		case 1: // 01: HSE oscillator used as the system clock
 			value = HSE_OSC;
 		break;
 		case 2: // 10: PLL used as the system clock
-			value = getclocksource() / getpllm();
+			value = getpllclk() / getpllm();
 			value /= getpllp();
 			value *= getplln();
 		break;
 		case 3: // 11: PLL_R used as the system clock
-			value = getclocksource() / getpllm();
-			value /= getpllr();
-			value *= getplln();
+			#ifdef STM32F446xx
+				value = getpllclk() / getpllm();
+				value /= getpllr();
+				value *= getplln();
+			#endif
 		break;
 		default: // 00: HSI oscillator used as the system clock
-			value = HSI_RC;
 		break;
 	}
 	return (uint32_t)value;
 }
-STM32FXXXCLOCK_prescaler* CLOCK_prescaler_inic(void)
+STM32FXXXSYSTEM_prescaler* System_prescaler_inic(void)
 {
-	stm32fxxx_CLOCK_prescaler.AHB = gethpre;
-	stm32fxxx_CLOCK_prescaler.APB1 = gethppre1;
-	stm32fxxx_CLOCK_prescaler.APB2 = gethppre2;
-	stm32fxxx_CLOCK_prescaler.RTCclk = getrtcpre;
-	stm32fxxx_CLOCK_prescaler.MCO1 = gethmco1pre;
-	stm32fxxx_CLOCK_prescaler.MCO2 = gethmco2pre;
-	return &stm32fxxx_CLOCK_prescaler;
+	stm32fxxx_System_prescaler.AHB = gethpre;
+	stm32fxxx_System_prescaler.APB1 = gethppre1;
+	stm32fxxx_System_prescaler.APB2 = gethppre2;
+	stm32fxxx_System_prescaler.RTCclk = getrtcpre;
+	stm32fxxx_System_prescaler.MCO1 = gethmco1pre;
+	stm32fxxx_System_prescaler.MCO2 = gethmco2pre;
+	return &stm32fxxx_System_prescaler;
 }
-STM32FXXXPLL_parameter* PLL_parameter_inic(void)
+STM32FXXXPLL_prescaler* Pll_prescaler_inic(void)
 {
-	stm32fxxx_PLL_parameter.M = getpllm;
-	stm32fxxx_PLL_parameter.N = getplln;
-	stm32fxxx_PLL_parameter.P = getpllp;
-	stm32fxxx_PLL_parameter.Q = getpllq;
-	stm32fxxx_PLL_parameter.R = getpllr;
-	return &stm32fxxx_PLL_parameter;
+	stm32fxxx_Pll_prescaler.M = getpllm;
+	stm32fxxx_Pll_prescaler.N = getplln;
+	stm32fxxx_Pll_prescaler.P = getpllp;
+	stm32fxxx_Pll_prescaler.Q = getpllq;
+	stm32fxxx_Pll_prescaler.R = getpllr;
+	return &stm32fxxx_Pll_prescaler;
 }
 STM32FXXXQuery query_enable(void)
 {
-	stm32fxxx_query.CLOCK_prescaler = CLOCK_prescaler_inic();
-	stm32fxxx_query.PLL_parameter = PLL_parameter_inic();
-	stm32fxxx_query.ClockSource = getclocksource;
-	stm32fxxx_query.PllSource = getpllsource;
+	stm32fxxx_query.System_prescaler = System_prescaler_inic();
+	stm32fxxx_query.Pll_prescaler = Pll_prescaler_inic();
+	stm32fxxx_query.PllClock = getpllclk;
 	stm32fxxx_query.SystemClock = getsysclk;
 	return stm32fxxx_query;
 }
@@ -304,26 +299,26 @@ void writereg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_
 	value |= data;
 	*reg = value;
 }
-void STM32446RegSetBits( unsigned int* reg, int n_bits, ... )
+void STM32446RegSetBits( uint32_t* reg, uint8_t n_bits, ... )
 {
 	uint8_t i;
 	if(n_bits > 0 && n_bits < 33){ // Filter input
 		va_list list;
 		va_start(list, n_bits);
 		for(i = 0; i < n_bits; i++){
-			*reg |= (unsigned int)(1 << va_arg(list, int));
+			*reg |= (uint32_t)(1 << va_arg(list, uint32_t));
 		}
 		va_end(list);
 	}
 }
-void STM32446RegResetBits( unsigned int* reg, int n_bits, ... )
+void STM32446RegResetBits( uint32_t* reg, uint8_t n_bits, ... )
 {
 	uint8_t i;
 	if(n_bits > 0 && n_bits < 33){ // Filter input
 		va_list list;
 		va_start(list, n_bits);
 		for(i = 0; i < n_bits; i++){
-			*reg &= (unsigned int)~((1 << va_arg(list, int)) << 16);
+			*reg &= (uint32_t)~((1 << va_arg(list, uint32_t)) << 16);
 		}
 		va_end(list);
 	}
@@ -337,13 +332,21 @@ void STM32446VecSetup( volatile uint32_t vec[], const unsigned int size_block, u
 	vec[index] &= ~( mask << ((block_n * size_block) - (index * n_bits)) );
 	vec[index] |= ( data << ((block_n * size_block) - (index * n_bits)) );
 }
-void setpin( GPIO_TypeDef* reg, int pin )
+void sethpins( GPIO_TypeDef* reg, uint16_t hpins )
+{
+	reg->BSRR = (uint32_t)hpins;
+}
+void resethpins( GPIO_TypeDef* reg, uint16_t hpins )
+{
+	reg->BSRR = (uint32_t)(hpins << 16);
+}
+void setpin( GPIO_TypeDef* reg, uint8_t pin )
 {
 	reg->BSRR = (1 << pin);
 }
-void resetpin( GPIO_TypeDef* reg, int pin )
+void resetpin( GPIO_TypeDef* reg, uint8_t pin )
 {
-	reg->BSRR = (unsigned int)((1 << pin) << 16);
+	reg->BSRR = (uint32_t)((1 << pin) << 16);
 }
 
 /***EOF***/

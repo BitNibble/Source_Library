@@ -132,7 +132,7 @@ STM32FXXX STM32FXXX_enable(void){
 		stm32fxxx.pwr = pwr();
 	#endif
 	// RCC
-	#if defined(_STM32411RCC_H_)
+	#if defined(_STM32FXXXRCC_H_)
 		rcc_enable();
 		stm32fxxx.rcc_reg = RCC;
 		stm32fxxx.rcc = rcc();
