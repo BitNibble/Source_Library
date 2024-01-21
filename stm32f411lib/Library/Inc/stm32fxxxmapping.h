@@ -35,7 +35,7 @@ Comment:
 #include "stm32fxxxflash.h"
 #include "stm32fxxxcrc.h"
 #include "stm32fxxxpwr.h"
-#include "stm32fxxxrcc.h"
+#include "stm32411rcc.h"
 #include "stm32fxxxnvic.h"
 #include "stm32fxxxsram.h"
 #include "stm32fxxxgpio.h"
@@ -138,7 +138,7 @@ typedef struct
 		STM32FXXXPWRobj* pwr;
 	#endif
 	// RCC
-	#if defined(_STM32FXXXRCC_H_)
+	#if defined(_STM32411RCC_H_)
 		RCC_TypeDef* rcc_reg;
 		STM32FXXXRCCobj* rcc;
 	#endif
