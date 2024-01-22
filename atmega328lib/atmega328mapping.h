@@ -5,7 +5,8 @@ Author: Sergio Manuel Santos
 License: GNU General Public License
 Hardware: Atmega328 by ETT ET-BASE
 Update: 01/01/2024
-Comment: 
+*********************************************************************/
+/****** Comment: 
 	Virtual Image Atmega 328 mapping.
 	NB:
 	- This Header file should be the first to be placed
@@ -28,7 +29,7 @@ Comment:
 //#define _TIMER2_MODULE_
 //#define _TWI_MODULE_
 //#define _SPI_MODULE_
-//#define _USART0_MODULE_
+#define _USART0_MODULE_
 /*********************************************************/
 /******************* Hardware Includes *******************/
 /*********************************************************/
@@ -172,7 +173,7 @@ typedef struct {
 	void (*Move_Interrupts_To_Boot)(void);
 }ATMEGA328;
 
-ATMEGA328 ATMEGA328enable(void);
+ATMEGA328 ATMEGA328_enable(void);
 ATMEGA328* atmega328(void);
 
 #endif

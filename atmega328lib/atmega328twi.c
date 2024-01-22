@@ -5,7 +5,8 @@ Author: Sergio Santos
 License: GNU General Public License
 Hardware: Atmega328 by ETT ET-BASE
 Update: 01/01/2024
-Comment:
+***************************************************************************************************/
+/****** Comment:
 	Stable
 ***************************************************************************************************/
 /*** File Library ***/
@@ -14,7 +15,7 @@ Comment:
 #include <util/delay.h>
 
 /*** File Variable ***/
-static TWI setup_ic;
+static TWI setup_i2c;
 /*** File Header ***/
 void TWI_init(uint8_t device_id, uint8_t prescaler);
 void TWI_start(void);
@@ -36,20 +37,20 @@ TWI TWI_enable(uint8_t atmega_ID,  uint8_t prescaler)
 	tSREG = atmega328()->cpu_reg->sreg;
 	atmega328()->cpu_reg->sreg &= ~(1<<GLOBAL_INTERRUPT_ENABLE);
 	// Vtable
-	setup_ic.start = TWI_start;
-	setup_ic.connect = TWI_connect;
-	setup_ic.stop = TWI_stop;
-	setup_ic.master_write = TWI_master_write;
-	setup_ic.master_read = TWI_master_read;
-	setup_ic.status = TWI_status;
+	setup_i2c.start = TWI_start;
+	setup_i2c.connect = TWI_connect;
+	setup_i2c.stop = TWI_stop;
+	setup_i2c.master_write = TWI_master_write;
+	setup_i2c.master_read = TWI_master_read;
+	setup_i2c.status = TWI_status;
 	
 	TWI_init(atmega_ID, prescaler);
 	atmega328()->cpu_reg->sreg = tSREG;
 
-	return setup_ic;
+	return setup_i2c;
 }
 
-TWI* twi(void){ return &setup_ic; };
+TWI* twi(void){ return &setup_i2c; };
 
 // void TWI_Init(uint8_t device_id, uint8_t prescaler)
 void TWI_init(uint8_t device_id, uint8_t prescaler)
@@ -82,9 +83,9 @@ void TWI_init(uint8_t device_id, uint8_t prescaler)
 	}
 	atmega328()->twi_reg->twbr = ((F_CPU / TWI_SCL_CLOCK) - 16) / (2 * prescaler);
 	// Standard Config begin
-	//atmega328()->twi->twsr = 0x00; //set presca1er bits to zero
-	//atmega328()->twi->twbr = 0x46; //SCL frequency is 50K for 16Mhz
-	//atmega328()->twi->twcr = 0x04; //enab1e TWI module
+	//atmega328()->twi_reg->twsr = 0x00; //set presca1er bits to zero
+	//atmega328()->twi_reg->twbr = 0x46; //SCL frequency is 50K for 16Mhz
+	//atmega328()->twi_reg->twcr = 0x04; //enab1e TWI module
 	// Standard Config end
 }
 // void TWI_Start(void)

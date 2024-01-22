@@ -30,7 +30,6 @@ Comment:
 
 #endif
 
-
 /*** Global Variable ***/
 struct tmr_cntr0{
 	// prototype pointers

@@ -32,6 +32,7 @@ volatile uint8_t *lcd02pcmd_PORT;
 volatile uint8_t *lcd02pdata_DDR;
 volatile uint8_t *lcd02pdata_PIN;
 volatile uint8_t *lcd02pdata_PORT;
+static uint8_t DDR_DATA_MASK;
 uint8_t lcd02p_detect;
 
 /*** File Header ***/
@@ -51,7 +52,7 @@ void LCD02P_reboot(void);
 void LCD02P_ticks(uint16_t num);
 
 /*** Procedure & Function ***/
-LCD02P LCD02Penable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatile uint8_t *cmdport, volatile uint8_t *dataddr, volatile uint8_t *datapin, volatile uint8_t *dataport)
+LCD02P LCD02P_enable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatile uint8_t *cmdport, volatile uint8_t *dataddr, volatile uint8_t *datapin, volatile uint8_t *dataport)
 {
 	// LOCAL VARIABLES
 	// ALLOCAÇÂO MEMORIA PARA Estrutura
@@ -63,11 +64,12 @@ LCD02P LCD02Penable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatile
 	lcd02pdata_DDR = dataddr;
 	lcd02pdata_PIN = datapin;
 	lcd02pdata_PORT = dataport;
+	DDR_DATA_MASK = (1 << LCD02P_DB4) | (1 << LCD02P_DB5) | (1 << LCD02P_DB6) | (1 << LCD02P_DB7);
 	// initialize variables
-	*lcd02pcmd_DDR &= ~((1 << LCD02P_RS) | (1 << LCD02P_RW) | (1 << LCD02P_EN) | (0 << LCD02P_NC));
+	*lcd02pcmd_DDR &= ~((1 << LCD02P_RS) | (1 << LCD02P_RW) | (1 << LCD02P_EN) | (1 << LCD02P_NC));
 	*lcd02pcmd_PORT |= (1 << LCD02P_RS) | (1 << LCD02P_RW) | (1 << LCD02P_EN) | (1 << LCD02P_NC);
-	*lcd02pdata_DDR &= ~((1 << LCD02P_DB4) | (1 << LCD02P_DB5) | (1 << LCD02P_DB6) | (1 << LCD02P_DB7));
-	*lcd02pdata_PORT |= (1 << LCD02P_DB4) | (1 << LCD02P_DB5) | (1 << LCD02P_DB6) | (1 << LCD02P_DB7);
+	*lcd02pdata_DDR &= ~DDR_DATA_MASK;
+	*lcd02pdata_PORT |= DDR_DATA_MASK;
 	lcd02p_detect = *lcd02pcmd_PIN & (1 << LCD02P_NC);
 	// Direccionar apontadores para PROTOTIPOS
 	setup_lcd02p.write = LCD02P_write;
@@ -91,6 +93,8 @@ void LCD02P_inic(void)
 	// LCD INIC
 	*lcd02pcmd_DDR |= (1 << LCD02P_RS) | (1 << LCD02P_RW) | (1 << LCD02P_EN) | (0 << LCD02P_NC);
 	*lcd02pcmd_PORT |= (1 << LCD02P_NC);
+	*lcd02pdata_DDR &= ~DDR_DATA_MASK;
+	*lcd02pdata_PORT |= DDR_DATA_MASK;
 	// INICIALIZACAO LCD datasheet/
 	_delay_ms(40); // using clock at 16Mhz
 	LCD02P_write(0x38, LCD02P_INST); // function set
@@ -136,7 +140,7 @@ void LCD02P_inic(void)
 void LCD02P_write(char c, unsigned short D_I)
 {
 	*lcd02pcmd_PORT &= ~(1 << LCD02P_RW); // lcd as input
-	*lcd02pdata_DDR |= (1 << LCD02P_DB4) | (1 << LCD02P_DB5) | (1 << LCD02P_DB6) | (1 << LCD02P_DB7); // mcu as output
+	*lcd02pdata_DDR |= DDR_DATA_MASK; // mcu as output
 	
 	if(D_I) *lcd02pcmd_PORT |= (1 << LCD02P_RS); else *lcd02pcmd_PORT &= ~(1 << LCD02P_RS);
 	LCD02P_strobe(LCD02P_N_TICKS); LCD02P_ticks(LCD02P_BN_TICKS);
@@ -159,8 +163,8 @@ void LCD02P_write(char c, unsigned short D_I)
 char LCD02P_read(unsigned short D_I)
 {
 	char c = 0x00;
-	*lcd02pdata_DDR &= ~((1 << LCD02P_DB4) | (1 << LCD02P_DB5) | (1 << LCD02P_DB6) | (1 << LCD02P_DB7)); // mcu as input
-	*lcd02pdata_PORT |= (1 << LCD02P_DB4) | (1 << LCD02P_DB5) | (1 << LCD02P_DB6) | (1 << LCD02P_DB7); // pull up resistors
+	*lcd02pdata_DDR &= ~DDR_DATA_MASK; // mcu as input
+	*lcd02pdata_PORT |= DDR_DATA_MASK; // pull up resistors
 	*lcd02pcmd_PORT |= (1 << LCD02P_RW); // lcd as output
 	
 	if(D_I) *lcd02pcmd_PORT |= (1 << LCD02P_RS); else *lcd02pcmd_PORT &= ~(1 << LCD02P_RS);

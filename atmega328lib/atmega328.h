@@ -5,7 +5,8 @@ Author: Sergio Manuel Santos
 License: GNU General Public License
 Hardware: Atmega328 by ETT ET-BASE
 Update: 01/01/2024
-Comment:
+************************************************************************/
+/****** Comment:
 	Virtual Image Atmega 328.
 ************************************************************************/
 #ifndef _ATMEGA328_H_

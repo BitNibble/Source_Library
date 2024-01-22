@@ -25,6 +25,7 @@ static char FUNCstr[FUNCSTRSIZE + 1];
 int StringLength (const char string[]);
 void Reverse(char s[]);
 uint8_t FUNCintinvstr(uint32_t num, uint8_t index);
+uint8_t function_fPartStr(double num, uint8_t index, uint8_t afterpoint);
 void FUNC_swap(long *px, long *py);
 /***/
 uint8_t  bintobcd(uint8_t bin);
@@ -405,6 +406,12 @@ uint8_t FUNCintinvstr(uint32_t num, uint8_t index)
 	for(FUNCstr[index++] = (char)((num % 10) + '0'); (num /= 10) > 0 ; FUNCstr[index++] = (char)((num % 10) + '0'));
 	FUNCstr[index] = '\0'; return index;
 }
+// fPartStr
+uint8_t function_fPartStr(double num, uint8_t index, uint8_t afterpoint)
+{
+	for( num *= 10; afterpoint ; FUNCstr[index++] = (uint8_t)(num + '0'), num -= (uint8_t)num, num *= 10, afterpoint--);
+	FUNCstr[index] = '\0'; return index;
+}
 // ftoa
 char* FUNCftoa(double num, uint8_t afterpoint)
 {
@@ -413,7 +420,7 @@ char* FUNCftoa(double num, uint8_t afterpoint)
 	ipart = (uint32_t) n; fpart = n - (double)ipart;
 	k = FUNCintinvstr(ipart, 0); if (sign < 0) FUNCstr[k++] = '-'; FUNCstr[k] = '\0'; Reverse(FUNCstr);
 	FUNCstr[k++] = '.';
-	FUNCintinvstr((fpart * pow(10, afterpoint)), k); Reverse(FUNCstr + k);
+	function_fPartStr(fpart, k, afterpoint);
 	return FUNCstr;
 }
 // dectohex

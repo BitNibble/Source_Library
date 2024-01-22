@@ -1,15 +1,16 @@
 /*************************************************************************
-	HC42ATCOMMANDS
+	ATCOMMANDS
 Author: Sergio Santos 
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: ALL
 Date: 24042023
-Comment:
+*************************************************************************/
+/****** Comment:
 	Stable
 *************************************************************************/
 /*** File Library ***/
-#include "hc42atcommands.h"
+#include "atcommands.h"
 //#include <util/delay.h>
 //#include <stdio.h>
 //#include <stdlib.h>
@@ -21,7 +22,7 @@ Comment:
 
 /*** File Variable ***/
 char HC42ATstr[72];
-
+char ESP8266str[72];
 
 /*** File Header ***/
 
@@ -123,6 +124,130 @@ char* HC42ATcmd(uint16_t num){
 	};
 	return HC42ATstr;
 }
+
+char* ESP8266cmd(uint16_t num)
+{
+	switch(num)
+	{
+		case 1:
+			strcpy(ESP8266str, "AT\r\n");
+		break;
+		
+		
+		
+		case 99:
+			strcpy(ESP8266str, "AT+RST\r\n");
+		break;
+		default:
+			strcpy(ESP8266str, "AT\r\n");
+		break;
+	};
+	
+	/***
+	Firmware version AT+GMR AT+GMR 0018000902 OK
+	
+	List Access Points AT+CWLAP AT+CWLAP +CWLAP:(4,"RochefortSurLac",-
+	38,"70:62:b8:6f:6d:58",1)
+	+CWLAP:(4,"LiliPad2.4",-83,"f8:7b:8c:1e:7c:6d",1)
+	OK
+	
+	Join Access Point AT+CWJAP?
+	AT+CWJAP="SSID","Password"
+	Query AT+CWJAP? +CWJAP:"RochefortSurLac" OK
+	
+	Quit Access Point AT+CWQAP=?
+	AT+CWQAP
+	Query
+	OK
+	
+	Get IP Address AT+CIFSR AT+CIFSR 192.168.0.105
+	OK
+	
+	Set Parameters of
+	Access Point
+	AT+ CWSAP?
+	AT+ CWSAP= <ssid>,<pwd>,<chl>, <ecn>
+	Query
+	ssid, pwd
+	chl = channel, ecn = encryption
+	
+	WiFi Mode AT+CWMODE?
+	AT+CWMODE=1
+	AT+CWMODE=2
+	AT+CWMODE=3
+	Query
+	STA
+	AP
+	BOTH
+	
+	Set up TCP or UDP
+	connection
+	AT+CIPSTART=?
+	(CIPMUX=0) AT+CIPSTART =
+	<type>,<addr>,<port>
+	(CIPMUX=1) AT+CIPSTART=
+	<id><type>,<addr>, <port>
+	Query
+	id = 0-4, type = TCP/UDP, addr = IP address, port= port
+	
+	TCP/UDP
+	Connections
+	AT+ CIPMUX?
+	AT+ CIPMUX=0
+	AT+ CIPMUX=1
+	Query
+	Single
+	Multiple
+	
+	Check join devices' IP AT+CWLIF
+	
+	TCP/IP Connection
+	Status
+	AT+CIPSTATUS AT+CIPSTATUS? no this fun
+	
+	Send TCP/IP data (CIPMUX=0) AT+CIPSEND=<length>;
+	(CIPMUX=1) AT+CIPSEND= <id>,<length>
+	
+	Close TCP / UDP
+	connection
+	AT+CIPCLOSE=<id> or AT+CIPCLOSE
+	
+	Set as server AT+ CIPSERVER= <mode>[,<port>] mode 0 to close server mode; mode 1 to open; port = port
+	
+	Set the server
+	timeout
+	AT+CIPSTO?
+	AT+CIPSTO=<time>
+	Query
+	<time>0~28800 in seconds
+	
+	Baud Rate* AT+CIOBAUD?
+	Supported: 9600, 19200, 38400, 74880,
+	115200, 230400, 460800, 921600
+	Query AT+CIOBAUD? +CIOBAUD:9600 OK
+	
+	Check IP address AT+CIFSR AT+CIFSR 192.168.0.106
+	OK
+	
+	Firmware Upgrade
+	(from Cloud)
+	AT+CIUPDATE 1. +CIPUPDATE:1 found server
+	2. +CIPUPDATE:2 connect server
+	3. +CIPUPDATE:3 got edition
+	4. +CIPUPDATE:4 start update
+	
+	Received data +IPD (CIPMUX=0): + IPD, <len>:
+	(CIPMUX=1): + IPD, <id>, <len>: <data>
+	
+	Watchdog Enable* AT+CSYSWDTENABLE Watchdog, auto restart when program errors occur: enable
+	
+	Watchdog Disable* AT+CSYSWDTDISABLE Watchdog, auto restart when program errors occur: disable
+	***/
+	
+	return NULL;
+}
+
+/***File Interrupt***/
 
 /***EOF***/
 

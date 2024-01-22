@@ -21,6 +21,7 @@ BUFF rxbuff;
 UARTvar UART_Rx;
 UARTvar UART_RxBuf[UART_RX_BUFFER_SIZE+1];
 uint8_t UART_LastRxError;
+static uint8_t uart0flag;
 
 /*** File Header ***/
 UARTvar uart_read(void);
@@ -47,6 +48,7 @@ USART0 USART0_enable(uint32_t baud, unsigned int FDbits, unsigned int Stopbits, 
 	uint8_t tSREG;
 	tSREG = atmega328()->cpu_reg->sreg;
 	atmega328()->cpu_reg->sreg &= ~(1 << GLOBAL_INTERRUPT_ENABLE);
+	uart0flag = 1;
 	uint16_t ubrr;
 	rxbuff = BUFFenable(UART_RX_BUFFER_SIZE, UART_RxBuf);
 	ubrr = BAUDRATEnormal(baud);
@@ -215,6 +217,18 @@ ISR(UART_UDR_EMPTY)
 }
 
 /*** Complimentary functions ***/
+char* usart0messageprint(USART0* uart, char* oneshot, char* msg, char endl)
+{
+	char* ptr;
+	UARTvar term;
+	if(uart0flag){ *oneshot = 0; uart0flag = 0; uart->rxflush();} // the matrix
+	ptr = uart->gets(); term = uart->getch();
+	if(term == endl){ strcpy(oneshot, ptr); strcpy(msg, ptr); uart0flag = 0xFF; }
+	else if(term == '\n'){ strcpy(oneshot, ptr); strcpy(msg, ptr); uart0flag = 0xFF; }
+	return ptr;
+}
+
+/*** Auxiliar ***/
 uint8_t USART0ReceiveComplete(void)
 {
 	return (UCSR0A & (1 << RXC0));

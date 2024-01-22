@@ -5,7 +5,8 @@ Author: Sergio Manuel Santos
 License: GNU General Public License
 Hardware: Atmega328 by ETT ET-BASE
 Update: 01/01/2024
-Comment:
+*********************************************************************/
+/****** Comment:
 	Virtual Image Atmega 328 mapping and linking.
 *********************************************************************/
 /*** File Library ***/
@@ -17,7 +18,7 @@ void Atmega328ClockPrescalerSelect(volatile uint8_t prescaler);
 void Atmega328MoveInterruptsToBoot(void);
 
 /*** File Procedure & Function ***/
-ATMEGA328 ATMEGA328enable(void){
+ATMEGA328 ATMEGA328_enable(void){
 	// GPWR
 	setup_atmega328.gpwr_reg = (Atmega328GPWR_TypeDef*) Atmega328GPWR_Address;
 	// AC

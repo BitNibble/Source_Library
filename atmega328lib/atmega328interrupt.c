@@ -5,7 +5,8 @@ Author: Sergio Manuel Santos
 Hardware: ATmega328
 License: GNU General Public License        
 Update: 01/01/2024
-Comment:
+*************************************************************************/
+/****** Comment:
 
 *************************************************************************/
 /*** File Library ***/

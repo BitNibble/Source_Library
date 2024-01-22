@@ -47,7 +47,7 @@ void USART1DoubleTransmissionSpeed(void);
 USART1 USART1_enable(uint32_t baud, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity )
 {
 	// ATMEGA128enable();
-	
+	uart1flag = 1;
 	uint16_t ubrr = 0;
 	rx1buff = BUFFenable( UART1_RX_BUFFER_SIZE, UART1_RxBuf );
 	ubrr = BAUDRATEnormal(baud);
@@ -219,9 +219,11 @@ SIGNAL(UART1_TRANSMIT_INTERRUPT)
 char* usart1messageprint(USART1* uart, char* oneshot, char* msg, char endl)
 {
 	char* ptr;
+	UARTvar term;
 	if(uart1flag){ *oneshot = 0; uart1flag = 0; uart->rxflush();} // the matrix
-	ptr = uart->gets();
-	if(uart->getch() == endl){ strcpy(oneshot, ptr); strcpy(msg, ptr); uart1flag = 0xFF;}
+	ptr = uart->gets(); term = uart->getch();
+	if(term == endl){ strcpy(oneshot, ptr); strcpy(msg, ptr); uart1flag = 0xFF; }
+	else if(term == '\n'){ strcpy(oneshot, ptr); strcpy(msg, ptr); uart1flag = 0xFF; }
 	return ptr;
 }
 
