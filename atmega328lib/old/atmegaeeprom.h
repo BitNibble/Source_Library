@@ -38,8 +38,9 @@ struct prm{
 };
 typedef struct prm EEPROM;
 
-EEPROM EEPROM_enable(void);
-EEPROM* eeprom(void);
+EEPROM eeprom;
+/*** Global Header ***/
+EEPROM EEPROMenable(void);
 
 #endif
 

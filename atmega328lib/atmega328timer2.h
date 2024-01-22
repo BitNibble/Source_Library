@@ -35,9 +35,8 @@ struct TIMER_COUNTER2{
 };
 typedef struct TIMER_COUNTER2 TIMER_COUNTER2;
 
-TIMER_COUNTER2 tc2;
-/*** Global header ***/
-TIMER_COUNTER2 TIMER_COUNTER2enable(unsigned char wavegenmode, unsigned char interrupt);
+TIMER_COUNTER2 TIMER_COUNTER2_enable(unsigned char wavegenmode, unsigned char interrupt);
+TIMER_COUNTER2* tc2(void);
 
 #endif
 

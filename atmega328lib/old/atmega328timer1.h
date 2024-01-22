@@ -15,8 +15,12 @@ Comment:
 #include <inttypes.h>
 
 /*** Global Constant & Macro ***/
-#ifndef GLOBAL_INTERRUPT_ENABLE
-	#define GLOBAL_INTERRUPT_ENABLE 7
+#if defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__)
+	#ifndef GLOBAL_INTERRUPT_ENABLE
+		#define GLOBAL_INTERRUPT_ENABLE 7
+	#endif
+#else
+	#error "Not Atmega 328"
 #endif
 
 /*** Global variable ***/
@@ -31,8 +35,9 @@ struct TIMER_COUNTER1{
 };
 typedef struct TIMER_COUNTER1 TIMER_COUNTER1;
 
-TIMER_COUNTER1 TIMER_COUNTER1_enable(unsigned char wavegenmode, unsigned char interrupt);
-TIMER_COUNTER1* tc1(void);
+TIMER_COUNTER1 tc1;
+/*** Global header ***/
+TIMER_COUNTER1 TIMER_COUNTER1enable(unsigned char wavegenmode, unsigned char interrupt);
 
 #endif
 

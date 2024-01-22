@@ -15,20 +15,14 @@ Comment:
 #include <inttypes.h>
 
 /*** Global Constant & Macros ***/
-#if defined(__AVR_ATmega48__) ||defined(__AVR_ATmega88__) || defined(__AVR_ATmega168__) || \
-      defined(__AVR_ATmega48P__) ||defined(__AVR_ATmega88P__) || defined(__AVR_ATmega168P__) || \
-      defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__)
-	//#define External_Interrupt_Flag_Register EIFR
-	//#define Pin_Change_Interrrupt_Control_Register PCICR
-	//#define Pin_Change_Interrupt_Flag_Register PCIFR
-	//#define Pin_Change_Mask_Register_2 PCMSK2
-	//#define Pin_Change_Mask_Register_1 PCMSK1
-	//#define Pin_Change_Mask_Register_0 PCMSK0
-	//#define MCU_Control_Status_Register MCUSR
-	#define MCU_Control_Status_Register_Mask 0X0F
-#else
- 	#error "Not Atmega 328"
-#endif
+//#define External_Interrupt_Flag_Register EIFR
+//#define Pin_Change_Interrrupt_Control_Register PCICR
+//#define Pin_Change_Interrupt_Flag_Register PCIFR
+//#define Pin_Change_Mask_Register_2 PCMSK2
+//#define Pin_Change_Mask_Register_1 PCMSK1
+//#define Pin_Change_Mask_Register_0 PCMSK0
+//#define MCU_Control_Status_Register MCUSR
+#define MCU_Control_Status_Register_Mask 0X0F
 
 /*** Global Variable ***/
 struct intrpt{
@@ -38,9 +32,8 @@ struct intrpt{
 };
 typedef struct intrpt INTERRUPT;
 
-INTERRUPT exint;
-/*** Global Header ***/
-INTERRUPT INTERRUPTenable(void);
+INTERRUPT INTERRUPT_enable(void);
+INTERRUPT* exint(void);
 
 #endif
 

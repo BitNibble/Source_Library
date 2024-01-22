@@ -15,20 +15,13 @@ Comment:
 #include <inttypes.h>
 
 /*** Global Constant & Macro ***/
-#if defined(__AVR_ATmega48__) ||defined(__AVR_ATmega88__) || defined(__AVR_ATmega168__) || \
-	defined(__AVR_ATmega48P__) ||defined(__AVR_ATmega88P__) || defined(__AVR_ATmega168P__) || \
-	defined(__AVR_ATmega328P__) ||defined(__AVR_ATmega328__)
-	#ifndef GLOBAL_INTERRUPT_ENABLE
-		#define GLOBAL_INTERRUPT_ENABLE 7
-	#endif
-	#define MAX_CHANNEL 8 // if using differential channels this value has to be greater than one
-	#define ADC_NUMBER_SAMPLE 2 // ADC_NUMBER_SAMPLE^2 gives number of samples, note values can only range from 0 to 4.
-	#define MUX_MASK 15
-	#define ANALOG_INTERRUPT ADC_vect
-#else
- 	#error "Not Atmega328"
+#ifndef GLOBAL_INTERRUPT_ENABLE
+	#define GLOBAL_INTERRUPT_ENABLE 7
 #endif
-
+#define MAX_CHANNEL 8 // if using differential channels this value has to be greater than one
+#define ADC_NUMBER_SAMPLE 2 // ADC_NUMBER_SAMPLE^2 gives number of samples, note values can only range from 0 to 4.
+#define MUX_MASK 15
+#define ANALOG_INTERRUPT ADC_vect
 /*** Global Variable ***/
 typedef struct {
 	uint8_t VREFF;
@@ -41,9 +34,8 @@ struct analog {
 };
 typedef struct analog ANALOG;
 
-ANALOG adc;
-/***Global Header***/
-ANALOG ANALOGenable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... );
+ANALOG ANALOG_enable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... );
+ANALOG* adc(void);
 
 #endif
 
