@@ -5,7 +5,8 @@ Author: Sergio Santos
 License: GNU General Public License
 Hardware: Atmel
 Date: 25102020
-Comment:
+************************************************************************/
+/****** Comment:
 	very stable
 ************************************************************************/
 #ifndef _LFSM_H_
@@ -15,10 +16,7 @@ Comment:
 #include "atmegaeeprom.h"
 #include <inttypes.h>
 
-/*** Constant & Macro ***/
-#define NPAGES 255 // 1 to 254 possible pages
-#define BYTEL 0
-#define BYTEH 65535
+/*** Global Constant & Macro ***/
 
 /*** Global Variable ***/
 struct lfsmdata{
@@ -56,7 +54,7 @@ struct lfsm{
 typedef struct lfsm LFSM;
 
 /*** Global Header ***/
-LFSM LFSMenable(EEPROM* eeprom, const uint16_t sizeeeprom);
+LFSM lfsm_enable(EEPROM* eeprom, const uint16_t sizeeeprom);
 
 #endif
 

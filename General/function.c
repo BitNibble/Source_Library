@@ -6,7 +6,8 @@ License: GNU General Public License
 Hardware: all
 Date: 31122023
 Update : 07012024
-Comment:
+*************************************************************************/
+/****** Comment:
 	Tested Atemga128 16Mhz and Atmega328 8Mhz and STM32F446RE
 *************************************************************************/
 /*** File Library ***/
@@ -70,7 +71,7 @@ int FUNCreadint(int nmin, int nmax);
 ******************************/
 
 /*** Procedure & Function ***/
-FUNC FUNCenable( void )
+FUNC func_enable( void )
 {
 	FUNCstr[FUNCSTRSIZE] = '\0';
 	// function pointers

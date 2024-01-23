@@ -4,9 +4,9 @@ Author: Sergio Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: all
-Date: 27/11/2022
-Update 09/01/2024
-Comment:
+Date: 27112022
+************************************************************************/
+/****** Comment:
 	Stable
 ************************************************************************/
 #ifndef _KEYPAD_H_
@@ -37,16 +37,18 @@ typedef struct {
 	char* string;
 }keypadata;
 
-typedef struct{
-	keypadata* data;
+struct keypad{
+	// Local Variables
+	// Function Pointers
 	char (*getkey)(void);
 	void (*read)(void);
+	keypadata (*data)(void);
 	void (*flush)(void);
-}KEYPAD;
+};
+typedef struct keypad KEYPAD;
 
 /*** Global Header ***/
-KEYPAD* keypad(void);
-KEYPAD KEYPADenable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port);
+KEYPAD keypad_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port);
 
 #endif
 

@@ -5,7 +5,8 @@ Author: Sergio Santos
 License: GNU General Public License
 Hardware: all
 Date: 17112022
-Comment:
+*******************************************************************************/
+/****** Comment:
 	Circular Buffer
 *******************************************************************************/
 #ifndef _BUFFER_H_
@@ -22,20 +23,20 @@ typedef struct {
 	BUFFvar* orig;
 	BUFFvar* head;
 	BUFFvar* end;
-}buffer_parameter;
+}bufferparameter;
 
 struct buffer
 {
-	buffer_parameter par;
-	void (*push)(buffer_parameter* par, BUFFvar data);
-	BUFFvar* (*raw)(buffer_parameter* par);
-	void (*flush)(buffer_parameter* par);
+	bufferparameter par;
+	void (*push)(bufferparameter* par, BUFFvar data);
+	BUFFvar* (*raw)(bufferparameter* par);
+	void (*flush)(bufferparameter* par);
 };
 
 typedef struct buffer BUFF;
 
 /*** Global Header ***/
-BUFF BUFFenable(uint8_t size_buff, BUFFvar* buff);
+BUFF buff_enable(uint8_t size_buff, BUFFvar* buff);
 
 #endif
 

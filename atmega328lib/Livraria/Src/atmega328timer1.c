@@ -26,7 +26,7 @@ void TIMER_COUNTER1_start(unsigned int prescaler);
 void TIMER_COUNTER1_stop(void);
 
 /*** Procedure & Function ***/
-TIMER_COUNTER1 TIMER_COUNTER1_enable(unsigned char wavegenmode, unsigned char interrupt)
+TIMER_COUNTER1 tc1_enable(unsigned char wavegenmode, unsigned char interrupt)
 //	PARAMETER SETTING
 //	wavegen mode: Normal; PWM, Phase Correct, 8-bit; PWM, Phase Correct, 9-bit; PWM, Phase Correct, 10-bit;
 //	CTC; Fast PWM, 8-bit; Fast PWM, 9-bit; Fast PWM, 10-bit; PWM, Phase and Frequency Correct; PWM, Phase and Frequency Correct;

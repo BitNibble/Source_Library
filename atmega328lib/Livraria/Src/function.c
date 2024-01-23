@@ -71,7 +71,7 @@ int FUNCreadint(int nmin, int nmax);
 ******************************/
 
 /*** Procedure & Function ***/
-FUNC FUNC_enable( void )
+FUNC func_enable( void )
 {
 	FUNCstr[FUNCSTRSIZE] = '\0';
 	// function pointers

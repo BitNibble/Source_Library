@@ -24,7 +24,7 @@ void INTERRUPT_off(uint8_t channel);
 uint8_t INTERRUPT_reset_status(void);
 
 /*** Procedure and Function ***/
-INTERRUPT INTERRUPT_enable(void)
+INTERRUPT exint_enable(void)
 // setup blank
 {
 	// Pre-Processor Case 1

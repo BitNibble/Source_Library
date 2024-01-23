@@ -5,7 +5,8 @@ Author: Sergio Santos
 License: GNU General Public License
 Hardware: all
 Date: 20042023
-Comment:
+************************************************************************/
+/****** Comment:
 	tested Atemga128 16Mhz and Atmega328 8Mhz
 ************************************************************************/
 #ifndef _LCD2P_H_
@@ -46,7 +47,8 @@ typedef struct{
 }LCD02P;
 
 /*** Global Header ***/
-LCD02P LCD02P_enable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatile uint8_t *cmdport, volatile uint8_t *dataddr, volatile uint8_t *datapin, volatile uint8_t *dataport);
+LCD02P lcd02p_enable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatile uint8_t *cmdport, volatile uint8_t *dataddr, volatile uint8_t *datapin, volatile uint8_t *dataport);
+LCD02P* lcd02p(void);
 
 #endif
 

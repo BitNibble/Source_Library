@@ -18,7 +18,7 @@ void Atmega328ClockPrescalerSelect(volatile uint8_t prescaler);
 void Atmega328MoveInterruptsToBoot(void);
 
 /*** File Procedure & Function ***/
-ATMEGA328 ATMEGA328_enable(void){
+ATMEGA328 atmega328_enable(void){
 	// GPWR
 	setup_atmega328.gpwr_reg = (Atmega328GPWR_TypeDef*) Atmega328GPWR_Address;
 	// AC
@@ -27,7 +27,7 @@ ATMEGA328 ATMEGA328_enable(void){
 	// ADC
 	setup_atmega328.adc_reg = (Atmega328AnalogToDigitalConverter_TypeDef*) Atmega328AnalogToDigitalConverter_Address;
 	#if defined(_ANALOG_MODULE_)
-		setup_atmega328.adc_enable = ANALOG_enable;
+		setup_atmega328.adc_enable = adc_enable;
 		setup_atmega328.adc = adc();
 	#endif
 	// CPU
@@ -36,7 +36,7 @@ ATMEGA328 ATMEGA328_enable(void){
 	// EEPROM
 	setup_atmega328.eeprom_reg = (Atmega328Eeprom_TypeDef*) Atmega328Eeprom_Address;
 	#if defined(_EEPROM_MODULE_)
-		setup_atmega328.eeprom_enable = EEPROM_enable;
+		setup_atmega328.eeprom_enable = eeprom_enable;
 		setup_atmega328.eeprom = eeprom();
 	#endif
 	// EXINT
@@ -44,7 +44,7 @@ ATMEGA328 ATMEGA328_enable(void){
 	setup_atmega328.exint_iflag = (Atmega328ExternalInterruptFlag_TypeDef*) Atmega328ExternalInterruptFlag_Address;
 	setup_atmega328.exint_imask = (Atmega328ExternalInterruptMask_TypeDef*) Atmega328ExternalInterruptMask_Address;
 	#if defined(_INTERRUPT_MODULE_)
-		setup_atmega328.exint_enable = INTERRUPT_enable;
+		setup_atmega328.exint_enable = exint_enable;
 		setup_atmega328.exint = exint();
 	#endif
 	// PORTB
@@ -56,7 +56,7 @@ ATMEGA328 ATMEGA328_enable(void){
 	// SPI
 	setup_atmega328.spi_reg = (Atmega328SerialPeripherialInterface_TypeDef*) Atmega328SerialPeripherialInterface_Address;
 	#if defined(_SPI_MODULE_)
-		setup_atmega328.spi_enable = SPI_enable;
+		setup_atmega328.spi_enable = spi_enable;
 		setup_atmega328.spi = spi();
 	#endif
 	// TC1
@@ -66,7 +66,7 @@ ATMEGA328 ATMEGA328_enable(void){
 	setup_atmega328.tc1_imask = (Atmega328TimerInterruptMask_TypeDef*) Atmega328TimerInterruptMask_Address;
 	setup_atmega328.tc1_comp = (Atmega328TimerCompareRegister1_TypeDef*) Atmega328TimerCompareRegister1_Address;
 	#if defined(_TIMER1_MODULE_)
-		setup_atmega328.tc1_enable = TIMER_COUNTER1_enable;
+		setup_atmega328.tc1_enable = tc1_enable;
 		setup_atmega328.tc1 = tc1();
 	#endif
 	// TC0
@@ -76,7 +76,7 @@ ATMEGA328 ATMEGA328_enable(void){
 	setup_atmega328.tc0_imask = (Atmega328TimerInterruptMask_TypeDef*) Atmega328TimerInterruptMask_Address;
 	setup_atmega328.tc0_comp = (Atmega328TimerCompareRegister0_TypeDef*) Atmega328TimerCompareRegister0_Address;
 	#if defined(_TIMER0_MODULE_)
-		setup_atmega328.tc0_enable = TIMER_COUNTER0_enable;
+		setup_atmega328.tc0_enable = tc0_enable;
 		setup_atmega328.tc0 = tc0();	
 	#endif
 	// TC2
@@ -86,19 +86,19 @@ ATMEGA328 ATMEGA328_enable(void){
 	setup_atmega328.tc2_imask = (Atmega328TimerInterruptMask_TypeDef*) Atmega328TimerInterruptMask_Address;
 	setup_atmega328.tc2_comp = (Atmega328TimerCompareRegister2_TypeDef*) Atmega328TimerCompareRegister2_Address;
 	#if defined(_TIMER2_MODULE_)
-		setup_atmega328.tc2_enable = TIMER_COUNTER2_enable;
+		setup_atmega328.tc2_enable = tc2_enable;
 		setup_atmega328.tc2 = tc2();
 	#endif
 	// TWI
 	setup_atmega328.twi_reg = (Atmega328TwoWireSerialInterface_TypeDef*) Atmega328TwoWireSerialInterface_Address;
 	#if defined(_TWI_MODULE_)
-		setup_atmega328.twi_enable = TWI_enable;
+		setup_atmega328.twi_enable = twi_enable;
 		setup_atmega328.twi = twi();
 	#endif
 	// USART
 	setup_atmega328.usart0_reg = (Atmega328Usart_TypeDef*) Atmega328Usart_Address;
 	#if defined(_USART0_MODULE_)
-		setup_atmega328.usart0_enable = USART0_enable;
+		setup_atmega328.usart0_enable = usart0_enable;
 	#endif
 	// WDT
 	setup_atmega328.wdt_reg = (Atmega328WatchdogTimer_TypeDef*) Atmega328WatchdogTimer_Address;

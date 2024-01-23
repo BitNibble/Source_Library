@@ -21,7 +21,7 @@ char HC05ATstr[32];
 /*** File Header ***/
 
 /*** Procedure & Function ***/
-char* HC05ATcmd(uint16_t num){
+char* hc05at_cmd(uint16_t num){
 	switch(num)
 	{
 		/*** Query ***/

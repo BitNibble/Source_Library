@@ -4,7 +4,8 @@ Author: Sergio Santos
 	<sergio.salazar.santos@gmail.com>
 Hardware: all
 Date: 25102020
-Comment:
+************************************************************************/
+/****** Comment:
 	Stable
 ************************************************************************/
 #ifndef _CLOCK_H_
@@ -37,7 +38,7 @@ struct clck{
 typedef struct clck CLOCK;
 
 /*** Global Header ***/
-CLOCK CLOCKenable(uint8_t hour, uint8_t minute, uint8_t second);
+CLOCK clock_enable(uint8_t hour, uint8_t minute, uint8_t second);
 
 #endif
 

@@ -5,7 +5,8 @@ Author: Sergio Santos
 License: GNU General Public License
 Hardware: PCF8563
 Date: 29112022
-Comment:
+***************************************************************************************************/
+/****** Comment:
 	Stable
  **************************************************************************************************/
 #ifndef _PCF8563RTC_H_
@@ -65,7 +66,7 @@ struct pcfrtc{
 typedef struct pcfrtc PCF8563RTC;
 
 /*** Global Header ***/
-PCF8563RTC PCF8563RTCenable(uint8_t prescaler);
+PCF8563RTC pcf8563rtc_enable(uint8_t prescaler);
 
 #endif
 

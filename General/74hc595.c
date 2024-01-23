@@ -6,7 +6,8 @@ License: GNU General Public License
 Hardware: 74HC595
 Date: 25/10/2020
 Update: 05/01/2024
-Comment:
+************************************************************************/
+/****** Comment:
 	Tested Atemga88 8Mhz and Atmega328 8Mhz and STM32F446RE
 ************************************************************************/
 /*** File Library ***/
@@ -42,7 +43,7 @@ hc595_parameter hc595_par_inic(volatile IO_var *ddr, volatile IO_var *port, uint
 }
 
 /*** 74HC595 Procedure & Function Definition ***/
-HC595 HC595enable(volatile IO_var *ddr, volatile IO_var *port, uint8_t datapin, uint8_t clkpin, uint8_t outpin)
+HC595 hc595_enable(volatile IO_var *ddr, volatile IO_var *port, uint8_t datapin, uint8_t clkpin, uint8_t outpin)
 {
 	HC595 setup_hc595;
 

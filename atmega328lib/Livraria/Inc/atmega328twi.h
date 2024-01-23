@@ -88,7 +88,7 @@ struct twowire{
 };
 typedef struct twowire TWI;
 
-TWI TWI_enable(uint8_t atmega_ID, uint8_t prescaler);
+TWI twi_enable(uint8_t atmega_ID, uint8_t prescaler);
 TWI* twi(void);
 
 #endif

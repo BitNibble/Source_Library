@@ -6,7 +6,7 @@ Software: AVR-GCC 4.1, AVR Libc 1.4.6 or higher
 Hardware:
 License:  GNU General Public License
 *************************************************************************/
-/******Comment:
+/****** Comment:
 	
 *************************************************************************/
 /*** File Library ***/
@@ -37,7 +37,7 @@ void WATCH_result(void);
 char* WATCH_show(void);
 
 /*** Procedure & Function ***/
-WATCH WATCHenable(void)
+WATCH watch_enable(void)
 {
 	uint8_t i;
 	time.hour = 0;

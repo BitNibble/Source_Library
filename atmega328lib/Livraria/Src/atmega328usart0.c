@@ -44,14 +44,14 @@ void USART0ClearErrors(void);
 void USART0DoubleTransmissionSpeed(void);
 
 /*** Procedure & Function ***/
-USART0 USART0_enable(uint32_t baud, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity )
+USART0 usart0_enable(uint32_t baud, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity )
 {
 	uint8_t tSREG;
 	tSREG = atmega328()->cpu_reg->sreg;
 	atmega328()->cpu_reg->sreg &= ~(1 << GLOBAL_INTERRUPT_ENABLE);
 	uart0flag = 1;
 	uint16_t ubrr;
-	rxbuff = BUFFenable(UART_RX_BUFFER_SIZE, UART_RxBuf);
+	rxbuff = buff_enable(UART_RX_BUFFER_SIZE, UART_RxBuf);
 	ubrr = BAUDRATEnormal(baud);
 	setup_usart0.par.ubrr = ubrr;
 	// Vtable

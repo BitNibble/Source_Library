@@ -74,7 +74,7 @@ typedef struct
 
 /*** Global Header ***/
 FUNC* func(void);
-FUNC FUNC_enable(void);
+FUNC func_enable(void);
 
 #endif
 

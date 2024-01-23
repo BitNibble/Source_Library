@@ -4,7 +4,7 @@ Author: Sergio Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: ATmega
-Update: 01/01/
+Update: 01/01/2024
 *************************************************************************/
 /****** Comment:
    Very Stable
@@ -17,7 +17,7 @@ static EEPROM setup_eeprom;
 /*** File Header ***/
 
 /*** Procedure & Function ***/
-EEPROM EEPROM_enable(void){
+EEPROM eeprom_enable(void){
 	setup_eeprom.read_byte = eeprom_read_byte;
 	setup_eeprom.write_byte = eeprom_write_byte;
 	setup_eeprom.update_byte = eeprom_update_byte;

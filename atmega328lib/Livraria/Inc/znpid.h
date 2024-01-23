@@ -44,7 +44,7 @@ struct znpid{
 typedef struct znpid ZNPID;
 
 /*** Global Header ***/
-ZNPID ZNPIDenable(void);
+ZNPID znpid_enable(void);
 
 #endif
 

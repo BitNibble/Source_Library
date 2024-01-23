@@ -31,7 +31,7 @@ struct TIMER_COUNTER0{
 };
 typedef struct TIMER_COUNTER0 TIMER_COUNTER0;
 
-TIMER_COUNTER0 TIMER_COUNTER0_enable(unsigned char wavegenmode, unsigned char interrupt);
+TIMER_COUNTER0 tc0_enable(unsigned char wavegenmode, unsigned char interrupt);
 TIMER_COUNTER0* tc0(void);
 
 #endif

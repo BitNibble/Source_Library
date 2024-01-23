@@ -28,7 +28,7 @@ void TIMER_COUNTER0_start(unsigned int prescaler);
 void TIMER_COUNTER0_stop(void);
 
 /*** Procedure & Function ***/
-TIMER_COUNTER0 TIMER_COUNTER0_enable(unsigned char wavegenmode, unsigned char interrupt)
+TIMER_COUNTER0 tc0_enable(unsigned char wavegenmode, unsigned char interrupt)
 //	PARAMETER SETTING
 //	wavegen mode: Normal; PWM phase correct; Fast PWM; default-Normasl;
 //	interrupt: off; overflow; output compare; both; default - non.

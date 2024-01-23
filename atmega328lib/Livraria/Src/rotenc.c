@@ -22,7 +22,7 @@ uint8_t ROTENClh(uint8_t xp, uint8_t xi);
 uint8_t ROTENChl(uint8_t xp, uint8_t xi);
 
 /*** Procedure & Function ***/
-ROTENC ROTENCenable( uint8_t ChnApin, uint8_t ChnBpin )
+ROTENC rotenc_enable( uint8_t ChnApin, uint8_t ChnBpin )
 {
 	// struct object
 	ROTENC rtnc;

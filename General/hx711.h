@@ -5,7 +5,8 @@ Author: Sergio Santos
 License: GNU General Public License
 Hardware: Atmega 128
 Date: 08032021_start
-Comment:
+************************************************************************/
+/****** Comment:
 
 ************************************************************************/
 #ifndef _HX711_H_
@@ -22,14 +23,6 @@ Comment:
 	#define GLOBAL_INTERRUPT_ENABLE 7
 #endif
 
-#define ZERO 0
-#define OFF 0x00
-#define ONE 1
-#define ON 0xFF
-#define HX711_ticks 36 // fine tunned to 36
-#define HX711_ADC_bits 24
-#define HX711_VECT_SIZE 4
-
 /*** Global Variable ***/
 // calibration
 typedef struct{
@@ -41,9 +34,7 @@ typedef struct{
 	uint8_t divfactor_128; // interval B
 	uint8_t status;
 }HX711_calibration;
-
 HX711_calibration* HX711_Default;
-
 // device
 struct hx711{
 	volatile uint8_t readflag; // indicate start of bit shifting
@@ -71,7 +62,7 @@ struct hx711{
 typedef struct hx711 HX711;
 
 /*** Global Header ***/
-HX711 HX711enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port, uint8_t datapin, uint8_t clkpin);
+HX711 hx711_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port, uint8_t datapin, uint8_t clkpin);
 
 #endif
 

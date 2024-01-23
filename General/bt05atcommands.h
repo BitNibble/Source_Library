@@ -5,7 +5,8 @@ Author: Sergio Santos
 License: GNU General Public License
 Hardware: ALL
 Date: 24042023
-Comment:
+************************************************************************/
+/****** Comment:
 	Stable
 ************************************************************************/
 #ifndef _BT05ATCOMMANDS_H_
@@ -19,7 +20,7 @@ Comment:
 /*** Global Variable ***/
 
 /*** Global Header ***/
-char* BT05ATcmd(uint16_t num);
+char* bt05at_cmd(uint16_t num);
 
 #endif
 

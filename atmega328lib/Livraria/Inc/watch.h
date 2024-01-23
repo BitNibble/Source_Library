@@ -34,7 +34,7 @@ struct WATCH{
 typedef struct WATCH WATCH;
 
 /*** Global Header ***/
-WATCH WATCHenable(void);
+WATCH watch_enable(void);
 
 #endif
 

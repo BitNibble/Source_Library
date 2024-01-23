@@ -5,7 +5,8 @@ Author: Sergio Santos
 License: GNU General Public License
 Hardware: Atmega 128
 Date: 17022021_start
-Comment:
+************************************************************************/
+/****** Comment:
 
 ************************************************************************/
 #ifndef _ZNPID_H_
@@ -14,9 +15,7 @@ Comment:
 /*** Global Library ***/
 #include <inttypes.h>
 
-/*** Constant & Macro ***/
-#define ZNPID_outMAX 1023
-#define ZNPID_outMIN -1023
+/*** Global Constant & Macro ***/
 
 /*** Global Variable ***/
 typedef struct {
@@ -31,21 +30,21 @@ typedef struct {
 	double derivative; // rate of growth (tangent), or derivative
 	double PV; // output feedback
 	double OP; // output signal
-}znpid_parameter;
+}znpidparameter;
 
 struct znpid{
-	znpid_parameter par;
+	znpidparameter par;
 	/******/
-	void (*set_kc)(znpid_parameter* par, double kc);
-	void (*set_ki)(znpid_parameter* par, double ki);
-	void (*set_kd)(znpid_parameter* par, double kd);
-	void (*set_SP)(znpid_parameter* par, double setpoint);
-	double (*output)(znpid_parameter* par, double PV, double timelapse);
+	void (*set_kc)(znpidparameter* par, double kc);
+	void (*set_ki)(znpidparameter* par, double ki);
+	void (*set_kd)(znpidparameter* par, double kd);
+	void (*set_SP)(znpidparameter* par, double setpoint);
+	double (*output)(znpidparameter* par, double PV, double timelapse);
 };
 typedef struct znpid ZNPID;
 
 /*** Global Header ***/
-ZNPID ZNPIDenable(void);
+ZNPID znpid_enable(void);
 
 #endif
 

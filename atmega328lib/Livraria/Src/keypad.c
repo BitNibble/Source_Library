@@ -58,7 +58,7 @@ uint8_t KEYPADlh(uint8_t xi, uint8_t xf);
 uint8_t KEYPADhl(uint8_t xi, uint8_t xf);
 
 /*** Procedure & Function ***/
-KEYPAD KEYPADenable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port)
+KEYPAD keypad_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port)
 {
 	// LOCAL VARIABLE
 	data.character = ' ';

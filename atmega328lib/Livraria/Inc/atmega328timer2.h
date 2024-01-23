@@ -6,7 +6,7 @@ License: GNU General Public License
 Hardware: Atmega328 by ETT ET-BASE
 Update: 01/01/2024
 *************************************************************************/
-/****** Comment:
+/***** Comment:
 	Very Stable
 *************************************************************************/
 #ifndef _ATMEGA328TIMER2_H_
@@ -36,7 +36,7 @@ struct TIMER_COUNTER2{
 };
 typedef struct TIMER_COUNTER2 TIMER_COUNTER2;
 
-TIMER_COUNTER2 TIMER_COUNTER2_enable(unsigned char wavegenmode, unsigned char interrupt);
+TIMER_COUNTER2 tc2_enable(unsigned char wavegenmode, unsigned char interrupt);
 TIMER_COUNTER2* tc2(void);
 
 #endif

@@ -5,7 +5,8 @@ Author: Sergio Santos
 License: GNU General Public License
 Hardware: all
 Date: 16032021
-Comment:
+********************************************************************/
+/****** Comment:
 	Pin Analysis
 	Tested Atemga128 16Mhz and Atmega328 8Mhz and STM32F446RE
 ********************************************************************/
@@ -31,7 +32,7 @@ explode_parameter explode_par_inic(void)
 	return setup_explode_par;
 }
 /*** EXPLODE Procedure & Function Definition ***/
-EXPLODE EXPLODEenable( void )
+EXPLODE explode_enable( void )
 {
 	// struct object
 	EXPLODE setup_explode;

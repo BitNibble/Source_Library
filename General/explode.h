@@ -5,7 +5,8 @@ Author: Sergio Santos
 License: GNU General Public License
 Hardware: all
 Date: 16032021
-Comment:
+************************************************************************/
+/****** Comment:
 	Tested Atemga128 16Mhz and Atmega328 8Mhz and STM32F446RE
 ************************************************************************/
 #ifndef _EXPLODE_H_
@@ -43,7 +44,7 @@ typedef struct {
 	void (*update)(explode_parameter* par, IO_var x);
 }EXPLODE;
 
-EXPLODE EXPLODEenable(void);
+EXPLODE explode_enable(void);
 
 #endif
 

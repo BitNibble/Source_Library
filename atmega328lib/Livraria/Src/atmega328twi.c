@@ -28,7 +28,7 @@ uint8_t TWI_status(void);
 void TWI_wait_twint( uint16_t nticks );
 
 /*** Procedure and Function ***/
-TWI TWI_enable(uint8_t atmega_ID,  uint8_t prescaler)
+TWI twi_enable(uint8_t atmega_ID,  uint8_t prescaler)
 {
 	//local var
 	uint8_t tSREG;

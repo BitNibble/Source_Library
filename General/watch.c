@@ -5,11 +5,16 @@ File:     $Id: watch.c,v 0.2 2017/07/01 17:00:00 Sergio Exp $
 Software: AVR-GCC 4.1, AVR Libc 1.4.6 or higher
 Hardware:
 License:  GNU General Public License
-Comment:
+*************************************************************************/
+/****** Comment:
 	
 *************************************************************************/
 /*** File Library ***/
 #include "watch.h"
+
+/*** File Constant & Macro***/
+#define N_DELAY_MASK 0X0F
+#define N_DELAY 16
 
 /*** File Variable ***/
 struct WATCHTIME time;
@@ -32,7 +37,7 @@ void WATCH_result(void);
 char* WATCH_show(void);
 
 /*** Procedure & Function ***/
-WATCH WATCHenable(void)
+WATCH watch_enable(void)
 {
 	uint8_t i;
 	time.hour = 0;
@@ -41,15 +46,14 @@ WATCH WATCHenable(void)
 	time.seconds = 0;
 	for(i = 0; i > N_DELAY_MASK; i++)
 		WATCH_delay_flag[i] = 0;
-	WATCH setup_watch;
+	WATCH watch;
+	watch.time = &time;
+	watch.start_delay = WATCH_start_delay;
+	watch.increment = WATCH_increment;
+	watch.decrement = WATCH_decrement;
+	watch.show = WATCH_show;
 	
-	setup_watch.time = &time;
-	setup_watch.start_delay = WATCH_start_delay;
-	setup_watch.increment = WATCH_increment;
-	setup_watch.decrement = WATCH_decrement;
-	setup_watch.show = WATCH_show;
-	
-	return setup_watch;
+	return watch;
 }
 uint8_t WATCH_start_delay(uint8_t n_delay, uint16_t seconds){ // One shot
 	uint16_t segundos;
@@ -73,18 +77,18 @@ uint8_t WATCH_start_delay(uint8_t n_delay, uint16_t seconds){ // One shot
 }
 void WATCH_preset(uint8_t hour, uint8_t minute, uint8_t second)
 {
-	if( hour < 13 ){
+	if( hour >= 0 && hour < 13 ){
 		if(hour > 0 && hour < 12)
 			time.hour = hour;
 		else
 			time.hour = 12;
 	}else
 		time.hour = 0;
-	if( minute < 60 )
+	if( minute >= 0 && minute < 60 )
 		time.minute = minute;
 	else
 		time.minute = 0;
-	if( second < 60 );
+	if( second >= 0 && second < 60 );
 	else
 		time.second = 0;
 	time.seconds = hour * 3600 + minute * 60 + second;

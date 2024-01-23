@@ -24,7 +24,7 @@ BUFFvar* BUFF_raw(bufferparameter* par);
 void BUFF_flush(bufferparameter* par);
 
 /*** Procedure & Function ***/
-BUFF BUFFenable( uint8_t size_buff, BUFFvar* buff )
+BUFF buff_enable( uint8_t size_buff, BUFFvar* buff )
 {
 	// OBJECT STRUCT
 	BUFF ret;

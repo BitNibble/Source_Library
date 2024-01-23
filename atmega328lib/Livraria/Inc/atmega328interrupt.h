@@ -33,7 +33,7 @@ struct intrpt{
 };
 typedef struct intrpt INTERRUPT;
 
-INTERRUPT INTERRUPT_enable(void);
+INTERRUPT exint_enable(void);
 INTERRUPT* exint(void);
 
 #endif

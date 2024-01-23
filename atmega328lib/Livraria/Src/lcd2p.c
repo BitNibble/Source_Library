@@ -6,17 +6,12 @@ License: GNU General Public License
 Hardware: all
 Date: 20042023
 ************************************************************************/
-/****** Comment:
+/*** Comment:
 	Tested Atemga128 16Mhz and Atmega328 8Mhz                    
 ************************************************************************/
 /*** File Library ***/
 #include "lcd2p.h"
 #include <util/delay.h>
-//#include <stdio.h>
-//#include <stdlib.h>
-//#include <string.h>
-//#include <stdarg.h>
-//#include <math.h>
 
 /*** File Constant & Macro ***/
 // CMD RS
@@ -27,6 +22,7 @@ Date: 20042023
 #define LCD02P_BN_TICKS 0
 
 /*** File Variable ***/
+static LCD02P setup_lcd02p;
 volatile uint8_t *lcd02pcmd_DDR;
 volatile uint8_t *lcd02pcmd_PIN;
 volatile uint8_t *lcd02pcmd_PORT;
@@ -53,11 +49,9 @@ void LCD02P_reboot(void);
 void LCD02P_ticks(uint16_t num);
 
 /*** Procedure & Function ***/
-LCD02P LCD02P_enable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatile uint8_t *cmdport, volatile uint8_t *dataddr, volatile uint8_t *datapin, volatile uint8_t *dataport)
+LCD02P lcd02p_enable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatile uint8_t *cmdport, volatile uint8_t *dataddr, volatile uint8_t *datapin, volatile uint8_t *dataport)
 {
-	// LOCAL VARIABLES
-	// ALLOCAÇÂO MEMORIA PARA Estrutura
-	LCD02P setup_lcd02p;
+	
 	// import parameters
 	lcd02pcmd_DDR = cmdddr;
 	lcd02pcmd_PIN = cmdpin;
@@ -89,6 +83,9 @@ LCD02P LCD02P_enable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatil
 	
 	return setup_lcd02p;
 }
+
+LCD02P* lcd02p(void){ return &setup_lcd02p; }
+
 void LCD02P_inic(void)
 {
 	// LCD INIC

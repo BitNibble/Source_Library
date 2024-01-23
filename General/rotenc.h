@@ -5,7 +5,8 @@ Author: Sergio Santos
 License: GNU General Public License
 Hardware: Rotary encoder Potentiometer
 Date: 25102020
-Comment:
+************************************************************************/
+/****** Comment:
 	Stable
 ************************************************************************/
 #ifndef _ROTENC_H_
@@ -23,18 +24,18 @@ typedef struct{
 	uint8_t pchn;
 	uint8_t chn;
 	uint16_t num;
-}rotaryencoder_parameter;
+}rotaryencoderparameter;
 	
 struct rotenc{
 	// VARIABLIES
-	rotaryencoder_parameter par;
+	rotaryencoderparameter par;
 	// PROTOTYPES VTABLE
-	rotaryencoder_parameter (*rte)(rotaryencoder_parameter* par, uint8_t data);
+	rotaryencoderparameter (*rte)(rotaryencoderparameter* par, uint8_t data);
 };
 typedef struct rotenc ROTENC;
 
 /*** Global Header ***/
-ROTENC ROTENCenable(uint8_t ChnApin, uint8_t ChnBpin);
+ROTENC rotenc_enable(uint8_t ChnApin, uint8_t ChnBpin);
 
 #endif
 

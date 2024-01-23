@@ -5,7 +5,8 @@ Author: Sergio Santos
 License: GNU General Public License
 Hardware: all
 Date: 17112022
-Comment:
+******************************************************************************/
+/****** Comment:
 	Buffer
 ******************************************************************************/
 /*** File Library ***/
@@ -13,31 +14,33 @@ Comment:
 #include <stdio.h>
 #include <string.h>
 
+/*** File Constant & Macro ***/
+
 /*** File Variable ***/
 
 /*** File Header ***/
-void BUFF_push(buffer_parameter* par, BUFFvar data);
-BUFFvar* BUFF_raw(buffer_parameter* par);
-void BUFF_flush(buffer_parameter* par);
+void BUFF_push(bufferparameter* par, BUFFvar data);
+BUFFvar* BUFF_raw(bufferparameter* par);
+void BUFF_flush(bufferparameter* par);
 
 /*** Procedure & Function ***/
-BUFF BUFFenable( uint8_t size_buff, BUFFvar* buff )
+BUFF buff_enable( uint8_t size_buff, BUFFvar* buff )
 {
 	// OBJECT STRUCT
-	BUFF setup_buffer;
+	BUFF ret;
 	// inic VAR
-	setup_buffer.par.orig = buff;
-	setup_buffer.par.head = buff;
-	setup_buffer.par.end = buff + ( size_buff ); // generic
+	ret.par.orig = buff;
+	ret.par.head = buff;
+	ret.par.end = buff + ( size_buff ); // generic
 	// function pointers
-	setup_buffer.push = BUFF_push;
-	setup_buffer.raw = BUFF_raw;
-	setup_buffer.flush = BUFF_flush;
+	ret.push = BUFF_push;
+	ret.raw = BUFF_raw;
+	ret.flush = BUFF_flush;
 	
-	return setup_buffer; // return copy
+	return ret; // return copy
 }
 
-void BUFF_push( buffer_parameter* par, BUFFvar data ){
+void BUFF_push( bufferparameter* par, BUFFvar data ){
 	BUFFvar* head; BUFFvar* next;
 	head = par->head;
 	if(data){
@@ -53,11 +56,11 @@ void BUFF_push( buffer_parameter* par, BUFFvar data ){
 	}
 }
 
-BUFFvar* BUFF_raw( buffer_parameter* par ){
+BUFFvar* BUFF_raw( bufferparameter* par ){
 		return par->orig;
 }
 
-void BUFF_flush( buffer_parameter* par ){
+void BUFF_flush( bufferparameter* par ){
 	BUFFvar* head;
 	head = par->orig;
 	par->head = head;

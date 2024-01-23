@@ -5,10 +5,10 @@ Author: Sergio Santos
 License: GNU General Public License
 Hardware: PCF8563
 Date: 29112022
-**************************************************************************************************/
+***************************************************************************************************/
 /****** Comment:
 	Stable
-***************************************************************************************************/
+ **************************************************************************************************/
 /*** File Library ***/
 #include "pcf8563rtc.h"
 #if defined(__AVR_ATmega64__) || defined(__AVR_ATmega128__)
@@ -39,10 +39,10 @@ uint8_t PCF8563RTC_bintobcd(uint8_t bin);
 #ifdef _TWI_MODULE_
 
 /*** Procedure & Function ***/
-PCF8563RTC PCF8563RTCenable(uint8_t prescaler)
+PCF8563RTC pcf8563rtc_enable(uint8_t prescaler)
 {
 	PCF8563RTC pcf;
-	TWI_enable('A', prescaler); // Initialize the I2c module.
+	twi_enable('A', prescaler); // Initialize the I2c module.
 	// Vtable
 	pcf.SetTime = PCF8563RTC_SetTime;
 	pcf.SetHour = PCF8563RTC_SetHour;

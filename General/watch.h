@@ -5,7 +5,8 @@ File:     $Id: watch.h,v 0.2 2017/07/01 17:00:00 Sergio Exp $
 Software: AVR-GCC 4.1, AVR Libc 1.4
 Hardware:
 License:  GNU General Public License
-Comment:
+************************************************************************/
+/****** Comment:
 	
 ************************************************************************/
 #ifndef _WATCH_H_
@@ -14,9 +15,7 @@ Comment:
 /*** Global library ***/
 #include <inttypes.h>
 
-/*** Constant & Macro ***/
-#define N_DELAY_MASK 0X0F
-#define N_DELAY 16
+/*** Global Constant & Macro ***/
 
 /*** Global Variable ***/
 struct WATCHTIME{
@@ -35,7 +34,7 @@ struct WATCH{
 typedef struct WATCH WATCH;
 
 /*** Global Header ***/
-WATCH WATCHenable(void);
+WATCH watch_enable(void);
 
 #endif
 

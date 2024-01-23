@@ -5,7 +5,8 @@ Author: Sergio Manuel Santos
 License: GNU General Public License
 Hardware: 74HC923
 Date:
-COMMENT:
+************************************************************************/
+/****** COMMENT:
 	  stable
 ************************************************************************/
 #ifndef _MM74C923_H_
@@ -23,7 +24,6 @@ COMMENT:
 #define MM74C923_EXTRA_DATA_OUT_PIN 2 // MSB
 #define MM74C923_OUTPUT_ENABLE 1 //ic pin 14
 #define MM74C923_DATA_AVAILABLE 0 //ic pin 13
-#define MM74C923_KEY_BUFFER_SIZE 16
 
 /*** Global Variable ***/
 struct mm74c923{
@@ -36,7 +36,7 @@ struct mm74c923{
 typedef struct mm74c923 MM74C923;
 
 /*** Global Header ***/
-MM74C923 MM74C923enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port);
+MM74C923 mm74c923_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port);
 
 #endif
 

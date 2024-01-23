@@ -5,11 +5,14 @@ Author: Sergio Santos
 License: GNU General Public License
 Hardware: all
 Date: 25102020
-Comment:
+*************************************************************************/
+/****** Comment:
 	Stable
 *************************************************************************/
 /*** File Library ***/
 #include "clock.h"
+
+/*** File Constant & Macro ***/
 
 /*** File Variable ***/
 struct CLOCKTIME time;
@@ -32,27 +35,26 @@ void CLOCK_alarm_stop(void);
 char* CLOCK_show(void);
 
 /*** Procedure & Function ***/
-CLOCK CLOCKenable(uint8_t hour, uint8_t minute, uint8_t second)
+CLOCK clock_enable(uint8_t hour, uint8_t minute, uint8_t second)
 {
-	CLOCK setup_clock;
-	
+	CLOCK clock;
 	time.hour = hour;
 	time.minute = minute;
 	time.second = second;
 	CLOCK_alarm_flag = 0X0F;
 	CLOCK_compare_active = 0X0F;
-	setup_clock.set = CLOCK_set;
-	setup_clock.increment = CLOCK_increment;
-	setup_clock.decrement = CLOCK_decrement;
-	setup_clock.alarm = CLOCK_alarm;
-	setup_clock.second_count = CLOCK_second_count;
-	setup_clock.second_count_reset = CLOCK_second_count_reset;
-	setup_clock.second_count_stop = CLOCK_second_count_stop;
-	setup_clock.alarm_reset = CLOCK_alarm_reset;
-	setup_clock.alarm_stop = CLOCK_alarm_stop;
-	setup_clock.show = CLOCK_show;
+	clock.set = CLOCK_set;
+	clock.increment = CLOCK_increment;
+	clock.decrement = CLOCK_decrement;
+	clock.alarm = CLOCK_alarm;
+	clock.second_count = CLOCK_second_count;
+	clock.second_count_reset = CLOCK_second_count_reset;
+	clock.second_count_stop = CLOCK_second_count_stop;
+	clock.alarm_reset = CLOCK_alarm_reset;
+	clock.alarm_stop = CLOCK_alarm_stop;
+	clock.show = CLOCK_show;
 	
-	return setup_clock;
+	return clock;
 }
 void CLOCK_set(uint8_t hour, uint8_t minute, uint8_t second)
 {
