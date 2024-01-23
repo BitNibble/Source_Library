@@ -16,6 +16,9 @@ Update: 01/01/2024
 #include <inttypes.h>
 
 /*** Global Constant & Macro ***/
+#ifndef 
+	#define _TWI_MODULE_
+#endif
 #ifndef F_CPU
 	#define F_CPU 8000000UL
 #endif
