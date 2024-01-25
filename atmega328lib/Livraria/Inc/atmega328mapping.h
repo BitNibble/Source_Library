@@ -21,12 +21,12 @@ Update: 01/01/2024
 /*********************************************************/
 // User may Comment out if not in use
 // MODULES
-#define _ANALOG_MODULE_
-#define _EEPROM_MODULE_
-#define _INTERRUPT_MODULE_
-#define _TIMER0_MODULE_
-#define _TIMER1_MODULE_
-#define _TIMER2_MODULE_
+//#define _ANALOG_MODULE_
+//#define _EEPROM_MODULE_
+//#define _INTERRUPT_MODULE_
+//#define _TIMER0_MODULE_
+//#define _TIMER1_MODULE_
+//#define _TIMER2_MODULE_
 #define _TWI_MODULE_
 //#define _SPI_MODULE_
 #define _USART0_MODULE_

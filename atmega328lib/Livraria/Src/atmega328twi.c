@@ -61,8 +61,8 @@ void TWI_init(uint8_t device_id, uint8_t prescaler)
 	else
 		cmd = (1 << TWGCE); // no address, but accept general call
 	atmega328()->twi_reg->twar = cmd;
-	atmega328()->portd_reg->ddr |= TWI_IO_MASK;
-	atmega328()->portd_reg->port |= TWI_IO_MASK;
+	atmega328()->portc_reg->ddr |= TWI_IO_MASK;
+	atmega328()->portc_reg->port |= TWI_IO_MASK;
 	switch(prescaler){
 		case 1:
 			atmega328()->twi_reg->twsr &= ~TWI_PRESCALER_MASK;

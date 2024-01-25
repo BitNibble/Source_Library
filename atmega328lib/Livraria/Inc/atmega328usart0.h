@@ -20,7 +20,7 @@ Update: 01/01/2024
 	#define GLOBAL_INTERRUPT_ENABLE 7
 #endif
 #ifndef UART_RX_BUFFER_SIZE
-	#define UART_RX_BUFFER_SIZE 20
+	#define UART_RX_BUFFER_SIZE 32
 #endif
 #define UARTvar char
 // test if the size of the circular buffers fits into SRAM
@@ -67,7 +67,7 @@ typedef struct uart USART0;
 USART0 usart0_enable( uint32_t baud, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 USART0* usart0(void);
 
-char* usart0messageprint(USART0* uart, char* oneshot, char* msg, char endl);
+char* usart0messageprint(USART0* uart, char* oneshot, char* msg, const char* endl);
 
 #endif
 

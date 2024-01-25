@@ -13,6 +13,7 @@ Update: 01/01/2024
 #include "atmega328mapping.h"
 #include "atmega328usart0.h"
 #include "buffer.h"
+#include <string.h>
 #include <util/delay.h>
 #include <math.h>
 
@@ -218,15 +219,17 @@ ISR(UART_UDR_EMPTY)
 }
 
 /*** Complimentary functions ***/
-char* usart0messageprint(USART0* uart, char* oneshot, char* msg, char endl)
+char* usart0messageprint(USART0* uart, char* oneshot, char* msg, const char* endl)
 {
 	char* ptr;
-	UARTvar term;
+	uint8_t length;
+	uint8_t endlength = strlen(endl);
 	if(uart0flag){ *oneshot = 0; uart0flag = 0; uart->rxflush();} // the matrix
-	ptr = uart->gets(); term = uart->getch();
-	if(term == endl){ strcpy(oneshot, ptr); strcpy(msg, ptr); uart0flag = 0xFF; }
-	else if(term == '\r'){ strcpy(oneshot, ptr); strcpy(msg, ptr); uart0flag = 0xFF; }
-	else if(term == '\n'){ strcpy(oneshot, ptr); strcpy(msg, ptr); uart0flag = 0xFF; }
+	ptr = uart->gets();
+	length = strlen(ptr);
+	if(length > endlength){
+		if( !strcmp( &ptr[length-endlength], endl ) ){ strcpy(oneshot, ptr); strcpy(msg, ptr); uart0flag = 0xFF; }
+	}
 	return ptr;
 }
 
