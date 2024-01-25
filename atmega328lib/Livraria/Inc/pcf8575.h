@@ -16,6 +16,12 @@ Date: 24012024
 #include <inttypes.h>
 
 /*** Global Constant & Macro ***/
+#ifndef HIGH
+	#define HIGH 0xFF
+#endif
+#ifndef LOW
+	#define LOW 0x00
+#endif
 #define N_Instance_PCF8575 4
 
 typedef struct{
