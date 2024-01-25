@@ -82,7 +82,7 @@ typedef struct uart1 USART1;
 USART1* usart1(void);
 USART1 USART1_enable( uint32_t baud, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 
-char* usart1messageprint(USART1* uart, char* oneshot, char* msg, char endl);
+char* usart1messageprint(USART1* uart, char* oneshot, char* msg, const char* endl);
 
 #endif
 

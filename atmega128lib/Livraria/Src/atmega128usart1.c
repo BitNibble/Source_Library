@@ -12,6 +12,7 @@ Comment:
 #include "atmega128mapping.h"
 #include "atmega128usart1.h"
 #include "buffer.h"
+#include <string.h>
 #include <util/delay.h>
 #include <math.h>
 
@@ -216,17 +217,23 @@ SIGNAL(UART1_TRANSMIT_INTERRUPT)
 }
 
 /*** Complimentary functions ***/
-char* usart1messageprint(USART1* uart, char* oneshot, char* msg, char endl)
+char* usart1messageprint(USART1* uart, char* oneshot, char* msg, const char* endl)
 {
 	char* ptr;
-	UARTvar term;
+	uint8_t length;
+	uint8_t endlength = strlen(endl);
 	if(uart1flag){ *oneshot = 0; uart1flag = 0; uart->rxflush();} // the matrix
-	ptr = uart->gets(); term = uart->getch();
-	if(term == endl){ strcpy(oneshot, ptr); strcpy(msg, ptr); uart1flag = 0xFF; }
-	else if(term == '\n'){ strcpy(oneshot, ptr); strcpy(msg, ptr); uart1flag = 0xFF; }
+	ptr = uart->gets();
+	length = strlen(ptr);
+	if(length >= endlength){
+		if( !strcmp( &ptr[length-endlength], endl ) ){ strcpy(oneshot, ptr); strcpy(msg, ptr); uart1flag = 0xFF; }
+		// default
+		else if( !strcmp( &ptr[length-endlength], "\r" ) ){ strcpy(oneshot, ptr); strcpy(msg, ptr); uart1flag = 0xFF; }
+		else if( !strcmp( &ptr[length-endlength], "\n" ) ){ strcpy(oneshot, ptr); strcpy(msg, ptr); uart1flag = 0xFF; }
+	}
 	return ptr;
 }
-
+/***/
 /*** Auxiliar ***/
 uint8_t USART1ReceiveComplete(void)
 {

@@ -227,8 +227,11 @@ char* usart0messageprint(USART0* uart, char* oneshot, char* msg, const char* end
 	if(uart0flag){ *oneshot = 0; uart0flag = 0; uart->rxflush();} // the matrix
 	ptr = uart->gets();
 	length = strlen(ptr);
-	if(length > endlength){
+	if(length >= endlength){
 		if( !strcmp( &ptr[length-endlength], endl ) ){ strcpy(oneshot, ptr); strcpy(msg, ptr); uart0flag = 0xFF; }
+		// default
+		else if( !strcmp( &ptr[length-endlength], "\r" ) ){ strcpy(oneshot, ptr); strcpy(msg, ptr); uart0flag = 0xFF; }
+		else if( !strcmp( &ptr[length-endlength], "\n" ) ){ strcpy(oneshot, ptr); strcpy(msg, ptr); uart0flag = 0xFF; }
 	}
 	return ptr;
 }

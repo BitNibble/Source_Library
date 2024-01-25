@@ -81,7 +81,7 @@ typedef struct uart0 USART0;
 USART0* usart0(void);
 USART0 USART0_enable(uint32_t baud, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 
-char* usart0messageprint(USART0* uart, char* oneshot, char* msg, char endl);
+char* usart0messageprint(USART0* uart, char* oneshot, char* msg, const char* endl);
 
 #endif
 

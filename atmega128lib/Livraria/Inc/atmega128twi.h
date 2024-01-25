@@ -15,7 +15,7 @@ Comment:
 #include <inttypes.h>
 
 /*** Global Constant & Macro ***/
-#ifndef 
+#ifndef _TWI_MODULE_
 	#define _TWI_MODULE_
 #endif
 #ifndef F_CPU
