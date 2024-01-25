@@ -13,19 +13,19 @@ Update: 22/01/2024
 	-PD7 pin 12 - Output
 	Shift Register Connected to relay board
 		LCD
-	-PB0 pin 14 cmd D4
-	-PB1 pin 15 cmd D5
-	-PB2 pin 16 cmd D6
-	-PB3 pin 17 cmd D7
-	-PC0 pin 23 data RS
-	-PC1 pin 24 data RW
-	-PC2 pin 25 data E
-	-PC3 pin 26 data Rebbot
+	-PB0 pin 14 cmd RS
+	-PB1 pin 15 cmd RW
+	-PB2 pin 16 cmd E
+	-PB3 pin 17 cmd Reboot
+	-PC0 pin 23 data D4
+	-PC1 pin 24 data D5
+	-PC2 pin 25 data D6
+	-PC3 pin 26 data D7
 		Bluetooth HC-05 (MAX 232 bypassed with jumpers) 
 		12 para 38400 at 8Mhz, AT+BAUD6\r\n, AT+TYPE1\r\n,
 		AT+ROLE0\r\n, AT+PIN916919\r\n.
-	-PD0 pin 2 Tx
-	-PD1 pin 3 Rx
+	-PD0 pin 2 Rx
+	-PD1 pin 3 Tx
 		Buttons
 	-PB4 pin 18
 	-PB5 pin 19

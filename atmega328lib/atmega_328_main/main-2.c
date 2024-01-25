@@ -7,17 +7,17 @@ Created: 20/04/2023 14:00:00
  ********************************************************************/
 /****** Comment:
 		LCD
--PB0 pin 14 cmd D4
--PB1 pin 15 cmd D5
--PB2 pin 16 cmd D6
--PB3 pin 17 cmd D7
--PC0 pin 23 data RS
--PC1 pin 24 data RW
--PC2 pin 25 data E
--PC3 pin 26 data Reboot
+-PB0 pin 14 cmd RS
+-PB1 pin 15 cmd RW
+-PB2 pin 16 cmd E
+-PB3 pin 17 cmd Reboot
+-PC0 pin 23 data D4
+-PC1 pin 24 data D5
+-PC2 pin 25 data D6
+-PC3 pin 26 data D7
 		RTC PCF8563 (twi)
--PC4 SDA
--PC5 SCL
+-PC4 SDA pin 27
+-PC5 SCL pin 28
 ********************************************************************/
 /*** File library ***/
 #include "atmega328mapping.h"
