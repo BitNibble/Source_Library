@@ -27,7 +27,7 @@ double ZNPID_sum(double value_1, double value_2);
 double ZNPID_product(double value_1, double value_2);
 
 /***Procedure & Function***/
-ZNPID ZNPIDenable(void)
+ZNPID znpid_enable(void)
 {
 	// LOCAL VARIABLES
 	ZNPID setup_znpid;

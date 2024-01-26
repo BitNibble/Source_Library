@@ -59,7 +59,7 @@ void LCD1_reboot(void);
 void LCD_ticks(uint16_t num);
 
 /***Procedure & Function***/
-LCD0 LCD0enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port)
+LCD0 lcd0_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port)
 {
 	// LOCAL VARIABLES
 	// ALLOCAÇÂO MEMORIA PARA Estrutura
@@ -291,7 +291,7 @@ void LCD0_reboot(void)
 }
 
 // LCD 1
-LCD1 LCD1enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port)
+LCD1 lcd1_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port)
 {
 	// LOCAL VARIABLES
 	// ALLOCAÇÂO MEMORIA PARA Estrutura

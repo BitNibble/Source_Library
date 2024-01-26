@@ -32,7 +32,7 @@ void CLOCK_alarm_stop(void);
 char* CLOCK_show(void);
 
 /*** Procedure & Function ***/
-CLOCK CLOCKenable(uint8_t hour, uint8_t minute, uint8_t second)
+CLOCK clock_enable(uint8_t hour, uint8_t minute, uint8_t second)
 {
 	CLOCK setup_clock;
 	

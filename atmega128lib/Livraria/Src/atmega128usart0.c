@@ -44,12 +44,12 @@ void USART0ClearErrors(void);
 void USART0DoubleTransmissionSpeed(void);
 
 /*** Procedure & Function ***/
-USART0 USART0_enable(uint32_t baud, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity )
+USART0 usart0_enable(uint32_t baud, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity )
 {
 	// ATMEGA128enable();
 	uart0flag = 1;
 	uint16_t ubrr = 0;
-	rx0buff = BUFFenable( UART0_RX_BUFFER_SIZE, UART0_RxBuf );
+	rx0buff = buff_enable( UART0_RX_BUFFER_SIZE, UART0_RxBuf );
 	ubrr = BAUDRATEnormal(baud);
 	atmega128_usart0.par.ubrr = ubrr;
 	// Vtable
@@ -216,7 +216,7 @@ ISR(UART0_TRANSMIT_INTERRUPT)
 }
 
 /*** Complimentary functions ***/
-char* usart0messageprint(USART0* uart, char* oneshot, char* msg, const char* endl)
+char* usart0_messageprint(USART0* uart, char* oneshot, char* msg, const char* endl)
 {
 	char* ptr;
 	uint8_t length;

@@ -19,7 +19,7 @@ Comment:
 /*** Global Variable ***/
 
 /*** Global Header ***/
-char* ESP01ATcmd(uint16_t num);
+char* esp01at_cmd(uint16_t num);
 
 #endif
 

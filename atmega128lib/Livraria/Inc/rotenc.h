@@ -25,16 +25,15 @@ typedef struct{
 	uint16_t num;
 }rotaryencoder_parameter;
 	
-struct rotenc{
+typedef struct{
 	// VARIABLIES
 	rotaryencoder_parameter par;
 	// PROTOTYPES VTABLE
 	rotaryencoder_parameter (*rte)(rotaryencoder_parameter* par, uint8_t data);
-};
-typedef struct rotenc ROTENC;
+}ROTENC;
 
 /*** Global Header ***/
-ROTENC ROTENCenable(uint8_t ChnApin, uint8_t ChnBpin);
+ROTENC rotenc_enable(uint8_t ChnApin, uint8_t ChnBpin);
 
 #endif
 

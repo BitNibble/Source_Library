@@ -63,10 +63,10 @@ typedef struct {
 	uint8_t FDbits;
 	uint8_t Stopbits;
 	uint8_t Parity;
-}uart1parameter;
+}uart1_parameter;
 
-struct uart1{
-	uart1parameter par;
+typedef struct{
+	uart1_parameter par;
 	// prototype pointers
 	UARTvar (*read)(void);
 	UARTvar (*getch)(void);
@@ -75,14 +75,13 @@ struct uart1{
 	void (*write)(UARTvar data);
 	void (*putch)(UARTvar c);
 	void (*puts)(UARTvar* s);
-};
-typedef struct uart1 USART1;
+}USART1;
 
 /*** Global ***/
 USART1* usart1(void);
-USART1 USART1_enable( uint32_t baud, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
+USART1 usart1_enable( uint32_t baud, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 
-char* usart1messageprint(USART1* uart, char* oneshot, char* msg, const char* endl);
+char* usart1_messageprint(USART1* uart, char* oneshot, char* msg, const char* endl);
 
 #endif
 

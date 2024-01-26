@@ -40,7 +40,7 @@ Comment:
 #define BIT_N_TICKS 0
 
 /***Global Variable***/
-struct dspl {
+typedef struct{
 	void (*write)(char c, unsigned short D_I);
 	char (*read)(unsigned short D_I);
 	void (*BF)(void);
@@ -52,15 +52,13 @@ struct dspl {
 	void (*clear)(void);
 	void (*gotoxy)(unsigned int y, unsigned int x);
 	void (*reboot)(void);
-};
-typedef struct dspl LCD0;
-typedef struct dspl LCD1;
+}LCD0, LCD1;
 
 /***Global Header***/
 LCD0* lcd0(void);
 LCD1* lcd1(void);
-LCD0 LCD0enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port);
-LCD1 LCD1enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port);
+LCD0 lcd0_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port);
+LCD1 lcd1_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port);
 
 #endif
 

@@ -19,7 +19,7 @@ Comment:
 /*** Global Variable ***/
 
 /*** Global Header ***/
-char* BT05ATcmd(uint16_t num);
+char* bt05at_cmd(uint16_t num);
 
 #endif
 

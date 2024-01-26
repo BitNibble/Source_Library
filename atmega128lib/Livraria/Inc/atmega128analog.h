@@ -34,16 +34,14 @@ typedef struct{
 	uint8_t DIVISION_FACTOR;
 }analogparameter;
 
-struct analog{
+typedef struct{
 	analogparameter par;
 	int (*read)(int selection);
-};
-
-typedef struct analog ANALOG;
+}ADC0;
 
 /*** Global Header ***/
-ANALOG* adc(void);
-ANALOG ANALOG_enable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... );
+ADC0* adc(void);
+ADC0 adc_enable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... );
 
 #endif
 

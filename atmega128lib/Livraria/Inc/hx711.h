@@ -45,7 +45,7 @@ typedef struct{
 HX711_calibration* HX711_Default;
 
 // device
-struct hx711{
+struct model_hx711{
 	volatile uint8_t readflag; // indicate start of bit shifting
 	uint8_t trigger; // pickup signal
 	uint8_t amplify; // number of end clock cycles
@@ -59,19 +59,20 @@ struct hx711{
 	float raw_mean;
 	HX711_calibration cal_data;
 	
-	uint8_t (*get_amplify)(struct hx711* self);
+	uint8_t (*get_amplify)(struct model_hx711* self);
 	uint8_t (*read_bit)(void);
-	void (*set_amplify)(struct hx711* self, uint8_t amplify);
-	uint8_t (*query)(struct hx711* self);
-	int32_t (*read_raw)(struct hx711* self);
-	float (*raw_average)(struct hx711* self, uint8_t n);
-	uint8_t (*get_readflag)(struct hx711* self);
-	HX711_calibration* (*get_cal)(struct hx711* self);
+	void (*set_amplify)(struct model_hx711* self, uint8_t amplify);
+	uint8_t (*query)(struct model_hx711* self);
+	int32_t (*read_raw)(struct model_hx711* self);
+	float (*raw_average)(struct model_hx711* self, uint8_t n);
+	uint8_t (*get_readflag)(struct model_hx711* self);
+	HX711_calibration* (*get_cal)(struct model_hx711* self);
 };
-typedef struct hx711 HX711;
+
+typedef struct model_hx711 HX711;
 
 /*** Global Header ***/
-HX711 HX711enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port, uint8_t datapin, uint8_t clkpin);
+HX711 hx711_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port, uint8_t datapin, uint8_t clkpin);
 
 #endif
 

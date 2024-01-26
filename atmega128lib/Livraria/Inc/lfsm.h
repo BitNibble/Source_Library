@@ -31,7 +31,7 @@ struct lfsmdata{
 	uint16_t outlh;
 };
 
-struct lfsm{
+struct model_lfsm{
 	// Local Variables
 	EEPROM* eprom;
 	uint16_t sizeeeprom;
@@ -41,22 +41,23 @@ struct lfsm{
 	uint16_t output;
 	uint8_t status;
 	// Function Pointers
-	uint8_t (*read)(struct lfsm *r, uint8_t input);
-	uint8_t (*learn)(struct lfsm *r, const uint8_t input, const uint16_t next, const uint16_t mask, const uint8_t page);
-	uint16_t (*quant)(struct lfsm *r);
-	uint8_t (*remove)(struct lfsm *r, uint8_t input);
-	uint8_t (*premove)(struct lfsm *r, uint8_t input, uint8_t page);
-	uint8_t (*deleteall)(struct lfsm *r);
-	uint16_t (*getoutput)(struct lfsm *r);
-	uint8_t (*getstatus)(struct lfsm *r);
-	void (*setoutput)(struct lfsm *r,uint16_t output);
-	uint8_t (*getpage)(struct lfsm *r);
-	void (*setpage)(struct lfsm *r,uint8_t page);
+	uint8_t (*read)(struct model_lfsm *r, uint8_t input);
+	uint8_t (*learn)(struct model_lfsm *r, const uint8_t input, const uint16_t next, const uint16_t mask, const uint8_t page);
+	uint16_t (*quant)(struct model_lfsm *r);
+	uint8_t (*remove)(struct model_lfsm *r, uint8_t input);
+	uint8_t (*premove)(struct model_lfsm *r, uint8_t input, uint8_t page);
+	uint8_t (*deleteall)(struct model_lfsm *r);
+	uint16_t (*getoutput)(struct model_lfsm *r);
+	uint8_t (*getstatus)(struct model_lfsm *r);
+	void (*setoutput)(struct model_lfsm *r,uint16_t output);
+	uint8_t (*getpage)(struct model_lfsm *r);
+	void (*setpage)(struct model_lfsm *r,uint8_t page);
 };
-typedef struct lfsm LFSM;
+
+typedef struct model_lfsm LFSM;
 
 /*** Global Header ***/
-LFSM LFSMenable(EEPROM* eeprom, const uint16_t sizeeeprom);
+LFSM lfsm_enable(EEPROM* eeprom, const uint16_t sizeeeprom);
 
 #endif
 

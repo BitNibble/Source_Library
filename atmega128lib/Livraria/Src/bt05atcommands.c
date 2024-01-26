@@ -21,7 +21,7 @@ char BT05ATstr[72];
 /*** File Header ***/
 
 /*** Procedure & Function ***/
-char* BT05ATcmd(uint16_t num){
+char* bt05at_cmd(uint16_t num){
 	switch(num)
 	{
 		case 1:

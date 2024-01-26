@@ -13,7 +13,7 @@ Comment:
 #include "atmega128timer3.h"
 
 /*** File Variable ***/
-static TIMER_COUNTER3 atmega128_tc3;
+static TC3 atmega128_tc3;
 uint8_t timer3_state;
 
 /*** File Header ***/
@@ -27,7 +27,7 @@ uint8_t TIMER_COUNTER3_start(unsigned int prescaler);
 uint8_t TIMER_COUNTER3_stop(void);
 
 /*** Procedure & Function ***/
-TIMER_COUNTER3 TIMER_COUNTER3_enable(unsigned char wavegenmode, unsigned char interrupt)
+TC3 tc3_enable(unsigned char wavegenmode, unsigned char interrupt)
 // PARAMETER SETTING
 // wavegen mode: Normal; PWM, Phase Correct, 8-bit; PWM, Phase Correct, 9-bit; PWM, Phase Correct, 10-bit;
 // CTC; Fast PWM, 8-bit; Fast PWM, 9-bit; Fast PWM, 10-bit; PWM, Phase and Frequency Correct; PWM, Phase and Frequency Correct;
@@ -172,7 +172,7 @@ TIMER_COUNTER3 TIMER_COUNTER3_enable(unsigned char wavegenmode, unsigned char in
 	return atmega128_tc3;
 }
 
-TIMER_COUNTER3* tc3(void){ return &atmega128_tc3;}
+TC3* tc3(void){ return &atmega128_tc3;}
 
 uint8_t TIMER_COUNTER3_start(unsigned int prescaler)
 // PARAMETER SETTING

@@ -46,7 +46,7 @@ struct alarm{
 	uint8_t day_alarm;
 	uint8_t weekday_alarm;
 };
-struct pcfrtc{
+typedef struct{
 	void (*SetTime)(uint8_t var_hour_u8, uint8_t var_min_u8, uint8_t var_sec_u8);
 	void (*SetHour)(uint8_t var_hour_u8);
 	void (*SetMinute)(uint8_t var_min_u8);
@@ -61,11 +61,10 @@ struct pcfrtc{
 	struct date (*GetDate)(void);
 	uint8_t (*bcd2dec)(uint8_t num);
 	uint8_t (*bintobcd)(uint8_t bin);
-};
-typedef struct pcfrtc PCF8563RTC;
+}PCF8563RTC;
 
 /*** Global Header ***/
-PCF8563RTC PCF8563RTCenable(uint8_t prescaler);
+PCF8563RTC pcf8563rtc_enable(uint8_t prescaler);
 
 #endif
 

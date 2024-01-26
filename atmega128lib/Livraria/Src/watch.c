@@ -32,7 +32,7 @@ void WATCH_result(void);
 char* WATCH_show(void);
 
 /*** Procedure & Function ***/
-WATCH WATCHenable(void)
+WATCH watch_enable(void)
 {
 	uint8_t i;
 	time.hour = 0;

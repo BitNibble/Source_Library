@@ -52,7 +52,7 @@ void LCD02P_reboot(void);
 void LCD02P_ticks(uint16_t num);
 
 /*** Procedure & Function ***/
-LCD02P LCD02P_enable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatile uint8_t *cmdport, volatile uint8_t *dataddr, volatile uint8_t *datapin, volatile uint8_t *dataport)
+LCD02P lcd02p_enable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatile uint8_t *cmdport, volatile uint8_t *dataddr, volatile uint8_t *datapin, volatile uint8_t *dataport)
 {
 	// LOCAL VARIABLES
 	// ALLOCAÇÂO MEMORIA PARA Estrutura

@@ -33,7 +33,7 @@ typedef struct {
 	double OP; // output signal
 }znpid_parameter;
 
-struct znpid{
+typedef struct{
 	znpid_parameter par;
 	/******/
 	void (*set_kc)(znpid_parameter* par, double kc);
@@ -41,11 +41,10 @@ struct znpid{
 	void (*set_kd)(znpid_parameter* par, double kd);
 	void (*set_SP)(znpid_parameter* par, double setpoint);
 	double (*output)(znpid_parameter* par, double PV, double timelapse);
-};
-typedef struct znpid ZNPID;
+}ZNPID;
 
 /*** Global Header ***/
-ZNPID ZNPIDenable(void);
+ZNPID znpid_enable(void);
 
 #endif
 

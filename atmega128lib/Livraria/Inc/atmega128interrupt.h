@@ -24,17 +24,16 @@ Comment:
 #endif
 
 /*** Global Variable ***/
-struct ntrrpt{
+typedef struct{
 	void (*set)(uint8_t channel, uint8_t sense);
 	void (*off)(uint8_t channel);
 	void (*on)(uint8_t channel);
 	uint8_t (*reset_status)(void);
-};
-typedef struct ntrrpt INTERRUPT;
+}EXINT;
 
 /*** Global Header ***/
-INTERRUPT* exint(void);
-INTERRUPT INTERRUPT_enable(void);
+EXINT* exint(void);
+EXINT exint_enable(void);
 
 #endif
 /***EOF***/

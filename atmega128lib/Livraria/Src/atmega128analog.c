@@ -14,7 +14,7 @@ Comment:
 #include <stdarg.h>
 
 /*** File Variable ***/
-static ANALOG atmega128_adc;
+static ADC0 atmega128_adc;
 static volatile int ADC_VALUE[MAX_CHANNEL];
 static volatile int ADC_CHANNEL_GAIN[MAX_CHANNEL];
 int ADC_N_CHANNEL;
@@ -27,7 +27,7 @@ static volatile unsigned char adc_n_sample;
 int ANALOG_read(int selection);
 
 /*** Procedure & Function ***/
-ANALOG ANALOG_enable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... )
+ADC0 adc_enable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... )
 // Interrupt running mode setup, and list of channels to be probed
 {
 	// ATMEGA128enable();
@@ -117,7 +117,7 @@ ANALOG ANALOG_enable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... )
 	return atmega128_adc;
 }
 
-ANALOG* adc(void){ return &atmega128_adc; }
+ADC0* adc(void){ return &atmega128_adc; }
 
 int ANALOG_read(int selection)
 // Returns selected Channel ADC_VALUE

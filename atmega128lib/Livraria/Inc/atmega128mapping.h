@@ -103,8 +103,8 @@ typedef struct {
 	Atmega128OtherRegisters_TypeDef* ac_misc;
 	#ifdef _ANALOG_MODULE_
 		Atmega128AnalogToDigitalConverter_TypeDef* adc_reg;
-		ANALOG (*adc_enable)( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... );
-		ANALOG* adc;
+		ADC0 (*adc_enable)( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... );
+		ADC0* adc;
 	#else
 		Atmega128AnalogToDigitalConverter_TypeDef* adc_reg;
 	#endif
@@ -119,8 +119,8 @@ typedef struct {
 	#endif
 	#ifdef _INTERRUPT_MODULE_
 		Atmega128ExternalInterrupts_TypeDef* exint_reg;
-		INTERRUPT (*exint_enable)( void );
-		INTERRUPT* exint;
+		EXINT (*exint_enable)( void );
+		EXINT* exint;
 	#else
 		Atmega128ExternalInterrupts_TypeDef* exint_reg;
 	#endif
@@ -143,8 +143,8 @@ typedef struct {
 	#ifdef _TIMER1_MODULE_
 		Atmega128TimerCounter1_TypeDef* tc1_reg;
 		Atmega128OtherRegisters_TypeDef* tc1_misc;
-		TIMER_COUNTER1 (*tc1_enable)( unsigned char wavegenmode, unsigned char interrupt );
-		TIMER_COUNTER1* tc1;
+		TC1 (*tc1_enable)( unsigned char wavegenmode, unsigned char interrupt );
+		TC1* tc1;
 	#else
 		Atmega128TimerCounter1_TypeDef* tc1_reg;
 		Atmega128OtherRegisters_TypeDef* tc1_misc;
@@ -152,24 +152,24 @@ typedef struct {
 	#ifdef _TIMER3_MODULE_
 		Atmega128TimerCounter3_TypeDef* tc3_reg;
 		Atmega128OtherRegisters_TypeDef* tc3_misc;
-		TIMER_COUNTER3 (*tc3_enable)( unsigned char wavegenmode, unsigned char interrupt );
-		TIMER_COUNTER3* tc3;
+		TC3 (*tc3_enable)( unsigned char wavegenmode, unsigned char interrupt );
+		TC3* tc3;
 	#else
 		Atmega128TimerCounter3_TypeDef* tc3_reg;
 		Atmega128OtherRegisters_TypeDef* tc3_misc;
 	#endif
 	#ifdef _TIMER2_MODULE_
 		Atmega128TimerCounter2_TypeDef* tc2_reg;
-		TIMER_COUNTER2 (*tc2_enable)( unsigned char wavegenmode, unsigned char interrupt );
-		TIMER_COUNTER2* tc2;
+		TC2 (*tc2_enable)( unsigned char wavegenmode, unsigned char interrupt );
+		TC2* tc2;
 	#else
 		Atmega128TimerCounter2_TypeDef* tc2_reg;
 	#endif
 	#ifdef _TIMER0_MODULE_
 		Atmega128TimerCounter0_TypeDef* tc0_reg;
 		Atmega128OtherRegisters_TypeDef* tc0_misc;
-		TIMER_COUNTER0 (*tc0_enable)( unsigned char wavegenmode, unsigned char interrupt );
-		TIMER_COUNTER0* tc0;
+		TC0 (*tc0_enable)( unsigned char wavegenmode, unsigned char interrupt );
+		TC0* tc0;
 	#else
 		Atmega128TimerCounter0_TypeDef* tc0_reg;
 		Atmega128OtherRegisters_TypeDef* tc0_misc;
@@ -203,7 +203,7 @@ typedef struct {
 
 /*** Global ***/
 ATMEGA128* atmega128( void );
-ATMEGA128 ATMEGA128enable( void );
+ATMEGA128 atmega128_enable( void );
 
 #endif
 

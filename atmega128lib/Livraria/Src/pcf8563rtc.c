@@ -40,11 +40,11 @@ uint8_t PCF8563RTC_bintobcd(uint8_t bin);
 
 /*** Procedure & Function ***/
 // PCF8563RTC PCF8563RTCenable(uint8_t prescaler)
-PCF8563RTC PCF8563RTCenable(uint8_t prescaler)
+PCF8563RTC pcf8563rtc_enable(uint8_t prescaler)
 {
 	PCF8563RTC setup_pcf;
 	
-	i2c = TWI_enable('A', prescaler); // Initialize the I2c module.
+	i2c = twi_enable('A', prescaler); // Initialize the I2c module.
 	// Vtable
 	setup_pcf.SetTime = PCF8563RTC_SetTime;
 	setup_pcf.SetHour = PCF8563RTC_SetHour;

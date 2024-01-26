@@ -31,18 +31,17 @@ Comment:
 #endif
 
 /*** Global Variable ***/
-struct tmr_cntr0{
+typedef struct{
 	// prototype pointers
 	void (*compoutmode)(unsigned char compoutmode);
 	void (*compare)(unsigned char compare);
 	uint8_t (*start)(unsigned int prescaler);
 	uint8_t (*stop)(void);
-};
-typedef struct tmr_cntr0 TIMER_COUNTER0;
+}TC0;
 
 /*** Global Header ***/
-TIMER_COUNTER0* tc0(void);
-TIMER_COUNTER0 TIMER_COUNTER0_enable(unsigned char wavegenmode, unsigned char interrupt);
+TC0* tc0(void);
+TC0 tc0_enable(unsigned char wavegenmode, unsigned char interrupt);
 
 #endif
 /***EOF***/

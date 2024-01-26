@@ -14,7 +14,7 @@ Comment:
 //#include <stdarg.h>
 
 /*** File Variable ***/
-static INTERRUPT atmega128_exint;
+static EXINT atmega128_exint;
 
 /*** File Header ***/
 void INTERRUPT_set(uint8_t channel, uint8_t sense);
@@ -23,7 +23,7 @@ void INTERRUPT_on(uint8_t channel);
 uint8_t INTERRUPT_reset_status(void);
 
 /*** Procedure & Function ***/
-INTERRUPT INTERRUPT_enable(void)
+EXINT exint_enable(void)
 {
 	// ATMEGA128enable();
 	
@@ -35,7 +35,7 @@ INTERRUPT INTERRUPT_enable(void)
 	return atmega128_exint;
 }
 
-INTERRUPT* exint(void){ return &atmega128_exint; }
+EXINT* exint(void){ return &atmega128_exint; }
 
 uint8_t INTERRUPT_reset_status(void)
 {

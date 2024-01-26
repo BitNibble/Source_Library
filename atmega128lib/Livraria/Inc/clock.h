@@ -22,7 +22,7 @@ struct CLOCKTIME{
 	int8_t minute;
 	int8_t second;
 };
-struct clck{
+typedef struct{
 	void (*set)(uint8_t hour, uint8_t minute, uint8_t second);
 	void (*increment)(void);
 	void (*decrement)(void);
@@ -33,11 +33,10 @@ struct clck{
 	void (*alarm_reset)(void);
 	void (*alarm_stop)(void);
 	char* (*show)(void);
-};
-typedef struct clck CLOCK;
+}CLOCK;
 
 /*** Global Header ***/
-CLOCK CLOCKenable(uint8_t hour, uint8_t minute, uint8_t second);
+CLOCK clock_enable(uint8_t hour, uint8_t minute, uint8_t second);
 
 #endif
 

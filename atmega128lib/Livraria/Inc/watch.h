@@ -25,17 +25,16 @@ struct WATCHTIME{
 	uint8_t second;
 	uint16_t seconds;
 };
-struct WATCH{
+typedef struct{
 	struct WATCHTIME* time;
 	uint8_t (*start_delay)(uint8_t n_delay, uint16_t seconds);
 	void (*increment)(void);
 	void (*decrement)(void);
 	char* (*show)(void);
-};
-typedef struct WATCH WATCH;
+}WATCH;
 
 /*** Global Header ***/
-WATCH WATCHenable(void);
+WATCH watch_enable(void);
 
 #endif
 

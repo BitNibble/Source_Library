@@ -13,7 +13,7 @@ Comment:
 #include "atmega128timer0.h"
 
 /*** File Variable ***/
-static TIMER_COUNTER0 atmega128_tc0;
+static TC0 atmega128_tc0;
 uint8_t timer0_state;
 
 /*** File Header ***/
@@ -23,7 +23,7 @@ uint8_t TIMER_COUNTER0_start(unsigned int prescaler);
 uint8_t TIMER_COUNTER0_stop(void);
 
 /*** Procedure & Function ***/
-TIMER_COUNTER0 TIMER_COUNTER0_enable(unsigned char wavegenmode, unsigned char interrupt)
+TC0 tc0_enable(unsigned char wavegenmode, unsigned char interrupt)
 // PARAMETER SETTING
 // wavegen mode: Normal; PWM phase correct; Fast PWM; default-Normasl;
 // interrupt: off; overflow; output compare; both; default - non.
@@ -76,7 +76,7 @@ TIMER_COUNTER0 TIMER_COUNTER0_enable(unsigned char wavegenmode, unsigned char in
 	return atmega128_tc0;
 }
 
-TIMER_COUNTER0* tc0(void){ return &atmega128_tc0; }
+TC0* tc0(void){ return &atmega128_tc0; }
 
 uint8_t TIMER_COUNTER0_start(unsigned int prescaler)
 // PARAMETER SETTING

@@ -20,13 +20,13 @@ Comment:
 /*** File Constant & Macro ***/
 
 /*** File Variable ***/
-char HC42ATstr[72];
+char HC42ATstr[32];
 
 
 /*** File Header ***/
 
 /*** Procedure & Function ***/
-char* HC42ATcmd(uint16_t num){
+char* hc42at_cmd(uint16_t num){
 	switch(num)
 	{
 		case 1: // zs-040: works.

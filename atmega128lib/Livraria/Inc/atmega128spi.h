@@ -38,7 +38,7 @@ typedef struct sp SPI;
 
 /*** Global ***/
 SPI* spi(void);
-SPI SPI_enable(uint8_t master_slave_select, uint8_t data_order,  uint8_t data_modes, uint8_t prescaler);
+SPI spi_enable(uint8_t master_slave_select, uint8_t data_order,  uint8_t data_modes, uint8_t prescaler);
 
 #endif
 /***EOF***/
