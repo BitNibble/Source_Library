@@ -112,15 +112,15 @@ typedef struct {
 	Atmega128CPURegister_TypeDef* cpu_reg;
 	#ifdef _EEPROM_MODULE_
 		Atmega128Eeprom_TypeDef* eeprom_reg;
-		EEPROM (*eeprom_enable)( void );
-		EEPROM* eeprom;
+		EEPROM0 (*eeprom_enable)( void );
+		EEPROM0* eeprom;
 	#else
 		Atmega128Eeprom_TypeDef* eeprom_reg;
 	#endif
 	#ifdef _INTERRUPT_MODULE_
 		Atmega128ExternalInterrupts_TypeDef* exint_reg;
-		EXINT (*exint_enable)( void );
-		EXINT* exint;
+		EXINT0 (*exint_enable)( void );
+		EXINT0* exint;
 	#else
 		Atmega128ExternalInterrupts_TypeDef* exint_reg;
 	#endif
@@ -135,8 +135,8 @@ typedef struct {
 	Atmega128OtherRegisters_TypeDef* misc_reg;
 	#ifdef _SPI_MODULE_
 		Atmega128SerialPeripherialInterface_TypeDef* spi_reg;
-		SPI (*spi_enable)( uint8_t master_slave_select, uint8_t data_order,  uint8_t data_modes, uint8_t prescaler );
-		SPI* spi;
+		SPI0 (*spi_enable)( uint8_t master_slave_select, uint8_t data_order,  uint8_t data_modes, uint8_t prescaler );
+		SPI0* spi;
 	#else
 		Atmega128SerialPeripherialInterface_TypeDef* spi_reg;
 	#endif
@@ -176,8 +176,8 @@ typedef struct {
 	#endif
 	#ifdef _TWI_MODULE_
 		Atmega128TwoWireSerialInterface_TypeDef* twi_reg;
-		TWI (*twi_enable)(uint8_t atmega_ID,  uint8_t prescaler);
-		TWI* twi;
+		TWI0 (*twi_enable)(uint8_t atmega_ID,  uint8_t prescaler);
+		TWI0* twi;
 	#else
 		Atmega128TwoWireSerialInterface_TypeDef* twi_reg;
 	#endif

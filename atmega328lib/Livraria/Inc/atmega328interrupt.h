@@ -26,15 +26,14 @@ Update: 01/01/2024
 #define MCU_Control_Status_Register_Mask 0X0F
 
 /*** Global Variable ***/
-struct intrpt{
+typedef struct{
 	void (*set)(uint8_t channel, uint8_t sense);
 	void (*off)(uint8_t channel);
 	uint8_t (*reset_status)(void);
-};
-typedef struct intrpt INTERRUPT;
+}EXINT0;
 
-INTERRUPT exint_enable(void);
-INTERRUPT* exint(void);
+EXINT0 exint_enable(void);
+EXINT0* exint(void);
 
 #endif
 

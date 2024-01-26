@@ -43,16 +43,16 @@ Update: 01/01/2024
 #define UART_TX_COMPLETE		USART_TX_vect
 
 /*** Global Variable ***/
-typedef struct {
+typedef struct{
 	unsigned int ubrr;
 	unsigned int FDbits;
 	unsigned int Stopbits;
 	unsigned int Parity;
-}uartparameter;
+}uart_parameter;
 
-struct uart {
+typedef struct{
 	// Parameters
-	uartparameter par;
+	uart_parameter par;
 	// prototype pointers
 	UARTvar (*read)(void);
 	UARTvar (*getch)(void);
@@ -61,13 +61,12 @@ struct uart {
 	void (*write)(UARTvar data);
 	void (*putch)(UARTvar c);
 	void (*puts)(UARTvar* s);
-};
-typedef struct uart USART0;
+}USART0;
 
 USART0 usart0_enable( uint32_t baud, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 USART0* usart0(void);
 
-char* usart0messageprint(USART0* uart, char* oneshot, char* msg, const char* endl);
+char* usart0_messageprint(USART0* uart, char* oneshot, char* msg, const char* endl);
 
 #endif
 

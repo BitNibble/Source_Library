@@ -92,8 +92,8 @@ typedef struct {
 	/************************************/
 	Atmega328AnalogToDigitalConverter_TypeDef* adc_reg;
 	#ifdef _ANALOG_MODULE_
-		ANALOG (*adc_enable)( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... );
-		ANALOG* adc;
+		ADC0 (*adc_enable)( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... );
+		ADC0* adc;
 	#endif
 	/************************************/
 	Atmega328CPURegister_TypeDef* cpu_reg;
@@ -101,16 +101,16 @@ typedef struct {
 	/************************************/
 	Atmega328Eeprom_TypeDef* eeprom_reg;
 	#ifdef _EEPROM_MODULE_
-		EEPROM (*eeprom_enable)(void);
-		EEPROM* eeprom;
+		EEPROM0 (*eeprom_enable)(void);
+		EEPROM0* eeprom;
 	#endif
 	/************************************/
 	Atmega328ExternalInterrupt_TypeDef* exint_reg;
 	Atmega328ExternalInterruptFlag_TypeDef* exint_iflag;
 	Atmega328ExternalInterruptMask_TypeDef* exint_imask;
 	#ifdef _INTERRUPT_MODULE_
-		INTERRUPT (*exint_enable)(void);
-		INTERRUPT* exint;
+		EXINT0 (*exint_enable)(void);
+		EXINT0* exint;
 	#endif
 	/************************************/
 	Atmega328PORTB_TypeDef* portb_reg;
@@ -121,14 +121,14 @@ typedef struct {
 	/************************************/
 	Atmega328SerialPeripherialInterface_TypeDef* spi_reg;
 	#ifdef _SPI_MODULE_
-		SPI (*spi_enable)(uint8_t master_slave_select, uint8_t data_order,  uint8_t data_modes, uint8_t prescaler);
-		SPI* spi;
+		SPI0 (*spi_enable)(uint8_t master_slave_select, uint8_t data_order,  uint8_t data_modes, uint8_t prescaler);
+		SPI0* spi;
 	#endif
 	/************************************/
 	Atmega328TwoWireSerialInterface_TypeDef* twi_reg;
 	#ifdef _TWI_MODULE_
-		TWI (*twi_enable)(uint8_t atmega_ID, uint8_t prescaler);
-		TWI* twi;
+		TWI0 (*twi_enable)(uint8_t atmega_ID, uint8_t prescaler);
+		TWI0* twi;
 	#endif
 	/************************************/
 	Atmega328Usart_TypeDef* usart0_reg;
@@ -145,8 +145,8 @@ typedef struct {
 	Atmega328TimerInterruptMask_TypeDef* tc2_imask;
 	Atmega328TimerCompareRegister2_TypeDef* tc2_comp;
 	#ifdef _TIMER2_MODULE_
-		TIMER_COUNTER2 (*tc2_enable)(unsigned char wavegenmode, unsigned char interrupt);
-		TIMER_COUNTER2* tc2;
+		TC2 (*tc2_enable)(unsigned char wavegenmode, unsigned char interrupt);
+		TC2* tc2;
 	#endif
 	/************************************/
 	Atmega328TimerCounter1_TypeDef* tc1_reg;
@@ -155,8 +155,8 @@ typedef struct {
 	Atmega328TimerInterruptMask_TypeDef* tc1_imask;
 	Atmega328TimerCompareRegister1_TypeDef* tc1_comp;
 	#ifdef _TIMER1_MODULE_
-		TIMER_COUNTER1 (*tc1_enable)(unsigned char wavegenmode, unsigned char interrupt);
-		TIMER_COUNTER1* tc1;
+		TC1 (*tc1_enable)(unsigned char wavegenmode, unsigned char interrupt);
+		TC1* tc1;
 	#endif
 	/************************************/
 	Atmega328TimerCounter0_TypeDef* tc0_reg;
@@ -165,8 +165,8 @@ typedef struct {
 	Atmega328TimerInterruptMask_TypeDef* tc0_imask;
 	Atmega328TimerCompareRegister0_TypeDef* tc0_comp;
 	#ifdef _TIMER0_MODULE_
-		TIMER_COUNTER0 (*tc0_enable)( unsigned char wavegenmode, unsigned char interrupt );
-		TIMER_COUNTER0* tc0;
+		TC0 (*tc0_enable)( unsigned char wavegenmode, unsigned char interrupt );
+		TC0* tc0;
 	#endif
 	/***********************************/
 	void (*Clock_Prescaler_Select)(volatile uint8_t prescaler);

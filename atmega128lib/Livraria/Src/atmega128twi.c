@@ -14,7 +14,7 @@ Comment:
 #include <util/delay.h>
 
 /*** File Variable ***/
-static TWI atmega128_twi;
+static TWI0 atmega128_twi;
 
 /*** File Header ***/
 void TWI_init(uint8_t device_id, uint8_t prescaler);
@@ -29,7 +29,7 @@ void TWI_wait_twint( uint16_t nticks );
 
 /*** Procedure & Function ***/
 // TWI TWIenable(uint8_t atmega_ID,  uint8_t prescaler)
-TWI twi_enable(uint8_t atmega_ID,  uint8_t prescaler)
+TWI0 twi_enable(uint8_t atmega_ID,  uint8_t prescaler)
 {
 	// ATMEGA128enable();
 	
@@ -46,7 +46,7 @@ TWI twi_enable(uint8_t atmega_ID,  uint8_t prescaler)
 	return atmega128_twi;
 }
 
-TWI* twi(void){ return &atmega128_twi; }
+TWI0* twi(void){ return &atmega128_twi; }
 
 // void TWI_Init(uint8_t device_id, uint8_t prescaler)
 void TWI_init(uint8_t device_id, uint8_t prescaler)

@@ -33,7 +33,7 @@ struct lfsmdata{
 
 struct model_lfsm{
 	// Local Variables
-	EEPROM* eprom;
+	EEPROM0* eprom;
 	uint16_t sizeeeprom;
 	uint8_t sizeblock;
 	uint8_t page;
@@ -57,7 +57,7 @@ struct model_lfsm{
 typedef struct model_lfsm LFSM;
 
 /*** Global Header ***/
-LFSM lfsm_enable(EEPROM* eeprom, const uint16_t sizeeeprom);
+LFSM lfsm_enable(EEPROM0* eeprom, const uint16_t sizeeeprom);
 
 #endif
 

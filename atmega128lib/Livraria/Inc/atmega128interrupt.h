@@ -29,11 +29,11 @@ typedef struct{
 	void (*off)(uint8_t channel);
 	void (*on)(uint8_t channel);
 	uint8_t (*reset_status)(void);
-}EXINT;
+}EXINT0;
 
 /*** Global Header ***/
-EXINT* exint(void);
-EXINT exint_enable(void);
+EXINT0* exint(void);
+EXINT0 exint_enable(void);
 
 #endif
 /***EOF***/

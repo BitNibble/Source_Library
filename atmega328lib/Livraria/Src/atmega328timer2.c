@@ -16,7 +16,7 @@ Update: 01/01/2024
 /*** File Constant & Macro ***/
 
 /*** File Variable ***/
-TIMER_COUNTER2 setup_tc2;
+TC2 setup_tc2;
 static unsigned char timer2_state;
 
 /*** File Header ***/
@@ -28,7 +28,7 @@ void TIMER_COUNTER2_start(unsigned int prescaler);
 void TIMER_COUNTER2_stop(void);
 
 /*** Procedure & Function ***/
-TIMER_COUNTER2 tc2_enable(unsigned char wavegenmode, unsigned char interrupt)
+TC2 tc2_enable(unsigned char wavegenmode, unsigned char interrupt)
 //	PARAMETER SETTING
 //	wavegen mode: Normal; PWM phase correct; Fast PWM; default-Normasl;
 //	interrupt: off; overflow; output compare; both; default - non.
@@ -100,7 +100,7 @@ TIMER_COUNTER2 tc2_enable(unsigned char wavegenmode, unsigned char interrupt)
 	return setup_tc2;
 }
 
-TIMER_COUNTER2* tc2(void){ return &setup_tc2; }
+TC2* tc2(void){ return &setup_tc2; }
 
 void TIMER_COUNTER2_start(unsigned int prescaler)
 //	PARAMETER SETTING

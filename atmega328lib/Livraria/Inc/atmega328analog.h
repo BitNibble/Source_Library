@@ -27,16 +27,15 @@ Update: 01/01/2024
 typedef struct {
 	uint8_t VREFF;
 	uint8_t DIVISION_FACTOR;
-}analogparameter;
+}analog_parameter;
 
-struct analog {
-	analogparameter par;
+typedef struct{
+	analog_parameter par;
 	int (*read)(int selection);
-};
-typedef struct analog ANALOG;
+}ADC0;
 
-ANALOG adc_enable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... );
-ANALOG* adc(void);
+ADC0 adc_enable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... );
+ADC0* adc(void);
 
 #endif
 

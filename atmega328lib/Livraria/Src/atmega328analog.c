@@ -15,7 +15,7 @@ Update: 01/01/2024
 #include <stdarg.h>
 
 /*** File Variable ***/
-static ANALOG setup_analog;
+static ADC0 setup_analog;
 static volatile int ADC_VALUE[MAX_CHANNEL];
 static volatile int ADC_CHANNEL_GAIN[MAX_CHANNEL];
 static volatile int ADC_N_CHANNEL;
@@ -28,7 +28,7 @@ static volatile unsigned char adc_n_sample;
 int ANALOG_read(int selection);
 
 /*** Procedure & Function ***/
-ANALOG adc_enable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... )
+ADC0 adc_enable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... )
 // Interrupt running mode setup
 // setup, and list of channels to be probed
 {
@@ -120,7 +120,7 @@ ANALOG adc_enable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... )
 	return setup_analog;
 }
 
-ANALOG* adc(void){ return &setup_analog; }
+ADC0* adc(void){ return &setup_analog; }
 
 int ANALOG_read(int selection)
 // Returns selected Channel ADC_VALUE

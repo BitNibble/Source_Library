@@ -35,11 +35,11 @@ typedef struct{
 	void (*read_block) ( void * pointer_ram , const void * pointer_eeprom , size_t n);
 	void (*write_block) ( const void * pointer_ram , void * pointer_eeprom , size_t n);
 	void (*update_block) ( const void * pointer_ram , void * pointer_eeprom , size_t n);
-}EEPROM;
+}EEPROM0;
 
 /*** Global ***/
-EEPROM* eeprom(void);
-EEPROM eeprom_enable(void);
+EEPROM0* eeprom(void);
+EEPROM0 eeprom_enable(void);
 
 #endif
 

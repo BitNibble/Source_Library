@@ -219,7 +219,7 @@ ISR(UART_UDR_EMPTY)
 }
 
 /*** Complimentary functions ***/
-char* usart0messageprint(USART0* uart, char* oneshot, char* msg, const char* endl)
+char* usart0_messageprint(USART0* uart, char* oneshot, char* msg, const char* endl)
 {
 	char* ptr;
 	uint8_t length;

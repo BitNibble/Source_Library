@@ -20,7 +20,7 @@ Update: 01/01/2024
 #endif
 
 /*** Global variable ***/
-struct TIMER_COUNTER0{
+typedef struct{
 	// prototype pointer
 	void (*compoutmodeA)(unsigned char compoutmode);
 	void (*compoutmodeB)(unsigned char compoutmode);
@@ -28,11 +28,10 @@ struct TIMER_COUNTER0{
 	void (*compareB)(unsigned char compare);
 	void (*start)(unsigned int prescaler);
 	void (*stop)(void);
-};
-typedef struct TIMER_COUNTER0 TIMER_COUNTER0;
+}TC0;
 
-TIMER_COUNTER0 tc0_enable(unsigned char wavegenmode, unsigned char interrupt);
-TIMER_COUNTER0* tc0(void);
+TC0 tc0_enable(unsigned char wavegenmode, unsigned char interrupt);
+TC0* tc0(void);
 
 #endif
 

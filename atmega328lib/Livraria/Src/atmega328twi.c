@@ -15,7 +15,7 @@ Update: 01/01/2024
 #include <util/delay.h>
 
 /*** File Variable ***/
-static TWI setup_i2c;
+static TWI0 setup_i2c;
 /*** File Header ***/
 void TWI_init(uint8_t device_id, uint8_t prescaler);
 void TWI_start(void);
@@ -28,7 +28,7 @@ uint8_t TWI_status(void);
 void TWI_wait_twint( uint16_t nticks );
 
 /*** Procedure and Function ***/
-TWI twi_enable(uint8_t atmega_ID,  uint8_t prescaler)
+TWI0 twi_enable(uint8_t atmega_ID,  uint8_t prescaler)
 {
 	//local var
 	uint8_t tSREG;
@@ -50,7 +50,7 @@ TWI twi_enable(uint8_t atmega_ID,  uint8_t prescaler)
 	return setup_i2c;
 }
 
-TWI* twi(void){ return &setup_i2c; };
+TWI0* twi(void){ return &setup_i2c; };
 
 // void TWI_Init(uint8_t device_id, uint8_t prescaler)
 void TWI_init(uint8_t device_id, uint8_t prescaler)

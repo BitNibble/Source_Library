@@ -13,7 +13,7 @@ Comment:
 #include "atmega128spi.h"
 
 /*** File Variable ***/
-static SPI atmega128_spi;
+static SPI0 atmega128_spi;
 
 /*** File Header ***/
 void spi_default(void);
@@ -22,7 +22,7 @@ void spi_transmit_sync (uint8_t * dataout, uint8_t len);
 uint8_t spi_fast_shift (uint8_t data);
 
 /*** Procedure & Function ***/
-SPI spi_enable(uint8_t master_slave_select, uint8_t data_order,  uint8_t data_modes, uint8_t prescaler)
+SPI0 spi_enable(uint8_t master_slave_select, uint8_t data_order,  uint8_t data_modes, uint8_t prescaler)
 {
 	// ATMEGA128enable();
 	
@@ -113,7 +113,7 @@ SPI spi_enable(uint8_t master_slave_select, uint8_t data_order,  uint8_t data_mo
 	return atmega128_spi;
 }
 
-SPI* spi(void){ return &atmega128_spi; }
+SPI0* spi(void){ return &atmega128_spi; }
 
 void spi_default()
 // Initialize pins for spi communication

@@ -11,11 +11,6 @@ Comment:
 /***File Library***/
 #include "lcd.h"
 #include <util/delay.h>
-//#include <stdio.h>
-//#include <stdlib.h>
-//#include <string.h>
-//#include <stdarg.h>
-//#include <math.h>
 
 /***File Constant & Macro***/
 // CMD RS

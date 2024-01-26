@@ -13,11 +13,11 @@ Update: 01/01/2024
 #include "atmegaeeprom.h"
 
 /*** File Variable ***/
-static EEPROM setup_eeprom;
+static EEPROM0 setup_eeprom;
 /*** File Header ***/
 
 /*** Procedure & Function ***/
-EEPROM eeprom_enable(void){
+EEPROM0 eeprom_enable(void){
 	setup_eeprom.read_byte = eeprom_read_byte;
 	setup_eeprom.write_byte = eeprom_write_byte;
 	setup_eeprom.update_byte = eeprom_update_byte;
@@ -37,7 +37,7 @@ EEPROM eeprom_enable(void){
 	return setup_eeprom;
 }
 
-EEPROM* eeprom(void){ return &setup_eeprom; };
+EEPROM0* eeprom(void){ return &setup_eeprom; };
 
 /***EOF***/
 

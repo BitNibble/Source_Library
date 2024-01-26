@@ -17,14 +17,14 @@ Update: 01/01/2024
 /*** File Constant & Macro ***/
 
 /*** File Variable ***/
-static struct intrpt setup_interrupt;
+static EXINT0 setup_interrupt;
 /*** File Header ***/
 void INTERRUPT_set(uint8_t channel, uint8_t sense);
 void INTERRUPT_off(uint8_t channel);
 uint8_t INTERRUPT_reset_status(void);
 
 /*** Procedure and Function ***/
-INTERRUPT exint_enable(void)
+EXINT0 exint_enable(void)
 // setup blank
 {
 	// Pre-Processor Case 1
@@ -37,7 +37,7 @@ INTERRUPT exint_enable(void)
 	return setup_interrupt;
 }
 
-INTERRUPT* exint(void){ return &setup_interrupt; };
+EXINT0* exint(void){ return &setup_interrupt; };
 
 uint8_t INTERRUPT_reset_status(void)
 {

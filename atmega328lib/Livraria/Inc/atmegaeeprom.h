@@ -19,7 +19,7 @@ Update: 01/01/2024
 /*** Global Constant & Macro ***/
 
 /*** Global Variable ***/
-struct prm{
+typedef struct{
 	// vtable
 	uint8_t (*read_byte) ( const uint8_t * addr );
 	void (*write_byte) ( uint8_t *addr , uint8_t value );
@@ -36,11 +36,10 @@ struct prm{
 	void (*read_block) ( void * pointer_ram , const void * pointer_eeprom , size_t n);
 	void (*write_block) ( const void * pointer_ram , void * pointer_eeprom , size_t n);
 	void (*update_block) ( const void * pointer_ram , void * pointer_eeprom , size_t n);
-};
-typedef struct prm EEPROM;
+}EEPROM0;
 
-EEPROM eeprom_enable(void);
-EEPROM* eeprom(void);
+EEPROM0 eeprom_enable(void);
+EEPROM0* eeprom(void);
 
 #endif
 

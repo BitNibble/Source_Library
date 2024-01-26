@@ -19,7 +19,7 @@ Comment:
 #endif
 
 /*** File Variables ***/
-TWI i2c;
+TWI0 i2c;
 
 /*** File Header ***/
 void PCF8563RTC_Init(void);

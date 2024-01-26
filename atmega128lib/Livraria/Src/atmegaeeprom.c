@@ -12,12 +12,12 @@ Comment:
 #include "atmegaeeprom.h"
 
 /*** File Variable ***/
-static EEPROM atmega128_eeprom;
+static EEPROM0 atmega128_eeprom;
 
 /*** File Header ***/
 
 /*** Procedure & Function ***/
-EEPROM eeprom_enable(void){
+EEPROM0 eeprom_enable(void){
 	atmega128_eeprom.read_byte = eeprom_read_byte;
 	atmega128_eeprom.write_byte = eeprom_write_byte;
 	atmega128_eeprom.update_byte = eeprom_update_byte;
@@ -37,7 +37,7 @@ EEPROM eeprom_enable(void){
 	return atmega128_eeprom;
 }
 
-EEPROM* eeprom(void){ return &atmega128_eeprom; }
+EEPROM0* eeprom(void){ return &atmega128_eeprom; }
 
 /***EOF***/
 
