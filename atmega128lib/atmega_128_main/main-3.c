@@ -1,4 +1,3 @@
-
 /************************************************************************
 Title: BALANCA COMERCIAL
 Author: Sergio Manuel Santos

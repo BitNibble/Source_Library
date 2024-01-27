@@ -21,6 +21,14 @@ Created: 20/04/2023 14:00:00
 		HC05 Bluetooth module (usart0)
 -PD0 RXD pin 2
 -PD1 TXD pin 3
+detail:
+(38400,8,1,NONE)
+-AT+ROLE0\r\n
+-AT+TYPE1\r\n
+-AT+BAUD6\r\n
+-AT+ADVI3\r\n
+-AT+NAMEHome1\r\n
+-AT+PIN916919\r\n
 ********************************************************************/
 /*** File library ***/
 #include "atmega328mapping.h"
@@ -54,7 +62,7 @@ uint8_t menu;
 for (menu = 1; TRUE; ) // Looping
 {
 	lcd02p()->reboot();
-	uart_receive = usart0messageprint( usart0(), uart_oneshot, uart_msg, ".");
+	uart_receive = usart0_messageprint( usart0(), uart_oneshot, uart_msg, ".");
 	
 	switch(menu){ // MENU
 		case 1: // Main Program Menu 1

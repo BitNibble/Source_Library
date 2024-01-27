@@ -23,7 +23,7 @@ Update: 22/01/2024
 	-PC3 pin 26 data D7
 		Bluetooth HC-05 (MAX 232 bypassed with jumpers) 
 		12 para 38400 at 8Mhz, AT+BAUD6\r\n, AT+TYPE1\r\n,
-		AT+ROLE0\r\n, AT+PIN916919\r\n.
+		AT+ROLE0\r\n, AT+PIN916919\r\n. (38400,8,1,NONE).
 	-PD0 pin 2 Rx
 	-PD1 pin 3 Tx
 		Buttons

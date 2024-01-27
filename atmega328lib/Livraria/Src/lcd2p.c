@@ -94,7 +94,7 @@ void LCD02P_inic(void)
 	*lcd02pdata_DDR &= ~DDR_DATA_MASK;
 	*lcd02pdata_PORT |= DDR_DATA_MASK;
 	// INICIALIZACAO LCD datasheet/
-	_delay_ms(40); // using clock at 16Mhz
+	_delay_ms(40); // using clock at 16Mhz 
 	LCD02P_write(0x38, LCD02P_INST); // function set
 	_delay_us(39);
 	LCD02P_write(0x38, LCD02P_INST); // function set
