@@ -151,7 +151,7 @@ int main(void)
 			disp.update(&disp.par, atmega328()->portd_reg->pin);
 			
 			// uart capture
-			uartreceive = usart0messageprint( usart0(), uartrcv, uartmsg, '.');
+			uartreceive = usart0_messageprint( usart0(), uartrcv, uartmsg, ".");
 			
 			window = 1; continue;
 		}
