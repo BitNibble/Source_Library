@@ -57,7 +57,7 @@ lcd02p_enable(&DDRB, &PINB, &PORTB, &DDRC, &PINC, &PORTC);
 twi_enable(85,16);
 usart0_enable(38400,8,1,NONE);
 pcf8575 = pcf8575_enable(32, 16);
-pcf8575.writehbits( pcf8575.par, 65535, 1 );
+pcf8575.writehbits( &pcf8575.par, 65535, 1 );
 uint8_t menu;
 for (menu = 1; TRUE; ) // Looping
 {
@@ -80,152 +80,152 @@ for (menu = 1; TRUE; ) // Looping
 	
 	//OUT 1
 	if( !strcmp( uart_oneshot, "s00." ) ){
-		if( pcf8575.readhbits( pcf8575.par, (1 << 0) ) ){
-			pcf8575.writehbits( pcf8575.par, (1 << 0), LOW );
+		if( pcf8575.readhbits( &pcf8575.par, (1 << 0) ) ){
+			pcf8575.writehbits( &pcf8575.par, (1 << 0), LOW );
 			count++;
 			}else{
-			pcf8575.writehbits( pcf8575.par, (1 << 0), HIGH);
+			pcf8575.writehbits( &pcf8575.par, (1 << 0), HIGH);
 		}
 	}
 	//OUT 2
 	if(!strcmp( uart_oneshot, "s01." )){
-		if( pcf8575.readhbits( pcf8575.par, (1 << 1) ) ){
-			pcf8575.writehbits( pcf8575.par, (1 << 1), LOW );
+		if( pcf8575.readhbits( &pcf8575.par, (1 << 1) ) ){
+			pcf8575.writehbits( &pcf8575.par, (1 << 1), LOW );
 			}else{
-			pcf8575.writehbits( pcf8575.par, (1 << 1), HIGH );
+			pcf8575.writehbits( &pcf8575.par, (1 << 1), HIGH );
 		}
 	}
 	//OUT 3
 	if(!strcmp( uart_oneshot, "s02." )){
-		if( pcf8575.readhbits( pcf8575.par, (1 << 2) ) ){
-			pcf8575.writehbits( pcf8575.par, (1 << 2), LOW );
+		if( pcf8575.readhbits( &pcf8575.par, (1 << 2) ) ){
+			pcf8575.writehbits( &pcf8575.par, (1 << 2), LOW );
 			}else{
-			pcf8575.writehbits( pcf8575.par, (1 << 2), HIGH );
+			pcf8575.writehbits( &pcf8575.par, (1 << 2), HIGH );
 		}
 	}
 	//OUT 4
 	if(!strcmp( uart_oneshot, "s03." )){
-		if( pcf8575.readhbits( pcf8575.par, (1 << 3) ) ){
-			pcf8575.writehbits( pcf8575.par, (1 << 3), LOW );
+		if( pcf8575.readhbits( &pcf8575.par, (1 << 3) ) ){
+			pcf8575.writehbits( &pcf8575.par, (1 << 3), LOW );
 			}else{
-			pcf8575.writehbits( pcf8575.par, (1 << 3), HIGH );
+			pcf8575.writehbits( &pcf8575.par, (1 << 3), HIGH );
 		}
 	}
 	//OUT 5
 	if(!strcmp( uart_oneshot, "s04." )){
-		if( pcf8575.readhbits( pcf8575.par, (1 << 4) ) ){
-			pcf8575.writehbits( pcf8575.par, (1 << 4), LOW );
+		if( pcf8575.readhbits( &pcf8575.par, (1 << 4) ) ){
+			pcf8575.writehbits( &pcf8575.par, (1 << 4), LOW );
 			}else{
-			pcf8575.writehbits( pcf8575.par, (1 << 4), HIGH );
+			pcf8575.writehbits( &pcf8575.par, (1 << 4), HIGH );
 		}
 	}
 	//OUT 6
 	if(!strcmp( uart_oneshot, "s05." )){
-		if( pcf8575.readhbits( pcf8575.par, (1 << 5) ) ){
-			pcf8575.writehbits( pcf8575.par, (1 << 5), LOW );
+		if( pcf8575.readhbits( &pcf8575.par, (1 << 5) ) ){
+			pcf8575.writehbits( &pcf8575.par, (1 << 5), LOW );
 			}else{
-			pcf8575.writehbits( pcf8575.par, (1 << 5), HIGH );
+			pcf8575.writehbits( &pcf8575.par, (1 << 5), HIGH );
 		}
 	}
 	//OUT 7
 	if(!strcmp( uart_oneshot, "s06." )){
-		if( pcf8575.readhbits( pcf8575.par, (1 << 6) ) ){
-			pcf8575.writehbits( pcf8575.par, (1 << 6), LOW );
+		if( pcf8575.readhbits( &pcf8575.par, (1 << 6) ) ){
+			pcf8575.writehbits( &pcf8575.par, (1 << 6), LOW );
 			}else{
-			pcf8575.writehbits( pcf8575.par, (1 << 6), HIGH );
+			pcf8575.writehbits( &pcf8575.par, (1 << 6), HIGH );
 		}
 	}
 	//OUT 8
 	if(!strcmp( uart_oneshot, "s07." )){
-		if( pcf8575.readhbits( pcf8575.par, (1 << 7) ) ){
-			pcf8575.writehbits( pcf8575.par, (1 << 7), LOW );
+		if( pcf8575.readhbits( &pcf8575.par, (1 << 7) ) ){
+			pcf8575.writehbits( &pcf8575.par, (1 << 7), LOW );
 			}else{
-			pcf8575.writehbits( pcf8575.par, (1 << 7), HIGH );
+			pcf8575.writehbits( &pcf8575.par, (1 << 7), HIGH );
 		}
 	}
 	//OUT 9
 	if(!strcmp( uart_oneshot, "s08." )){
-		if( pcf8575.readhbits( pcf8575.par, (1 << 8) ) ){
-			pcf8575.writehbits( pcf8575.par, (1 << 8), LOW );
+		if( pcf8575.readhbits( &pcf8575.par, (1 << 8) ) ){
+			pcf8575.writehbits( &pcf8575.par, (1 << 8), LOW );
 			}else{
-			pcf8575.writehbits( pcf8575.par, (1 << 8), HIGH );
+			pcf8575.writehbits( &pcf8575.par, (1 << 8), HIGH );
 		}
 	}
 	//OUT 10
 	if(!strcmp( uart_oneshot, "s09." )){
-		if( pcf8575.readhbits( pcf8575.par, (1 << 9) ) ){
-			pcf8575.writehbits( pcf8575.par, (1 << 9), LOW );
+		if( pcf8575.readhbits( &pcf8575.par, (1 << 9) ) ){
+			pcf8575.writehbits( &pcf8575.par, (1 << 9), LOW );
 			}else{
-			pcf8575.writehbits( pcf8575.par, (1 << 9), HIGH );
+			pcf8575.writehbits( &pcf8575.par, (1 << 9), HIGH );
 		}
 	}
 	//OUT 11
 	if(!strcmp( uart_oneshot, "s10." )){
-		if( pcf8575.readhbits( pcf8575.par, (1 << 10) ) ){
-			pcf8575.writehbits( pcf8575.par, (1 << 10), LOW );
+		if( pcf8575.readhbits( &pcf8575.par, (1 << 10) ) ){
+			pcf8575.writehbits( &pcf8575.par, (1 << 10), LOW );
 			}else{
-			pcf8575.writehbits( pcf8575.par, (1 << 10), HIGH );
+			pcf8575.writehbits( &pcf8575.par, (1 << 10), HIGH );
 		}
 	}
 	//OUT 12
 	if(!strcmp( uart_oneshot, "s11." )){
-		if( pcf8575.readhbits( pcf8575.par, (1 << 11) ) ){
-			pcf8575.writehbits( pcf8575.par, (1 << 11), LOW );
+		if( pcf8575.readhbits( &pcf8575.par, (1 << 11) ) ){
+			pcf8575.writehbits( &pcf8575.par, (1 << 11), LOW );
 			}else{
-			pcf8575.writehbits( pcf8575.par, (1 << 11), HIGH );
+			pcf8575.writehbits( &pcf8575.par, (1 << 11), HIGH );
 		}
 	}
 	//OUT 13
 	if(!strcmp( uart_oneshot, "s12." )){
-		if( pcf8575.readhbits( pcf8575.par, (1 << 12) ) ){
-			pcf8575.writehbits( pcf8575.par, (1 << 12), LOW );
+		if( pcf8575.readhbits( &pcf8575.par, (1 << 12) ) ){
+			pcf8575.writehbits( &pcf8575.par, (1 << 12), LOW );
 			}else{
-			pcf8575.writehbits( pcf8575.par, (1 << 12), HIGH );
+			pcf8575.writehbits( &pcf8575.par, (1 << 12), HIGH );
 		}
 	}
 	//OUT 14
 	if(!strcmp( uart_oneshot, "s13." )){
-		if( pcf8575.readhbits( pcf8575.par, (1 << 13) ) ){
-			pcf8575.writehbits( pcf8575.par, (1 << 13), LOW );
+		if( pcf8575.readhbits( &pcf8575.par, (1 << 13) ) ){
+			pcf8575.writehbits( &pcf8575.par, (1 << 13), LOW );
 			}else{
-			pcf8575.writehbits( pcf8575.par, (1 << 13), HIGH );
+			pcf8575.writehbits( &pcf8575.par, (1 << 13), HIGH );
 		}
 	}
 	//OUT 15
 	if(!strcmp( uart_oneshot, "s14." )){
-		if( pcf8575.readhbits( pcf8575.par, (1 << 14) ) ){
-			pcf8575.writehbits( pcf8575.par, (1 << 14), LOW );
+		if( pcf8575.readhbits( &pcf8575.par, (1 << 14) ) ){
+			pcf8575.writehbits( &pcf8575.par, (1 << 14), LOW );
 			}else{
-			pcf8575.writehbits( pcf8575.par, (1 << 14), HIGH );
+			pcf8575.writehbits( &pcf8575.par, (1 << 14), HIGH );
 		}
 	}
 	//OUT 16
 	if(!strcmp( uart_oneshot, "s15." )){
-		if( pcf8575.readhbits( pcf8575.par, (1 << 15) ) ){
-			pcf8575.writehbits( pcf8575.par, (1 << 15), LOW );
+		if( pcf8575.readhbits( &pcf8575.par, (1 << 15) ) ){
+			pcf8575.writehbits( &pcf8575.par, (1 << 15), LOW );
 			}else{
-			pcf8575.writehbits( pcf8575.par, (1 << 15), HIGH );
+			pcf8575.writehbits( &pcf8575.par, (1 << 15), HIGH );
 		}
 	}
 	//
 	if(!strcmp( uart_oneshot, "all off." )){
-		pcf8575.writehbits( pcf8575.par, 65535, HIGH );
+		pcf8575.writehbits( &pcf8575.par, 65535, HIGH );
 	}
 	//
 	if(!strcmp( uart_oneshot, "all on." )){
-		pcf8575.writehbits( pcf8575.par, 65535, LOW );
+		pcf8575.writehbits( &pcf8575.par, 65535, LOW );
 	}
 	
 	//STATUS FEEDBACK
 	if(!strcmp(uart_oneshot, "status.")){
-		usart0()->puts( func()->print_binary( 16, ~pcf8575.readhbits( pcf8575.par, 0xFFFF ) ) );
+		usart0()->puts( func()->print_binary( 16, ~pcf8575.readhbits( &pcf8575.par, 0xFFFF ) ) );
 		usart0()->putch('\n');
 	}
 	
 	lcd02p()->gotoxy(3,0);
 	lcd02p()->string_size( "->", 3);
 	lcd02p()->gotoxy(3,3);
-	lcd02p()->string_size(func()->print_binary( 16, ~pcf8575.readhbits( pcf8575.par, 0xFFFF ) ), 16);
+	lcd02p()->string_size(func()->print_binary( 16, ~pcf8575.readhbits( &pcf8575.par, 0xFFFF ) ), 16);
 	
 	//_delay_ms(500);
 }

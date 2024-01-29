@@ -7,7 +7,7 @@ Hardware: PCF8575
 Date: 24012024
 ***************************************************************************************************/
 /****** Comment:
-	Allow to create up to four instances of pcf8575.
+	
  **************************************************************************************************/
 #ifndef _PCF8575_H_
 	#define _PCF8575_H_
@@ -26,13 +26,13 @@ Date: 24012024
 
 typedef struct{
 	uint8_t pcf8575_id;
-	uint8_t N_pcf8575;
+	uint16_t state;
 }pcf8575_parameter;
 
 typedef struct{
 	pcf8575_parameter par;
-	void (*writehbits)( pcf8575_parameter par, uint16_t hbits, uint8_t bool );
-	uint16_t (*readhbits)( pcf8575_parameter par, uint16_t hbits );
+	void (*writehbits)( pcf8575_parameter *par, uint16_t hbits, uint8_t bool );
+	uint16_t (*readhbits)( pcf8575_parameter *par, uint16_t hbits );
 }PCF8575;
 
 /*** Global Header ***/
