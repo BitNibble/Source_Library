@@ -32,6 +32,20 @@ typedef struct
 	uint8_t (*awd)(void);
 	void (*clear_awd)(void);
 }STM32FXXXADC_SR;
+/***
+typedef union {
+	struct {
+		uint32_t awd:1;
+		uint32_t eoc:1;
+		uint32_t jeoc:1;
+		uint32_t jstrt:1;
+		uint32_t strt:1;
+		uint32_t ovr:1;
+		uint32_t fill:26;
+	}bit;
+	uint32_t reg;
+}STM32FXXXADC_SR;
+***/
 // CR1
 typedef struct
 {
