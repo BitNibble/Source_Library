@@ -142,7 +142,7 @@ STM32FXXX STM32FXXX_enable(void){
 		stm32fxxx.rcc = rcc();
 	#endif
 	// RTC
-		stm32fxxx.rtc_reg = RTC;
+	stm32fxxx.rtc_reg = RTC;
 	#if defined(_STM32FXXXRTC_H_)
 		rtc_enable();
 		stm32fxxx.rtc = rtc();
