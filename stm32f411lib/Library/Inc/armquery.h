@@ -32,7 +32,29 @@ Comment:
 /****   PLL ON -> 1    PLL OFF = 0   ****/
 #define PLL_ON_OFF 0
 /****************************************/
-
+typedef union{
+	struct N32nibble{
+		uint32_t n0:4;
+		uint32_t n1:4;
+		uint32_t n2:4;
+		uint32_t n3:4;
+		uint32_t n4:4;
+		uint32_t n5:4;
+		uint32_t n6:4;
+		uint32_t n7:4;
+		}nibble;
+	struct N32byte{
+		uint8_t b0;
+		uint8_t b1;
+		uint8_t b2;
+		uint8_t b3;
+	}byte;
+	struct N32word{
+		uint16_t w0;
+		uint16_t w1;
+	}word;
+	uint32_t n;
+}_N32var;
 typedef struct{
 uint16_t (*AHB)(void);
 uint8_t (*APB1)(void);
