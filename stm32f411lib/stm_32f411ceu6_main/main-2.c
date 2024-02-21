@@ -51,7 +51,8 @@ int main(void)
   ARMLCD0_enable(stm()->gpiob_reg);
   FUNC_enable();
 
-  gpiob()->moder(13,1);
+  //gpiob()->moder(13,1);
+  setregposmsk(&GPIOB->MODER,GPIO_MODER_MODER13,GPIO_MODER_MODER13_Pos,1);
 
   uint32_t count = 0;
 
