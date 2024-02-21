@@ -55,6 +55,44 @@ typedef union{
 	}word;
 	uint32_t n;
 }_N32var;
+typedef union{
+	struct UN64nibble{
+		uint32_t n0:4;
+		uint32_t n1:4;
+		uint32_t n2:4;
+		uint32_t n3:4;
+		uint32_t n4:4;
+		uint32_t n5:4;
+		uint32_t n6:4;
+		uint32_t n7:4;
+		uint32_t n8:4;
+		uint32_t n9:4;
+		uint32_t n10:4;
+		uint32_t n11:4;
+		uint32_t n12:4;
+		uint32_t n13:4;
+		uint32_t n14:4;
+		uint32_t n15:4;
+	}nibble;
+	struct UN64byte{
+		uint8_t b0;
+		uint8_t b1;
+		uint8_t b2;
+		uint8_t b3;
+		uint8_t b4;
+		uint8_t b5;
+		uint8_t b6;
+		uint8_t b7;
+	}byte;
+	struct UN64word{
+		uint16_t w0;
+		uint16_t w1;
+		uint16_t w2;
+		uint16_t w3;
+	}word;
+	uint64_t n;
+}_UN64var;
+
 typedef struct{
 uint16_t (*AHB)(void);
 uint8_t (*APB1)(void);
