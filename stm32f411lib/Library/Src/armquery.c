@@ -262,6 +262,32 @@ uint32_t readreg(uint32_t reg, uint8_t size_block, uint8_t bit_n)
 	reg = (reg >> bit_n);
 	return reg;
 }
+void writereg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data)
+{
+	if(bit_n > 31){ bit_n = 0;} if(size_block > 32){ size_block = 32;}
+	uint32_t value = *reg;
+	uint32_t mask = (unsigned int)((1 << size_block) - 1);
+	data &= mask; value &= ~(mask << bit_n);
+	data = (data << bit_n);
+	value |= data;
+	*reg = value;
+}
+void setreg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data)
+{
+	if(bit_n > 31){ bit_n = 0;} if(size_block > 32){ size_block = 32;}
+	uint32_t mask = (unsigned int)((1 << size_block) - 1);
+	data &= mask;
+	*reg &= ~(mask << bit_n);
+	*reg |= (data << bit_n);
+}
+uint32_t getreg(uint32_t reg, uint8_t size_block, uint8_t bit_n)
+{
+	if(bit_n > 31){ bit_n = 0;} if(size_block > 32){ size_block = 32;}
+	uint32_t mask = (unsigned int)((1 << size_block) - 1);
+	reg &= (mask << bit_n);
+	reg = (reg >> bit_n);
+	return reg;
+}
 uint32_t getsetbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n)
 {
 	uint32_t n = 0;
@@ -272,14 +298,6 @@ uint32_t getsetbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n)
 	value = (value >> bit_n);
 	return value;
 }
-void setreg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data)
-{
-	if(bit_n > 31){ bit_n = 0;} if(size_block > 32){ size_block = 32;}
-	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	data &= mask;
-	*reg &= ~(mask << bit_n);
-	*reg |= (data << bit_n);
-}
 void setbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data)
 {
 	uint32_t n = 0;
@@ -289,15 +307,27 @@ void setbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t 
 	*(reg + n ) &= ~(mask << bit_n);
 	*(reg + n ) |= (data << bit_n);
 }
-void writereg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data)
+uint32_t getbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n)
 {
-	if(bit_n > 31){ bit_n = 0;} if(size_block > 32){ size_block = 32;}
-	uint32_t value = *reg;
+	uint32_t n = 0;
+	if(bit_n > 31){ n = bit_n/32; bit_n = bit_n - (n * 32); } if(size_block > 32){ size_block = 32;}
+	uint32_t value = *(reg + n );
 	uint32_t mask = (unsigned int)((1 << size_block) - 1);
-	data &= mask; value &= ~(mask << bit_n);
-	data = (data << bit_n);
-	value |= data;
-	*reg = value;
+	value &= (mask << bit_n);
+	value = (value >> bit_n);
+	return value;
+}
+
+void setregposmsk(volatile uint32_t* reg, uint8_t msk, uint8_t pos, uint32_t data)
+{
+	data = (data << pos); data &= msk;
+	*reg &= ~msk;
+	*reg |= data;
+}
+uint32_t getregposmsk(uint32_t reg, uint8_t msk, uint8_t pos)
+{
+	reg &= msk; reg = (reg >> pos);
+	return reg;
 }
 void STM32446RegSetBits( uint32_t* reg, uint8_t n_bits, ... )
 {

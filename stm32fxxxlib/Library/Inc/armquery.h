@@ -116,10 +116,14 @@ uint32_t (*SystemClock)(void);
 }STM32FXXXQuery;
 
 uint32_t readreg(uint32_t reg, uint8_t size_block, uint8_t bit_n);
-uint32_t getsetbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n);
-void setreg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
-void setbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
 void writereg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
+void setreg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
+uint32_t getreg(uint32_t reg, uint8_t size_block, uint8_t bit_n);
+uint32_t getsetbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n);
+void setbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
+uint32_t getbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n);
+void setregposmsk(volatile uint32_t* reg, uint8_t msk, uint8_t pos, uint32_t data);
+uint32_t getregposmsk(uint32_t reg, uint8_t msk, uint8_t pos);
 void sethpins( GPIO_TypeDef* reg, uint16_t hpins );
 void resethpins( GPIO_TypeDef* reg, uint16_t hpins );
 void setpin( GPIO_TypeDef* reg, uint8_t pin );

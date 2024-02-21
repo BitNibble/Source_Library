@@ -299,6 +299,17 @@ void writereg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_
 	value |= data;
 	*reg = value;
 }
+void setregposmsk(volatile uint32_t* reg, uint8_t msk, uint8_t pos, uint32_t data)
+{
+	data = (data << pos); data &= msk;
+	*reg &= ~msk;
+	*reg |= data;
+}
+uint32_t getregposmsk(uint32_t reg, uint8_t msk, uint8_t pos)
+{
+	reg &= msk; reg = (reg >> pos);
+	return reg;
+}
 void STM32446RegSetBits( uint32_t* reg, uint8_t n_bits, ... )
 {
 	uint8_t i;

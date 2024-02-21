@@ -114,6 +114,7 @@ void STM32FXXXUsart1Parameter( uint8_t wordlength, uint8_t samplingmode, double 
 		USART1->CR1 &= (uint32_t) ~(1 << 12); // M: Word length, 0 - 8bit.
 	else
 		USART1->CR1 &= (uint32_t) ~(1 << 12); // M: Word length, 0 - 8bit, default.
+
 	if(samplingmode == 8){
 		sampling = 8;
 		USART1->CR1 |= (1 << 15); // OVER8: Oversampling mode, 1 - 8.
@@ -124,6 +125,7 @@ void STM32FXXXUsart1Parameter( uint8_t wordlength, uint8_t samplingmode, double 
 		sampling = 16;
 		USART1->CR1 &= (uint32_t) ~(1 << 15); // OVER8: Oversampling mode, 0 - 16, default.
 	}
+
 	USART1->CR2 &= (uint32_t) ~((1 << 13) | (1 << 12)); // STOP: STOP bits 00 - 1stopbit, default.
 	if(fabs(stopbits - 0.5) < 0.00001) // STOP: STOP bits, 01: 0.5 Stop bit
 		USART1->CR2 |= (1 << 12);
@@ -133,6 +135,7 @@ void STM32FXXXUsart1Parameter( uint8_t wordlength, uint8_t samplingmode, double 
 		USART1->CR2 |= ((1 << 13) | (1 << 12));
 	else if(fabs(stopbits - 2) < 0.00001) // STOP: STOP bits, 10: 2 Stop bits
 		USART1->CR2 |= (1 << 13);
+
 	value = (double) getsysclk() / ( gethpre() * sampling * baudrate );
 	fracpart = modf(value, &intpart);
 	USART1->BRR = 0; // clean slate, reset.
