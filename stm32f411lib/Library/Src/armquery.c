@@ -318,14 +318,16 @@ uint32_t getbit(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n)
 	return value;
 }
 
-void setregposmsk(volatile uint32_t* reg, uint8_t msk, uint8_t pos, uint32_t data)
+void setregposmsk(volatile uint32_t* reg, uint32_t msk, uint8_t pos, uint32_t data)
 {
+	pos &= 0x1F;
 	data = (data << pos); data &= msk;
 	*reg &= ~msk;
 	*reg |= data;
 }
-uint32_t getregposmsk(uint32_t reg, uint8_t msk, uint8_t pos)
+uint32_t getregposmsk(uint32_t reg, uint32_t msk, uint8_t pos)
 {
+	pos &= 0x1F;
 	reg &= msk; reg = (reg >> pos);
 	return reg;
 }
