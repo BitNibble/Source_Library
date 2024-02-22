@@ -107,6 +107,58 @@ typedef union{
 	} bit;
 	uint32_t p;
 } GPIO_PUPDR_TypeDef;
+/*** GPIO -> IDR ***/
+typedef union{
+	struct IDR_1{
+	  uint32_t i0:1;
+	  uint32_t i1:1;
+	  uint32_t i2:1;
+	  uint32_t i3:1;
+	  uint32_t i4:1;
+	  uint32_t i5:1;
+	  uint32_t i6:1;
+	  uint32_t i7:1;
+	  uint32_t i8:1;
+	  uint32_t i9:1;
+	  uint32_t i10:1;
+	  uint32_t i11:1;
+	  uint32_t i12:1;
+	  uint32_t i13:1;
+	  uint32_t i14:1;
+	  uint32_t i15:1;
+	  uint32_t fill:16;
+	} bit;
+	struct IDR_2{
+	  uint16_t i;
+	  uint16_t fill;
+	} word;
+} GPIO_IDR_TypeDef;
+/*** GPIO -> ODR ***/
+typedef union{
+	struct ODR_1{
+	  uint32_t o0:1;
+	  uint32_t o1:1;
+	  uint32_t o2:1;
+	  uint32_t o3:1;
+	  uint32_t o4:1;
+	  uint32_t o5:1;
+	  uint32_t o6:1;
+	  uint32_t o7:1;
+	  uint32_t o8:1;
+	  uint32_t o9:1;
+	  uint32_t o10:1;
+	  uint32_t o11:1;
+	  uint32_t o12:1;
+	  uint32_t o13:1;
+	  uint32_t o14:1;
+	  uint32_t o15:1;
+	  uint32_t fill:16;
+	} bit;
+	struct ODR_2{
+	  uint16_t o;
+	  uint16_t fill;
+	} word;
+} GPIO_ODR_TypeDef;
 /*** GPIO -> BSRR ***/
 typedef union{
 	struct BSRR_1{
@@ -183,6 +235,8 @@ typedef struct
 	GPIO_OTYPER_TypeDef* otyper;
 	GPIO_OSPEEDR_TypeDef* ospeedr;
 	GPIO_PUPDR_TypeDef* pupdr;
+	GPIO_IDR_TypeDef* idr;
+	GPIO_ODR_TypeDef* odr;
 	GPIO_BSRR_TypeDef* bsrr;
 	GPIO_LCKR_TypeDef* lckr;
 	void (*afr)( uint8_t pin, uint8_t data );
