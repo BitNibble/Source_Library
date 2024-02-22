@@ -15,21 +15,6 @@ Comment:
 /*** File Library ***/
 #include "armquery.h"
 
-/*** GPIO TypeDef ***/
-/***
-typedef struct
-{
-  __IO uint32_t MODER;
-  __IO uint32_t OTYPER;
-  __IO uint32_t OSPEEDR;
-  __IO uint32_t PUPDR;
-  __IO uint32_t IDR;
-  __IO uint32_t ODR;
-  __IO uint32_t BSRR;
-  __IO uint32_t LCKR;
-  __IO uint32_t AFR[2];
-} GPIO_TypeDef;
-***/
 /*** GPIO -> MODER ***/
 typedef union{
 	struct MODER_1{
@@ -232,76 +217,20 @@ STM32FXXXGpioHobj* gpioh(void);
 
 /***** GPIO Procedure & Funtion Header ******/
 void STM32FXXXGpioAclock( uint8_t bool );
-void STM32FXXXGpioAmoder( uint8_t pin, uint8_t data );
-void STM32FXXXGpioAotyper( uint8_t pin, uint8_t bool );
-void STM32FXXXGpioAospeedr( uint8_t pin, uint8_t data );
-void STM32FXXXGpioApupdr( uint8_t pin, uint8_t data );
-void STM32FXXXGpioAreset( uint16_t data );
-void STM32FXXXGpioAset( uint16_t data );
-void STM32FXXXGpioAlckr( uint8_t pin, uint8_t bool );
 void STM32FXXXGpioAafr( uint8_t pin, uint8_t data );
 void STM32FXXXGpioBclock( uint8_t bool );
-void STM32FXXXGpioBmoder( uint8_t pin, uint8_t data );
-void STM32FXXXGpioBotyper( uint8_t pin, uint8_t bool );
-void STM32FXXXGpioBospeedr( uint8_t pin, uint8_t data );
-void STM32FXXXGpioBpupdr( uint8_t pin, uint8_t data );
-void STM32FXXXGpioBreset( uint16_t data );
-void STM32FXXXGpioBset( uint16_t data );
-void STM32FXXXGpioBlckr( uint8_t pin, uint8_t bool );
 void STM32FXXXGpioBafr( uint8_t pin, uint8_t data );
 void STM32FXXXGpioCclock( uint8_t bool );
-void STM32FXXXGpioCmoder( uint8_t pin, uint8_t data );
-void STM32FXXXGpioCotyper( uint8_t pin, uint8_t bool );
-void STM32FXXXGpioCospeedr( uint8_t pin, uint8_t data );
-void STM32FXXXGpioCpupdr( uint8_t pin, uint8_t data );
-void STM32FXXXGpioCreset( uint16_t data );
-void STM32FXXXGpioCset( uint16_t data );
-void STM32FXXXGpioClckr( uint8_t pin, uint8_t bool );
 void STM32FXXXGpioCafr( uint8_t pin, uint8_t data );
 void STM32FXXXGpioDclock( uint8_t bool );
-void STM32FXXXGpioDmoder( uint8_t pin, uint8_t data );
-void STM32FXXXGpioDotyper( uint8_t pin, uint8_t bool );
-void STM32FXXXGpioDospeedr( uint8_t pin, uint8_t data );
-void STM32FXXXGpioDpupdr( uint8_t pin, uint8_t data );
-void STM32FXXXGpioDreset( uint16_t data );
-void STM32FXXXGpioDset( uint16_t data );
-void STM32FXXXGpioDlckr( uint8_t pin, uint8_t bool );
 void STM32FXXXGpioDafr( uint8_t pin, uint8_t data );
 void STM32FXXXGpioEclock( uint8_t bool );
-void STM32FXXXGpioEmoder( uint8_t pin, uint8_t data );
-void STM32FXXXGpioEotyper( uint8_t pin, uint8_t bool );
-void STM32FXXXGpioEospeedr( uint8_t pin, uint8_t data );
-void STM32FXXXGpioEpupdr( uint8_t pin, uint8_t data );
-void STM32FXXXGpioEreset( uint16_t data );
-void STM32FXXXGpioEset( uint16_t data );
-void STM32FXXXGpioElckr( uint8_t pin, uint8_t bool );
 void STM32FXXXGpioEafr( uint8_t pin, uint8_t data );
 void STM32FXXXGpioFclock( uint8_t bool );
-void STM32FXXXGpioFmoder( uint8_t pin, uint8_t data );
-void STM32FXXXGpioFotyper( uint8_t pin, uint8_t bool );
-void STM32FXXXGpioFospeedr( uint8_t pin, uint8_t data );
-void STM32FXXXGpioFpupdr( uint8_t pin, uint8_t data );
-void STM32FXXXGpioFreset( uint16_t data );
-void STM32FXXXGpioFset( uint16_t data );
-void STM32FXXXGpioFlckr( uint8_t pin, uint8_t bool );
 void STM32FXXXGpioFafr( uint8_t pin, uint8_t data );
 void STM32FXXXGpioGclock( uint8_t bool );
-void STM32FXXXGpioGmoder( uint8_t pin, uint8_t data );
-void STM32FXXXGpioGotyper( uint8_t pin, uint8_t bool );
-void STM32FXXXGpioGospeedr( uint8_t pin, uint8_t data );
-void STM32FXXXGpioGpupdr( uint8_t pin, uint8_t data );
-void STM32FXXXGpioGreset( uint16_t data );
-void STM32FXXXGpioGset( uint16_t data );
-void STM32FXXXGpioGlckr( uint8_t pin, uint8_t bool );
 void STM32FXXXGpioGafr( uint8_t pin, uint8_t data );
 void STM32FXXXGpioHclock( uint8_t bool );
-void STM32FXXXGpioHmoder( uint8_t pin, uint8_t data );
-void STM32FXXXGpioHotyper( uint8_t pin, uint8_t bool );
-void STM32FXXXGpioHospeedr( uint8_t pin, uint8_t data );
-void STM32FXXXGpioHpupdr( uint8_t pin, uint8_t data );
-void STM32FXXXGpioHreset( uint16_t data );
-void STM32FXXXGpioHset( uint16_t data );
-void STM32FXXXGpioHlckr( uint8_t pin, uint8_t bool );
 void STM32FXXXGpioHafr( uint8_t pin, uint8_t data );
 
 #endif
