@@ -1,9 +1,9 @@
 /******************************************************************************
-	STM32 xxx GPIO
+	STM32 XXX GPIO
 Author: Sergio Santos 
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
-Hardware: STM32-xxx
+Hardware: STM32-XXX
 Date: 19/06/2023
 Update: 05/01/2024
 Comment:
