@@ -90,6 +90,10 @@ typedef union{
 		uint16_t w2;
 		uint16_t w3;
 	}word;
+	struct UN64dword{
+		uint32_t d0;
+		uint32_t d1;
+	}dword;
 	uint64_t n;
 }_UN64var;
 

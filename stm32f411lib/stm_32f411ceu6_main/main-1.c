@@ -10,8 +10,9 @@
   * Author: Sergio Santos
   * <sergio.salazar.santos@gmail.com>
   * License: GNU General Public License
-  * Hardware: STM32
-  * Date: 28052023
+  * Hardware: STM32F4x1 mini_F4x1 Ver. V20 SN: 202005 DevEBox
+  * Board Site: mcudev.taobao.com
+  * Date: 22022024
   * Comment:
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -48,7 +49,7 @@ int main(void)
   ARMLCD0_enable(stm()->gpiob_reg);
   FUNC_enable();
 
-  gpiob()->moder(13,1);
+  gpiob()->moder->bit.m13 = 1;
 
   while (1)
   {
@@ -64,11 +65,6 @@ int main(void)
   }
 }
 
-
-
-
-
-
 void Error_Handler(void)
 {
   __disable_irq();
@@ -82,3 +78,4 @@ void assert_failed(uint8_t *file, uint32_t line)
 
 }
 #endif
+

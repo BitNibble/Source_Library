@@ -30,79 +30,99 @@ typedef struct
   __IO uint32_t AFR[2];
 } GPIO_TypeDef;
 ***/
-typedef struct{
-  uint32_t m0:2;
-  uint32_t m1:2;
-  uint32_t m2:2;
-  uint32_t m3:2;
-  uint32_t m4:2;
-  uint32_t m5:2;
-  uint32_t m6:2;
-  uint32_t m7:2;
-  uint32_t m8:2;
-  uint32_t m9:2;
-  uint32_t m10:2;
-  uint32_t m11:2;
-  uint32_t m12:2;
-  uint32_t m13:2;
-  uint32_t m14:2;
-  uint32_t m15:2;
+/*** GPIO -> MODER ***/
+typedef union{
+	struct MODER_1{
+	  uint32_t m0:2;
+	  uint32_t m1:2;
+	  uint32_t m2:2;
+	  uint32_t m3:2;
+	  uint32_t m4:2;
+	  uint32_t m5:2;
+	  uint32_t m6:2;
+	  uint32_t m7:2;
+	  uint32_t m8:2;
+	  uint32_t m9:2;
+	  uint32_t m10:2;
+	  uint32_t m11:2;
+	  uint32_t m12:2;
+	  uint32_t m13:2;
+	  uint32_t m14:2;
+	  uint32_t m15:2;
+	} bit;
+	uint32_t m;
 } GPIO_MODER_TypeDef;
-typedef struct{
-  uint32_t t0:1;
-  uint32_t t1:1;
-  uint32_t t2:1;
-  uint32_t t3:1;
-  uint32_t t4:1;
-  uint32_t t5:1;
-  uint32_t t6:1;
-  uint32_t t7:1;
-  uint32_t t8:1;
-  uint32_t t9:1;
-  uint32_t t10:1;
-  uint32_t t11:1;
-  uint32_t t12:1;
-  uint32_t t13:1;
-  uint32_t t14:1;
-  uint32_t t15:1;
-  uint32_t fill:16;
+/*** GPIO -> OTYPER ***/
+typedef union{
+	struct OTYPER_1{
+	  uint32_t t0:1;
+	  uint32_t t1:1;
+	  uint32_t t2:1;
+	  uint32_t t3:1;
+	  uint32_t t4:1;
+	  uint32_t t5:1;
+	  uint32_t t6:1;
+	  uint32_t t7:1;
+	  uint32_t t8:1;
+	  uint32_t t9:1;
+	  uint32_t t10:1;
+	  uint32_t t11:1;
+	  uint32_t t12:1;
+	  uint32_t t13:1;
+	  uint32_t t14:1;
+	  uint32_t t15:1;
+	  uint32_t fill:16;
+	} bit;
+	struct OTYPER_2{
+	  uint16_t t;
+	  uint16_t fill;
+	} word;
 } GPIO_OTYPER_TypeDef;
-typedef struct{
-  uint32_t s0:2;
-  uint32_t s1:2;
-  uint32_t s2:2;
-  uint32_t s3:2;
-  uint32_t s4:2;
-  uint32_t s5:2;
-  uint32_t s6:2;
-  uint32_t s7:2;
-  uint32_t s8:2;
-  uint32_t s9:2;
-  uint32_t s10:2;
-  uint32_t s11:2;
-  uint32_t s12:2;
-  uint32_t s13:2;
-  uint32_t s14:2;
-  uint32_t s15:2;
+/*** GPIO -> OSPEEDR ***/
+typedef union{
+	struct OSPEEDR_1{
+	  uint32_t s0:2;
+	  uint32_t s1:2;
+	  uint32_t s2:2;
+	  uint32_t s3:2;
+	  uint32_t s4:2;
+	  uint32_t s5:2;
+	  uint32_t s6:2;
+	  uint32_t s7:2;
+	  uint32_t s8:2;
+	  uint32_t s9:2;
+	  uint32_t s10:2;
+	  uint32_t s11:2;
+	  uint32_t s12:2;
+	  uint32_t s13:2;
+	  uint32_t s14:2;
+	  uint32_t s15:2;
+	} bit;
+	uint32_t s;
 } GPIO_OSPEEDR_TypeDef;
-typedef struct{
-  uint32_t p0:2;
-  uint32_t p1:2;
-  uint32_t p2:2;
-  uint32_t p3:2;
-  uint32_t p4:2;
-  uint32_t p5:2;
-  uint32_t p6:2;
-  uint32_t p7:2;
-  uint32_t p8:2;
-  uint32_t p9:2;
-  uint32_t p10:2;
-  uint32_t p11:2;
-  uint32_t p12:2;
-  uint32_t p13:2;
-  uint32_t p14:2;
-  uint32_t p15:2;
+/*** GPIO -> PUPDR ***/
+typedef union{
+	struct PUPDR_1{
+	  uint32_t p0:2;
+	  uint32_t p1:2;
+	  uint32_t p2:2;
+	  uint32_t p3:2;
+	  uint32_t p4:2;
+	  uint32_t p5:2;
+	  uint32_t p6:2;
+	  uint32_t p7:2;
+	  uint32_t p8:2;
+	  uint32_t p9:2;
+	  uint32_t p10:2;
+	  uint32_t p11:2;
+	  uint32_t p12:2;
+	  uint32_t p13:2;
+	  uint32_t p14:2;
+	  uint32_t p15:2;
+	} bit;
+	uint32_t p;
 } GPIO_PUPDR_TypeDef;
+/*** GPIO -> BSRR ***/
 typedef union{
 	struct BSRR_1{
 	  uint32_t s0:1;
@@ -137,32 +157,39 @@ typedef union{
 	  uint32_t r13:1;
 	  uint32_t r14:1;
 	  uint32_t r15:1;
-	} n_sr;
+	} bit;
 	struct BSRR_2{
 	 uint32_t s:16;
 	 uint32_t r:16;
-	} sr;
+	} word;
 } GPIO_BSRR_TypeDef;
-typedef struct{
-  uint32_t l0:1;
-  uint32_t l1:1;
-  uint32_t l2:1;
-  uint32_t l3:1;
-  uint32_t l4:1;
-  uint32_t l5:1;
-  uint32_t l6:1;
-  uint32_t l7:1;
-  uint32_t l8:1;
-  uint32_t l9:1;
-  uint32_t l10:1;
-  uint32_t l11:1;
-  uint32_t l12:1;
-  uint32_t l13:1;
-  uint32_t l14:1;
-  uint32_t l15:1;
-  uint32_t fill:16;
+/*** GPIO -> LCKR ***/
+typedef union{
+	struct LCKR_1{
+	  uint32_t l0:1;
+	  uint32_t l1:1;
+	  uint32_t l2:1;
+	  uint32_t l3:1;
+	  uint32_t l4:1;
+	  uint32_t l5:1;
+	  uint32_t l6:1;
+	  uint32_t l7:1;
+	  uint32_t l8:1;
+	  uint32_t l9:1;
+	  uint32_t l10:1;
+	  uint32_t l11:1;
+	  uint32_t l12:1;
+	  uint32_t l13:1;
+	  uint32_t l14:1;
+	  uint32_t l15:1;
+	  uint32_t fill:16;
+	} bit;
+	struct LCKR_2{
+	  uint16_t l;
+	  uint16_t fill;
+	} word;
 } GPIO_LCKR_TypeDef;
-// GPIO -> GPIO
+/*** GPIO -> GPIO ***/
 typedef struct
 {
 
@@ -171,9 +198,9 @@ typedef struct
 	GPIO_OTYPER_TypeDef* otyper;
 	GPIO_OSPEEDR_TypeDef* ospeedr;
 	GPIO_PUPDR_TypeDef* pupdr;
-	void (*afr)( uint8_t pin, uint8_t data );
 	GPIO_BSRR_TypeDef* bsrr;
 	GPIO_LCKR_TypeDef* lckr;
+	void (*afr)( uint8_t pin, uint8_t data );
 	/*** Other ***/
 	void (*clock)( uint8_t bool );
 
