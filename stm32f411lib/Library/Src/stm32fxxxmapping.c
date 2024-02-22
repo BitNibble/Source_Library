@@ -108,6 +108,10 @@ STM32FXXX STM32FXXX_enable(void){
 	stm32fxxx.gpioc_reg = GPIOC;
 	stm32fxxx.gpiod_reg = GPIOD;
 	stm32fxxx.gpioe_reg = GPIOE;
+	#ifdef STM32F446xx
+		stm32fxxx.gpiof_reg = GPIOF;
+		stm32fxxx.gpiog_reg = GPIOG;
+	#endif
 	stm32fxxx.gpioh_reg = GPIOH;
 	#if defined(_STM32FXXXGPIO_H_)
 		gpioa_enable();

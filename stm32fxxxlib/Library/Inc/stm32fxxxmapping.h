@@ -113,12 +113,14 @@ typedef struct
 		STM32FXXXFLASHobj* flash;
 	#endif
 	// GPIO
-		GPIO_TypeDef* gpioa_reg;
-		GPIO_TypeDef* gpiob_reg;
-		GPIO_TypeDef* gpioc_reg;
-		GPIO_TypeDef* gpiod_reg;
-		GPIO_TypeDef* gpioe_reg;
-		GPIO_TypeDef* gpioh_reg;
+	GPIO_TypeDef* gpioa_reg;
+	GPIO_TypeDef* gpiob_reg;
+	GPIO_TypeDef* gpioc_reg;
+	GPIO_TypeDef* gpiod_reg;
+	GPIO_TypeDef* gpioe_reg;
+	GPIO_TypeDef* gpiof_reg;
+	GPIO_TypeDef* gpiog_reg;
+	GPIO_TypeDef* gpioh_reg;
 	#if defined(_STM32FXXXGPIO_H_)
 		STM32FXXXGPIOA_HandleTypeDef* gpioa;
 		STM32FXXXGPIOB_HandleTypeDef* gpiob;
