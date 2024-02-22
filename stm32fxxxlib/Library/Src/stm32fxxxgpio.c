@@ -15,16 +15,16 @@ Comment:
 #include <math.h>
 
 /*** File Variables ***/
-static STM32FXXXGpioAobj stm32fxxx_gpioa;
-static STM32FXXXGpioBobj stm32fxxx_gpiob;
-static STM32FXXXGpioCobj stm32fxxx_gpioc;
-static STM32FXXXGpioDobj stm32fxxx_gpiod;
-static STM32FXXXGpioEobj stm32fxxx_gpioe;
+static STM32FXXXGPIOA_HandleTypeDef stm32fxxx_gpioa;
+static STM32FXXXGPIOB_HandleTypeDef stm32fxxx_gpiob;
+static STM32FXXXGPIOC_HandleTypeDef stm32fxxx_gpioc;
+static STM32FXXXGPIOD_HandleTypeDef stm32fxxx_gpiod;
+static STM32FXXXGPIOE_HandleTypeDef stm32fxxx_gpioe;
 #ifdef STM32F446xx
-	static STM32FXXXGpioFobj stm32fxxx_gpiof;
-	static STM32FXXXGpioGobj stm32fxxx_gpiog;
+	static STM32FXXXGPIOF_HandleTypeDef stm32fxxx_gpiof;
+	static STM32FXXXGPIOG_HandleTypeDef stm32fxxx_gpiog;
 #endif
-static STM32FXXXGpioHobj stm32fxxx_gpioh;
+static STM32FXXXGPIOH_HandleTypeDef stm32fxxx_gpioh;
 
 /*** GPIO Procedure & Function Definition ***/
 /*** GPIOA ***/
@@ -166,7 +166,7 @@ void STM32FXXXGpioHafr( uint8_t pin, uint8_t data )
 	}
 }
 /*** INIC Procedure & Function Definition ***/
-STM32FXXXGpioAobj gpioa_enable(void)
+STM32FXXXGPIOA_HandleTypeDef gpioa_enable(void)
 {
 
 	// GPIOA
@@ -185,9 +185,9 @@ STM32FXXXGpioAobj gpioa_enable(void)
 	return stm32fxxx_gpioa;
 }
 
-STM32FXXXGpioAobj* gpioa(void){ return &stm32fxxx_gpioa; }
+STM32FXXXGPIOA_HandleTypeDef* gpioa(void){ return &stm32fxxx_gpioa; }
 
-STM32FXXXGpioBobj gpiob_enable(void)
+STM32FXXXGPIOB_HandleTypeDef gpiob_enable(void)
 {
 
 	// GPIOB
@@ -206,9 +206,9 @@ STM32FXXXGpioBobj gpiob_enable(void)
 	return stm32fxxx_gpiob;
 }
 
-STM32FXXXGpioBobj* gpiob(void){ return &stm32fxxx_gpiob; }
+STM32FXXXGPIOB_HandleTypeDef* gpiob(void){ return &stm32fxxx_gpiob; }
 
-STM32FXXXGpioCobj gpioc_enable(void)
+STM32FXXXGPIOC_HandleTypeDef gpioc_enable(void)
 {
 
 	// GPIOC
@@ -227,9 +227,9 @@ STM32FXXXGpioCobj gpioc_enable(void)
 	return stm32fxxx_gpioc;
 }
 
-STM32FXXXGpioCobj* gpioc(void){ return &stm32fxxx_gpioc; }
+STM32FXXXGPIOC_HandleTypeDef* gpioc(void){ return &stm32fxxx_gpioc; }
 
-STM32FXXXGpioDobj gpiod_enable(void)
+STM32FXXXGPIOD_HandleTypeDef gpiod_enable(void)
 {
 
 	// GPIOD
@@ -248,9 +248,9 @@ STM32FXXXGpioDobj gpiod_enable(void)
 	return stm32fxxx_gpiod;
 }
 
-STM32FXXXGpioDobj* gpiod(void){ return &stm32fxxx_gpiod; }
+STM32FXXXGPIOD_HandleTypeDef* gpiod(void){ return &stm32fxxx_gpiod; }
 
-STM32FXXXGpioEobj gpioe_enable(void)
+STM32FXXXGPIOE_HandleTypeDef gpioe_enable(void)
 {
 
 	// GPIOE
@@ -269,10 +269,10 @@ STM32FXXXGpioEobj gpioe_enable(void)
 	return stm32fxxx_gpioe;
 }
 
-STM32FXXXGpioEobj* gpioe(void){ return &stm32fxxx_gpioe; }
+STM32FXXXGPIOE_HandleTypeDef* gpioe(void){ return &stm32fxxx_gpioe; }
 
 #ifdef STM32F446xx
-STM32FXXXGpioFobj gpiof_enable(void)
+STM32FXXXGPIOF_HandleTypeDef gpiof_enable(void)
 {
 
 	// GPIOF
@@ -291,9 +291,9 @@ STM32FXXXGpioFobj gpiof_enable(void)
 	return stm32fxxx_gpiof;
 }
 
-STM32FXXXGpioFobj* gpiof(void){ return &stm32fxxx_gpiof; }
+STM32FXXXGPIOF_HandleTypeDef* gpiof(void){ return &stm32fxxx_gpiof; }
 
-STM32FXXXGpioGobj gpiog_enable(void)
+STM32FXXXGPIOG_HandleTypeDef gpiog_enable(void)
 {
 
 	// GPIOG
@@ -312,10 +312,10 @@ STM32FXXXGpioGobj gpiog_enable(void)
 	return stm32fxxx_gpiog;
 }
 
-STM32FXXXGpioGobj* gpiog(void){ return &stm32fxxx_gpiog; }
+STM32FXXXGPIOA_HandleTypeDef* gpiog(void){ return &stm32fxxx_gpiog; }
 #endif
 
-STM32FXXXGpioHobj gpioh_enable(void)
+STM32FXXXGPIOH_HandleTypeDef gpioh_enable(void)
 {
 
 	// GPIOH
@@ -334,7 +334,7 @@ STM32FXXXGpioHobj gpioh_enable(void)
 	return stm32fxxx_gpioh;
 }
 
-STM32FXXXGpioHobj* gpioh(void){ return &stm32fxxx_gpioh; }
+STM32FXXXGPIOH_HandleTypeDef* gpioh(void){ return &stm32fxxx_gpioh; }
 
 
 /**** EOF ****/

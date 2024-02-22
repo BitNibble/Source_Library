@@ -189,31 +189,31 @@ typedef struct
 	/*** Other ***/
 	void (*clock)( uint8_t bool );
 
-}STM32FXXXGpioAobj, STM32FXXXGpioBobj, STM32FXXXGpioCobj, STM32FXXXGpioDobj, STM32FXXXGpioEobj, STM32FXXXGpioFobj, STM32FXXXGpioGobj, STM32FXXXGpioHobj;
+}STM32FXXXGPIOA_HandleTypeDef, STM32FXXXGPIOB_HandleTypeDef, STM32FXXXGPIOC_HandleTypeDef, STM32FXXXGPIOD_HandleTypeDef, STM32FXXXGPIOE_HandleTypeDef, STM32FXXXGPIOF_HandleTypeDef, STM32FXXXGPIOG_HandleTypeDef, STM32FXXXGPIOH_HandleTypeDef;
 // INIC
-STM32FXXXGpioAobj gpioa_enable(void);
-STM32FXXXGpioAobj* gpioa(void);
+STM32FXXXGPIOA_HandleTypeDef gpioa_enable(void);
+STM32FXXXGPIOA_HandleTypeDef* gpioa(void);
 
-STM32FXXXGpioBobj gpiob_enable(void);
-STM32FXXXGpioBobj* gpiob(void);
+STM32FXXXGPIOB_HandleTypeDef gpiob_enable(void);
+STM32FXXXGPIOB_HandleTypeDef* gpiob(void);
 
-STM32FXXXGpioCobj gpioc_enable(void);
-STM32FXXXGpioCobj* gpioc(void);
+STM32FXXXGPIOC_HandleTypeDef gpioc_enable(void);
+STM32FXXXGPIOC_HandleTypeDef* gpioc(void);
 
-STM32FXXXGpioDobj gpiod_enable(void);
-STM32FXXXGpioDobj* gpiod(void);
+STM32FXXXGPIOD_HandleTypeDef gpiod_enable(void);
+STM32FXXXGPIOD_HandleTypeDef* gpiod(void);
 
-STM32FXXXGpioEobj gpioe_enable(void);
-STM32FXXXGpioEobj* gpioe(void);
+STM32FXXXGPIOE_HandleTypeDef gpioe_enable(void);
+STM32FXXXGPIOE_HandleTypeDef* gpioe(void);
 
-STM32FXXXGpioFobj gpiof_enable(void);
-STM32FXXXGpioFobj* gpiof(void);
+STM32FXXXGPIOF_HandleTypeDef gpiof_enable(void);
+STM32FXXXGPIOF_HandleTypeDef* gpiof(void);
 
-STM32FXXXGpioGobj gpiog_enable(void);
-STM32FXXXGpioGobj* gpiog(void);
+STM32FXXXGPIOG_HandleTypeDef gpiog_enable(void);
+STM32FXXXGPIOG_HandleTypeDef* gpiog(void);
 
-STM32FXXXGpioHobj gpioh_enable(void);
-STM32FXXXGpioHobj* gpioh(void);
+STM32FXXXGPIOH_HandleTypeDef gpioh_enable(void);
+STM32FXXXGPIOH_HandleTypeDef* gpioh(void);
 
 /***** GPIO Procedure & Funtion Header ******/
 void STM32FXXXGpioAclock( uint8_t bool );

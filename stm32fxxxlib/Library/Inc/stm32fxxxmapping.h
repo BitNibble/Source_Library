@@ -120,12 +120,14 @@ typedef struct
 		GPIO_TypeDef* gpioe_reg;
 		GPIO_TypeDef* gpioh_reg;
 	#if defined(_STM32FXXXGPIO_H_)
-		STM32FXXXGpioAobj* gpioa;
-		STM32FXXXGpioBobj* gpiob;
-		STM32FXXXGpioCobj* gpioc;
-		STM32FXXXGpioDobj* gpiod;
-		STM32FXXXGpioEobj* gpioe;
-		STM32FXXXGpioHobj* gpioh;
+		STM32FXXXGPIOA_HandleTypeDef* gpioa;
+		STM32FXXXGPIOB_HandleTypeDef* gpiob;
+		STM32FXXXGPIOC_HandleTypeDef* gpioc;
+		STM32FXXXGPIOD_HandleTypeDef* gpiod;
+		STM32FXXXGPIOE_HandleTypeDef* gpioe;
+		STM32FXXXGPIOF_HandleTypeDef* gpiof;
+		STM32FXXXGPIOG_HandleTypeDef* gpiog;
+		STM32FXXXGPIOH_HandleTypeDef* gpioh;
 	#endif
 	// SYSCFG
 	SYSCFG_TypeDef* syscfg_reg;
