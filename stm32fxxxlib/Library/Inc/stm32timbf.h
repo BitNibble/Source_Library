@@ -39,7 +39,7 @@ typedef union{
 		uint32_t fill:22;
 	}bit;
 	uint32_t dword;
-}STM32FXXXTIM1_CR1_TypeDef, STM32FXXXTIM8_CR1_TypeDef;
+}STM32FXXXTIM1_CR1_TypeDef, STM32FXXXTIM8_CR1_TypeDef, STM32FXXXTIM2to5_CR1_TypeDef;
 /*** TIM -> CR2 ***/
 typedef union{
 	struct CR2_1{
@@ -79,6 +79,16 @@ typedef union{
 	}bit;
 	uint32_t dword;
 }STM32FXXXTIM1_CR2_TypeDef, STM32FXXXTIM8_CR2_TypeDef;
+typedef union{
+	struct CR2_3{
+		uint32_t fill1:3;
+		uint32_t ccds:1;
+		uint32_t mms:3;
+		uint32_t ti1s:1;
+		uint32_t fill2:24;
+	}bit;
+	uint32_t dword;
+}STM32FXXXTIM2to5_CR2_TypeDef;
 /*** TIM -> SMCR ***/
 typedef union{
 	struct SMCR_1{
@@ -107,7 +117,7 @@ typedef union{
 		uint32_t fill2:16;
 	}bit;
 	uint32_t dword;
-}STM32FXXXTIM1_SMCR_TypeDef, STM32FXXXTIM8_SMCR_TypeDef;
+}STM32FXXXTIM1_SMCR_TypeDef, STM32FXXXTIM8_SMCR_TypeDef, STM32FXXXTIM2to5_SMCR_TypeDef;
 /*** TIM -> DIEER ***/
 typedef union{
 	struct DIER_1{
@@ -151,6 +161,27 @@ typedef union{
 	}bit;
 	uint32_t dword;
 }STM32FXXXTIM1_DIER_TypeDef, STM32FXXXTIM8_DIER_TypeDef;
+typedef union{
+	struct DIER_3{
+		uint32_t uie:1;
+		uint32_t cc1ie:1;
+		uint32_t cc2ie:1;
+		uint32_t cc3ie:1;
+		uint32_t cc4ie:1;
+		uint32_t fill1:1;
+		uint32_t tie:1;
+		uint32_t fill2:1;
+		uint32_t ude:1;
+		uint32_t cc1de:1;
+		uint32_t cc2de:1;
+		uint32_t cc3de:1;
+		uint32_t cc4de:1;
+		uint32_t comde:1;
+		uint32_t tde:1;
+		uint32_t fill3:17;
+	}bit;
+	uint32_t dword;
+}STM32FXXXTIM2to5_DIER_TypeDef;
 /*** TIM -> SR ***/
 typedef union{
 	struct SR_1{
@@ -202,6 +233,30 @@ typedef union{
 	}iof;
 	uint32_t dword;
 }STM32FXXXTIM1_SR_TypeDef, STM32FXXXTIM8_SR_TypeDef;
+typedef union{
+	struct SR_5{
+		uint32_t uif:1;
+		uint32_t cc1if:1;
+		uint32_t cc2if:1;
+		uint32_t cc3if:1;
+		uint32_t cc4if:1;
+		uint32_t fill1:1;
+		uint32_t tif:1;
+		uint32_t fill2:2;
+		uint32_t cc1of:1;
+		uint32_t cc2of:1;
+		uint32_t cc3of:1;
+		uint32_t cc4of:1;
+		uint32_t fill3:19;
+	}bit;
+	struct SR_6{
+		uint32_t iflag:8;
+		uint32_t fill1:1;
+		uint32_t oflag:4;
+		uint32_t fill2:19;
+	}iof;
+	uint32_t dword;
+}STM32FXXXTIM2to5_SR_TypeDef;
 /*** TIM -> EGR ***/
 typedef union{
 	struct EGR_1{
@@ -231,6 +286,19 @@ typedef union{
 	}bit;
 	uint32_t dword;
 }STM32FXXXTIM1_EGR_TypeDef, STM32FXXXTIM8_EGR_TypeDef;
+typedef union{
+	struct EGR_3{
+		uint32_t ug:1;
+		uint32_t cc1g:1;
+		uint32_t cc2g:1;
+		uint32_t cc3g:1;
+		uint32_t cc4g:1;
+		uint32_t fill1:1;
+		uint32_t tg:1;
+		uint32_t fill:25;
+	}bit;
+	uint32_t dword;
+}STM32FXXXTIM2to5_EGR_TypeDef;
 /*** TIM -> CCMR1 ***/
 typedef union{
 	struct CCMR1_1{
@@ -281,7 +349,7 @@ typedef union{
 		uint32_t fill:16;
 	}icm;
 	uint32_t dword;
-}STM32FXXXTIM1_CCMR1_TypeDef, STM32FXXXTIM8_CCMR1_TypeDef;
+}STM32FXXXTIM1_CCMR1_TypeDef, STM32FXXXTIM8_CCMR1_TypeDef, STM32FXXXTIM2to5_CCMR1_TypeDef;
 /*** TIM -> CCMR2 ***/
 typedef union{
 	struct CCMR2_1{
@@ -332,7 +400,7 @@ typedef union{
 		uint32_t fill:16;
 	}icm;
 	uint32_t dword;
-}STM32FXXXTIM1_CCMR2_TypeDef, STM32FXXXTIM8_CCMR2_TypeDef;
+}STM32FXXXTIM1_CCMR2_TypeDef, STM32FXXXTIM8_CCMR2_TypeDef, STM32FXXXTIM2to5_CCMR2_TypeDef;
 /*** TIM -> CCER ***/
 typedef union{
 	struct CCER_1{
@@ -376,6 +444,28 @@ typedef union{
 	}bit;
 	uint32_t dword;
 }STM32FXXXTIM1_CCER_TypeDef, STM32FXXXTIM8_CCER_TypeDef;
+typedef union{
+	struct CCER_3{
+		uint32_t cc1e:1;
+		uint32_t cc1p:1;
+		uint32_t fill1:1;
+		uint32_t cc1np:1;
+		uint32_t cc2e:1;
+		uint32_t cc2p:1;
+		uint32_t fill2:1;
+		uint32_t cc2np:1;
+		uint32_t cc3e:1;
+		uint32_t cc3p:1;
+		uint32_t fill3:1;
+		uint32_t cc3np:1;
+		uint32_t cc4e:1;
+		uint32_t cc4p:1;
+		uint32_t fill4:1;
+		uint32_t cc4np:1;
+		uint32_t fill5:16;
+	}bit;
+	uint32_t dword;
+}STM32FXXXTIM2to5_CCER_TypeDef;
 /*** TIM -> CNT ***/
 typedef union{
 	struct CNT_1{
@@ -383,14 +473,14 @@ typedef union{
 		uint32_t w1:16;
 	}word;
 	uint32_t dword;
-}STM32FXXXTIM_CNT_TypeDef;
+}STM32FXXXTIM_CNT_TypeDef, STM32FXXXTIM2and5_CNT_TypeDef;
 typedef union{
 	struct CNT_2{
 		uint32_t w:16;
 		uint32_t fill:16;
 	}word;
 	uint32_t dword;
-}STM32FXXXTIM1_CNT_TypeDef, STM32FXXXTIM8_CNT_TypeDef;
+}STM32FXXXTIM1_CNT_TypeDef, STM32FXXXTIM8_CNT_TypeDef, STM32FXXXTIM3and4_CNT_TypeDef;
 /*** TIM -> PSC ***/
 typedef union{
 	struct PSC_1{
@@ -405,7 +495,7 @@ typedef union{
 		uint32_t fill:16;
 	}word;
 	uint32_t dword;
-}STM32FXXXTIM1_PSC_TypeDef, STM32FXXXTIM8_PSC_TypeDef;
+}STM32FXXXTIM1_PSC_TypeDef, STM32FXXXTIM8_PSC_TypeDef, STM32FXXXTIM2to5_PSC_TypeDef;
 /*** TIM -> ARR ***/
 typedef union{
 	struct ARR_1{
@@ -413,14 +503,14 @@ typedef union{
 		uint32_t w1:16;
 	}word;
 	uint32_t dword;
-}STM32FXXXTIM_ARR_TypeDef;
+}STM32FXXXTIM_ARR_TypeDef, STM32FXXXTIM2and5_ARR_TypeDef;
 typedef union{
 	struct ARR_2{
 		uint32_t w:16;
 		uint32_t fill:16;
 	}word;
 	uint32_t dword;
-}STM32FXXXTIM1_ARR_TypeDef, STM32FXXXTIM8_ARR_TypeDef;
+}STM32FXXXTIM1_ARR_TypeDef, STM32FXXXTIM8_ARR_TypeDef, STM32FXXXTIM3and4_ARR_TypeDef;
 /*** TIM -> RCR ***/
 typedef union{
 	struct RCR_1{
@@ -443,14 +533,14 @@ typedef union{
 		uint32_t w1:16;
 	}word;
 	uint32_t dword;
-}STM32FXXXTIM_CCR1_TypeDef;
+}STM32FXXXTIM_CCR1_TypeDef, STM32FXXXTIM2and5_CCR1_TypeDef;
 typedef union{
 	struct CCR1_2{
 		uint32_t w:16;
 		uint32_t fill:16;
 	}word;
 	uint32_t dword;
-}STM32FXXXTIM1_CCR1_TypeDef, STM32FXXXTIM8_CCR1_TypeDef;
+}STM32FXXXTIM1_CCR1_TypeDef, STM32FXXXTIM8_CCR1_TypeDef, STM32FXXXTIM3and4_CCR1_TypeDef;
 /*** TIM -> CCR2 ***/
 typedef union{
 	struct CCR2_1{
@@ -458,14 +548,14 @@ typedef union{
 		uint32_t w1:16;
 	}word;
 	uint32_t dword;
-}STM32FXXXTIM_CCR2_TypeDef;
+}STM32FXXXTIM_CCR2_TypeDef, STM32FXXXTIM2and5_CCR2_TypeDef;
 typedef union{
 	struct CCR2_2{
 		uint32_t w:16;
 		uint32_t fill:16;
 	}word;
 	uint32_t dword;
-}STM32FXXXTIM1_CCR2_TypeDef, STM32FXXXTIM8_CCR2_TypeDef;
+}STM32FXXXTIM1_CCR2_TypeDef, STM32FXXXTIM8_CCR2_TypeDef, STM32FXXXTIM3and4_CCR2_TypeDef;
 /*** TIM -> CCR3 ***/
 typedef union{
 	struct CCR3_1{
@@ -473,14 +563,14 @@ typedef union{
 		uint32_t w1:16;
 	}word;
 	uint32_t dword;
-}STM32FXXXTIM_CCR3_TypeDef;
+}STM32FXXXTIM_CCR3_TypeDef, STM32FXXXTIM2and5_CCR3_TypeDef;
 typedef union{
 	struct CCR3_2{
 		uint32_t w:16;
 		uint32_t fill:16;
 	}word;
 	uint32_t dword;
-}STM32FXXXTIM1_CCR3_TypeDef, STM32FXXXTIM8_CCR3_TypeDef;
+}STM32FXXXTIM1_CCR3_TypeDef, STM32FXXXTIM8_CCR3_TypeDef, STM32FXXXTIM3and4_CCR3_TypeDef;
 /*** TIM -> CCR4 ***/
 typedef union{
 	struct CCR4_1{
@@ -488,14 +578,14 @@ typedef union{
 		uint32_t w1:16;
 	}word;
 	uint32_t dword;
-}STM32FXXXTIM_CCR4_TypeDef;
+}STM32FXXXTIM_CCR4_TypeDef, STM32FXXXTIM2and5_CCR4_TypeDef;
 typedef union{
 	struct CCR4_2{
 		uint32_t w:16;
 		uint32_t fill:16;
 	}word;
 	uint32_t dword;
-}STM32FXXXTIM1_CCR4_TypeDef, STM32FXXXTIM8_CCR4_TypeDef;
+}STM32FXXXTIM1_CCR4_TypeDef, STM32FXXXTIM8_CCR4_TypeDef, STM32FXXXTIM3and4_CCR4_TypeDef;
 /*** TIM -> BDTR ***/
 typedef union{
 	struct BDTR_1{
@@ -543,7 +633,7 @@ typedef union{
 		uint32_t fill2:19;
 	}bit;
 	uint32_t dword;
-}STM32FXXXTIM1_DCR_TypeDef, STM32FXXXTIM8_DCR_TypeDef;
+}STM32FXXXTIM1_DCR_TypeDef, STM32FXXXTIM8_DCR_TypeDef, STM32FXXXTIM2to5_DCR_TypeDef;
 /*** TIM -> DMAR ***/
 typedef union{
 	struct DMAR_1{
@@ -551,7 +641,7 @@ typedef union{
 		uint16_t fill;
 	}word;
 	uint32_t dword;
-}STM32FXXXTIM_DMAR_TypeDef;
+}STM32FXXXTIM_DMAR_TypeDef, STM32FXXXTIM2to5_DMAR_TypeDef;
 typedef union{
 	struct DMAR_2{
 		uint32_t d;
@@ -588,14 +678,14 @@ typedef union{
 		uint32_t fill2:24;
 	}t5;
 	uint32_t dword;
-}STM32FXXXTIM2_5_OR_TypeDef;
+}STM32FXXXTIM2and5_OR_TypeDef;
 typedef union{
 	struct OR_8{
 		uint32_t ti1_rmp:2;
 		uint32_t fill2:30;
 	}t10_11;
 	uint32_t dword;
-}STM32FXXXTIM10_11_OR_TypeDef;
+}STM32FXXXTIM10and11_OR_TypeDef;
 
 #endif
 
