@@ -55,11 +55,11 @@ int main(void)
 
   stm()->tim1->nvic(1);
   stm()->tim1->clock(on);
-  tim1()->arr(0xFFFF);
+  tim1()->arr->a0 = 0x1FFF;
   // Compare
-  tim1()->ccr1(1400);
+  //tim1()->ccr1(5000);
   // pre-scaler
-  tim1()->psc(100);
+  tim1()->psc->p0 = 100;
   // interrupt
   tim1()->dier->cc1ie = 1;
   // Enable (Start/Stop)
