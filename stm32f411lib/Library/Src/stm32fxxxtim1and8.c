@@ -104,26 +104,26 @@ STM32FXXXTIM1obj tim1_enable(void)
 	// NVIC
 	stm32fxxx_tim1.nvic = STM32FXXXTim1Nvic;
 	/*** TIM1 Bit Mapping Link ***/
-	stm32fxxx_tim1.cr1 = (STM32FXXXTIM1_CR1_TypeDef*) &TIM1->CR1;
-	stm32fxxx_tim1.cr2 = (STM32FXXXTIM1_CR2_TypeDef*) &TIM1->CR2;
-	stm32fxxx_tim1.smcr = (STM32FXXXTIM1_SMCR_TypeDef*) &TIM1->SMCR;
-	stm32fxxx_tim1.dier = (STM32FXXXTIM1_DIER_TypeDef*) &TIM1->DIER;
-	stm32fxxx_tim1.sr = (STM32FXXXTIM1_SR_TypeDef*) &TIM1->SR;
-	stm32fxxx_tim1.egr = (STM32FXXXTIM1_EGR_TypeDef*) &TIM1->EGR;
-	stm32fxxx_tim1.ccmr1 = (STM32FXXXTIM1_CCMR1_TypeDef*) &TIM1->CCMR1;
-	stm32fxxx_tim1.ccmr2 = (STM32FXXXTIM1_CCMR2_TypeDef*) &TIM1->CCMR2;
-	stm32fxxx_tim1.ccer = (STM32FXXXTIM1_CCER_TypeDef*) &TIM1->CCER;
-	stm32fxxx_tim1.cnt = (STM32FXXXTIM1_CNT_TypeDef*) &TIM1->CNT;
-	stm32fxxx_tim1.psc = (STM32FXXXTIM1_PSC_TypeDef*) &TIM1->PSC;
-	stm32fxxx_tim1.arr = (STM32FXXXTIM1_ARR_TypeDef*) &TIM1->ARR;
-	stm32fxxx_tim1.rcr = (STM32FXXXTIM1_RCR_TypeDef*) &TIM1->RCR;
-	stm32fxxx_tim1.ccr1 = (STM32FXXXTIM1_CCR1_TypeDef*) &TIM1->CCR1;
-	stm32fxxx_tim1.ccr2 = (STM32FXXXTIM1_CCR2_TypeDef*) &TIM1->CCR2;
-	stm32fxxx_tim1.ccr3 = (STM32FXXXTIM1_CCR3_TypeDef*) &TIM1->CCR3;
-	stm32fxxx_tim1.ccr4 = (STM32FXXXTIM1_CCR4_TypeDef*) &TIM1->CCR4;
-	stm32fxxx_tim1.bdtr = (STM32FXXXTIM1_BDTR_TypeDef*) &TIM1->BDTR;
-	stm32fxxx_tim1.dcr = (STM32FXXXTIM1_DCR_TypeDef*) &TIM1->DCR;
-	stm32fxxx_tim1.dmar = (STM32FXXXTIM1_DMAR_TypeDef*) &TIM1->DMAR;
+	stm32fxxx_tim1.cr1 = (STM32FXXXTIM1and8_CR1_TypeDef*) &TIM1->CR1;
+	stm32fxxx_tim1.cr2 = (STM32FXXXTIM1and8_CR2_TypeDef*) &TIM1->CR2;
+	stm32fxxx_tim1.smcr = (STM32FXXXTIM1and8_SMCR_TypeDef*) &TIM1->SMCR;
+	stm32fxxx_tim1.dier = (STM32FXXXTIM1and8_DIER_TypeDef*) &TIM1->DIER;
+	stm32fxxx_tim1.sr = (STM32FXXXTIM1and8_SR_TypeDef*) &TIM1->SR;
+	stm32fxxx_tim1.egr = (STM32FXXXTIM1and8_EGR_TypeDef*) &TIM1->EGR;
+	stm32fxxx_tim1.ccmr1 = (STM32FXXXTIM1and8_CCMR1_TypeDef*) &TIM1->CCMR1;
+	stm32fxxx_tim1.ccmr2 = (STM32FXXXTIM1and8_CCMR2_TypeDef*) &TIM1->CCMR2;
+	stm32fxxx_tim1.ccer = (STM32FXXXTIM1and8_CCER_TypeDef*) &TIM1->CCER;
+	stm32fxxx_tim1.cnt = (STM32FXXXTIM1and8_CNT_TypeDef*) &TIM1->CNT;
+	stm32fxxx_tim1.psc = (STM32FXXXTIM1and8_PSC_TypeDef*) &TIM1->PSC;
+	stm32fxxx_tim1.arr = (STM32FXXXTIM1and8_ARR_TypeDef*) &TIM1->ARR;
+	stm32fxxx_tim1.rcr = (STM32FXXXTIM1and8_RCR_TypeDef*) &TIM1->RCR;
+	stm32fxxx_tim1.ccr1 = (STM32FXXXTIM1and8_CCR1_TypeDef*) &TIM1->CCR1;
+	stm32fxxx_tim1.ccr2 = (STM32FXXXTIM1and8_CCR2_TypeDef*) &TIM1->CCR2;
+	stm32fxxx_tim1.ccr3 = (STM32FXXXTIM1and8_CCR3_TypeDef*) &TIM1->CCR3;
+	stm32fxxx_tim1.ccr4 = (STM32FXXXTIM1and8_CCR4_TypeDef*) &TIM1->CCR4;
+	stm32fxxx_tim1.bdtr = (STM32FXXXTIM1and8_BDTR_TypeDef*) &TIM1->BDTR;
+	stm32fxxx_tim1.dcr = (STM32FXXXTIM1and8_DCR_TypeDef*) &TIM1->DCR;
+	stm32fxxx_tim1.dmar = (STM32FXXXTIM1and8_DMAR_TypeDef*) &TIM1->DMAR;
 	return stm32fxxx_tim1;
 }
 
@@ -138,26 +138,26 @@ STM32FXXXTIM8obj tim8_enable(void)
 	// NVIC
 	stm32fxxx_tim8.nvic = STM32FXXXTim8Nvic;
 	/*** TIM8 Bit Mapping Link ***/
-	stm32fxxx_tim8.cr1 = (STM32FXXXTIM8_CR1_TypeDef*) &TIM8->CR1;
-	stm32fxxx_tim8.cr2 = (STM32FXXXTIM8_CR2_TypeDef*) &TIM8->CR2;
-	stm32fxxx_tim8.smcr = (STM32FXXXTIM8_SMCR_TypeDef*) &TIM8->SMCR;
-	stm32fxxx_tim8.dier = (STM32FXXXTIM8_DIER_TypeDef*) &TIM8->DIER;
-	stm32fxxx_tim8.sr = (STM32FXXXTIM8_SR_TypeDef*) &TIM8->SR;
-	stm32fxxx_tim8.egr = (STM32FXXXTIM8_EGR_TypeDef*) &TIM8->EGR;
-	stm32fxxx_tim8.ccmr1 = (STM32FXXXTIM8_CCMR1_TypeDef*) &TIM8->CCMR1;
-	stm32fxxx_tim8.ccmr2 = (STM32FXXXTIM8_CCMR2_TypeDef*) &TIM8->CCMR2;
-	stm32fxxx_tim8.ccer = (STM32FXXXTIM8_CCER_TypeDef*) &TIM8->CCER;
-	stm32fxxx_tim8.cnt = (STM32FXXXTIM8_CNT_TypeDef*) &TIM8->CNT;
-	stm32fxxx_tim8.psc = (STM32FXXXTIM8_PSC_TypeDef*) &TIM8->PSC;
-	stm32fxxx_tim8.arr = (STM32FXXXTIM8_ARR_TypeDef*) &TIM8->ARR;
-	stm32fxxx_tim8.rcr = (STM32FXXXTIM8_RCR_TypeDef*) &TIM8->RCR;
-	stm32fxxx_tim8.ccr1 = (STM32FXXXTIM8_CCR1_TypeDef*) &TIM8->CCR1;
-	stm32fxxx_tim8.ccr2 = (STM32FXXXTIM8_CCR2_TypeDef*) &TIM8->CCR2;
-	stm32fxxx_tim8.ccr3 = (STM32FXXXTIM8_CCR3_TypeDef*) &TIM8->CCR3;
-	stm32fxxx_tim8.ccr4 = (STM32FXXXTIM8_CCR4_TypeDef*) &TIM8->CCR4;
-	stm32fxxx_tim8.bdtr = (STM32FXXXTIM8_BDTR_TypeDef*) &TIM8->BDTR;
-	stm32fxxx_tim8.dcr = (STM32FXXXTIM8_DCR_TypeDef*) &TIM8->DCR;
-	stm32fxxx_tim8.dmar = (STM32FXXXTIM8_DMAR_TypeDef*) &TIM8->DMAR;
+	stm32fxxx_tim8.cr1 = (STM32FXXXTIM1and8_CR1_TypeDef*) &TIM8->CR1;
+	stm32fxxx_tim8.cr2 = (STM32FXXXTIM1and8_CR2_TypeDef*) &TIM8->CR2;
+	stm32fxxx_tim8.smcr = (STM32FXXXTIM1and8_SMCR_TypeDef*) &TIM8->SMCR;
+	stm32fxxx_tim8.dier = (STM32FXXXTIM1and8_DIER_TypeDef*) &TIM8->DIER;
+	stm32fxxx_tim8.sr = (STM32FXXXTIM1and8_SR_TypeDef*) &TIM8->SR;
+	stm32fxxx_tim8.egr = (STM32FXXXTIM1and8_EGR_TypeDef*) &TIM8->EGR;
+	stm32fxxx_tim8.ccmr1 = (STM32FXXXTIM1and8_CCMR1_TypeDef*) &TIM8->CCMR1;
+	stm32fxxx_tim8.ccmr2 = (STM32FXXXTIM1and8_CCMR2_TypeDef*) &TIM8->CCMR2;
+	stm32fxxx_tim8.ccer = (STM32FXXXTIM1and8_CCER_TypeDef*) &TIM8->CCER;
+	stm32fxxx_tim8.cnt = (STM32FXXXTIM1and8_CNT_TypeDef*) &TIM8->CNT;
+	stm32fxxx_tim8.psc = (STM32FXXXTIM1and8_PSC_TypeDef*) &TIM8->PSC;
+	stm32fxxx_tim8.arr = (STM32FXXXTIM1and8_ARR_TypeDef*) &TIM8->ARR;
+	stm32fxxx_tim8.rcr = (STM32FXXXTIM1and8_RCR_TypeDef*) &TIM8->RCR;
+	stm32fxxx_tim8.ccr1 = (STM32FXXXTIM1and8_CCR1_TypeDef*) &TIM8->CCR1;
+	stm32fxxx_tim8.ccr2 = (STM32FXXXTIM1and8_CCR2_TypeDef*) &TIM8->CCR2;
+	stm32fxxx_tim8.ccr3 = (STM32FXXXTIM1and8_CCR3_TypeDef*) &TIM8->CCR3;
+	stm32fxxx_tim8.ccr4 = (STM32FXXXTIM1and8_CCR4_TypeDef*) &TIM8->CCR4;
+	stm32fxxx_tim8.bdtr = (STM32FXXXTIM1and8_BDTR_TypeDef*) &TIM8->BDTR;
+	stm32fxxx_tim8.dcr = (STM32FXXXTIM1and8_DCR_TypeDef*) &TIM8->DCR;
+	stm32fxxx_tim8.dmar = (STM32FXXXTIM1and8_DMAR_TypeDef*) &TIM8->DMAR;
 	return stm32fxxx_tim8;
 }
 
