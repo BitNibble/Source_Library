@@ -93,7 +93,9 @@ void STM32FXXXTim8Nvic(uint8_t value)
 	break;
 	}
 }
+
 #endif
+
 /*** TIM1 INIC Procedure & Function Definition ***/
 STM32FXXXTIM1obj tim1_enable(void)
 {
@@ -145,17 +147,17 @@ STM32FXXXTIM8obj tim8_enable(void)
 	stm32fxxx_tim8.ccmr1 = (STM32FXXXTIM8_CCMR1_TypeDef*) &TIM8->CCMR1;
 	stm32fxxx_tim8.ccmr2 = (STM32FXXXTIM8_CCMR2_TypeDef*) &TIM8->CCMR2;
 	stm32fxxx_tim8.ccer = (STM32FXXXTIM8_CCER_TypeDef*) &TIM8->CCER;
-	stm32fxxx_tim8.cnt = (STM32FXXXTIM1_CNT_TypeDef*) &TIM8->CNT;
-	stm32fxxx_tim8.psc = (STM32FXXXTIM1_PSC_TypeDef*) &TIM8->PSC;
-	stm32fxxx_tim8.arr = (STM32FXXXTIM1_ARR_TypeDef*) &TIM8->ARR;
-	stm32fxxx_tim8.rcr = (STM32FXXXTIM1_RCR_TypeDef*) &TIM8->RCR;
-	stm32fxxx_tim8.ccr1 = (STM32FXXXTIM1_CCR1_TypeDef*) &TIM8->CCR1;
-	stm32fxxx_tim8.ccr2 = (STM32FXXXTIM1_CCR2_TypeDef*) &TIM8->CCR2;
-	stm32fxxx_tim8.ccr3 = (STM32FXXXTIM1_CCR3_TypeDef*) &TIM8->CCR3;
-	stm32fxxx_tim8.ccr4 = (STM32FXXXTIM1_CCR4_TypeDef*) &TIM8->CCR4;
+	stm32fxxx_tim8.cnt = (STM32FXXXTIM8_CNT_TypeDef*) &TIM8->CNT;
+	stm32fxxx_tim8.psc = (STM32FXXXTIM8_PSC_TypeDef*) &TIM8->PSC;
+	stm32fxxx_tim8.arr = (STM32FXXXTIM8_ARR_TypeDef*) &TIM8->ARR;
+	stm32fxxx_tim8.rcr = (STM32FXXXTIM8_RCR_TypeDef*) &TIM8->RCR;
+	stm32fxxx_tim8.ccr1 = (STM32FXXXTIM8_CCR1_TypeDef*) &TIM8->CCR1;
+	stm32fxxx_tim8.ccr2 = (STM32FXXXTIM8_CCR2_TypeDef*) &TIM8->CCR2;
+	stm32fxxx_tim8.ccr3 = (STM32FXXXTIM8_CCR3_TypeDef*) &TIM8->CCR3;
+	stm32fxxx_tim8.ccr4 = (STM32FXXXTIM8_CCR4_TypeDef*) &TIM8->CCR4;
 	stm32fxxx_tim8.bdtr = (STM32FXXXTIM8_BDTR_TypeDef*) &TIM8->BDTR;
 	stm32fxxx_tim8.dcr = (STM32FXXXTIM8_DCR_TypeDef*) &TIM8->DCR;
-	stm32fxxx_tim8.dmar = (STM32FXXXTIM1_DMAR_TypeDef*) &TIM8->DMAR;
+	stm32fxxx_tim8.dmar = (STM32FXXXTIM8_DMAR_TypeDef*) &TIM8->DMAR;
 	return stm32fxxx_tim8;
 }
 

@@ -230,7 +230,7 @@ typedef union{
 typedef struct
 {
 
-	/*** Bit Mapping ***/
+	/*** BitField Mapping ***/
 	GPIO_MODER_TypeDef* moder;
 	GPIO_OTYPER_TypeDef* otyper;
 	GPIO_OSPEEDR_TypeDef* ospeedr;
