@@ -180,42 +180,42 @@ typedef struct{
 }STM32FXXXTIM1_CCER_TypeDef, STM32FXXXTIM8_CCER_TypeDef;
 /*** TIM1and8 -> CNT ***/
 typedef struct{
-	uint32_t c0:16;
+	uint32_t word:16;
 	uint32_t fill:16;
 }STM32FXXXTIM1_CNT_TypeDef, STM32FXXXTIM8_CNT_TypeDef;
 /*** TIM1and8 -> PSC ***/
 typedef struct{
-	uint32_t p0:16;
+	uint32_t word:16;
 	uint32_t fill:16;
 }STM32FXXXTIM1_PSC_TypeDef, STM32FXXXTIM8_PSC_TypeDef;
 /*** TIM1and8 -> ARR ***/
 typedef struct{
-	uint32_t a0:16;
+	uint32_t word:16;
 	uint32_t fill:16;
 }STM32FXXXTIM1_ARR_TypeDef, STM32FXXXTIM8_ARR_TypeDef;
 /*** TIM1and8 -> RCR ***/
 typedef struct{
-	uint32_t r0:8;
+	uint32_t byte:8;
 	uint32_t fill:24;
 }STM32FXXXTIM1_RCR_TypeDef, STM32FXXXTIM8_RCR_TypeDef;
 /*** TIM1and8 -> CCR1 ***/
 typedef struct{
-	uint32_t c0:16;
+	uint32_t word:16;
 	uint32_t fill:16;
 }STM32FXXXTIM1_CCR1_TypeDef, STM32FXXXTIM8_CCR1_TypeDef;
 /*** TIM1and8 -> CCR2 ***/
 typedef struct{
-	uint32_t c0:16;
+	uint32_t word:16;
 	uint32_t fill:16;
 }STM32FXXXTIM1_CCR2_TypeDef, STM32FXXXTIM8_CCR2_TypeDef;
 /*** TIM1and8 -> CCR3 ***/
 typedef struct{
-	uint32_t c0:16;
+	uint32_t word:16;
 	uint32_t fill:16;
 }STM32FXXXTIM1_CCR3_TypeDef, STM32FXXXTIM8_CCR3_TypeDef;
 /*** TIM1and8 -> CCR4 ***/
 typedef struct{
-	uint32_t c0:16;
+	uint32_t word:16;
 	uint32_t fill:16;
 }STM32FXXXTIM1_CCR4_TypeDef, STM32FXXXTIM8_CCR4_TypeDef;
 /*** TIM1and8 -> BDTR ***/
@@ -239,7 +239,7 @@ typedef struct{
 }STM32FXXXTIM1_DCR_TypeDef, STM32FXXXTIM8_DCR_TypeDef;
 /*** TIM1and8 -> DMAR ***/
 typedef struct{
-	uint32_t dmab;
+	uint32_t dword;
 }STM32FXXXTIM1_DMAR_TypeDef, STM32FXXXTIM8_DMAR_TypeDef;
 /*************************/
 /*** TIMER1and8 TypeDef***/
