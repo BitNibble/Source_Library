@@ -57,11 +57,13 @@ int main(void)
   stm()->tim1->clock(on);
   tim1()->arr->word.w = 0xFFFF;
   // Compare
-  //tim1()->ccr1->word.w = 0x1FFF;
+  tim1()->ccr1->word.w = 0x0CFF;
+  tim1()->ccr2->word.w = 0xFFFF;
   // pre-scaler
-  tim1()->psc->word.w = 300;
+  tim1()->psc->word.w = 500;
   // interrupt
   tim1()->dier->bit.cc1ie = 1;
+  tim1()->dier->bit.cc2ie = 1;
   // Enable (Start/Stop)
   tim1()->cr1->bit.arpe = 1;
   tim1()->cr1->bit.cen = 1;
@@ -80,10 +82,11 @@ int main(void)
 }
 
 void TIM1_CC_IRQHandler(void){
-	if(tim1()->sr->bit.cc1if){
+	if(tim1()->sr->bit.cc1if || tim1()->sr->bit.cc2if){
 		gpioc()->odr->bit.o13 ^= 1;
 	}
-	tim1()->sr->iocc.cciflag = 0;
+	tim1()->sr->bit.cc1if = 0;
+	tim1()->sr->bit.cc2if = 0;
 }
 
 void Error_Handler(void)
