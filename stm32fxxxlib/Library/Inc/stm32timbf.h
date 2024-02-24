@@ -181,10 +181,17 @@ typedef union{
 		uint32_t oflag:4;
 		uint32_t fill2:19;
 	}iof;
+	struct TIM_SR_3{
+		uint32_t fill1:1;
+		uint32_t cciflag:4;
+		uint32_t fill2:4;
+		uint32_t ccoflag:4;
+		uint32_t fill3:19;
+	}iocc;
 	uint32_t dword;
 }STM32FXXXTIM_SR_TypeDef, STM32FXXXTIM1and8_SR_TypeDef;
 typedef union{
-	struct TIM_SR_3{
+	struct TIM_SR_4{
 		uint32_t uif:1;
 		uint32_t cc1if:1;
 		uint32_t cc2if:1;
@@ -199,16 +206,23 @@ typedef union{
 		uint32_t cc4of:1;
 		uint32_t fill3:19;
 	}bit;
-	struct TIM_SR_4{
-		uint32_t iflag:8;
-		uint32_t fill1:1;
+	struct TIM_SR_5{
+		uint32_t iflag:7;
+		uint32_t fill1:2;
 		uint32_t oflag:4;
 		uint32_t fill2:19;
 	}iof;
+	struct TIM_SR_6{
+		uint32_t fill1:1;
+		uint32_t cciflag:4;
+		uint32_t fill2:4;
+		uint32_t ccoflag:4;
+		uint32_t fill3:19;
+	}iocc;
 	uint32_t dword;
 }STM32FXXXTIM2to5_SR_TypeDef;
 typedef union{
-	struct TIM_SR_5{
+	struct TIM_SR_7{
 		uint32_t uif:1;
 		uint32_t cc1if:1;
 		uint32_t cc2if:1;
@@ -219,28 +233,42 @@ typedef union{
 		uint32_t cc2of:1;
 		uint32_t fill3:21;
 	}bit;
-	struct TIM_SR_6{
-		uint32_t iflag:8;
-		uint32_t fill1:1;
-		uint32_t oflag:4;
-		uint32_t fill2:19;
+	struct TIM_SR_8{
+		uint32_t iflag:7;
+		uint32_t fill1:2;
+		uint32_t oflag:2;
+		uint32_t fill2:21;
 	}iof;
+	struct TIM_SR_9{
+		uint32_t fill1:1;
+		uint32_t cciflag:2;
+		uint32_t fill2:6;
+		uint32_t ccoflag:2;
+		uint32_t fill3:21;
+	}iocc;
 	uint32_t dword;
 }STM32FXXXTIM9_SR_TypeDef;
 typedef union{
-	struct TIM_SR_7{
+	struct TIM_SR_10{
 		uint32_t uif:1;
 		uint32_t cc1if:1;
 		uint32_t fill1:7;
 		uint32_t cc1of:1;
 		uint32_t fill2:22;
 	}bit;
-	struct TIM_SR_8{
-		uint32_t iflag:8;
-		uint32_t fill1:1;
-		uint32_t oflag:4;
-		uint32_t fill2:19;
+	struct TIM_SR_11{
+		uint32_t iflag:2;
+		uint32_t fill1:7;
+		uint32_t oflag:1;
+		uint32_t fill2:22;
 	}iof;
+	struct TIM_SR_12{
+		uint32_t fill1:1;
+		uint32_t cciflag:1;
+		uint32_t fill2:7;
+		uint32_t ccoflag:1;
+		uint32_t fill3:22;
+	}iocc;
 	uint32_t dword;
 }STM32FXXXTIM10and11_SR_TypeDef;
 /*** TIM -> EGR ***/
