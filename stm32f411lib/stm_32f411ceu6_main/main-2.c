@@ -57,7 +57,7 @@ int main(void)
   stm()->tim1->clock(on);
   tim1()->arr->word.w = 0xFFFF;
   // Compare
-  //tim1()->ccr1(5000);
+  //tim1()->ccr1->word.w = 0x1FFF;
   // pre-scaler
   tim1()->psc->word.w = 300;
   // interrupt
@@ -73,18 +73,17 @@ int main(void)
 	  lcd0()->gotoxy(0,0);
 	  lcd0()->string_size("Welcome",8);
 
-	  _delay_ms(300);
-	  //gpioc()->bsrr->bit.s13 = 1;
+	  _delay_ms(1000);
 	  lcd0()->gotoxy(2,0);
 	  lcd0()->string_size(func()->ui32toa(count++),10);
-	  _delay_ms(300);
-	  //gpioc()->bsrr->bit.r13 = 1;
   }
 }
 
 void TIM1_CC_IRQHandler(void){
-	tim1()->sr->iof.iflag = 0;
-	gpioc()->odr->bit.o13 ^= 1;
+	if(tim1()->sr->bit.cc1if){
+		gpioc()->odr->bit.o13 ^= 1;
+	}
+	tim1()->sr->iocc.cciflag = 0;
 }
 
 void Error_Handler(void)
