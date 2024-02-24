@@ -32,31 +32,39 @@ LCD
 LED Blinking
 	PC13 - LED blink
 note:
-test lcd and gpios.
+timer 1 test.
 ********************************************************************************/
 #include "main.h"
 #include "stm32fxxxmapping.h"
 #include "armlcd.h"
 #include "armfunction.h"
 
-char time[12];
-//rtc()->BckWrite(0,65);
-
 int main(void)
 {
 
   STM32FXXX_enable();
 
+  gpiob()->clock(on);
   gpioc()->clock(on);
   rtc()->inic(0); // 1 - LSE 0 - LSI
 
   ARMLCD0_enable(stm()->gpiob_reg);
   FUNC_enable();
 
-  //gpiob()->moder(13,1);
-  //setregposmsk(&GPIOB->MODER,GPIO_MODER_MODER13,GPIO_MODER_MODER13_Pos,1);
-  //((GPIO_MODER_TypeDef*) &GPIOB->MODER)->m13 = 1;
   gpioc()->moder->bit.m13 = 1;
+
+  stm()->tim1->nvic(1);
+  stm()->tim1->clock(on);
+  tim1()->arr->word.w = 0xFFFF;
+  // Compare
+  //tim1()->ccr1(5000);
+  // pre-scaler
+  tim1()->psc->word.w = 300;
+  // interrupt
+  tim1()->dier->bit.cc1ie = 1;
+  // Enable (Start/Stop)
+  tim1()->cr1->bit.arpe = 1;
+  tim1()->cr1->bit.cen = 1;
 
   uint32_t count = 0;
 
@@ -66,18 +74,18 @@ int main(void)
 	  lcd0()->string_size("Welcome",8);
 
 	  _delay_ms(300);
-	  //setreg(&GPIOB->ODR,1,13,1);
 	  //gpioc()->bsrr->bit.s13 = 1;
-	  gpioc()->bsrr->word.s = 1<<13;
 	  lcd0()->gotoxy(2,0);
 	  lcd0()->string_size(func()->ui32toa(count++),10);
 	  _delay_ms(300);
-	  //setreg(&GPIOB->ODR,1,13,0);
-	  gpioc()->bsrr->bit.r13 = 1;
-	  //gpioc()->bsrr->word.r = 1<<13;
+	  //gpioc()->bsrr->bit.r13 = 1;
   }
 }
 
+void TIM1_CC_IRQHandler(void){
+	tim1()->sr->iof.iflag = 0;
+	gpioc()->odr->bit.o13 ^= 1;
+}
 
 void Error_Handler(void)
 {
