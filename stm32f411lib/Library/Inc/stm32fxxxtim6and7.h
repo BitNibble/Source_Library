@@ -12,6 +12,7 @@ Comment:
 	#define _STM32FXXXTIM6AND7_H_
 /*** Library ***/
 #include "armquery.h"
+#include "stm32timbf.h"
 /*** TIMER Bit Mapping TypeDef ***/
 // CR1
 typedef struct{

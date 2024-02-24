@@ -12,6 +12,7 @@ Comment:
 	#define _STM32FXXXTIM9TO14_H_
 /*** Library ***/
 #include "armquery.h"
+#include "stm32timbf.h"
 /*** TIMER 9 to 14 Bit Mapping TypeDef ***/
 // CR1 9/12
 typedef struct{

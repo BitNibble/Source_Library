@@ -12,6 +12,7 @@ Comment:
 	#define _STM32FXXXTIM2TO5_H_
 /*** Library ***/
 #include "armquery.h"
+#include "stm32timbf.h"
 /*** TIMER 2 to 5 Bit Mapping TypeDef ***/
 // CR1
 typedef struct{
