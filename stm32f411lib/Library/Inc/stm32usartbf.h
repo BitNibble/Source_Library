@@ -14,7 +14,7 @@ Comment:
 /*** USART BitField Mapping TypeDef ***/
 /*** USART -> SR ***/
 typedef union{
-	struct SR_1{
+	struct USART_SR_1{
 		uint32_t pe:1;
 		uint32_t fe:1;
 		uint32_t nf:1;
@@ -27,7 +27,7 @@ typedef union{
 		uint32_t cts:1;
 		uint32_t fill:22;
 	}bit;
-	struct SR_2{
+	struct USART_SR_2{
 		uint32_t d:10;
 		uint32_t fill:22;
 	}data;
@@ -35,11 +35,11 @@ typedef union{
 }STM32FXXXUSART_SR_TypeDef;
 /*** USART -> DR ***/
 typedef union{
-	struct DR_1{
+	struct USART_DR_1{
 		uint32_t d:9;
 		uint32_t fill:23;
 	}data;
-	struct DR_2{
+	struct USART_DR_2{
 		uint32_t b:8;
 		uint32_t fill:24;
 	}byte;
@@ -47,12 +47,12 @@ typedef union{
 }STM32FXXXUSART_DR_TypeDef;
 /*** USART -> BRR ***/
 typedef union{
-	struct BRR_1{
+	struct USART_BRR_1{
 		uint32_t div_fraction:4;
 		uint32_t div_mantissa:12;
 		uint32_t fill:16;
 	}bit;
-	struct BRR_2{
+	struct USART_BRR_2{
 		uint32_t d:16;
 		uint32_t fill:16;
 	}data;
@@ -60,7 +60,7 @@ typedef union{
 }STM32FXXXUSART_BRR_TypeDef;
 /*** USART -> CR1 ***/
 typedef union{
-	struct CR1_1{
+	struct USART_CR1_1{
 		uint32_t sbk:1;
 		uint32_t rwu:1;
 		uint32_t re:1;
@@ -75,11 +75,11 @@ typedef union{
 		uint32_t wake:1;
 		uint32_t m:1;
 		uint32_t ue:1;
-		uint32_t fill:1;
+		uint32_t fill1:1;
 		uint32_t over8:1;
-		uint32_t fill:16;
+		uint32_t fill2:16;
 	}bit;
-struct CR1_2{
+struct USART_CR1_2{
 		uint32_t w:16;
 		uint32_t fill:16;
 	}word;
@@ -87,7 +87,7 @@ struct CR1_2{
 }STM32FXXXUSART_CR1_TypeDef;
 /*** USART -> CR2 ***/
 typedef union{
-	struct CR2_1{
+	struct USART_CR2_1{
 		uint32_t add:4;
 		uint32_t fill1:1;
 		uint32_t lbdl:1;
@@ -101,7 +101,7 @@ typedef union{
 		uint32_t linen:1;
 		uint32_t fill3:17;
 	}bit;
-struct CR2_2{
+struct USART_CR2_2{
 		uint32_t d:15;
 		uint32_t fill:17;
 	}data;
@@ -109,7 +109,7 @@ struct CR2_2{
 }STM32FXXXUSART_CR2_TypeDef;
 /*** USART -> CR3 ***/
 typedef union{
-	struct CR3_1{
+	struct USART_CR3_1{
 		uint32_t eie:1;
 		uint32_t iren:1;
 		uint32_t irlp:1;
@@ -124,7 +124,7 @@ typedef union{
 		uint32_t onebit:1;
 		uint32_t fill:20;
 	}bit;
-struct CR3_2{
+struct USART_CR3_2{
 		uint32_t d:12;
 		uint32_t fill:20;
 	}data;
@@ -132,7 +132,7 @@ struct CR3_2{
 }STM32FXXXUSART_CR3_TypeDef;
 /*** USART -> GTPR ***/
 typedef union{
-	struct GTPR_1{
+	struct USART_GTPR_1{
 		uint32_t psc:8;
 		uint32_t gt:8;
 		uint32_t fill:16;
