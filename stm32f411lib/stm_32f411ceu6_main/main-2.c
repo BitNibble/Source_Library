@@ -39,6 +39,9 @@ timer 1 test.
 #include "armlcd.h"
 #include "armfunction.h"
 
+ uint32_t count = 0;
+uint32_t cpos;
+
 int main(void)
 {
 
@@ -55,20 +58,19 @@ int main(void)
 
   stm()->tim1->nvic(1);
   stm()->tim1->clock(on);
-  tim1()->arr->word.w = 0xFFFF;
+  //tim1()->arr->reg.w0 = 0xFFFF;
   // Compare
-  tim1()->ccr1->word.w = 0x0CFF;
-  tim1()->ccr2->word.w = 0xFFFF;
+  tim1()->ccr1->tim_ccr1_par.w0 = 0x0CFF;
+  tim1()->ccr2->tim_ccr2_par.w0 = 0xFFFF;
   // pre-scaler
-  tim1()->psc->word.w = 500;
+  tim1()->psc->tim_psc_par.w0 = 500;
   // interrupt
-  tim1()->dier->bit.cc1ie = 1;
-  tim1()->dier->bit.cc2ie = 1;
+  tim1()->dier->tim1and8_dier_par.cc1ie = 1;
+  tim1()->dier->tim1and8_dier_par.cc2ie = 1;
   // Enable (Start/Stop)
-  tim1()->cr1->bit.arpe = 1;
-  tim1()->cr1->bit.cen = 1;
+  tim1()->cr1->tim1and8_cr1_par.arpe = 1;
+  tim1()->cr1->tim1and8_cr1_par.cen = 1;
 
-  uint32_t count = 0;
 
   while (1)
   {
@@ -82,11 +84,16 @@ int main(void)
 }
 
 void TIM1_CC_IRQHandler(void){
-	if(tim1()->sr->bit.cc1if || tim1()->sr->bit.cc2if){
+	if(tim1()->sr->tim1and8_sr_par.cc1if || tim1()->sr->tim1and8_sr_par.cc2if){
 		gpioc()->odr->bit.o13 ^= 1;
 	}
-	tim1()->sr->bit.cc1if = 0;
-	tim1()->sr->bit.cc2if = 0;
+	if(tim1()->sr->tim1and8_sr_par.cc2if){tim1()->ccr1->tim_ccr1_par.w0 += 1000;}
+	lcd0()->gotoxy(3,0);
+	int32_t cpos = (int32_t)(tim1()->ccr2->tim_ccr2_par.w0 - tim1()->ccr1->tim_ccr1_par.w0);
+	lcd0()->string_size(func()->i32toa(cpos),10);
+	if(cpos < 1){tim1()->ccr1->tim_ccr1_par.w0 = 0x0CFF; tim1()->ccr2->tim_ccr2_par.w0 = 0xFFFF;}
+	tim1()->sr->tim1and8_sr_par.cc1if = 0;
+	tim1()->sr->tim1and8_sr_par.cc2if = 0;
 }
 
 void Error_Handler(void)

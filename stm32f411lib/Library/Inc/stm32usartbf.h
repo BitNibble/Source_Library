@@ -26,11 +26,11 @@ typedef union{
 		uint32_t lbd:1;
 		uint32_t cts:1;
 		uint32_t fill:22;
-	}bit;
+	}usart_sr_par;
 	struct USART_SR_2{
 		uint32_t d:10;
 		uint32_t fill:22;
-	}data;
+	}usart_sr_data;
 	uint32_t dword;
 }STM32FXXXUSART_SR_TypeDef;
 /*** USART -> DR ***/
@@ -38,11 +38,11 @@ typedef union{
 	struct USART_DR_1{
 		uint32_t d:9;
 		uint32_t fill:23;
-	}data;
+	}usart_dr_data;
 	struct USART_DR_2{
 		uint32_t b:8;
 		uint32_t fill:24;
-	}byte;
+	}usart_dr_byte;
 	uint32_t dword;
 }STM32FXXXUSART_DR_TypeDef;
 /*** USART -> BRR ***/
@@ -51,11 +51,11 @@ typedef union{
 		uint32_t div_fraction:4;
 		uint32_t div_mantissa:12;
 		uint32_t fill:16;
-	}bit;
+	}usart_brr_par;
 	struct USART_BRR_2{
 		uint32_t d:16;
 		uint32_t fill:16;
-	}data;
+	}usart_brr_data;
 	uint32_t dword;
 }STM32FXXXUSART_BRR_TypeDef;
 /*** USART -> CR1 ***/
@@ -78,11 +78,11 @@ typedef union{
 		uint32_t fill1:1;
 		uint32_t over8:1;
 		uint32_t fill2:16;
-	}bit;
+	}usart_cr1_par;
 struct USART_CR1_2{
 		uint32_t w:16;
 		uint32_t fill:16;
-	}word;
+	}usart_cr1_data;
 	uint32_t dword;
 }STM32FXXXUSART_CR1_TypeDef;
 /*** USART -> CR2 ***/
@@ -100,11 +100,11 @@ typedef union{
 		uint32_t stop:2;
 		uint32_t linen:1;
 		uint32_t fill3:17;
-	}bit;
+	}usart_cr2_par;
 struct USART_CR2_2{
 		uint32_t d:15;
 		uint32_t fill:17;
-	}data;
+	}usart_cr2_data;
 	uint32_t dword;
 }STM32FXXXUSART_CR2_TypeDef;
 /*** USART -> CR3 ***/
@@ -123,11 +123,11 @@ typedef union{
 		uint32_t ctsie:1;
 		uint32_t onebit:1;
 		uint32_t fill:20;
-	}bit;
+	}usart_cr3_par;
 struct USART_CR3_2{
 		uint32_t d:12;
 		uint32_t fill:20;
-	}data;
+	}usart_cr3_data;
 	uint32_t dword;
 }STM32FXXXUSART_CR3_TypeDef;
 /*** USART -> GTPR ***/
@@ -136,7 +136,7 @@ typedef union{
 		uint32_t psc:8;
 		uint32_t gt:8;
 		uint32_t fill:16;
-	}byte;
+	}usart_gtpr_par;
 	uint32_t dword;
 }STM32FXXXUSART_GTPR_TypeDef;
 
