@@ -39,8 +39,8 @@ timer 1 test.
 #include "armlcd.h"
 #include "armfunction.h"
 
- uint32_t count = 0;
-uint32_t cpos;
+uint32_t count = 0;
+int32_t cpos;
 
 int main(void)
 {
@@ -60,10 +60,10 @@ int main(void)
   stm()->tim1->clock(on);
   //tim1()->arr->reg.w0 = 0xFFFF;
   // Compare
-  tim1()->ccr1->tim_ccr1_par.w0 = 0x0CFF;
+  //tim1()->ccr1->tim_ccr1_par.w0 = 0x0CFF;
   tim1()->ccr2->tim_ccr2_par.w0 = 0xFFFF;
   // pre-scaler
-  tim1()->psc->tim_psc_par.w0 = 500;
+  tim1()->psc->tim_psc_par.w0 = 100;
   // interrupt
   tim1()->dier->tim1and8_dier_par.cc1ie = 1;
   tim1()->dier->tim1and8_dier_par.cc2ie = 1;
@@ -80,18 +80,23 @@ int main(void)
 	  _delay_ms(1000);
 	  lcd0()->gotoxy(2,0);
 	  lcd0()->string_size(func()->ui32toa(count++),10);
+
+	  lcd0()->gotoxy(3,0);
+	  lcd0()->string_size(func()->i32toa(cpos),10);
   }
 }
 
 void TIM1_CC_IRQHandler(void){
+
 	if(tim1()->sr->tim1and8_sr_par.cc1if || tim1()->sr->tim1and8_sr_par.cc2if){
+		cpos = (tim1()->ccr2->tim_ccr2_par.w0 - tim1()->ccr1->tim_ccr1_par.w0);
 		gpioc()->odr->bit.o13 ^= 1;
 	}
-	if(tim1()->sr->tim1and8_sr_par.cc2if){tim1()->ccr1->tim_ccr1_par.w0 += 1000;}
-	lcd0()->gotoxy(3,0);
-	int32_t cpos = (int32_t)(tim1()->ccr2->tim_ccr2_par.w0 - tim1()->ccr1->tim_ccr1_par.w0);
-	lcd0()->string_size(func()->i32toa(cpos),10);
-	if(cpos < 1){tim1()->ccr1->tim_ccr1_par.w0 = 0x0CFF; tim1()->ccr2->tim_ccr2_par.w0 = 0xFFFF;}
+	if(tim1()->sr->tim1and8_sr_par.cc2if){
+		tim1()->ccr1->tim_ccr1_par.w0 += 1000;
+		if(cpos < 1){tim1()->ccr1->tim_ccr1_par.w0 = 0;}
+	}
+
 	tim1()->sr->tim1and8_sr_par.cc1if = 0;
 	tim1()->sr->tim1and8_sr_par.cc2if = 0;
 }
