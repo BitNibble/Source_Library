@@ -502,24 +502,24 @@ typedef union{
 /*** TIM -> CNT ***/
 typedef union{
 	struct TIM_CNT_1{
-		uint32_t w0:16;
-		uint32_t w1:16;
+		uint16_t w0;
+		uint16_t w1;
 	}tim_cnt_par;
 	uint32_t dword;
 }STM32FXXXTIM_CNT_TypeDef, STM32FXXXTIM9to11_CNT_TypeDef, STM32FXXXTIM1and8_CNT_TypeDef, STM32FXXXTIM3and4_CNT_TypeDef,STM32FXXXTIM2and5_CNT_TypeDef;
 /*** TIM -> PSC ***/
 typedef union{
 	struct TIM_PSC_1{
-		uint32_t w0:16;
-		uint32_t w1:16;
+		uint16_t w0;
+		uint16_t w1;
 	}tim_psc_par;
 	uint32_t dword;
 }STM32FXXXTIM_PSC_TypeDef, STM32FXXXTIM9to11_PSC_TypeDef, STM32FXXXTIM1and8_PSC_TypeDef, STM32FXXXTIM2to5_PSC_TypeDef;
 /*** TIM -> ARR ***/
 typedef union{
 	struct TIM_ARR_1{
-		uint32_t w0:16;
-		uint32_t w1:16;
+		uint16_t w0;
+		uint16_t w1;
 	}tim_arr_par;
 	uint32_t dword;
 }STM32FXXXTIM_ARR_TypeDef,STM32FXXXTIM9_ARR_TypeDef, STM32FXXXTIM1and8_ARR_TypeDef, STM32FXXXTIM3and4_ARR_TypeDef, STM32FXXXTIM2and5_ARR_TypeDef;
@@ -534,32 +534,32 @@ typedef union{
 /*** TIM -> CCR1 ***/
 typedef union{
 	struct TIM_CCR1_1{
-		uint32_t w0:16;
-		uint32_t w1:16;
+		uint16_t w0;
+		uint16_t w1;
 	}tim_ccr1_par;
 	uint32_t dword;
 }STM32FXXXTIM_CCR1_TypeDef, STM32FXXXTIM1and8_CCR1_TypeDef, STM32FXXXTIM3and4_CCR1_TypeDef, STM32FXXXTIM2and5_CCR1_TypeDef;
 /*** TIM -> CCR2 ***/
 typedef union{
 	struct TIM_CCR2_1{
-		uint32_t w0:16;
-		uint32_t w1:16;
+		uint16_t w0;
+		uint16_t w1;
 	}tim_ccr2_par;
 	uint32_t dword;
 }STM32FXXXTIM_CCR2_TypeDef, STM32FXXXTIM1and8_CCR2_TypeDef, STM32FXXXTIM3and4_CCR2_TypeDef, STM32FXXXTIM2and5_CCR2_TypeDef;
 /*** TIM -> CCR3 ***/
 typedef union{
 	struct TIM_CCR3_1{
-		uint32_t w0:16;
-		uint32_t w1:16;
+		uint16_t w0;
+		uint16_t w1;
 	}tim_ccr3_par;
 	uint32_t dword;
 }STM32FXXXTIM_CCR3_TypeDef, STM32FXXXTIM1and8_CCR3_TypeDef, STM32FXXXTIM3and4_CCR3_TypeDef, STM32FXXXTIM2and5_CCR3_TypeDef;
 /*** TIM -> CCR4 ***/
 typedef union{
 	struct TIM_CCR4_1{
-		uint32_t w0:16;
-		uint32_t w1:16;
+		uint16_t w0;
+		uint16_t w1;
 	}tim_ccr4_par;
 	uint32_t dword;
 }STM32FXXXTIM_CCR4_TypeDef, STM32FXXXTIM1and8_CCR4_TypeDef, STM32FXXXTIM3and4_CCR4_TypeDef, STM32FXXXTIM2and5_CCR4_TypeDef;
