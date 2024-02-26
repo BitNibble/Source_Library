@@ -16,7 +16,7 @@ Comment:
 #include "armquery.h"
 
 /*** GPIO -> MODER ***/
-typedef union{
+volatile typedef union{
 	struct MODER_1{
 	  uint32_t m0:2;
 	  uint32_t m1:2;
@@ -38,7 +38,7 @@ typedef union{
 	uint32_t m;
 } GPIO_MODER_TypeDef;
 /*** GPIO -> OTYPER ***/
-typedef union{
+volatile typedef union{
 	struct OTYPER_1{
 	  uint32_t t0:1;
 	  uint32_t t1:1;
@@ -64,7 +64,7 @@ typedef union{
 	} word;
 } GPIO_OTYPER_TypeDef;
 /*** GPIO -> OSPEEDR ***/
-typedef union{
+volatile typedef union{
 	struct OSPEEDR_1{
 	  uint32_t s0:2;
 	  uint32_t s1:2;
@@ -86,7 +86,7 @@ typedef union{
 	uint32_t s;
 } GPIO_OSPEEDR_TypeDef;
 /*** GPIO -> PUPDR ***/
-typedef union{
+volatile typedef union{
 	struct PUPDR_1{
 	  uint32_t p0:2;
 	  uint32_t p1:2;
@@ -108,7 +108,7 @@ typedef union{
 	uint32_t p;
 } GPIO_PUPDR_TypeDef;
 /*** GPIO -> IDR ***/
-typedef union{
+volatile typedef union{
 	struct IDR_1{
 	  uint32_t i0:1;
 	  uint32_t i1:1;
@@ -134,7 +134,7 @@ typedef union{
 	} word;
 } GPIO_IDR_TypeDef;
 /*** GPIO -> ODR ***/
-typedef union{
+volatile typedef union{
 	struct ODR_1{
 	  uint32_t o0:1;
 	  uint32_t o1:1;
@@ -160,7 +160,7 @@ typedef union{
 	} word;
 } GPIO_ODR_TypeDef;
 /*** GPIO -> BSRR ***/
-typedef union{
+volatile typedef union{
 	struct BSRR_1{
 	  uint32_t s0:1;
 	  uint32_t s1:1;
@@ -201,7 +201,7 @@ typedef union{
 	} word;
 } GPIO_BSRR_TypeDef;
 /*** GPIO -> LCKR ***/
-typedef union{
+volatile typedef union{
 	struct LCKR_1{
 	  uint32_t l0:1;
 	  uint32_t l1:1;
