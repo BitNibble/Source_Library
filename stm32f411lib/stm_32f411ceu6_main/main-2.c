@@ -75,7 +75,7 @@ int main(void)
   tim1()->psc->tim_psc_par.w0 = 12;
   // interrupt
   tim1()->dier->dword = 0;
-  tim1()->dier->tim1and8_dier_par.uie = 1;
+  tim1()->dier->tim1and8_dier_par.uie = 0;
   tim1()->dier->tim1and8_dier_par.cc1ie = 1;
   tim1()->dier->tim1and8_dier_par.cc2ie = 1;
   // other
