@@ -39,16 +39,15 @@ timer testing.
 #include "armlcd.h"
 #include "armfunction.h"
 
-uint32_t count0 = 0;
-uint32_t count1 = 0;
-uint32_t count2 = 0;
-uint32_t count3 = 0;
-uint32_t count4 = 0;
-uint32_t count5 = 0;
-uint32_t count6 = 0;
-uint32_t count7 = 0;
-uint32_t count8 = 0;
-int32_t cpos;
+uint16_t count0 = 0;
+uint16_t count1 = 0;
+uint16_t count2 = 0;
+uint16_t count3 = 0;
+uint16_t count4 = 0;
+uint16_t count5 = 0;
+uint16_t count6 = 0;
+uint16_t count7 = 0;
+uint16_t count8 = 0;
 
 int main(void)
 {
@@ -75,15 +74,17 @@ int main(void)
   // pre-scaler
   tim1()->psc->tim_psc_par.w0 = 12;
   // interrupt
+  tim1()->dier->dword = 0;
   tim1()->dier->tim1and8_dier_par.uie = 1;
   tim1()->dier->tim1and8_dier_par.cc1ie = 1;
   tim1()->dier->tim1and8_dier_par.cc2ie = 1;
   // other
-  tim1()->dier->tim1and8_dier_par.comie = 1;
-  tim1()->dier->tim1and8_dier_par.tie = 1;
-  tim1()->dier->tim1and8_dier_par.bie = 1;
+  tim1()->dier->tim1and8_dier_par.comie = 0;
+  tim1()->dier->tim1and8_dier_par.tie = 0;
+  tim1()->dier->tim1and8_dier_par.bie = 0;
   //
-  //tim1()->dier->tim1and8_dier_par.cc1de = 1;
+  tim1()->dier->tim1and8_dier_par.ude = 0;
+  tim1()->dier->tim1and8_dier_par.cc1de = 0;
 
   // Enable (Start/Stop)
   tim1()->cr1->tim1and8_cr1_par.arpe = 1;
@@ -97,9 +98,10 @@ int main(void)
 	  lcd0()->gotoxy(1,0);
 	  lcd0()->string_size(func()->ui32toa(count1),6); lcd0()->string_size(func()->i32toa(count2),6); lcd0()->string_size(func()->i32toa(count3),6);
 	  lcd0()->gotoxy(2,0);
-	  lcd0()->string_size(func()->ui32toa(count4),6); lcd0()->string_size(func()->i32toa(count5),6); lcd0()->string_size(func()->i32toa(count6),6);
+	  //lcd0()->string_size(func()->ui32toa(count4),6); lcd0()->string_size(func()->i32toa(count5),6); lcd0()->string_size(func()->i32toa(count6),6);
+	  lcd0()->string_size(func()->print_binary(16,tim1()->dier->dword),17);
 	  lcd0()->gotoxy(3,0);
-	  lcd0()->string_size(func()->ui32toa(count7),6); lcd0()->string_size(func()->ui32toa(count0),6); lcd0()->string_size(func()->ui32toa(count8),6);
+	  lcd0()->string_size(func()->ui32toa(count7),6); lcd0()->string_size(func()->ui32toa(count0),6); lcd0()->string_size(func()->ui32toa(sizeof(struct TIM_DIER_1)),6);
   }
 }
 
@@ -107,7 +109,7 @@ void TIM1_CC_IRQHandler(void){
 	count0++;
 	if(tim1()->sr->tim1and8_sr_par.uif){
 		count1++;
-		//count8=tim1()->cnt->tim_cnt_par.w0;
+		count8=tim1()->cnt->tim_cnt_par.w0;
 		//gpioc()->odr->bit.o13 = 0;
 		tim1()->sr->tim1and8_sr_par.uif = 0;
 	}
