@@ -74,14 +74,13 @@ int main(void)
   // pre-scaler
   tim1()->psc->par.w0 = 200;
   // interrupt
-  tim1()->dier->reg = 0;
-  tim1()->dier->tim1and8_par.uie = 0;
+  //tim1()->dier->tim1and8_par.uie = 0;
   tim1()->dier->tim1and8_par.cc1ie = 1;
   tim1()->dier->tim1and8_par.cc2ie = 1;
   // other
-  tim1()->dier->tim1and8_par.comie = 0;
-  tim1()->dier->tim1and8_par.tie = 0;
-  tim1()->dier->tim1and8_par.bie = 0;
+  //tim1()->dier->tim1and8_par.comie = 0;
+  //tim1()->dier->tim1and8_par.tie = 0;
+  //tim1()->dier->tim1and8_par.bie = 0;
   //
   //tim1()->dier->tim1and8_par.ude = 0;
   //tim1()->dier->tim1and8_par.cc1de = 0;
@@ -116,13 +115,13 @@ void TIM1_CC_IRQHandler(void){
 	if(tim1()->sr->tim1and8_par.cc1if){
 		count2++;
 		//count8=tim1()->cnt->par.w0;
-		gpioc()->odr->bit.o13 = 0;
+		gpioc()->bsrr->bit.r13 = 1;
 		tim1()->sr->tim1and8_par.cc1if = 0;
 	}
 	if(tim1()->sr->tim1and8_par.cc2if){
 		count3++;
 		//count8=tim1()->cnt->par.w0;
-		gpioc()->odr->bit.o13 = 1;
+		gpioc()->bsrr->bit.s13 = 1;
 		tim1()->sr->tim1and8_par.cc2if = 0;
 	}
 	if(tim1()->sr->tim1and8_par.tif){

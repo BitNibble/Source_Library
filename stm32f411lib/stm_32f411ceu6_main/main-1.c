@@ -49,7 +49,7 @@ int main(void)
   ARMLCD0_enable(stm()->gpiob_reg);
   FUNC_enable();
 
-  gpiob()->moder->bit.m13 = 1;
+  gpiob()->moder->par.m13 = 1;
 
   while (1)
   {
