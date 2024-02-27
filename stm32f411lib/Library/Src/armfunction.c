@@ -133,7 +133,7 @@ FUNC* func(void){ return &setup_func; }
 
 void FUNC_var(void)
 {
-	FUNCstr[FUNCSTRSIZE + 1] = '\0';
+	FUNCstr[FUNCSTRSIZE] = '\0';
 	mem[0] = 0; nen[0] = 0;
 }
 ARM_FUNC* arm_func_inic(void)

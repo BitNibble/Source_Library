@@ -176,7 +176,7 @@ void STM32FXXXDma2Clock(uint8_t bool)
 // SR
 uint8_t STM32FXXXDMA1_sr_tcif(uint8_t stream_n)
 {
-	uint8_t value;
+	uint8_t value = 0;
 	switch(stream_n){
 		case 0:
 			value = readreg(DMA1->LISR, 1, 5);
@@ -238,7 +238,7 @@ void STM32FXXXDMA1_sr_clear_tcif(uint8_t stream_n)
 }
 uint8_t STM32FXXXDMA1_sr_htif(uint8_t stream_n)
 {
-	uint8_t value;
+	uint8_t value = 0;
 	switch(stream_n){
 		case 0:
 			value = readreg(DMA1->LISR, 1, 4);
@@ -300,7 +300,7 @@ void STM32FXXXDMA1_sr_clear_htif(uint8_t stream_n)
 }
 uint8_t STM32FXXXDMA1_sr_teif(uint8_t stream_n)
 {
-	uint8_t value;
+	uint8_t value = 0;
 	switch(stream_n){
 		case 0:
 			value = readreg(DMA1->LISR, 1, 3);
@@ -362,7 +362,7 @@ void STM32FXXXDMA1_sr_clear_teif(uint8_t stream_n)
 }
 uint8_t STM32FXXXDMA1_sr_dmeif(uint8_t stream_n)
 {
-	uint8_t value;
+	uint8_t value = 0;
 	switch(stream_n){
 		case 0:
 			value = readreg(DMA1->LISR, 1, 2);
@@ -424,7 +424,7 @@ void STM32FXXXDMA1_sr_clear_dmeif(uint8_t stream_n)
 }
 uint8_t STM32FXXXDMA1_sr_feif(uint8_t stream_n)
 {
-	uint8_t value;
+	uint8_t value = 0;
 	switch(stream_n){
 		case 0:
 			value = readreg(DMA1->LISR, 1, 0);
@@ -1807,7 +1807,7 @@ STM32FXXXDMA1obj* dma1(void){ return &stm32fxxx_dma1; }
 // SR
 uint8_t STM32FXXXDMA2_sr_tcif(uint8_t stream_n)
 {
-	uint8_t value;
+	uint8_t value = 0;
 	switch(stream_n){
 		case 0:
 			value = readreg(DMA2->LISR, 1, 5);
@@ -1869,7 +1869,7 @@ void STM32FXXXDMA2_sr_clear_tcif(uint8_t stream_n)
 }
 uint8_t STM32FXXXDMA2_sr_htif(uint8_t stream_n)
 {
-	uint8_t value;
+	uint8_t value = 0;
 	switch(stream_n){
 		case 0:
 			value = readreg(DMA2->LISR, 1, 4);
@@ -1931,7 +1931,7 @@ void STM32FXXXDMA2_sr_clear_htif(uint8_t stream_n)
 }
 uint8_t STM32FXXXDMA2_sr_teif(uint8_t stream_n)
 {
-	uint8_t value;
+	uint8_t value = 0;
 	switch(stream_n){
 		case 0:
 			value = readreg(DMA2->LISR, 1, 3);
@@ -1993,7 +1993,7 @@ void STM32FXXXDMA2_sr_clear_teif(uint8_t stream_n)
 }
 uint8_t STM32FXXXDMA2_sr_dmeif(uint8_t stream_n)
 {
-	uint8_t value;
+	uint8_t value = 0;
 	switch(stream_n){
 		case 0:
 			value = readreg(DMA2->LISR, 1, 2);
@@ -2055,7 +2055,7 @@ void STM32FXXXDMA2_sr_clear_dmeif(uint8_t stream_n)
 }
 uint8_t STM32FXXXDMA2_sr_feif(uint8_t stream_n)
 {
-	uint8_t value;
+	uint8_t value = 0;
 	switch(stream_n){
 		case 0:
 			value = readreg(DMA2->LISR, 1, 0);
