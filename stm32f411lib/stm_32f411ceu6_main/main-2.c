@@ -32,7 +32,7 @@ LCD
 LED Blinking
 	PC13 - LED blink
 note:
-timer testing.
+timer testing. At 25Mhz and STM32FXXXPrescaler(1, 1, 1, 0);
 ********************************************************************************/
 #include "main.h"
 #include "stm32fxxxmapping.h"
@@ -61,34 +61,34 @@ int main(void)
   ARMLCD0_enable(stm()->gpiob_reg);
   FUNC_enable();
 
-  gpioc()->moder->bit.m13 = 1;
+  gpioc()->moder->par.m13 = 1;
 
   stm()->tim1->nvic(on);
   stm()->tim1->clock(on);
   //tim1()->ccmr1->tim1an8_ccmr1_ocm_par.oc1m = 6;
-  tim1()->arr->tim_arr_par.w0 = 0xFFFF;
+  tim1()->arr->par.w0 = 0xFFFF;
   //tim1()->rcr->tim_rcr_par.byte = 0;
   // Compare
-  tim1()->ccr1->tim_ccr1_par.w0 = 16375;
-  tim1()->ccr2->tim_ccr2_par.w0 = 32767;
+  tim1()->ccr1->par.w0 = 16375;
+  tim1()->ccr2->par.w0 = 32767;
   // pre-scaler
-  tim1()->psc->tim_psc_par.w0 = 12;
+  tim1()->psc->par.w0 = 25;
   // interrupt
   tim1()->dier->dword = 0;
-  tim1()->dier->tim1and8_dier_par.uie = 0;
-  tim1()->dier->tim1and8_dier_par.cc1ie = 1;
-  tim1()->dier->tim1and8_dier_par.cc2ie = 1;
+  tim1()->dier->tim1and8_par.uie = 0;
+  tim1()->dier->tim1and8_par.cc1ie = 1;
+  tim1()->dier->tim1and8_par.cc2ie = 1;
   // other
-  tim1()->dier->tim1and8_dier_par.comie = 0;
-  tim1()->dier->tim1and8_dier_par.tie = 0;
-  tim1()->dier->tim1and8_dier_par.bie = 0;
+  tim1()->dier->tim1and8_par.comie = 0;
+  tim1()->dier->tim1and8_par.tie = 0;
+  tim1()->dier->tim1and8_par.bie = 0;
   //
-  tim1()->dier->tim1and8_dier_par.ude = 0;
-  tim1()->dier->tim1and8_dier_par.cc1de = 0;
+  tim1()->dier->tim1and8_par.ude = 0;
+  tim1()->dier->tim1and8_par.cc1de = 0;
 
   // Enable (Start/Stop)
-  tim1()->cr1->tim1and8_cr1_par.arpe = 1;
-  tim1()->cr1->tim1and8_cr1_par.cen = 1;
+  tim1()->cr1->tim1and8_par.arpe = 1;
+  tim1()->cr1->tim1and8_par.cen = 1;
 
 
   while (1)
@@ -107,43 +107,43 @@ int main(void)
 
 void TIM1_CC_IRQHandler(void){
 	count0++;
-	if(tim1()->sr->tim1and8_sr_par.uif){
+	if(tim1()->sr->tim1and8_par.uif){
 		count1++;
-		count8=tim1()->cnt->tim_cnt_par.w0;
+		count8=tim1()->cnt->par.w0;
 		//gpioc()->odr->bit.o13 = 0;
-		tim1()->sr->tim1and8_sr_par.uif = 0;
+		tim1()->sr->tim1and8_par.uif = 0;
 	}
-	if(tim1()->sr->tim1and8_sr_par.cc1if){
+	if(tim1()->sr->tim1and8_par.cc1if){
 		count2++;
-		//count8=tim1()->cnt->tim_cnt_par.w0;
+		//count8=tim1()->cnt->par.w0;
 		gpioc()->odr->bit.o13 = 1;
-		tim1()->sr->tim1and8_sr_par.cc1if = 0;
+		tim1()->sr->tim1and8_par.cc1if = 0;
 	}
-	if(tim1()->sr->tim1and8_sr_par.cc2if){
+	if(tim1()->sr->tim1and8_par.cc2if){
 		count3++;
-		//count8=tim1()->cnt->tim_cnt_par.w0;
+		//count8=tim1()->cnt->par.w0;
 		gpioc()->odr->bit.o13 = 0;
-		tim1()->sr->tim1and8_sr_par.cc2if = 0;
+		tim1()->sr->tim1and8_par.cc2if = 0;
 	}
-	if(tim1()->sr->tim1and8_sr_par.tif){
+	if(tim1()->sr->tim1and8_par.tif){
 		count4++;
-		//count8=tim1()->cnt->tim_cnt_par.w0;
-		tim1()->sr->tim1and8_sr_par.tif = 0;
+		//count8=tim1()->cnt->par.w0;
+		tim1()->sr->tim1and8_par.tif = 0;
 	}
-	if(tim1()->sr->tim1and8_sr_par.comif){
+	if(tim1()->sr->tim1and8_par.comif){
 		count5++;
-		//count8=tim1()->cnt->tim_cnt_par.w0;
-		tim1()->sr->tim1and8_sr_par.comif = 0;
+		//count8=tim1()->cnt->par.w0;
+		tim1()->sr->tim1and8_par.comif = 0;
 	}
-	if(tim1()->sr->tim1and8_sr_par.bif){
+	if(tim1()->sr->tim1and8_par.bif){
 		count6++;
-		//count8=tim1()->cnt->tim_cnt_par.w0;
-		tim1()->sr->tim1and8_sr_par.bif = 0;
+		//count8=tim1()->cnt->par.w0;
+		tim1()->sr->tim1and8_par.bif = 0;
 	}
-	if(tim1()->sr->tim1and8_sr_par.cc1of){
+	if(tim1()->sr->tim1and8_par.cc1of){
 		count7++;
-		//count8=tim1()->cnt->tim_cnt_par.w0;
-		tim1()->sr->tim1and8_sr_par.cc1of = 0;
+		//count8=tim1()->cnt->par.w0;
+		tim1()->sr->tim1and8_par.cc1of = 0;
 	}
 }
 

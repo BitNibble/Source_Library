@@ -34,7 +34,7 @@ volatile typedef union{
 	  uint32_t m13:2;
 	  uint32_t m14:2;
 	  uint32_t m15:2;
-	} bit;
+	} par;
 	uint32_t m;
 } GPIO_MODER_TypeDef;
 /*** GPIO -> OTYPER ***/
@@ -82,7 +82,7 @@ volatile typedef union{
 	  uint32_t s13:2;
 	  uint32_t s14:2;
 	  uint32_t s15:2;
-	} bit;
+	} par;
 	uint32_t s;
 } GPIO_OSPEEDR_TypeDef;
 /*** GPIO -> PUPDR ***/
@@ -104,7 +104,7 @@ volatile typedef union{
 	  uint32_t p13:2;
 	  uint32_t p14:2;
 	  uint32_t p15:2;
-	} bit;
+	} par;
 	uint32_t p;
 } GPIO_PUPDR_TypeDef;
 /*** GPIO -> IDR ***/

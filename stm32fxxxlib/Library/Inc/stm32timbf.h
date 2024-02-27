@@ -26,7 +26,7 @@ volatile typedef union{
 		uint32_t arpe:1;
 		uint32_t ckd:2;
 		uint32_t fill:22;
-	}tim_cr1_par,tim1and8_cr1_par,tim2to5_cr1_par;
+	}par,tim1and8_par,tim2to5_par;
 	uint32_t dword;
 }STM32FXXXTIM_CR1_TypeDef, STM32FXXXTIM1and8_CR1_TypeDef, STM32FXXXTIM2to5_CR1_TypeDef;
 volatile typedef union{
@@ -39,7 +39,7 @@ volatile typedef union{
 		uint32_t arpe:1;
 		uint32_t ckd:2;
 		uint32_t fill2:22;
-	}tim9to11_cr1_par;
+	}tim9to11_par;
 	uint32_t dword;
 }STM32FXXXTIM9to11_CR1_TypeDef;
 /*** TIM -> CR2 ***/
@@ -59,7 +59,7 @@ volatile typedef union{
 		uint32_t ois3n:1;
 		uint32_t ois4:1;
 		uint32_t fill2:17;
-	}tim_cr2_par,tim1and8_cr2_par;
+	}par,tim1and8_par;
 	uint32_t dword;
 }STM32FXXXTIM_CR2_TypeDef, STM32FXXXTIM1and8_CR2_TypeDef;
 volatile typedef union{
@@ -69,7 +69,7 @@ volatile typedef union{
 		uint32_t mms:3;
 		uint32_t ti1s:1;
 		uint32_t fill2:24;
-	}tim2t05_cr2_par;
+	}tim2t05_par;
 	uint32_t dword;
 }STM32FXXXTIM2to5_CR2_TypeDef;
 /*** TIM -> SMCR ***/
@@ -84,7 +84,7 @@ volatile typedef union{
 		uint32_t ece:1;
 		uint32_t etp:1;
 		uint32_t fill2:16;
-	}tim_smcr_par,tim1and8_smcr_par,tim2to5_smcr_par;
+	}par,tim1and8_par,tim2to5_par;
 	uint32_t dword;
 }STM32FXXXTIM_SMCR_TypeDef, STM32FXXXTIM1and8_SMCR_TypeDef, STM32FXXXTIM2to5_SMCR_TypeDef;
 volatile typedef union{
@@ -94,7 +94,7 @@ volatile typedef union{
 		uint32_t ts:3;
 		uint32_t msm:1;
 		uint32_t fill2:24;
-	}tim9_smcr_par;
+	}tim9_par;
 	uint32_t dword;
 }STM32FXXXTIM9_SMCR_TypeDef;
 /*** TIM -> DIEER ***/
@@ -116,7 +116,7 @@ volatile typedef union{
 		uint32_t comde:1;
 		uint32_t tde:1;
 		uint32_t fill:17;
-	}tim_dier_par,tim1and8_dier_par;
+	}par,tim1and8_par;
 	uint32_t dword;
 }STM32FXXXTIM_DIER_TypeDef, STM32FXXXTIM1and8_DIER_TypeDef;
 volatile typedef union{
@@ -137,7 +137,7 @@ volatile typedef union{
 		uint32_t comde:1;
 		uint32_t tde:1;
 		uint32_t fill3:17;
-	}tim2to5_dier_par;
+	}tim2to5_par;
 	uint32_t dword;
 }STM32FXXXTIM2to5_DIER_TypeDef;
 volatile typedef union{
@@ -148,7 +148,7 @@ volatile typedef union{
 		uint32_t fill1:3;
 		uint32_t tie:1;
 		uint32_t fill:25;
-	}tim9_dier_par;
+	}tim9_par;
 	uint32_t dword;
 }STM32FXXXTIM9_DIER_TypeDef;
 volatile typedef union{
@@ -156,7 +156,7 @@ volatile typedef union{
 		uint32_t uie:1;
 		uint32_t cc1ie:1;
 		uint32_t fill:30;
-	}tim10and11_dier_par;
+	}tim10and11_par;
 	uint32_t dword;
 }STM32FXXXTIM10and11_DIER_TypeDef;
 /*** TIM -> SR ***/
@@ -176,20 +176,20 @@ volatile typedef union{
 		uint32_t cc3of:1;
 		uint32_t cc4of:1;
 		uint32_t fill2:19;
-	}tim_sr_par,tim1and8_sr_par;
+	}par,tim1and8_par;
 	struct TIM_SR_2{
 		uint32_t iflag:8;
 		uint32_t fill1:1;
 		uint32_t oflag:4;
 		uint32_t fill2:19;
-	}tim_sr_iof_par,tim1and8_sr_iof_par;
+	}iof_par,tim1and8_iof_par;
 	struct TIM_SR_3{
 		uint32_t fill1:1;
 		uint32_t cciflag:4;
 		uint32_t fill2:4;
 		uint32_t ccoflag:4;
 		uint32_t fill3:19;
-	}tim_sr_iocc_par,tim1and8_sr_iocc_par;
+	}iocc_par,tim1and8_iocc_par;
 	uint32_t dword;
 }STM32FXXXTIM_SR_TypeDef, STM32FXXXTIM1and8_SR_TypeDef;
 volatile typedef union{
@@ -207,20 +207,20 @@ volatile typedef union{
 		uint32_t cc3of:1;
 		uint32_t cc4of:1;
 		uint32_t fill3:19;
-	}tim2to5_sr_par;
+	}tim2to5_par;
 	struct TIM_SR_5{
 		uint32_t iflag:7;
 		uint32_t fill1:2;
 		uint32_t oflag:4;
 		uint32_t fill2:19;
-	}tim2to5_sr_iof_par;
+	}tim2to5_iof_par;
 	struct TIM_SR_6{
 		uint32_t fill1:1;
 		uint32_t cciflag:4;
 		uint32_t fill2:4;
 		uint32_t ccoflag:4;
 		uint32_t fill3:19;
-	}tim2to5_sr_iocc_par;
+	}tim2to5_iocc_par;
 	uint32_t dword;
 }STM32FXXXTIM2to5_SR_TypeDef;
 volatile typedef union{
@@ -234,20 +234,20 @@ volatile typedef union{
 		uint32_t cc1of:1;
 		uint32_t cc2of:1;
 		uint32_t fill3:21;
-	}tim9_sr_par;
+	}tim9_par;
 	struct TIM_SR_8{
 		uint32_t iflag:7;
 		uint32_t fill1:2;
 		uint32_t oflag:2;
 		uint32_t fill2:21;
-	}tim9_sr_iof_par;
+	}tim9_iof_par;
 	struct TIM_SR_9{
 		uint32_t fill1:1;
 		uint32_t cciflag:2;
 		uint32_t fill2:6;
 		uint32_t ccoflag:2;
 		uint32_t fill3:21;
-	}tim9_sr_iocc_par;
+	}tim9_iocc_par;
 	uint32_t dword;
 }STM32FXXXTIM9_SR_TypeDef;
 volatile typedef union{
@@ -257,20 +257,20 @@ volatile typedef union{
 		uint32_t fill1:7;
 		uint32_t cc1of:1;
 		uint32_t fill2:22;
-	}tim10and11_sr_par;
+	}tim10and11_par;
 	struct TIM_SR_11{
 		uint32_t iflag:2;
 		uint32_t fill1:7;
 		uint32_t oflag:1;
 		uint32_t fill2:22;
-	}tim10and11_sr_iof_par;
+	}tim10and11_iof_par;
 	struct TIM_SR_12{
 		uint32_t fill1:1;
 		uint32_t cciflag:1;
 		uint32_t fill2:7;
 		uint32_t ccoflag:1;
 		uint32_t fill3:22;
-	}tim10and11_sr_iocc_par;
+	}tim10and11_iocc_par;
 	uint32_t dword;
 }STM32FXXXTIM10and11_SR_TypeDef;
 /*** TIM -> EGR ***/
@@ -285,7 +285,7 @@ volatile typedef union{
 		uint32_t tg:1;
 		uint32_t bg:1;
 		uint32_t fill:24;
-	}tim_egr_par,tim1and8_egr_par;
+	}par,tim1and8_par;
 	uint32_t dword;
 }STM32FXXXTIM_EGR_TypeDef, STM32FXXXTIM1and8_EGR_TypeDef;
 volatile typedef union{
@@ -298,7 +298,7 @@ volatile typedef union{
 		uint32_t fill1:1;
 		uint32_t tg:1;
 		uint32_t fill2:25;
-	}tim2to5_egr_par;
+	}tim2to5_par;
 	uint32_t dword;
 }STM32FXXXTIM2to5_EGR_TypeDef;
 volatile typedef union{
@@ -309,7 +309,7 @@ volatile typedef union{
 		uint32_t fill1:3;
 		uint32_t tg:1;
 		uint32_t fill2:25;
-	}tim9_egr_par;
+	}tim9_par;
 	uint32_t dword;
 }STM32FXXXTIM9_EGR_TypeDef;
 volatile typedef union{
@@ -317,7 +317,7 @@ volatile typedef union{
 		uint32_t ug:1;
 		uint32_t cc1g:1;
 		uint32_t fill:30;
-	}tim10and11_egr_par;
+	}tim10and11_par;
 	uint32_t dword;
 }STM32FXXXTIM10and11_EGR_TypeDef;
 /*** TIM -> CCMR1 ***/
@@ -334,7 +334,7 @@ volatile typedef union{
 		uint32_t oc2m:3;
 		uint32_t oc2ce:1;
 		uint32_t fill:16;
-	}tim_ccmr1_ocm_par,tim1an8_ccmr1_ocm_par,tim2to5_ccmr1_ocm_par;
+	}ocm_par,tim1an8_ocm_par,tim2to5_ocm_par;
 	struct TIM_CCMR1_2{
 		uint32_t cc1s:2;
 		uint32_t ic1psc:2;
@@ -343,7 +343,7 @@ volatile typedef union{
 		uint32_t ic2psc:2;
 		uint32_t ic2f:4;
 		uint32_t fill:16;
-	}tim_ccmr1_icm_par,tim1and8_ccmr1_icm_par,tim2to5_ccmr1_icm_par;
+	}icm_par,tim1and8_icm_par,tim2to5_icm_par;
 	uint32_t dword;
 }STM32FXXXTIM_CCMR1_TypeDef, STM32FXXXTIM1and8_CCMR1_TypeDef, STM32FXXXTIM2to5_CCMR1_TypeDef;
 volatile typedef union{
@@ -358,7 +358,7 @@ volatile typedef union{
 		uint32_t oc2pe:1;
 		uint32_t oc2m:3;
 		uint32_t fill2:17;
-	}tim9_ccmr1_ocm_par;
+	}tim9_ocm_par;
 	struct TIM_CCMR1_4{
 		uint32_t cc1s:2;
 		uint32_t ic1psc:2;
@@ -367,7 +367,7 @@ volatile typedef union{
 		uint32_t ic2psc:2;
 		uint32_t ic2f:4;
 		uint32_t fill:16;
-	}tim9_ccmr1_icm_par;
+	}tim9_icm_par;
 	uint32_t dword;
 }STM32FXXXTIM9_CCMR1_TypeDef;
 volatile typedef union{
@@ -377,13 +377,13 @@ volatile typedef union{
 		uint32_t oc1pe:1;
 		uint32_t oc1m:3;
 		uint32_t fill:25;
-	}tim10and11_ccmr1_ocm_par;
+	}tim10and11_ocm_par;
 	struct TIM_CCMR1_6{
 		uint32_t cc1s:2;
 		uint32_t ic1psc:2;
 		uint32_t ic1f:4;
 		uint32_t fill:24;
-	}tim10and11_ccmr1_icm_par;
+	}tim10and11_icm_par;
 	uint32_t dword;
 }STM32FXXXTIM10and11_CCMR1_TypeDef;
 /*** TIM -> CCMR2 ***/
@@ -400,7 +400,7 @@ volatile typedef union{
 		uint32_t oc4m:3;
 		uint32_t oc4ce:1;
 		uint32_t fill:16;
-	}tim_ccmr2_ocm_par,tim1and8_ccmr2_ocm_par,tim2to5_ccmr2_ocm_par;
+	}ocm_par,tim1and8_ocm_par,tim2to5_ocm_par;
 	struct TIM_CCMR2_2{
 		uint32_t cc3s:2;
 		uint32_t ic3psc:2;
@@ -409,7 +409,7 @@ volatile typedef union{
 		uint32_t ic4psc:2;
 		uint32_t ic4f:4;
 		uint32_t fill:16;
-	}tim_ccmr2_icm_par,tim1and8_ccmr2_icm_par,tim2to5_ccmr2_icm_par;
+	}icm_par,tim1and8_icm_par,tim2to5_icm_par;
 	uint32_t dword;
 }STM32FXXXTIM_CCMR2_TypeDef, STM32FXXXTIM1and8_CCMR2_TypeDef, STM32FXXXTIM2to5_CCMR2_TypeDef;
 /*** TIM -> CCER ***/
@@ -432,7 +432,7 @@ volatile typedef union{
 		uint32_t fill1:1;
 		uint32_t cc4np:1;
 		uint32_t fill2:16;
-	}tim_ccer_par;
+	}par;
 	uint32_t dword;
 }STM32FXXXTIM_CCER_TypeDef;
 volatile typedef union{
@@ -452,7 +452,7 @@ volatile typedef union{
 		uint32_t cc4e:1;
 		uint32_t cc4p:1;
 		uint32_t fill:18;
-	}tim1and8_ccer_par;
+	}tim1and8_par;
 	uint32_t dword;
 }STM32FXXXTIM1and8_CCER_TypeDef;
 volatile typedef union{
@@ -474,7 +474,7 @@ volatile typedef union{
 		uint32_t fill4:1;
 		uint32_t cc4np:1;
 		uint32_t fill5:16;
-	}tim2to5_ccer_par;
+	}tim2to5_par;
 	uint32_t dword;
 }STM32FXXXTIM2to5_CCER_TypeDef;
 volatile typedef union{
@@ -488,7 +488,7 @@ volatile typedef union{
 		uint32_t fill2:1;
 		uint32_t cc2np:1;
 		uint32_t fill4:24;
-	}tim9_ccer_par;
+	}tim9_par;
 	uint32_t dword;
 }STM32FXXXTIM9_CCER_TypeDef;
 volatile typedef union{
@@ -498,7 +498,7 @@ volatile typedef union{
 		uint32_t fill1:1;
 		uint32_t cc1np:1;
 		uint32_t fill4:28;
-	}tim10and11_ccer_par;
+	}tim10and11_par;
 	uint32_t dword;
 }STM32FXXXTIM10and11_CCER_TypeDef;
 /*** TIM -> CNT ***/
@@ -506,7 +506,7 @@ volatile typedef union{
 	struct TIM_CNT_1{
 		uint16_t w0;
 		uint16_t w1;
-	}tim_cnt_par;
+	}par;
 	uint32_t dword;
 }STM32FXXXTIM_CNT_TypeDef, STM32FXXXTIM9to11_CNT_TypeDef, STM32FXXXTIM1and8_CNT_TypeDef, STM32FXXXTIM3and4_CNT_TypeDef,STM32FXXXTIM2and5_CNT_TypeDef;
 /*** TIM -> PSC ***/
@@ -514,7 +514,7 @@ volatile typedef union{
 	struct TIM_PSC_1{
 		uint16_t w0;
 		uint16_t w1;
-	}tim_psc_par;
+	}par;
 	uint32_t dword;
 }STM32FXXXTIM_PSC_TypeDef, STM32FXXXTIM9to11_PSC_TypeDef, STM32FXXXTIM1and8_PSC_TypeDef, STM32FXXXTIM2to5_PSC_TypeDef;
 /*** TIM -> ARR ***/
@@ -522,7 +522,7 @@ volatile typedef union{
 	struct TIM_ARR_1{
 		uint16_t w0;
 		uint16_t w1;
-	}tim_arr_par;
+	}par;
 	uint32_t dword;
 }STM32FXXXTIM_ARR_TypeDef,STM32FXXXTIM9_ARR_TypeDef, STM32FXXXTIM1and8_ARR_TypeDef, STM32FXXXTIM3and4_ARR_TypeDef, STM32FXXXTIM2and5_ARR_TypeDef;
 /*** TIM -> RCR ***/
@@ -530,7 +530,7 @@ volatile typedef union{
 	struct TIM_RCR_1{
 		uint32_t byte:8;
 		uint32_t fill:24;
-	}tim_rcr_par;
+	}par;
 	uint32_t dword;
 }STM32FXXXTIM_RCR_TypeDef, STM32FXXXTIM1and8_RCR_TypeDef;
 /*** TIM -> CCR1 ***/
@@ -538,7 +538,7 @@ volatile typedef union{
 	struct TIM_CCR1_1{
 		uint16_t w0;
 		uint16_t w1;
-	}tim_ccr1_par;
+	}par;
 	uint32_t dword;
 }STM32FXXXTIM_CCR1_TypeDef, STM32FXXXTIM1and8_CCR1_TypeDef, STM32FXXXTIM3and4_CCR1_TypeDef, STM32FXXXTIM2and5_CCR1_TypeDef;
 /*** TIM -> CCR2 ***/
@@ -546,7 +546,7 @@ volatile typedef union{
 	struct TIM_CCR2_1{
 		uint16_t w0;
 		uint16_t w1;
-	}tim_ccr2_par;
+	}par;
 	uint32_t dword;
 }STM32FXXXTIM_CCR2_TypeDef, STM32FXXXTIM1and8_CCR2_TypeDef, STM32FXXXTIM3and4_CCR2_TypeDef, STM32FXXXTIM2and5_CCR2_TypeDef;
 /*** TIM -> CCR3 ***/
@@ -554,7 +554,7 @@ volatile typedef union{
 	struct TIM_CCR3_1{
 		uint16_t w0;
 		uint16_t w1;
-	}tim_ccr3_par;
+	}par;
 	uint32_t dword;
 }STM32FXXXTIM_CCR3_TypeDef, STM32FXXXTIM1and8_CCR3_TypeDef, STM32FXXXTIM3and4_CCR3_TypeDef, STM32FXXXTIM2and5_CCR3_TypeDef;
 /*** TIM -> CCR4 ***/
@@ -562,7 +562,7 @@ volatile typedef union{
 	struct TIM_CCR4_1{
 		uint16_t w0;
 		uint16_t w1;
-	}tim_ccr4_par;
+	}par;
 	uint32_t dword;
 }STM32FXXXTIM_CCR4_TypeDef, STM32FXXXTIM1and8_CCR4_TypeDef, STM32FXXXTIM3and4_CCR4_TypeDef, STM32FXXXTIM2and5_CCR4_TypeDef;
 /*** TIM -> BDTR ***/
@@ -577,7 +577,7 @@ volatile typedef union{
 		uint32_t aoe:1;
 		uint32_t moe:1;
 		uint32_t fill:16;
-	}tim_bdtr_par,tim1an8_bdtr_par;
+	}par,tim1an8_par;
 	uint32_t dword;
 }STM32FXXXTIM_BDTR_TypeDef, STM32FXXXTIM1and8_BDTR_TypeDef;
 /*** TIM -> DCR ***/
@@ -587,7 +587,7 @@ volatile typedef union{
 		uint32_t fill1:3;
 		uint32_t dbl:5;
 		uint32_t fill2:19;
-	}tim_dcr_par,tim1an8_dcr_par,tim2to5_dcr_par;
+	}par,tim1an8_dcr_par,tim2to5_par;
 	uint32_t dword;
 }STM32FXXXTIM_DCR_TypeDef, STM32FXXXTIM1and8_DCR_TypeDef, STM32FXXXTIM2to5_DCR_TypeDef;
 /*** TIM -> DMAR ***/
@@ -595,13 +595,13 @@ volatile typedef union{
 	struct TIM_DMAR_1{
 		uint16_t dmab;
 		uint16_t fill;
-	}tim_dmar_par,tim2to5_dmar_par;
+	}par,tim2to5_par;
 	uint32_t dword;
 }STM32FXXXTIM_DMAR_TypeDef, STM32FXXXTIM2to5_DMAR_TypeDef;
 volatile typedef union{
 	struct TIM_DMAR_2{
 		uint32_t dmab;
-	}tim1and8_dmar_par;
+	}tim1and8_par;
 	uint32_t dword;
 }STM32FXXXTIM1and8_DMAR_TypeDef;
 /*** TIM -> OR ***/
@@ -610,19 +610,19 @@ volatile typedef union{
 		uint32_t fill1:10;
 		uint32_t itr1_rmp:2;
 		uint32_t fill2:20;
-	}tim2_or_par;
+	}tim2_par;
 	struct TIM_OR_7{
 		uint32_t fill1:6;
 		uint32_t it4_rmp:2;
 		uint32_t fill2:24;
-	}tim5_or_par;
+	}tim5_par;
 	uint32_t dword;
 }STM32FXXXTIM2and5_OR_TypeDef;
 volatile typedef union{
 	struct TIM_OR_8{
 		uint32_t ti1_rmp:2;
 		uint32_t fill2:30;
-	}tim10and11_or_par;
+	}tim10and11_par;
 	uint32_t dword;
 }STM32FXXXTIM10and11_OR_TypeDef;
 
