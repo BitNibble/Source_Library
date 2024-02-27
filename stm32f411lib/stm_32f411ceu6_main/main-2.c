@@ -54,8 +54,8 @@ int main(void)
 
   STM32FXXX_enable();
 
-  gpiob()->clock(on);
-  gpioc()->clock(on);
+  gpiob()->clock(on); // lcd0
+  gpioc()->clock(on); // gpio13
   rtc()->inic(0); // 1 - LSE 0 - LSI
 
   ARMLCD0_enable(stm()->gpiob_reg);
@@ -69,12 +69,12 @@ int main(void)
   tim1()->arr->par.w0 = 0xFFFF;
   //tim1()->rcr->tim_rcr_par.byte = 0;
   // Compare
-  tim1()->ccr1->par.w0 = 16375;
+  tim1()->ccr1->par.w0 = 22767;
   tim1()->ccr2->par.w0 = 32767;
   // pre-scaler
-  tim1()->psc->par.w0 = 25;
+  tim1()->psc->par.w0 = 200;
   // interrupt
-  tim1()->dier->dword = 0;
+  tim1()->dier->reg = 0;
   tim1()->dier->tim1and8_par.uie = 0;
   tim1()->dier->tim1and8_par.cc1ie = 1;
   tim1()->dier->tim1and8_par.cc2ie = 1;
@@ -83,8 +83,8 @@ int main(void)
   tim1()->dier->tim1and8_par.tie = 0;
   tim1()->dier->tim1and8_par.bie = 0;
   //
-  tim1()->dier->tim1and8_par.ude = 0;
-  tim1()->dier->tim1and8_par.cc1de = 0;
+  //tim1()->dier->tim1and8_par.ude = 0;
+  //tim1()->dier->tim1and8_par.cc1de = 0;
 
   // Enable (Start/Stop)
   tim1()->cr1->tim1and8_par.arpe = 1;
@@ -99,7 +99,7 @@ int main(void)
 	  lcd0()->string_size(func()->ui32toa(count1),6); lcd0()->string_size(func()->i32toa(count2),6); lcd0()->string_size(func()->i32toa(count3),6);
 	  lcd0()->gotoxy(2,0);
 	  //lcd0()->string_size(func()->ui32toa(count4),6); lcd0()->string_size(func()->i32toa(count5),6); lcd0()->string_size(func()->i32toa(count6),6);
-	  lcd0()->string_size(func()->print_binary(16,tim1()->dier->dword),17);
+	  lcd0()->string_size(func()->print_binary(16,tim1()->dier->reg),17);
 	  lcd0()->gotoxy(3,0);
 	  lcd0()->string_size(func()->ui32toa(count7),6); lcd0()->string_size(func()->ui32toa(count0),6); lcd0()->string_size(func()->ui32toa(sizeof(struct TIM_DIER_1)),6);
   }
@@ -116,13 +116,13 @@ void TIM1_CC_IRQHandler(void){
 	if(tim1()->sr->tim1and8_par.cc1if){
 		count2++;
 		//count8=tim1()->cnt->par.w0;
-		gpioc()->odr->bit.o13 = 1;
+		gpioc()->odr->bit.o13 = 0;
 		tim1()->sr->tim1and8_par.cc1if = 0;
 	}
 	if(tim1()->sr->tim1and8_par.cc2if){
 		count3++;
 		//count8=tim1()->cnt->par.w0;
-		gpioc()->odr->bit.o13 = 0;
+		gpioc()->odr->bit.o13 = 1;
 		tim1()->sr->tim1and8_par.cc2if = 0;
 	}
 	if(tim1()->sr->tim1and8_par.tif){
@@ -160,4 +160,10 @@ void assert_failed(uint8_t *file, uint32_t line)
 
 }
 #endif
+
+/*** EOF ***/
+/*** Comment
+struct->register->par
+
+***/
 

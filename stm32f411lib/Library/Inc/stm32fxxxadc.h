@@ -33,7 +33,7 @@ typedef struct
 	void (*clear_awd)(void);
 }STM32FXXXADC_SR;
 /***
-typedef union {
+volatile typedef union {
 	struct {
 		uint32_t awd:1;
 		uint32_t eoc:1;
@@ -42,19 +42,9 @@ typedef union {
 		uint32_t strt:1;
 		uint32_t ovr:1;
 		uint32_t fill:26;
-	}bit;
+	}par;
 	uint32_t reg;
-}STM32FXXXADC_SR;
-// or
-typedef struct {
-	uint32_t awd:1;
-	uint32_t eoc:1;
-	uint32_t jeoc:1;
-	uint32_t jstrt:1;
-	uint32_t strt:1;
-	uint32_t ovr:1;
-	uint32_t fill:26;
-}STM32FXXXADC_SR;
+}STM32FXXXADC_SR_TypeDef;
 ***/
 // CR1
 typedef struct

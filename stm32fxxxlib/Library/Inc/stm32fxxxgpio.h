@@ -35,7 +35,7 @@ volatile typedef union{
 	  uint32_t m14:2;
 	  uint32_t m15:2;
 	} par;
-	uint32_t m;
+	uint32_t reg;
 } GPIO_MODER_TypeDef;
 /*** GPIO -> OTYPER ***/
 volatile typedef union{
@@ -62,6 +62,7 @@ volatile typedef union{
 	  uint16_t t;
 	  uint16_t fill;
 	} word;
+	uint32_t reg;
 } GPIO_OTYPER_TypeDef;
 /*** GPIO -> OSPEEDR ***/
 volatile typedef union{
@@ -83,7 +84,7 @@ volatile typedef union{
 	  uint32_t s14:2;
 	  uint32_t s15:2;
 	} par;
-	uint32_t s;
+	uint32_t reg;
 } GPIO_OSPEEDR_TypeDef;
 /*** GPIO -> PUPDR ***/
 volatile typedef union{
@@ -105,7 +106,7 @@ volatile typedef union{
 	  uint32_t p14:2;
 	  uint32_t p15:2;
 	} par;
-	uint32_t p;
+	uint32_t reg;
 } GPIO_PUPDR_TypeDef;
 /*** GPIO -> IDR ***/
 volatile typedef union{
@@ -132,6 +133,7 @@ volatile typedef union{
 	  uint16_t i;
 	  uint16_t fill;
 	} word;
+	uint32_t reg;
 } GPIO_IDR_TypeDef;
 /*** GPIO -> ODR ***/
 volatile typedef union{
@@ -158,6 +160,7 @@ volatile typedef union{
 	  uint16_t o;
 	  uint16_t fill;
 	} word;
+	uint32_t reg;
 } GPIO_ODR_TypeDef;
 /*** GPIO -> BSRR ***/
 volatile typedef union{
@@ -199,6 +202,7 @@ volatile typedef union{
 	 uint32_t s:16;
 	 uint32_t r:16;
 	} word;
+	uint32_t reg;
 } GPIO_BSRR_TypeDef;
 /*** GPIO -> LCKR ***/
 volatile typedef union{
@@ -225,6 +229,7 @@ volatile typedef union{
 	  uint16_t l;
 	  uint16_t fill;
 	} word;
+	uint32_t reg;
 } GPIO_LCKR_TypeDef;
 /*** GPIO -> GPIO ***/
 typedef struct
@@ -243,7 +248,9 @@ typedef struct
 	/*** Other ***/
 	void (*clock)( uint8_t bool );
 
-}STM32FXXXGPIOA_HandleTypeDef, STM32FXXXGPIOB_HandleTypeDef, STM32FXXXGPIOC_HandleTypeDef, STM32FXXXGPIOD_HandleTypeDef, STM32FXXXGPIOE_HandleTypeDef, STM32FXXXGPIOF_HandleTypeDef, STM32FXXXGPIOG_HandleTypeDef, STM32FXXXGPIOH_HandleTypeDef;
+}STM32FXXXGPIOA_HandleTypeDef, STM32FXXXGPIOB_HandleTypeDef, STM32FXXXGPIOC_HandleTypeDef, \
+ STM32FXXXGPIOD_HandleTypeDef, STM32FXXXGPIOE_HandleTypeDef, STM32FXXXGPIOF_HandleTypeDef, \
+ STM32FXXXGPIOG_HandleTypeDef, STM32FXXXGPIOH_HandleTypeDef;
 // INIC
 STM32FXXXGPIOA_HandleTypeDef gpioa_enable(void);
 STM32FXXXGPIOA_HandleTypeDef* gpioa(void);

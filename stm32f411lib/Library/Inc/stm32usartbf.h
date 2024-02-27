@@ -33,7 +33,7 @@ volatile typedef union{
 		uint32_t d:10;
 		uint32_t fill:22;
 	}data;
-	uint32_t dword;
+	uint32_t reg;
 }STM32FXXXUSART_SR_TypeDef;
 /*** USART -> DR ***/
 volatile typedef union{
@@ -45,7 +45,7 @@ volatile typedef union{
 		uint32_t b:8;
 		uint32_t fill:24;
 	}byte;
-	uint32_t dword;
+	uint32_t reg;
 }STM32FXXXUSART_DR_TypeDef;
 /*** USART -> BRR ***/
 volatile typedef union{
@@ -58,7 +58,7 @@ volatile typedef union{
 		uint32_t d:16;
 		uint32_t fill:16;
 	}data;
-	uint32_t dword;
+	uint32_t reg;
 }STM32FXXXUSART_BRR_TypeDef;
 /*** USART -> CR1 ***/
 volatile typedef union{
@@ -85,7 +85,7 @@ volatile typedef union{
 		uint32_t w:16;
 		uint32_t fill:16;
 	}data;
-	uint32_t dword;
+	uint32_t reg;
 }STM32FXXXUSART_CR1_TypeDef;
 /*** USART -> CR2 ***/
 volatile typedef union{
@@ -107,7 +107,7 @@ volatile typedef union{
 		uint32_t d:15;
 		uint32_t fill:17;
 	}data;
-	uint32_t dword;
+	uint32_t reg;
 }STM32FXXXUSART_CR2_TypeDef;
 /*** USART -> CR3 ***/
 volatile typedef union{
@@ -130,7 +130,7 @@ struct USART_CR3_2{
 		uint32_t d:12;
 		uint32_t fill:20;
 	}data;
-	uint32_t dword;
+	uint32_t reg;
 }STM32FXXXUSART_CR3_TypeDef;
 /*** USART -> GTPR ***/
 volatile typedef union{
@@ -139,7 +139,7 @@ volatile typedef union{
 		uint32_t gt:8;
 		uint32_t fill:16;
 	}par;
-	uint32_t dword;
+	uint32_t reg;
 }STM32FXXXUSART_GTPR_TypeDef;
 
 #endif
