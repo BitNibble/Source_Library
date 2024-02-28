@@ -13,7 +13,7 @@ Comment:
 #include "stm32fxxxadc.h"
 
 /*** ADC Common Header ***/
-STM32FXXXADCCOMMONobj stm32fxxx_adc_common;
+static STM32FXXXADCCOMMONobj stm32fxxx_adc_common;
 
 /*** COMMON ***/
 // CDR

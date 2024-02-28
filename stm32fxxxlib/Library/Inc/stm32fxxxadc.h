@@ -17,22 +17,6 @@ Comment:
 
 /*** ADC Bit Mapping TypeDef ***/
 // SR
-typedef struct
-{
-	uint8_t (*ovr)(void);
-	void (*clear_ovr)(void);
-	uint8_t (*strt)(void);
-	void (*clear_strt)(void);
-	uint8_t (*jstrt)(void);
-	void (*clear_jstrt)(void);
-	uint8_t (*jeoc)(void);
-	void (*clear_jeoc)(void);
-	uint8_t (*eoc)(void);
-	void (*clear_eoc)(void);
-	uint8_t (*awd)(void);
-	void (*clear_awd)(void);
-}STM32FXXXADC_SR;
-/***
 volatile typedef union {
 	struct SR_1{
 		uint32_t awd:1;
@@ -45,26 +29,7 @@ volatile typedef union {
 	}par;
 	uint32_t reg;
 }STM32FXXXADC_SR_TypeDef;
-***/
 // CR1
-typedef struct
-{
-	void (*ovrie)(uint8_t bool);
-	void (*res)(uint8_t value);
-	void (*awden)(uint8_t bool);
-	void (*jawden)(uint8_t bool);
-	void (*discnum)(uint8_t value);
-	void (*jdiscen)(uint8_t bool);
-	void (*discen)(uint8_t bool);
-	void (*jauto)(uint8_t bool);
-	void (*awdsgl)(uint8_t bool);
-	void (*scan)(uint8_t bool);
-	void (*jeocie)(uint8_t bool);
-	void (*awdie)(uint8_t bool);
-	void (*eocie)(uint8_t bool);
-	void (*awdch)(uint8_t value);
-}STM32FXXXADC_CR1;
-/***
 volatile typedef union {
 	struct CR1_1{
 		uint32_t awdch:5;
@@ -86,25 +51,7 @@ volatile typedef union {
 	}par;
 	uint32_t reg;
 }STM32FXXXADC_CR1_TypeDef;
-***/
 // CR2
-typedef struct
-{
-	void (*swstart)(uint8_t bool);
-	uint8_t (*read_swstart)(void);
-	void (*exten)(uint8_t value);
-	void (*extsel)(uint8_t value);
-	void (*jswstart)(uint8_t bool);
-	void (*jexten)(uint8_t value);
-	void (*jextsel)(uint8_t value);
-	void (*align)(uint8_t bool);
-	void (*eocs)(uint8_t bool);
-	void (*dds)(uint8_t bool);
-	void (*dma)(uint8_t bool);
-	void (*cont)(uint8_t bool);
-	void (*adon)(uint8_t bool);
-}STM32FXXXADC_CR2;
-/***
 volatile typedef union {
 	struct CR2_1{
 		uint32_t adon:1;
@@ -126,22 +73,7 @@ volatile typedef union {
 	}par;
 	uint32_t reg;
 }STM32FXXXADC_CR2_TypeDef;
-***/
 // SMPR1
-typedef struct
-{
-	void (*smp18)(uint8_t value);
-	void (*smp17)(uint8_t value);
-	void (*smp16)(uint8_t value);
-	void (*smp15)(uint8_t value);
-	void (*smp15_0)(uint8_t bool);
-	void (*smp14)(uint8_t value);
-	void (*smp13)(uint8_t value);
-	void (*smp12)(uint8_t value);
-	void (*smp11)(uint8_t value);
-	void (*smp10)(uint8_t value);
-}STM32FXXXADC_SMPR1;
-/***
 volatile typedef union {
 	struct SMPR1_1{
 		uint32_t smp10:3;
@@ -157,23 +89,7 @@ volatile typedef union {
 	}par;
 	uint32_t reg;
 }STM32FXXXADC_SMPR1_TypeDef;
-***/
 // SMPR2
-typedef struct
-{
-	void (*smp9)(uint8_t value);
-	void (*smp8)(uint8_t value);
-	void (*smp7)(uint8_t value);
-	void (*smp6)(uint8_t value);
-	void (*smp5)(uint8_t bool);
-	void (*smp5_0)(uint8_t bool);
-	void (*smp4)(uint8_t value);
-	void (*smp3)(uint8_t value);
-	void (*smp2)(uint8_t value);
-	void (*smp1)(uint8_t value);
-	void (*smp0)(uint8_t value);
-}STM32FXXXADC_SMPR2;
-/***
 volatile typedef union {
 	struct SMPR2_1{
 		uint32_t smp0:3;
@@ -190,9 +106,7 @@ volatile typedef union {
 	}par;
 	uint32_t reg;
 }STM32FXXXADC_SMPR2_TypeDef;
-***/
 // JOFRx
-/***
 volatile typedef union {
 	struct JOFRx_1{
 		uint32_t joffset:12;
@@ -200,9 +114,7 @@ volatile typedef union {
 	}par;
 	uint32_t reg;
 }STM32FXXXADC_JOFRx_TypeDef;
-***/
 // HTR
-/***
 volatile typedef union {
 	struct HTR_1{
 		uint32_t ht:12;
@@ -210,9 +122,7 @@ volatile typedef union {
 	}par;
 	uint32_t reg;
 }STM32FXXXADC_HTR_TypeDef;
-***/
 // LTR
-/***
 volatile typedef union {
 	struct LTR_1{
 		uint32_t lt:12;
@@ -220,18 +130,7 @@ volatile typedef union {
 	}par;
 	uint32_t reg;
 }STM32FXXXADC_LTR_TypeDef;
-***/
 // SQR1
-typedef struct
-{
-	void (*l)(uint8_t value);
-	void (*sq16)(uint8_t value);
-	void (*sq16_0)(uint8_t bool);
-	void (*sq15)(uint8_t value);
-	void (*sq14)(uint8_t value);
-	void (*sq13)(uint8_t value);
-}STM32FXXXADC_SQR1;
-/***
 volatile typedef union {
 	struct SQR1_1{
 		uint32_t sq13:5;
@@ -243,19 +142,7 @@ volatile typedef union {
 	}par;
 	uint32_t reg;
 }STM32FXXXADC_SQR1_TypeDef;
-***/
 // SQR2
-typedef struct
-{
-	void (*sq12)(uint8_t value);
-	void (*sq11)(uint8_t value);
-	void (*sq10)(uint8_t value);
-	void (*sq10_0)(uint8_t bool);
-	void (*sq9)(uint8_t value);
-	void (*sq8)(uint8_t value);
-	void (*sq7)(uint8_t value);
-}STM32FXXXADC_SQR2;
-/***
 volatile typedef union {
 	struct SQR2_1{
 		uint32_t sq7:5;
@@ -268,19 +155,7 @@ volatile typedef union {
 	}par;
 	uint32_t reg;
 }STM32FXXXADC_SQR2_TypeDef;
-***/
 // SQR3
-typedef struct
-{
-	void (*sq6)(uint8_t value);
-	void (*sq5)(uint8_t value);
-	void (*sq4)(uint8_t value);
-	void (*sq4_0)(uint8_t bool);
-	void (*sq3)(uint8_t value);
-	void (*sq2)(uint8_t value);
-	void (*sq1)(uint8_t value);
-}STM32FXXXADC_SQR3;
-/***
 volatile typedef union {
 	struct SQR3_1{
 		uint32_t sq1:5;
@@ -293,18 +168,7 @@ volatile typedef union {
 	}par;
 	uint32_t reg;
 }STM32FXXXADC_SQR3_TypeDef;
-***/
 // JSQR
-typedef struct
-{
-	void (*jl)(uint8_t value);
-	void (*jsq4)(uint8_t value);
-	void (*jsq4_0)(uint8_t bool);
-	void (*jsq3)(uint8_t value);
-	void (*jsq2)(uint8_t value);
-	void (*jsq1)(uint8_t value);
-}STM32FXXXADC_JSQR;
-/***
 volatile typedef union {
 	struct JSQR_1{
 		uint32_t jsq1:5;
@@ -316,9 +180,7 @@ volatile typedef union {
 	}par;
 	uint32_t reg;
 }STM32FXXXADC_JSQR_TypeDef;
-***/
 // JDRx
-/***
 volatile typedef union {
 	struct JDRx_1{
 		uint16_t jdata;
@@ -326,9 +188,7 @@ volatile typedef union {
 	}par;
 	uint32_t reg;
 }STM32FXXXADC_JDRx_TypeDef;
-***/
 // DR
-/***
 volatile typedef union {
 	struct DR_1{
 		uint16_t data;
@@ -336,7 +196,6 @@ volatile typedef union {
 	}par;
 	uint32_t reg;
 }STM32FXXXADC_DR_TypeDef;
-***/
 // CSR
 volatile typedef union {
 	struct CSR_1{
