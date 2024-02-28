@@ -14,7 +14,7 @@ Comment:
 /*** Library ***/
 #include "armquery.h"
 
-/*** ADC Bit Mapping TypeDef ***/
+/*** ADC 1..3 BitField TypeDef ***/
 // SR
 volatile typedef union {
 	struct SR_1{
