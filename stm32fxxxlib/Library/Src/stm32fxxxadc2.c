@@ -565,12 +565,14 @@ void STM32FXXXAdc2Nvic(uint8_t bool)
 }
 void STM32FXXXAdc2Inic(void)
 {
+	STM32FXXXADCCOMMONobj* adc_common = stm32fxxx_adc_common_inic( );
 	// ADC Clock
 	// void STM32FXXXAdc2IClock(1); // DACEN: DAC interface clock enable
 	// STM32FXXXAdc2Clock(1) // ADC2EN: ADC2 clock enable
 	// ADC CONFIG
 	STM32FXXXADC2_cr2_eocs(1); // EOCS: End of conversion selection
-	STM32FXXXADC_ccr_adcpre(3); // ADCPRE: ADC prescaler, 11: PCLK2 divided by 8
+	//STM32FXXXADC_ccr_adcpre(3); // ADCPRE: ADC prescaler, 11: PCLK2 divided by 8
+	adc_common->ccr->par.adcpre = 3;
 	STM32FXXXADC2_smpr1_smp10(7); // SMPx[2:0]: Channel x sampling time selection
 	STM32FXXXADC2_cr1_discen(1); // DISCEN: Discontinuous mode on regular channels
 	STM32FXXXADC2_sqr3_sq1(10); // SQ1[4:0]: 1st conversion in regular sequence

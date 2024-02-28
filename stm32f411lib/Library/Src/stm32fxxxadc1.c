@@ -554,6 +554,7 @@ void STM32FXXXAdc1Nvic(uint8_t bool)
 }
 void STM32FXXXAdc1Inic(void)
 {
+	STM32FXXXADCCOMMONobj* adc_common = stm32fxxx_adc_common_inic( );
 	// ADC Clock
 	 STM32FXXXAdc1IClock(1); // DACEN: DAC interface clock enable
 	 STM32FXXXAdc1Clock(1); // ADC1EN: ADC1 clock enable
@@ -563,7 +564,8 @@ void STM32FXXXAdc1Inic(void)
 	//STM32FXXXADC1_cr1_scan(1);
 	//STM32FXXXADC1_cr2_eocs(1); // EOCS: End of conversion selection
 
-	 STM32FXXXADC_ccr_adcpre(3); // ADCPRE: ADC prescaler, 11: PCLK2 divided by 8
+	 //STM32FXXXADC_ccr_adcpre(3); // ADCPRE: ADC prescaler, 11: PCLK2 divided by 8
+	 adc_common->ccr->par.adcpre = 3;
 
 	STM32FXXXADC1_smpr1_smp18(7); // SMPx[2:0]: Channel x sampling time selection
 	STM32FXXXADC1_smpr2_smp0(7); // SMPx[2:0]: Channel x sampling time selection
@@ -576,12 +578,17 @@ void STM32FXXXAdc1Inic(void)
 }
 void STM32FXXXAdc1VBAT(void) // vbat overrides temperature
 {
-	STM32FXXXADC_ccr_vbate(1); // VBATE: VBAT enable
+	STM32FXXXADCCOMMONobj* adc_common = stm32fxxx_adc_common_inic( );
+	//STM32FXXXADC_ccr_vbate(1); // VBATE: VBAT enable
+	adc_common->ccr->par.vbate = 1;
 }
 void STM32FXXXAdc1TEMP(void)
 {
+	STM32FXXXADCCOMMONobj* adc_common = stm32fxxx_adc_common_inic( );
 	// Temperature (in degrees) = {(VSENSE V25) / Avg_Slope} + 25
-	STM32FXXXADC_ccr_tsvrefe(1); // TSVREFE: Temperature sensor and VREFINT enable
+	//STM32FXXXADC_ccr_tsvrefe(1); // TSVREFE: Temperature sensor and VREFINT enable
+	adc_common->ccr->par.tsvrefe = 1;
+	
 }
 void STM32FXXXAdc1Start(void)
 {

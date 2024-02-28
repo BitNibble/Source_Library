@@ -338,28 +338,6 @@ volatile typedef union {
 }STM32FXXXADC_DR_TypeDef;
 ***/
 // CSR
-typedef struct
-{
-	uint8_t (*ovr3)(void);
-	uint8_t (*strt3)(void);
-	uint8_t (*jstrt3)(void);
-	uint8_t (*jeoc3)(void);
-	uint8_t (*eoc3)(void);
-	uint8_t (*awd3)(void);
-	uint8_t (*ovr2)(void);
-	uint8_t (*strt2)(void);
-	uint8_t (*jstrt2)(void);
-	uint8_t (*jeoc2)(void);
-	uint8_t (*eoc2)(void);
-	uint8_t (*awd2)(void);
-	uint8_t (*ovr1)(void);
-	uint8_t (*strt1)(void);
-	uint8_t (*jstrt1)(void);
-	uint8_t (*jeoc1)(void);
-	uint8_t (*eoc1)(void);
-	uint8_t (*awd1)(void);
-}STM32FXXXADC_CSR;
-/***
 volatile typedef union {
 	struct CSR_1{
 		uint32_t awd1:1;
@@ -393,7 +371,7 @@ volatile typedef union {
 		uint32_t ovr1:1;
 		uint32_t reserved:26;
 	}adc1_par;
-	struct CSR_1{
+	struct CSR_3{
 		uint32_t reserved1:8;
 		uint32_t awd2:1;
 		uint32_t eoc2:1;
@@ -403,7 +381,7 @@ volatile typedef union {
 		uint32_t ovr2:1;
 		uint32_t reserved2:18;
 	}adc2_par;
-	struct CSR_1{
+	struct CSR_4{
 		uint32_t reserved1:16;
 		uint32_t awd3:1;
 		uint32_t eoc3:1;
@@ -415,19 +393,7 @@ volatile typedef union {
 	}adc3_par;
 	uint32_t reg;
 }STM32FXXXADC_CSR_TypeDef;
-***/
 // CCR
-typedef struct
-{
-	void (*tsvrefe)(uint8_t bool);
-	void (*vbate)(uint8_t bool);
-	void (*adcpre)(uint8_t value);
-	void (*dma)(uint8_t value);
-	void (*dds)(uint8_t bool);
-	void (*delay)(uint8_t value);
-	void (*multi)(uint8_t value);
-}STM32FXXXADC_CCR;
-/***
 volatile typedef union {
 	struct CCR_1{
 		uint16_t reserved1;
@@ -439,13 +405,12 @@ volatile typedef union {
 	}par;
 	uint32_t reg;
 }STM32FXXXADC_CCR_TypeDef;
-***/
 /*** ADC_Common TypeDef ***/
 typedef struct
 {
 
-	STM32FXXXADC_CSR* csr;
-	STM32FXXXADC_CCR* ccr;
+	STM32FXXXADC_CSR_TypeDef* csr;
+	STM32FXXXADC_CCR_TypeDef* ccr;
 	uint32_t (*cdr)(void);
 }STM32FXXXADCCOMMONobj;
 /*** ADC1 Procedure & Function TypeDef ***/
@@ -457,38 +422,9 @@ typedef struct
 	void (*start)(void);
 }STM32FXXXADC1single, STM32FXXXADC2single, STM32FXXXADC3single;
 /*** ADC Common Header ***/
-// CSR
-uint8_t STM32FXXXADC_csr_ovr3(void);
-uint8_t STM32FXXXADC_csr_strt3(void);
-uint8_t STM32FXXXADC_csr_jstrt3(void);
-uint8_t STM32FXXXADC_csr_jeoc3(void);
-uint8_t STM32FXXXADC_csr_eoc3(void);
-uint8_t STM32FXXXADC_csr_awd3(void);
-uint8_t STM32FXXXADC_csr_ovr2(void);
-uint8_t STM32FXXXADC_csr_strt2(void);
-uint8_t STM32FXXXADC_csr_jstrt2(void);
-uint8_t STM32FXXXADC_csr_jeoc2(void);
-uint8_t STM32FXXXADC_csr_eoc2(void);
-uint8_t STM32FXXXADC_csr_awd2(void);
-uint8_t STM32FXXXADC_csr_ovr1(void);
-uint8_t STM32FXXXADC_csr_strt1(void);
-uint8_t STM32FXXXADC_csr_jstrt1(void);
-uint8_t STM32FXXXADC_csr_jeoc1(void);
-uint8_t STM32FXXXADC_csr_eoc1(void);
-uint8_t STM32FXXXADC_csr_awd1(void);
-// CCR
-void STM32FXXXADC_ccr_tsvrefe(uint8_t bool);
-void STM32FXXXADC_ccr_vbate(uint8_t bool);
-void STM32FXXXADC_ccr_adcpre(uint8_t value);
-void STM32FXXXADC_ccr_dma(uint8_t value);
-void STM32FXXXADC_ccr_dds(uint8_t bool);
-void STM32FXXXADC_ccr_delay(uint8_t value);
-void STM32FXXXADC_ccr_multi(uint8_t value);
 // CDR
 uint32_t STM32FXXXADC_cdr(void);
 
-STM32FXXXADC_CSR* stm32fxxx_adc_common_csr_inic(void);
-STM32FXXXADC_CCR* stm32fxxx_adc_common_ccr_inic(void);
 STM32FXXXADCCOMMONobj* stm32fxxx_adc_common_inic(void);
 
 /*** INTERRUPT HEADER ***/
