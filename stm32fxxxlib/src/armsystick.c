@@ -93,10 +93,10 @@ void systick_start(void)
 }
 
 /**** Interrupt Handler ****/
-void SysTick_Handler(void)
-{
-	DelayCounter += systick_sysclk_calc_xs;
-}
+//void SysTick_Handler(void)
+//{
+//	DelayCounter += systick_sysclk_calc_xs;
+//}
 /***************************/
 
 /*** EOF ***/
