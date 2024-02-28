@@ -59,7 +59,7 @@ STM32FXXXADC2single* stm32fxxx_adc2_single_inic(void)
 	return &stm32fxxx_adc2_single;
 }
 /*** ADC2 INIC Procedure & Function Definition ***/
-STM32FXXXADC2obj adc2_enable(void)
+STM32FXXXADC2obj* adc2_enable(void)
 {
 
 	/*** ADC2 Bit Mapping Link ***/

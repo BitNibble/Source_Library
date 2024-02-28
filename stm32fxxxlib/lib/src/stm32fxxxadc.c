@@ -20,7 +20,7 @@ uint32_t STM32FXXXADC_cdr(void)
 {
 	return readreg(ADC->CDR, 32, 0);
 }
-/*** Auxiliar ***/
+/*** Auxiliary ***/
 STM32FXXXADCCOMMONobj* stm32fxxx_adc_common_inic(void)
 {
 

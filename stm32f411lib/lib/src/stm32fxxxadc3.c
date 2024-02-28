@@ -59,7 +59,7 @@ STM32FXXXADC3single* stm32fxxx_adc3_single_inic(void)
 	return &stm32fxxx_adc3_single;
 }
 /*** ADC3 INIC Procedure & Function Definition ***/
-STM32FXXXADC3obj adc3_enable(void)
+STM32FXXXADC3obj* adc3_enable(void)
 {
 
 	/*** ADC3 Bit Mapping Link ***/

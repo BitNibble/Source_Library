@@ -5,7 +5,7 @@ Author: Sergio Santos
 License: GNU General Public License
 Hardware: STM32-XXX
 Date: 19/06/2023
-Update: 05/01/2024
+Update: 28/02/2024
 Comment:
 	File Vars, File Function Header, Library Function Definitions.
 	
