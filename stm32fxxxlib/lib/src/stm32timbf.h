@@ -509,7 +509,7 @@ volatile typedef union{
 	}par;
 	uint32_t reg;
 }STM32FXXXTIM_CNT_TypeDef, STM32FXXXTIM9to11_CNT_TypeDef, STM32FXXXTIM1and8_CNT_TypeDef, \
- STM32FXXXTIM3and4_CNT_TypeDef,STM32FXXXTIM2and5_CNT_TypeDef;
+ STM32FXXXTIM2to5_CNT_TypeDef;
 /*** TIM -> PSC ***/
 volatile typedef union{
 	struct TIM_PSC_1{
@@ -527,7 +527,7 @@ volatile typedef union{
 	}par;
 	uint32_t reg;
 }STM32FXXXTIM_ARR_TypeDef,STM32FXXXTIM9_ARR_TypeDef, STM32FXXXTIM1and8_ARR_TypeDef, \
- STM32FXXXTIM3and4_ARR_TypeDef, STM32FXXXTIM2and5_ARR_TypeDef;
+ STM32FXXXTIM2to5_ARR_TypeDef;
 /*** TIM -> RCR ***/
 volatile typedef union{
 	struct TIM_RCR_1{
@@ -543,8 +543,7 @@ volatile typedef union{
 		uint16_t w1;
 	}par;
 	uint32_t reg;
-}STM32FXXXTIM_CCR1_TypeDef, STM32FXXXTIM1and8_CCR1_TypeDef, STM32FXXXTIM3and4_CCR1_TypeDef, \
- STM32FXXXTIM2and5_CCR1_TypeDef;
+}STM32FXXXTIM_CCR1_TypeDef, STM32FXXXTIM1and8_CCR1_TypeDef, STM32FXXXTIM2to5_CCR1_TypeDef;
 /*** TIM -> CCR2 ***/
 volatile typedef union{
 	struct TIM_CCR2_1{
@@ -552,8 +551,7 @@ volatile typedef union{
 		uint16_t w1;
 	}par;
 	uint32_t reg;
-}STM32FXXXTIM_CCR2_TypeDef, STM32FXXXTIM1and8_CCR2_TypeDef, STM32FXXXTIM3and4_CCR2_TypeDef, \
- STM32FXXXTIM2and5_CCR2_TypeDef;
+}STM32FXXXTIM_CCR2_TypeDef, STM32FXXXTIM1and8_CCR2_TypeDef, STM32FXXXTIM2to5_CCR2_TypeDef;
 /*** TIM -> CCR3 ***/
 volatile typedef union{
 	struct TIM_CCR3_1{
@@ -561,8 +559,7 @@ volatile typedef union{
 		uint16_t w1;
 	}par;
 	uint32_t reg;
-}STM32FXXXTIM_CCR3_TypeDef, STM32FXXXTIM1and8_CCR3_TypeDef, STM32FXXXTIM3and4_CCR3_TypeDef, \
- STM32FXXXTIM2and5_CCR3_TypeDef;
+}STM32FXXXTIM_CCR3_TypeDef, STM32FXXXTIM1and8_CCR3_TypeDef, STM32FXXXTIM2to5_CCR3_TypeDef;
 /*** TIM -> CCR4 ***/
 volatile typedef union{
 	struct TIM_CCR4_1{
@@ -570,8 +567,7 @@ volatile typedef union{
 		uint16_t w1;
 	}par;
 	uint32_t reg;
-}STM32FXXXTIM_CCR4_TypeDef, STM32FXXXTIM1and8_CCR4_TypeDef, STM32FXXXTIM3and4_CCR4_TypeDef, \
- STM32FXXXTIM2and5_CCR4_TypeDef;
+}STM32FXXXTIM_CCR4_TypeDef, STM32FXXXTIM1and8_CCR4_TypeDef, STM32FXXXTIM2to5_CCR4_TypeDef;
 /*** TIM -> BDTR ***/
 volatile typedef union{
 	struct TIM_BDTR_1{

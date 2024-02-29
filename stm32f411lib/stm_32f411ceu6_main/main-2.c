@@ -12,7 +12,7 @@
   * License: GNU General Public License
   * Hardware: STM32F4x1 mini_F4x1 Ver. V20 SN: 202005 DevEBox
   * Board Site: mcudev.taobao.com
-  * Date: 22022024
+  * Date: 28022024
   * Comment:
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -33,6 +33,8 @@ LED Blinking
 	PC13 - LED blink
 note:
 timer testing. At 25Mhz and STM32FXXXPrescaler(1, 1, 1, 0);
+- uie is always enabled wonder why the option exists.
+- dimmer
 ********************************************************************************/
 #include "main.h"
 #include "stm32fxxxmapping.h"
@@ -48,6 +50,7 @@ uint16_t count5 = 0;
 uint16_t count6 = 0;
 uint16_t count7 = 0;
 uint16_t count8 = 0;
+int8_t cdir;
 
 int main(void)
 {
@@ -65,14 +68,14 @@ int main(void)
 
   stm()->tim1->nvic(on);
   stm()->tim1->clock(on);
-  //tim1()->ccmr1->tim1an8_ccmr1_ocm_par.oc1m = 6;
+  //tim1()->ccmr1->tim1an8_ocm_par.oc1m = 6;
   tim1()->arr->par.w0 = 0xFFFF;
-  //tim1()->rcr->tim_rcr_par.byte = 0;
+  //tim1()->rcr->par.byte = 0;
   // Compare
-  tim1()->ccr1->par.w0 = 22767;
-  tim1()->ccr2->par.w0 = 32767;
+  tim1()->ccr1->par.w0 = 1000;
+  tim1()->ccr2->par.w0 = 60000;
   // pre-scaler
-  tim1()->psc->par.w0 = 200;
+  tim1()->psc->par.w0 = 1;
   // interrupt
   //tim1()->dier->tim1and8_par.uie = 0;
   tim1()->dier->tim1and8_par.cc1ie = 1;
@@ -89,16 +92,30 @@ int main(void)
   tim1()->cr1->tim1and8_par.arpe = 1;
   tim1()->cr1->tim1and8_par.cen = 1;
 
+  char vecT[8]; // for calendar
+  //char vecD[8]; // for calendar
+  rtc()->Year(24);
+  rtc()->Month(1);
+  rtc()->Day(1);
+  rtc()->Hour(12);
+  rtc()->Minute(0);
+  rtc()->Second(0);
+  cdir = 1;
 
   while (1)
   {
 	  lcd0()->gotoxy(0,0);
-	  lcd0()->string_size(func()->ui32toa(TIM1->ARR),6); lcd0()->string_size(func()->ui32toa(TIM1->CCR1),6); lcd0()->string_size(func()->ui32toa(TIM1->CCR2),6);
+	  lcd0()->string_size(func()->ui32toa(TIM1->ARR),6); lcd0()->string_size(func()->ui32toa(tim1()->ccr1->par.w0),6); lcd0()->string_size(func()->ui32toa(TIM1->CCR2),6);
+
 	  lcd0()->gotoxy(1,0);
 	  lcd0()->string_size(func()->ui32toa(count1),6); lcd0()->string_size(func()->i32toa(count2),6); lcd0()->string_size(func()->i32toa(count3),6);
+
 	  lcd0()->gotoxy(2,0);
 	  //lcd0()->string_size(func()->ui32toa(count4),6); lcd0()->string_size(func()->i32toa(count5),6); lcd0()->string_size(func()->i32toa(count6),6);
-	  lcd0()->string_size(func()->print_binary(16,tim1()->dier->reg),17);
+	  //lcd0()->string_size(func()->print_binary(16,tim1()->dier->reg),17);
+	  rtc()->tr2vec(vecT);
+	  lcd0()->string_size(func()->print_v2("hora: %d%d:%d%d:%d%d", vecT[0],vecT[1],vecT[2],vecT[3],vecT[4],vecT[5]),14);
+
 	  lcd0()->gotoxy(3,0);
 	  lcd0()->string_size(func()->ui32toa(count7),6); lcd0()->string_size(func()->ui32toa(count0),6); lcd0()->string_size(func()->ui32toa(sizeof(struct TIM_DIER_1)),6);
   }
@@ -120,6 +137,9 @@ void TIM1_CC_IRQHandler(void){
 	}
 	if(tim1()->sr->tim1and8_par.cc2if){
 		count3++;
+		tim1()->ccr1->par.w0 += (cdir * 295);
+		if(tim1()->ccr1->par.w0 > (tim1()->ccr2->par.w0 - 100)){ cdir = -1; }
+		if(tim1()->ccr1->par.w0 < (1000 + 100)){ cdir = 1; }
 		//count8=tim1()->cnt->par.w0;
 		gpioc()->bsrr->bit.s13 = 1;
 		tim1()->sr->tim1and8_par.cc2if = 0;
