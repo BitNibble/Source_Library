@@ -52,6 +52,21 @@ uint16_t count7 = 0;
 uint16_t count8 = 0;
 int8_t cdir;
 
+void tim1_cc1f_callback(void){
+	count2++;
+	//count8=tim1()->cnt->par.w0;
+	gpioc()->bsrr->bit.r13 = 1;
+}
+void tim1_cc2f_callback(void){
+	count3++;
+	tim1()->ccr1->par.w0 += (cdir * 295);
+	if(tim1()->ccr1->par.w0 > (tim1()->ccr2->par.w0 - 100)){ cdir = -1; }
+	if(tim1()->ccr1->par.w0 < (1000 + 100)){ cdir = 1; }
+	//count8=tim1()->cnt->par.w0;
+	gpioc()->bsrr->bit.s13 = 1;
+
+}
+
 int main(void)
 {
 
@@ -130,18 +145,11 @@ void TIM1_CC_IRQHandler(void){
 		tim1()->sr->tim1and8_par.uif = 0;
 	}
 	if(tim1()->sr->tim1and8_par.cc1if){
-		count2++;
-		//count8=tim1()->cnt->par.w0;
-		gpioc()->bsrr->bit.r13 = 1;
+		tim1_cc1f_callback();
 		tim1()->sr->tim1and8_par.cc1if = 0;
 	}
 	if(tim1()->sr->tim1and8_par.cc2if){
-		count3++;
-		tim1()->ccr1->par.w0 += (cdir * 295);
-		if(tim1()->ccr1->par.w0 > (tim1()->ccr2->par.w0 - 100)){ cdir = -1; }
-		if(tim1()->ccr1->par.w0 < (1000 + 100)){ cdir = 1; }
-		//count8=tim1()->cnt->par.w0;
-		gpioc()->bsrr->bit.s13 = 1;
+		tim1_cc2f_callback();
 		tim1()->sr->tim1and8_par.cc2if = 0;
 	}
 	if(tim1()->sr->tim1and8_par.tif){

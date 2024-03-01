@@ -13,7 +13,7 @@ Comment:
 
 #include <inttypes.h>
 
-/*** TIMER BitField Mapping TypeDef ***/
+/*** TIMER BitField TypeDef ***/
 /*** TIM -> CR1 ***/
 volatile typedef union{
 	struct TIM_CR1_1{
@@ -84,7 +84,7 @@ volatile typedef union{
 		uint32_t ece:1;
 		uint32_t etp:1;
 		uint32_t fill2:16;
-	}par,tim1and8_par,tim2to5_par;
+	}par,tim1and8_par, tim2to5_par;
 	uint32_t reg;
 }STM32FXXXTIM_SMCR_TypeDef, STM32FXXXTIM1and8_SMCR_TypeDef, STM32FXXXTIM2to5_SMCR_TypeDef;
 volatile typedef union{
