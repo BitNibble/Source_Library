@@ -29,16 +29,15 @@ typedef struct
 	STM32FXXXTIM2to5_CCMR2_TypeDef* ccmr2;
 	STM32FXXXTIM2to5_CCER_TypeDef* ccer;
 	STM32FXXXTIM2to5_DCR_TypeDef* dcr;
-	void (*cnt)(uint32_t value);
-	uint32_t (*get_cnt)(void);
-	void (*psc)(uint16_t value);
-	void (*arr)(uint32_t value);
-	void (*ccr1)(uint32_t value);
-	void (*ccr2)(uint32_t value);
-	void (*ccr3)(uint32_t value);
-	void (*ccr4)(uint32_t value);
-	void (*dmar)(uint16_t value);
-	void (*or)(uint8_t value);
+	STM32FXXXTIM2to5_CNT_TypeDef* cnt;
+	STM32FXXXTIM2to5_PSC_TypeDef* psc;
+	STM32FXXXTIM2to5_ARR_TypeDef* arr;
+	STM32FXXXTIM2to5_CCR1_TypeDef* ccr1;
+	STM32FXXXTIM2to5_CCR2_TypeDef* ccr2;
+	STM32FXXXTIM2to5_CCR3_TypeDef* ccr3;
+	STM32FXXXTIM2to5_CCR4_TypeDef* ccr4;
+	STM32FXXXTIM2to5_DMAR_TypeDef* dmar;
+	STM32FXXXTIM2and5_OR_TypeDef* or;
 	/*** Other ***/
 	void (*clock)(uint8_t bool);
 	void (*nvic)(uint8_t bool);
@@ -58,15 +57,14 @@ typedef struct
 	STM32FXXXTIM2to5_CCMR2_TypeDef* ccmr2;
 	STM32FXXXTIM2to5_CCER_TypeDef* ccer;
 	STM32FXXXTIM2to5_DCR_TypeDef* dcr;
-	void (*cnt)(uint16_t value);
-	uint16_t (*get_cnt)(void);
-	void (*psc)(uint16_t value);
-	void (*arr)(uint16_t value);
-	void (*ccr1)(uint16_t value);
-	void (*ccr2)(uint16_t value);
-	void (*ccr3)(uint16_t value);
-	void (*ccr4)(uint16_t value);
-	void (*dmar)(uint16_t value);
+	STM32FXXXTIM2to5_CNT_TypeDef* cnt;
+	STM32FXXXTIM2to5_PSC_TypeDef* psc;
+	STM32FXXXTIM2to5_ARR_TypeDef* arr;
+	STM32FXXXTIM2to5_CCR1_TypeDef* ccr1;
+	STM32FXXXTIM2to5_CCR2_TypeDef* ccr2;
+	STM32FXXXTIM2to5_CCR3_TypeDef* ccr3;
+	STM32FXXXTIM2to5_CCR4_TypeDef* ccr4;
+	STM32FXXXTIM2to5_DMAR_TypeDef* dmar;
 	/*** Other ***/
 	void (*clock)(uint8_t bool);
 	void (*nvic)(uint8_t bool);
@@ -87,75 +85,16 @@ STM32FXXXTIM5obj* tim5(void);
 /****************************************/
 void STM32FXXXTim2Clock(uint8_t bool);
 void STM32FXXXTim2Nvic(uint8_t bool);
-/*** TIM2 Bit Mapping Header ***/
-// CNT
-void STM32FXXXTim2_cnt(uint32_t value);
-uint32_t STM32FXXXTim2_get_cnt(void);
-// PSC
-void STM32FXXXTim2_psc(uint16_t value);
-// ARR
-void STM32FXXXTim2_arr(uint32_t value);
-// CCR1
-void STM32FXXXTim2_ccr1(uint32_t value);
-// CCR2
-void STM32FXXXTim2_ccr2(uint32_t value);
-// CCR3
-void STM32FXXXTim2_ccr3(uint32_t value);
-// CCR4
-void STM32FXXXTim2_ccr4(uint32_t value);
-// DMAR
-void STM32FXXXTim2_dmab(uint16_t value);
-uint16_t STM32FXXXTim2_get_dmab(void);
-// OR
-void STM32FXXXTim2_itr1_rmp(uint8_t value);
 /****************************************/
 /*** TIM3 Procedure & Function Header ***/
 /****************************************/
 void STM32FXXXTim3Clock(uint8_t bool);
 void STM32FXXXTim3Nvic(uint8_t bool);
-/*** TIM3 Bit Mapping Header ***/
-// CNT
-void STM32FXXXTim3_cnt(uint16_t value);
-uint16_t STM32FXXXTim3_get_cnt(void);
-// PSC
-void STM32FXXXTim3_psc(uint16_t value);
-// ARR
-void STM32FXXXTim3_arr(uint16_t value);
-// CCR1
-void STM32FXXXTim3_ccr1(uint16_t value);
-// CCR2
-void STM32FXXXTim3_ccr2(uint16_t value);
-// CCR3
-void STM32FXXXTim3_ccr3(uint16_t value);
-// CCR4
-void STM32FXXXTim3_ccr4(uint16_t value);
-// DMAR
-void STM32FXXXTim3_dmab(uint16_t value);
-uint16_t STM32FXXXTim3_get_dmab(void);
 /****************************************/
 /*** TIM4 Procedure & Function Header ***/
 /****************************************/
 void STM32FXXXTim4Clock(uint8_t bool);
 void STM32FXXXTim4Nvic(uint8_t bool);
-/*** TIM4 Bit Mapping Header ***/
-// CNT
-void STM32FXXXTim4_cnt(uint16_t value);
-uint16_t STM32FXXXTim4_get_cnt(void);
-// PSC
-void STM32FXXXTim4_psc(uint16_t value);
-// ARR
-void STM32FXXXTim4_arr(uint16_t value);
-// CCR1
-void STM32FXXXTim4_ccr1(uint16_t value);
-// CCR2
-void STM32FXXXTim4_ccr2(uint16_t value);
-// CCR3
-void STM32FXXXTim4_ccr3(uint16_t value);
-// CCR4
-void STM32FXXXTim4_ccr4(uint16_t value);
-// DMAR
-void STM32FXXXTim4_dmab(uint16_t value);
-uint16_t STM32FXXXTim4_get_dmab(void);
 /****************************************/
 /*** TIM5 Procedure & Function Header ***/
 /****************************************/

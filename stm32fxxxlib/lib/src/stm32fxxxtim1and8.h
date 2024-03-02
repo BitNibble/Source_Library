@@ -19,7 +19,7 @@ Comment:
 /*************************/
 typedef struct
 {
-	/*** BitField Mapping ***/
+	/*** Bit Field ***/
 	STM32FXXXTIM1and8_CR1_TypeDef* cr1;
 	STM32FXXXTIM1and8_CR2_TypeDef* cr2;
 	STM32FXXXTIM1and8_SMCR_TypeDef* smcr;

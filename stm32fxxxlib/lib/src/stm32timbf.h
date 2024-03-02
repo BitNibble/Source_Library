@@ -13,7 +13,7 @@ Comment:
 
 #include <inttypes.h>
 
-/*** TIMER BitField TypeDef ***/
+/*** TIMER Bit Field TypeDef ***/
 /*** TIM -> CR1 ***/
 volatile typedef union{
 	struct TIM_CR1_1{

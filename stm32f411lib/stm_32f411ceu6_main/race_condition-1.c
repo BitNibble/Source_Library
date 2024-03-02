@@ -52,10 +52,16 @@ uint16_t count6 = 0;
 uint16_t count7 = 0;
 uint16_t count8 = 0;
 int8_t cdir;
+uint8_t callback;
+
+uint8_t tim1_cc1f_callback(void);
+uint8_t tim1_cc2f_callback(void);
 
 int main(void)
 {
   STM32FXXX_enable();
+
+  uint16_t counter = 0;
 
   gpiob()->clock(on); // lcd0
   gpioc()->clock(on); // gpio13
@@ -75,7 +81,7 @@ int main(void)
   tim1()->ccr1->par.w0 = 1000;
   tim1()->ccr2->par.w0 = 60000;
   // pre-scaler
-  tim1()->psc->par.w0 = 1;
+  tim1()->psc->par.w0 = 4;
   // interrupt
   //tim1()->dier->tim1and8_par.uie = 0;
   tim1()->dier->tim1and8_par.cc1ie = 1;
@@ -104,6 +110,8 @@ int main(void)
 
   while (1)
   {
+	  if(tim1_cc1f_callback()==1){counter++;}
+
 	  lcd0()->gotoxy(0,0);
 	  lcd0()->string_size(func()->ui32toa(TIM1->ARR),6); lcd0()->string_size(func()->ui32toa(tim1()->ccr1->par.w0),6); lcd0()->string_size(func()->ui32toa(TIM1->CCR2),6);
 
@@ -117,39 +125,63 @@ int main(void)
 	  lcd0()->string_size(func()->print_v2("hora: %d%d:%d%d:%d%d", vecT[0],vecT[1],vecT[2],vecT[3],vecT[4],vecT[5]),14);
 
 	  lcd0()->gotoxy(3,0);
-	  lcd0()->string_size(func()->ui32toa(count7),6); lcd0()->string_size(func()->ui32toa(count0),6); lcd0()->string_size(func()->ui32toa(count8),6);
+	  lcd0()->string_size(func()->ui32toa(count7),6); lcd0()->string_size(func()->ui32toa(count0),6); lcd0()->string_size(func()->ui32toa(counter),6);
   }
 }
 /*** END MAIN ***/
-void tim1_cc1f_callback(void){
+/***
+uint8_t tim1_cc1f_callback(void){
 	count2++;
 	//count8=tim1()->cnt->par.w0;
 	gpioc()->bsrr->bit.r13 = 1;
+	return 1;
 }
-void tim1_cc2f_callback(void){
+uint8_t tim1_cc2f_callback(void){
 	count3++;
 	tim1()->ccr1->par.w0 += (cdir * 295);
 	if(tim1()->ccr1->par.w0 > (tim1()->ccr2->par.w0 - 100)){ cdir = -1; }
 	if(tim1()->ccr1->par.w0 < (1000 + 100)){ cdir = 1; }
 	//count8=tim1()->cnt->par.w0;
 	gpioc()->bsrr->bit.s13 = 1;
+	return 1;
 }
-/*** IRQ Request ***/
+***/
+
+uint8_t tim1_cc1f_callback(void){
+	uint8_t oneshot = callback;
+	callback = 0;
+	return oneshot;
+}
+uint8_t tim1_cc2f_callback(void){
+	uint8_t oneshot = callback;
+	callback = 0;
+	return oneshot;
+}
+
 void TIM1_CC_IRQHandler(void){
 
 	count0++;
 	if(tim1()->sr->tim1and8_par.uif){
 		count1++;
-		//count8=tim1()->cnt->par.w0;
+		count8=tim1()->cnt->par.w0;
 		//gpioc()->odr->bit.o13 = 0;
 		tim1()->sr->tim1and8_par.uif = 0;
 	}
 	if(tim1()->sr->tim1and8_par.cc1if){
-		tim1_cc1f_callback();
+		count2++;
+		//count8=tim1()->cnt->par.w0;
+		gpioc()->bsrr->bit.r13 = 1;
+		callback = 1;
 		tim1()->sr->tim1and8_par.cc1if = 0;
 	}
 	if(tim1()->sr->tim1and8_par.cc2if){
-		tim1_cc2f_callback();
+		count3++;
+		tim1()->ccr1->par.w0 += (cdir * 295);
+		if(tim1()->ccr1->par.w0 > (tim1()->ccr2->par.w0 - 100)){ cdir = -1; }
+		if(tim1()->ccr1->par.w0 < (1000 + 100)){ cdir = 1; }
+		//count8=tim1()->cnt->par.w0;
+		gpioc()->bsrr->bit.s13 = 1;
+		callback = 2;
 		tim1()->sr->tim1and8_par.cc2if = 0;
 	}
 	if(tim1()->sr->tim1and8_par.tif){

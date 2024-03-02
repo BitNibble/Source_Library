@@ -103,7 +103,7 @@ STM32FXXXTIM1obj* tim1_enable(void)
 	stm32fxxx_tim1.clock = STM32FXXXTim1Clock;
 	// NVIC
 	stm32fxxx_tim1.nvic = STM32FXXXTim1Nvic;
-	/*** TIM1 Bit Mapping Link ***/
+	/*** TIM1 Bit Field ***/
 	stm32fxxx_tim1.cr1 = (STM32FXXXTIM1and8_CR1_TypeDef*) &TIM1->CR1;
 	stm32fxxx_tim1.cr2 = (STM32FXXXTIM1and8_CR2_TypeDef*) &TIM1->CR2;
 	stm32fxxx_tim1.smcr = (STM32FXXXTIM1and8_SMCR_TypeDef*) &TIM1->SMCR;
@@ -137,7 +137,7 @@ STM32FXXXTIM8obj* tim8_enable(void)
 	stm32fxxx_tim8.clock = STM32FXXXTim8Clock;
 	// NVIC
 	stm32fxxx_tim8.nvic = STM32FXXXTim8Nvic;
-	/*** TIM8 Bit Mapping Link ***/
+	/*** TIM8 Bit Field ***/
 	stm32fxxx_tim8.cr1 = (STM32FXXXTIM1and8_CR1_TypeDef*) &TIM8->CR1;
 	stm32fxxx_tim8.cr2 = (STM32FXXXTIM1and8_CR2_TypeDef*) &TIM8->CR2;
 	stm32fxxx_tim8.smcr = (STM32FXXXTIM1and8_SMCR_TypeDef*) &TIM8->SMCR;

@@ -32,7 +32,7 @@ Comment:
 /****   PLL ON -> 1    PLL OFF = 0   ****/
 #define PLL_ON_OFF 0
 /****************************************/
-typedef union{
+volatile typedef union{
 	struct UN32nibble{
 		uint32_t n0:4;
 		uint32_t n1:4;
@@ -55,7 +55,7 @@ typedef union{
 	}word;
 	uint32_t n;
 }_UN32var;
-typedef union{
+volatile typedef union{
 	struct UN64nibble{
 		uint32_t n0:4;
 		uint32_t n1:4;
