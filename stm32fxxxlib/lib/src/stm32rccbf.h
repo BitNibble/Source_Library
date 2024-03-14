@@ -541,13 +541,13 @@ volatile typedef union{
 /*** EOF ***/
 
 /******
-1� Sequence
-2� Scope
+1º Sequence
+2º Scope
 	- Library Scope
 	- File Scope
 	- Function Scope
 	- Precedence Scope
-3� Pointer and Variable
-4� Casting
+3º Pointer and Variable
+4º Casting
 ******/
 

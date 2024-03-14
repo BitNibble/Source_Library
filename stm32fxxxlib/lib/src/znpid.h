@@ -16,15 +16,21 @@ Comment:
 
 /*** File TypeDef ***/
 typedef struct {
-	double kc; // constant p
-	double ki; // constant i
-	double kd; // constant d
-	double SetPoint; // desired output
+	double c; // constant p
+	double i; // constant i
+	double d; // constant d
+}kparameter;
+typedef struct {
 	double Err_past; // Last Error reading
 	double dy; // difference error y axis points.
 	double dx; // difference time x axis points.
 	double integral; // progression
 	double derivative; // rate of growth (tangent), or derivative
+}auxparameter;
+typedef struct {
+	kparameter k;
+	auxparameter aux;
+	double SetPoint; // desired output
 	double PV; // output feedback
 	double OP; // output signal
 }znpidparameter;
