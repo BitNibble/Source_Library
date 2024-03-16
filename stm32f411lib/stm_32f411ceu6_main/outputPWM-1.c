@@ -53,6 +53,9 @@ uint16_t count7 = 0;
 uint16_t count8 = 0;
 int8_t cdir;
 
+void tim1_cc1f_callback(void)__attribute__((weak));
+void tim1_cc2f_callback(void)__attribute__((weak));
+
 int main(void)
 {
   STM32FXXX_enable();
@@ -74,6 +77,7 @@ int main(void)
   gpioa()->moder->par.m7 = 2; // AF enable
   gpioa()->moder->par.m8 = 2; // AF enable
   tim1()->ccmr1->tim1and8_ocm_par.oc1m = 6;
+  //tim1()->ccmr1->ocm_par.oc1m = 6;
   tim1()->ccer->tim1and8_par.cc1ne = 1;
   tim1()->ccer->tim1and8_par.cc1e = 1;
   tim1()->bdtr->tim1and8_par.moe = 1;
@@ -127,11 +131,14 @@ int main(void)
   }
 }
 /*** END MAIN ***/
+/**/
 void tim1_cc1f_callback(void){
 	count2++;
 	//count8=tim1()->cnt->par.w0;
 	gpioc()->bsrr->bit.r13 = 1;
 }
+/**/
+/**/
 void tim1_cc2f_callback(void){
 	count3++;
 	tim1()->ccr1->par.w0 += (cdir * 295);
@@ -140,6 +147,7 @@ void tim1_cc2f_callback(void){
 	//count8=tim1()->cnt->par.w0;
 	gpioc()->bsrr->bit.s13 = 1;
 }
+/**/
 /*** IRQ Request ***/
 void TIM1_CC_IRQHandler(void){
 
