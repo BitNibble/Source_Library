@@ -62,6 +62,13 @@ void STM32FXXXTim1Nvic(uint8_t value);
 void STM32FXXXTim8Clock(uint8_t bool);
 void STM32FXXXTim8Nvic(uint8_t value);
 /****************************************/
+/*** INTERRUPT TIM1 CC CALLBACK HEADER ***/
+void tim1_ui_callback(void)__attribute__((weak));
+void tim1_cc1_callback(void)__attribute__((weak));
+void tim1_cc2_callback(void)__attribute__((weak));
+void tim1_t_callback(void)__attribute__((weak));
+void tim1_com_callback(void)__attribute__((weak));
+void tim1_b_callback(void)__attribute__((weak));
 /*** INTERRUPT HEADER ***/
 void TIM1_BRK_TIM9_IRQHandler(void);
 void TIM1_UP_TIM10_IRQHandler(void);

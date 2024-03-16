@@ -165,6 +165,36 @@ STM32FXXXTIM8obj* tim8(void){ return (STM32FXXXTIM8obj*) &stm32fxxx_tim8; }
 
 #endif
 
+/*** TIM1 CC IRQ Request ***/
+void TIM1_CC_IRQHandler(void){
+
+	if(tim1()->sr->tim1and8_par.uif){
+		tim1_ui_callback();
+		tim1()->sr->tim1and8_par.uif = 0;
+	}
+	if(tim1()->sr->tim1and8_par.cc1if){
+		tim1_cc1_callback();
+		tim1()->sr->tim1and8_par.cc1if = 0;
+	}
+	if(tim1()->sr->tim1and8_par.cc2if){
+		tim1_cc2_callback();
+		tim1()->sr->tim1and8_par.cc2if = 0;
+	}
+	if(tim1()->sr->tim1and8_par.tif){
+		tim1_t_callback();
+		tim1()->sr->tim1and8_par.tif = 0;
+	}
+	if(tim1()->sr->tim1and8_par.comif){
+		tim1_com_callback();
+		tim1()->sr->tim1and8_par.comif = 0;
+	}
+	if(tim1()->sr->tim1and8_par.bif){
+		tim1_b_callback();
+		tim1()->sr->tim1and8_par.bif = 0;
+	}
+}
+/***/
+
 /*** EOF ***/
 
 /******
