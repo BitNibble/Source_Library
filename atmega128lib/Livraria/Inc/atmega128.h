@@ -98,22 +98,26 @@ typedef struct {
 typedef volatile struct {
 	union{
 		HighLowByte data;
-		uint16_t par;
+		uint16_t reg;
 	}adc; // 0x24 0x25
 	union{
-		uint8_t adps:3;
-		uint8_t adie:1;
-		uint8_t adif:1;
-		uint8_t adfr:1;
-		uint8_t adsc:1;
-		uint8_t aden:1;
-		uint8_t par;
+		struct{
+			uint8_t adps:3;
+			uint8_t adie:1;
+			uint8_t adif:1;
+			uint8_t adfr:1;
+			uint8_t adsc:1;
+			uint8_t aden:1;
+		}par;
+		uint8_t reg;
 	}adcsra; // 0x26
 	union{
-		uint8_t mux:5;
-		uint8_t adlar:1;
-		uint8_t refs:2;
-		uint8_t par;
+		struct{
+			uint8_t mux:5;
+			uint8_t adlar:1;
+			uint8_t refs:2;
+		}par;
+		uint8_t reg;
 	}admux; // 0x27
 } Atmega128AnalogToDigitalConverter_TypeDef;
 
