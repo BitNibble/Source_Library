@@ -95,10 +95,26 @@ typedef struct {
 } Atmega128AnalogComparator_TypeDef;
 
 // Analog to Digital Converter (ADC)
-typedef struct {
-	volatile HighLowByte adc; // 0x24 0x25
-	volatile uint8_t adcsra; // 0x26
-	volatile uint8_t admux; // 0x27
+typedef volatile struct {
+	union{
+		HighLowByte data;
+		uint16_t par;
+	}adc; // 0x24 0x25
+	union{
+		uint8_t adps:3;
+		uint8_t adie:1;
+		uint8_t adif:1;
+		uint8_t adfr:1;
+		uint8_t adsc:1;
+		uint8_t aden:1;
+		uint8_t par;
+	}adcsra; // 0x26
+	union{
+		uint8_t mux:5;
+		uint8_t adlar:1;
+		uint8_t refs:2;
+		uint8_t par;
+	}admux; // 0x27
 } Atmega128AnalogToDigitalConverter_TypeDef;
 
 // Boot loader (BOOT_LOAD)
