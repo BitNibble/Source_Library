@@ -33,7 +33,7 @@ uint32_t znpid_readreg(uint32_t reg, uint32_t size_block, uint32_t bit);
 void znpid_writereg(volatile uint32_t* reg, uint32_t size_block, uint32_t bit, uint32_t data);
 void znpid_setreg(volatile uint32_t* reg, uint32_t size_block, uint32_t bit, uint32_t data);
 void znpid_setbit(volatile uint32_t* reg, uint32_t size_block, uint32_t bit, uint32_t data);
-uint32_t znpid_getsetbit(volatile uint32_t* reg, uint32_t size_block, uint32_t bit);
+uint32_t znpid_getbit(volatile uint32_t* reg, uint32_t size_block, uint32_t bit);
 znpidparameter znpid_par_inic(void);
 
 /*** ZNPID Auxiliar  ***/
@@ -181,7 +181,7 @@ void znpid_setbit(volatile uint32_t* reg, uint32_t size_block, uint32_t bit, uin
 	*(reg + n ) |= (value << bit);
 }
 
-uint32_t znpid_getsetbit(volatile uint32_t* reg, uint32_t size_block, uint32_t bit)
+uint32_t znpid_getbit(volatile uint32_t* reg, uint32_t size_block, uint32_t bit)
 {
 	uint32_t n = 0;
 	if(bit > 31){ n = bit/32; bit = bit - (n * 32); } if(size_block > 32){ size_block = 32;}

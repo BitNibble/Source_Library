@@ -240,5 +240,7 @@ void SysTick_Handler(void);
 	- Precedence Scope
 3º Pointer and Variable
 4º Casting
+
+Instance->Register->Par
 ******/
 

@@ -10,6 +10,8 @@ Comment:
 *******************************************************************************/
 /*** File Library ***/
 #include "stm32fxxxtim1and8.h"
+#include "stm32fxxxnvic.h"
+#include "stm32fxxxrcc.h"
 
 /*** File Variables ***/
 static STM32FXXXTIM1obj stm32fxxx_tim1;
@@ -21,34 +23,43 @@ static STM32FXXXTIM1obj stm32fxxx_tim1;
 /************/
 void STM32FXXXTim1Clock(uint8_t bool)
 {
-	if(bool){RCC->APB2ENR |= (1 << 0);}else{RCC->APB2ENR &= ~(1 << 0);}
+	//if(bool){RCC->APB2ENR |= (1 << 0);}else{RCC->APB2ENR &= ~(1 << 0);}
+	if(bool){rcc()->apb2enr->par.tim1en = 1;}else{rcc()->apb2enr->par.tim1en = 0;}
 }
 void STM32FXXXTim1Nvic(uint8_t value)
 { // 24, 25, 26, 27
 	switch(value){
 		case 0b1000:
-			setbit(NVIC->ISER, 1, TIM1_BRK_TIM9_IRQn, 1);
+			//setbit(NVIC->ISER, 1, TIM1_BRK_TIM9_IRQn, 1);
+			nvic()->set_enable(TIM1_BRK_TIM9_IRQn);
 		break;
 		case 0b0100:
-			setbit(NVIC->ISER, 1, TIM1_UP_TIM10_IRQn, 1);
+			//setbit(NVIC->ISER, 1, TIM1_UP_TIM10_IRQn, 1);
+			nvic()->set_enable(TIM1_UP_TIM10_IRQn);
 		break;
 		case 0b0010:
-			setbit(NVIC->ISER, 1, TIM1_TRG_COM_TIM11_IRQn, 1);
+			//setbit(NVIC->ISER, 1, TIM1_TRG_COM_TIM11_IRQn, 1);
+			nvic()->set_enable(TIM1_TRG_COM_TIM11_IRQn);
 		break;
 		case 0b0001:
-			setbit(NVIC->ISER, 1, TIM1_CC_IRQn, 1);
+			//setbit(NVIC->ISER, 1, TIM1_CC_IRQn, 1);
+			nvic()->set_enable(TIM1_CC_IRQn);
 		break;
 		case 0b11000:
-			setbit(NVIC->ICER, 1, TIM1_BRK_TIM9_IRQn, 1);
+			//setbit(NVIC->ICER, 1, TIM1_BRK_TIM9_IRQn, 1);
+			nvic()->clear_enable(TIM1_BRK_TIM9_IRQn);
 		break;
 		case 0b10100:
-			setbit(NVIC->ICER, 1, TIM1_UP_TIM10_IRQn, 1);
+			//setbit(NVIC->ICER, 1, TIM1_UP_TIM10_IRQn, 1);
+			nvic()->clear_enable(TIM1_UP_TIM10_IRQn);
 		break;
 		case 0b10010:
-			setbit(NVIC->ICER, 1, TIM1_TRG_COM_TIM11_IRQn, 1);
+			//setbit(NVIC->ICER, 1, TIM1_TRG_COM_TIM11_IRQn, 1);
+			nvic()->clear_enable(TIM1_TRG_COM_TIM11_IRQn);
 		break;
 		case 0b10001:
-			setbit(NVIC->ICER, 1, TIM1_CC_IRQn, 1);
+			//setbit(NVIC->ICER, 1, TIM1_CC_IRQn, 1);
+			nvic()->clear_enable(TIM1_CC_IRQn);
 		break;
 	default:
 	break;
@@ -169,7 +180,7 @@ STM32FXXXTIM8obj* tim8(void){ return (STM32FXXXTIM8obj*) &stm32fxxx_tim8; }
 void TIM1_CC_IRQHandler(void){
 
 	if(tim1()->sr->tim1and8_par.uif){
-		tim1_ui_callback();
+		tim1_u_callback();
 		tim1()->sr->tim1and8_par.uif = 0;
 	}
 	if(tim1()->sr->tim1and8_par.cc1if){
@@ -206,5 +217,6 @@ void TIM1_CC_IRQHandler(void){
 	- Precedence Scope
 3º Pointer and Variable
 4º Casting
+Instance->Reg->Par
 ******/
 
