@@ -57,8 +57,8 @@ void TWI_init(uint8_t device_id, uint8_t prescaler)
 	}else{
 		atmega128()->twi_reg->twar.par.twgce = 1;
 	}
-	atmega128()->portd_reg->ddr |= TWI_IO_MASK;
-	atmega128()->portd_reg->port |= TWI_IO_MASK;
+	atmega128()->portd_reg->ddr.reg |= TWI_IO_MASK;
+	atmega128()->portd_reg->port.reg |= TWI_IO_MASK;
 	switch(prescaler){
 		case 1:
 			atmega128()->twi_reg->twsr.par.twps = 0;

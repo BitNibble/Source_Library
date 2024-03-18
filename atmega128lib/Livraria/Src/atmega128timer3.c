@@ -223,17 +223,17 @@ void TIMER_COUNTER3_compoutmodeA(unsigned char compoutmode)
 		break;
 		case 1: // Reserved
 			// Toggle OC3A on compare match
-			atmega128()->porte_reg->ddr |= 0x08;
+			atmega128()->porte_reg->ddr.reg |= 0x08;
 			atmega128()->tc3_reg->tccr3a |= (1 << COM3A0);
 		break;
 		case 2: // Clear OC3A on compare match when up-counting. Set OC0 on compare
 			// match when down counting.
-			atmega128()->porte_reg->ddr |= 0x08;
+			atmega128()->porte_reg->ddr.reg |= 0x08;
 			atmega128()->tc3_reg->tccr3a |= (1 << COM3A1);
 		break;
 		case 3: // Set OC3A on compare match when up-counting. Clear OC0 on compare
 			// match when down counting.
-			atmega128()->porte_reg->ddr |= 0x08;
+			atmega128()->porte_reg->ddr.reg |= 0x08;
 			atmega128()->tc3_reg->tccr3a |= (1 << COM3A0) | (1 << COM3A1);
 		break;
 		default:
@@ -248,17 +248,17 @@ void TIMER_COUNTER3_compoutmodeB(unsigned char compoutmode)
 		break;
 		case 1: // Reserved
 			// Toggle OC3A or OC3B on compare match
-			atmega128()->porte_reg->ddr |= 0x10;
+			atmega128()->porte_reg->ddr.reg |= 0x10;
 			atmega128()->tc3_reg->tccr3a |= (1 << COM3B0);
 		break;
 		case 2: // Clear OC3B on compare match when up-counting. Set OC3B on compare
 			// match when down counting.
-			atmega128()->porte_reg->ddr |= 0x10;
+			atmega128()->porte_reg->ddr.reg |= 0x10;
 			atmega128()->tc3_reg->tccr3a |= (1 << COM3B1);
 		break;
 		case 3: // Set OC3B on compare match when up-counting. Clear OC3B on compare
 			// match when down counting.
-			atmega128()->porte_reg->ddr |= 0x10;
+			atmega128()->porte_reg->ddr.reg |= 0x10;
 			atmega128()->tc3_reg->tccr3a |= (1 << COM3B0) | (1 << COM3B1);
 		break;
 		default:
@@ -273,17 +273,17 @@ void TIMER_COUNTER3_compoutmodeC(unsigned char compoutmode)
 		break;
 		case 1: // Reserved
 			// Toggle OC3A or OC3C on compare match
-			atmega128()->porte_reg->ddr |= 0x20;
+			atmega128()->porte_reg->ddr.reg |= 0x20;
 			atmega128()->tc3_reg->tccr3a |= (1 << COM3C0);
 		break;
 		case 2: // Clear OC3C on compare match when up-counting. Set OC3C on compare
 			// match when down counting.
-			atmega128()->porte_reg->ddr |= 0x20;
+			atmega128()->porte_reg->ddr.reg |= 0x20;
 			atmega128()->tc3_reg->tccr3a |= (1 << COM3C1);
 		break;
 		case 3: // Set OC3C on compare match when up-counting. Clear OC3C on compare
 			// match when down counting.
-			atmega128()->porte_reg->ddr |= 0x20;
+			atmega128()->porte_reg->ddr.reg |= 0x20;
 			atmega128()->tc3_reg->tccr3a |= (1 << COM3C0) | (1 << COM3C1);
 		break;
 		default:

@@ -331,77 +331,405 @@ typedef volatile struct {
 } Atmega128ExternalInterrupts_TypeDef;
 
 // I/O Port (PORTA)
-typedef struct {
-	volatile uint8_t pin; // 0x39
-	volatile uint8_t ddr; // 0x3A
-	volatile uint8_t port; // 0x3B
+typedef volatile struct {
+	union{
+		struct{
+			uint8_t a0:1;
+			uint8_t a1:1;
+			uint8_t a2:1;
+			uint8_t a3:1;
+			uint8_t a4:1;
+			uint8_t a5:1;
+			uint8_t a6:1;
+			uint8_t a7:1;
+		}par;
+		uint8_t reg;
+	}pin; // 0x39
+	union{
+		struct{
+			uint8_t a0:1;
+			uint8_t a1:1;
+			uint8_t a2:1;
+			uint8_t a3:1;
+			uint8_t a4:1;
+			uint8_t a5:1;
+			uint8_t a6:1;
+			uint8_t a7:1;
+		}par;
+		uint8_t reg;
+	}ddr; // 0x3A
+	union{
+		struct{
+			uint8_t a0:1;
+			uint8_t a1:1;
+			uint8_t a2:1;
+			uint8_t a3:1;
+			uint8_t a4:1;
+			uint8_t a5:1;
+			uint8_t a6:1;
+			uint8_t a7:1;
+		}par;
+		uint8_t reg;
+	}port; // 0x3B
 } Atmega128PORTA_TypeDef;
 
 // I/O Port (PORTB)
-typedef struct {
-	volatile uint8_t pin; // 0x36
-	volatile uint8_t ddr; // 0x37
-	volatile uint8_t port; // 0x38
+typedef volatile struct {
+	union{
+		struct{
+			uint8_t b0:1;
+			uint8_t b1:1;
+			uint8_t b2:1;
+			uint8_t b3:1;
+			uint8_t b4:1;
+			uint8_t b5:1;
+			uint8_t b6:1;
+			uint8_t b7:1;
+		}par;
+		uint8_t reg;
+	}pin; // 0x36
+	union{
+		struct{
+			uint8_t b0:1;
+			uint8_t b1:1;
+			uint8_t b2:1;
+			uint8_t b3:1;
+			uint8_t b4:1;
+			uint8_t b5:1;
+			uint8_t b6:1;
+			uint8_t b7:1;
+		}par;
+		uint8_t reg;
+	}ddr; // 0x37
+	union{
+		struct{
+			uint8_t b0:1;
+			uint8_t b1:1;
+			uint8_t b2:1;
+			uint8_t b3:1;
+			uint8_t b4:1;
+			uint8_t b5:1;
+			uint8_t b6:1;
+			uint8_t b7:1;
+		}par;
+		uint8_t reg;
+	}port; // 0x38
 } Atmega128PORTB_TypeDef;
 
 // I/O Port (PORTC)
-typedef struct {
-	volatile uint8_t pin; // 0x33
-	volatile uint8_t ddr; // 0x34
-	volatile uint8_t port; // 0x35
+typedef volatile struct {
+	union{
+		struct{
+			uint8_t c0:1;
+			uint8_t c1:1;
+			uint8_t c2:1;
+			uint8_t c3:1;
+			uint8_t c4:1;
+			uint8_t c5:1;
+			uint8_t c6:1;
+			uint8_t c7:1;
+		}par;
+		uint8_t reg;
+	}pin; // 0x33
+	union{
+		struct{
+			uint8_t c0:1;
+			uint8_t c1:1;
+			uint8_t c2:1;
+			uint8_t c3:1;
+			uint8_t c4:1;
+			uint8_t c5:1;
+			uint8_t c6:1;
+			uint8_t c7:1;
+		}par;
+		uint8_t reg;
+	}ddr; // 0x34
+	union{
+		struct{
+			uint8_t c0:1;
+			uint8_t c1:1;
+			uint8_t c2:1;
+			uint8_t c3:1;
+			uint8_t c4:1;
+			uint8_t c5:1;
+			uint8_t c6:1;
+			uint8_t c7:1;
+		}par;
+		uint8_t reg;
+	}port; // 0x35
 } Atmega128PORTC_TypeDef;
 
 // I/O Port (PORTD)
-typedef struct {
-	volatile uint8_t pin; // 0x30
-	volatile uint8_t ddr; // 0x31
-	volatile uint8_t port; // 0x32
+typedef volatile struct {
+	union{
+		struct{
+			uint8_t d0:1;
+			uint8_t d1:1;
+			uint8_t d2:1;
+			uint8_t d3:1;
+			uint8_t d4:1;
+			uint8_t d5:1;
+			uint8_t d6:1;
+			uint8_t d7:1;
+		}par;
+		uint8_t reg;
+	}pin; // 0x30
+	union{
+		struct{
+			uint8_t d0:1;
+			uint8_t d1:1;
+			uint8_t d2:1;
+			uint8_t d3:1;
+			uint8_t d4:1;
+			uint8_t d5:1;
+			uint8_t d6:1;
+			uint8_t d7:1;
+		}par;
+		uint8_t reg;
+	}ddr; // 0x31
+	union{
+		struct{
+			uint8_t d0:1;
+			uint8_t d1:1;
+			uint8_t d2:1;
+			uint8_t d3:1;
+			uint8_t d4:1;
+			uint8_t d5:1;
+			uint8_t d6:1;
+			uint8_t d7:1;
+		}par;
+		uint8_t reg;
+	}port; // 0x32
 } Atmega128PORTD_TypeDef;
 
 // I/O Port (PORTE)
-typedef struct {
-	volatile uint8_t pin; // 0x21
-	volatile uint8_t ddr; // 0x22
-	volatile uint8_t port; // 0x23
+typedef volatile struct {
+	union{
+		struct{
+			uint8_t e0:1;
+			uint8_t e1:1;
+			uint8_t e2:1;
+			uint8_t e3:1;
+			uint8_t e4:1;
+			uint8_t e5:1;
+			uint8_t e6:1;
+			uint8_t e7:1;
+		}par;
+		uint8_t reg;
+	}pin; // 0x21
+	union{
+		struct{
+			uint8_t e0:1;
+			uint8_t e1:1;
+			uint8_t e2:1;
+			uint8_t e3:1;
+			uint8_t e4:1;
+			uint8_t e5:1;
+			uint8_t e6:1;
+			uint8_t e7:1;
+		}par;
+		uint8_t reg;
+	}ddr; // 0x22
+	union{
+		struct{
+			uint8_t e0:1;
+			uint8_t e1:1;
+			uint8_t e2:1;
+			uint8_t e3:1;
+			uint8_t e4:1;
+			uint8_t e5:1;
+			uint8_t e6:1;
+			uint8_t e7:1;
+		}par;
+		uint8_t reg;
+	}port; // 0x23
 } Atmega128PORTE_TypeDef;
 
 // I/O Port (PORTF)
-typedef struct {
-	volatile uint8_t pin; // 0x20
+typedef volatile struct {
+	union{
+		struct{
+			uint8_t f0:1;
+			uint8_t f1:1;
+			uint8_t f2:1;
+			uint8_t f3:1;
+			uint8_t f4:1;
+			uint8_t f5:1;
+			uint8_t f6:1;
+			uint8_t f7:1;
+		}par;
+		uint8_t reg;
+	}pin; // 0x20
 	uint8_t fill[64]; // (0x61 - 0x20) - 1
-	volatile uint8_t ddr; // 0x61
-	volatile uint8_t port; // 0x62
+	union{
+		struct{
+			uint8_t f0:1;
+			uint8_t f1:1;
+			uint8_t f2:1;
+			uint8_t f3:1;
+			uint8_t f4:1;
+			uint8_t f5:1;
+			uint8_t f6:1;
+			uint8_t f7:1;
+		}par;
+		uint8_t reg;
+	}ddr; // 0x61
+	union{
+		struct{
+			uint8_t f0:1;
+			uint8_t f1:1;
+			uint8_t f2:1;
+			uint8_t f3:1;
+			uint8_t f4:1;
+			uint8_t f5:1;
+			uint8_t f6:1;
+			uint8_t f7:1;
+		}par;
+		uint8_t reg;
+	}port; // 0x62
 } Atmega128PORTF_TypeDef;
 
 // I/O Port (PORTG)
-typedef struct {
-	volatile uint8_t pin; // 0x63
-	volatile uint8_t ddr; // 0x64
-	volatile uint8_t port; // 0x65
+typedef volatile struct {
+	union{
+		struct{
+			uint8_t g0:1;
+			uint8_t g1:1;
+			uint8_t g2:1;
+			uint8_t g3:1;
+			uint8_t g4:1;
+			uint8_t g5:1;
+			uint8_t g6:1;
+			uint8_t g7:1;
+		}par;
+		uint8_t reg;
+	}pin; // 0x63
+	union{
+		struct{
+			uint8_t g0:1;
+			uint8_t g1:1;
+			uint8_t g2:1;
+			uint8_t g3:1;
+			uint8_t g4:1;
+			uint8_t g5:1;
+			uint8_t g6:1;
+			uint8_t g7:1;
+		}par;
+		uint8_t reg;
+	}ddr; // 0x64
+	union{
+		struct{
+			uint8_t g0:1;
+			uint8_t g1:1;
+			uint8_t g2:1;
+			uint8_t g3:1;
+			uint8_t g4:1;
+			uint8_t g5:1;
+			uint8_t g6:1;
+			uint8_t g7:1;
+		}par;
+		uint8_t reg;
+	}port; // 0x65
 } Atmega128PORTG_TypeDef;
 
 // JTAG Interface (JTAG)
-typedef struct {
-	volatile uint8_t ocdr; // 0x42
+typedef volatile struct {
+	union{
+		struct{
+			uint8_t bit0:1;
+			uint8_t bit1:1;
+			uint8_t bit2:1;
+			uint8_t bit3:1;
+			uint8_t bit4:1;
+			uint8_t bit5:1;
+			uint8_t bit6:1;
+			uint8_t bit7:1;
+		}par;
+		uint8_t reg;
+	}ocdr; // 0x42
 	uint8_t fill[17]; // (54 - 42) - 1
-	volatile uint8_t mcucsr; // 0x54
+	union{
+		struct{
+			uint8_t porf:1;
+			uint8_t extrf:1;
+			uint8_t borf:1;
+			uint8_t wdrf:1;
+			uint8_t jtrf:1;
+			uint8_t reserved:2;
+			uint8_t jtd:1;
+		}par;
+		uint8_t reg;
+	}mcucsr; // 0x54
 } Atmega128JtagInterface_TypeDef;
 
 // JTAG Interface (JTAG)
-typedef struct {
-	volatile uint8_t reg; // 0x54 mcucsr
+typedef volatile struct {
+	union{
+		struct{
+			uint8_t porf:1;
+			uint8_t extrf:1;
+			uint8_t borf:1;
+			uint8_t wdrf:1;
+			uint8_t jtrf:1;
+			uint8_t reserved:2;
+			uint8_t jtd:1;
+		}par;
+		uint8_t reg;
+	}mcucsr; // 0x54
 } Atmega128JtagInterfaceControlStatus_TypeDef;
 
 // Other Registers (MISC)
-typedef struct {
-	volatile uint8_t sfior; // 0x40
+typedef volatile struct {
+	union{
+		struct{
+			uint8_t psr321:1;
+			uint8_t psr0:1;
+			uint8_t pud:1;
+			uint8_t acme:1;
+			uint8_t reserved:3;
+			uint8_t tsm:1;
+		}par;
+		uint8_t reg;
+	}sfior; // 0x40
 } Atmega128OtherRegisters_TypeDef;
 
 // Serial Peripheral Interface (SPI)
-typedef struct {
-	volatile uint8_t spcr; // 0x2D
-	volatile uint8_t spsr; // 0x2E
-	volatile uint8_t spdr; // 0x2F
+typedef volatile struct {
+	union{
+		struct{
+			uint8_t spr0:1;
+			uint8_t spr1:1;
+			uint8_t cpha:1;
+			uint8_t cpol:1;
+			uint8_t mstr:1;
+			uint8_t dord:1;
+			uint8_t spe:1;
+			uint8_t spie:1;
+		}par;
+		uint8_t reg;
+	}spcr; // 0x2D
+	union{
+		struct{
+			uint8_t spi2x:1;
+			uint8_t reserved:5;
+			uint8_t wcol:1;
+			uint8_t spif:1;
+		}par;
+		uint8_t reg;
+	}spsr; // 0x2E
+	union{
+		struct{
+			uint8_t bit0:1;
+			uint8_t bit1:1;
+			uint8_t bit2:1;
+			uint8_t bit3:1;
+			uint8_t bit4:1;
+			uint8_t bit5:1;
+			uint8_t bit6:1;
+			uint8_t bit7:1;
+		}par;
+		uint8_t reg;
+	}spdr; // 0x2F
 } Atmega128SerialPeripherialInterface_TypeDef;
 
 // Timer/Counter, 16-bit (TC1)
@@ -439,13 +767,35 @@ typedef struct {
 } Atmega128TimerCounter3_TypeDef;
 
 // Timer/Counter 1 and 3
-typedef struct {
-	volatile uint8_t reg; // 0x7C etifr
+typedef volatile struct {
+	union{
+		struct{
+			uint8_t ocf1c:1;
+			uint8_t ocf3c:1;
+			uint8_t tov3:1;
+			uint8_t ocf3b:1;
+			uint8_t ocf3a:1;
+			uint8_t icf3:1;
+			uint8_t reserved:2;
+		}par;
+		uint8_t reg;
+	}etifr; // 0x7C
 } Atmega128TimerExternalInterruptFlag_TypeDef;
 
 // Timer/Counter 1 and 3
-typedef struct {
-	volatile uint8_t reg; // 0x7D etimsk
+typedef volatile struct {
+	union{
+		struct{
+			uint8_t ocie1c:1;
+			uint8_t ocie3c:1;
+			uint8_t toie3:1;
+			uint8_t ocie3b:1;
+			uint8_t ocie3a:1;
+			uint8_t ticie3:1;
+			uint8_t reserved:2;
+		}par;
+		uint8_t reg;
+	}etimsk; // 0x7D
 } Atmega128TimerExternalInterruptMask_TypeDef;
 
 // Timer/Counter, 8-bit (TC2)
@@ -470,13 +820,37 @@ typedef struct {
 } Atmega128TimerCounter0_TypeDef;
 
 // Timer/Counter 0, 1 and 2
-typedef struct {
-	volatile uint8_t reg; // 0x56 tifr
+typedef volatile struct {
+	union{
+		struct{
+			uint8_t tov0:1;
+			uint8_t ocf0:1;
+			uint8_t tov1:1;
+			uint8_t ocf1b:1;
+			uint8_t ocf1a:1;
+			uint8_t icf1:1;
+			uint8_t tov2:1;
+			uint8_t ocf2:1;
+		}par;
+		uint8_t reg;
+	}tifr; // 0x56
 } Atmega128TimerInterruptFlag_TypeDef;
 
 // Timer/Counter 0, 1 and 2
-typedef struct {
-	volatile uint8_t reg; // 0x57 timsk
+typedef volatile struct {
+	union{
+		struct{
+			uint8_t toie0:1;
+			uint8_t ocie0:1;
+			uint8_t toie1:1;
+			uint8_t ocie1b:1;
+			uint8_t ocie1a:1;
+			uint8_t ticie1:1;
+			uint8_t toie2:1;
+			uint8_t ocie2:1;
+		}par;
+		uint8_t reg;
+	}timsk; // 0x57
 } Atmega128TimerInterruptMask_TypeDef;
 
 // Two Wire Serial Interface (TWI)
@@ -560,8 +934,16 @@ typedef struct {
 } Atmega128Usart1_TypeDef;
 
 // Watchdog Timer (WDT)
-typedef struct {
-	volatile uint8_t wdtcr; // 0x41
+typedef volatile struct {
+	union{
+		struct{
+			uint8_t wdp:3;
+			uint8_t wde:1;
+			uint8_t wdce:1;
+			uint8_t reserved:3;
+		}par;
+		uint8_t reg;
+	}wdtcr; // 0x41
 } Atmega128WatchdogTimer_TypeDef;
 
 /*** Interrupt Vectors FLASH ***/

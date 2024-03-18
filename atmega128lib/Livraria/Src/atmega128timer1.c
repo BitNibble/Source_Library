@@ -226,17 +226,17 @@ void TIMER_COUNTER1_compoutmodeA(unsigned char compoutmode)
 		break;
 		case 1: // Reserved
 			// Toggle OC1A on compare match
-			atmega128()->portb_reg->ddr |= 0x20;
+			atmega128()->portb_reg->ddr.reg |= 0x20;
 			atmega128()->tc1_reg->tccr1a |= (1 << COM1A0);
 		break;
 		case 2: // Clear OC1A on compare match when up-counting. Set OC1A on compare
 			// match when down counting.
-			atmega128()->portb_reg->ddr |= 0x20;
+			atmega128()->portb_reg->ddr.reg |= 0x20;
 			atmega128()->tc1_reg->tccr1a |= (1 << COM1A1);
 		break;
 		case 3: // Set OC1A on compare match when up-counting. Clear OC1A on compare
 			// match when down counting.
-			atmega128()->portb_reg->ddr |= 0x20;
+			atmega128()->portb_reg->ddr.reg |= 0x20;
 			atmega128()->tc1_reg->tccr1a |= (1 << COM1A0) | (1 << COM1A1);
 		break;
 		default:
@@ -251,17 +251,17 @@ void TIMER_COUNTER1_compoutmodeB(unsigned char compoutmode)
 		break;
 		case 1: // Reserved
 			// Toggle OC1A or OC1B on compare match
-			atmega128()->portb_reg->ddr |= 0x40;
+			atmega128()->portb_reg->ddr.reg |= 0x40;
 			atmega128()->tc1_reg->tccr1a |= (1 << COM1B0);
 		break;
 		case 2: // Clear OC1B on compare match when up-counting. Set OC1B on compare
 			// match when down counting.
-			atmega128()->portb_reg->ddr |= 0x40;
+			atmega128()->portb_reg->ddr.reg |= 0x40;
 			atmega128()->tc1_reg->tccr1a |= (1 << COM1B1);
 		break;
 		case 3: // Set OC1B on compare match when up-counting. Clear OC1B on compare
 			// match when down counting.
-			atmega128()->portb_reg->ddr |= 0x40;
+			atmega128()->portb_reg->ddr.reg |= 0x40;
 			atmega128()->tc1_reg->tccr1a |= (1 << COM1B0) | (1 << COM1B1);
 		break;
 		default:
@@ -276,17 +276,17 @@ void TIMER_COUNTER1_compoutmodeC(unsigned char compoutmode)
 		break;
 		case 1: // Reserved
 			// Toggle OC1A or OC1C on compare match
-			atmega128()->portb_reg->ddr |= 0x80;
+			atmega128()->portb_reg->ddr.reg |= 0x80;
 			atmega128()->tc1_reg->tccr1a |= (1 << COM1C0);
 		break;
 		case 2: // Clear OC1C on compare match when up-counting. Set OC1C on compare
 			// match when down counting.
-			atmega128()->portb_reg->ddr |= 0x80;
+			atmega128()->portb_reg->ddr.reg |= 0x80;
 			atmega128()->tc1_reg->tccr1a |= (1 << COM1C1);
 		break;
 		case 3: // Set OC1C on compare match when up-counting. Clear OC1C on compare
 			// match when down counting.
-			atmega128()->portb_reg->ddr |= 0x80;
+			atmega128()->portb_reg->ddr.reg |= 0x80;
 			atmega128()->tc1_reg->tccr1a |= (1 << COM1C0) | (1 << COM1C1);
 		break;
 		default:

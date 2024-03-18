@@ -131,17 +131,17 @@ void TIMER_COUNTER0_compoutmode(unsigned char compoutmode)
 		break;
 		case 1: // Reserved
 			// Toggle OC0 on compare match
-			atmega128()->portb_reg->ddr = 0x10;
+			atmega128()->portb_reg->ddr.reg = 0x10;
 			atmega128()->tc0_reg->tccr0 |= (1 << COM00);
 		break;
 		case 2: // Clear OC0 on compare match when up-counting. Set OC0 on compare
 			// match when down counting.
-			atmega128()->portb_reg->ddr = 0x10;
+			atmega128()->portb_reg->ddr.reg = 0x10;
 			atmega128()->tc0_reg->tccr0 |= (1 << COM01);
 		break;
 		case 3: // Set OC0 on compare match when up-counting. Clear OC0 on compare
 			// match when down counting.
-			atmega128()->portb_reg->ddr = 0x10;
+			atmega128()->portb_reg->ddr.reg = 0x10;
 			atmega128()->tc0_reg->tccr0 |= (1 << COM00) | (1 << COM01);
 		break;
 		default:
