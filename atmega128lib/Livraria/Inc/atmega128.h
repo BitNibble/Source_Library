@@ -90,8 +90,19 @@ typedef struct {
 } Atmega128GPWR_TypeDef;
 
 // Analog Comparator (AC)
-typedef struct {
-	volatile uint8_t acsr; // 0x28
+typedef volatile struct {
+	union{
+		struct{
+			uint8_t acis:2;
+			uint8_t acic:1;
+			uint8_t acie:1;
+			uint8_t aci:1;
+			uint8_t aco:1;
+			uint8_t acbg:1;
+			uint8_t acd:1;
+		}par;
+		uint8_t reg;
+	}acsr; // 0x28
 } Atmega128AnalogComparator_TypeDef;
 
 // Analog to Digital Converter (ADC)
@@ -122,40 +133,201 @@ typedef volatile struct {
 } Atmega128AnalogToDigitalConverter_TypeDef;
 
 // Boot loader (BOOT_LOAD)
-typedef struct {
-	volatile uint8_t spmcsr; // 0x68
+typedef volatile struct {
+	union{
+		struct{
+				uint8_t spmem:1;
+				uint8_t pgers:1;
+				uint8_t pgwrt:1;
+				uint8_t blbset;
+				uint8_t rwwsre:1;
+				uint8_t reserved:1;
+				uint8_t rwwsb:1;
+				uint8_t spmie:1;
+		}par;
+		uint8_t reg;
+	}spmcsr; // 0x68
 } Atmega128BootLoader_TypeDef;
 
 // CPU Register (CPU)
-typedef struct {
-	volatile uint8_t mcucsr; // 0x54
-	volatile uint8_t mcucr; // 0x55
+typedef volatile struct {
+	union{
+		struct{
+			uint8_t porf:1;
+			uint8_t extrf:1;
+			uint8_t borf:1;
+			uint8_t wdrf:1;
+			uint8_t jtrf:1;
+			uint8_t reserved:2;
+			uint8_t jtd:1;
+		}par;
+		uint8_t reg;
+	}mcucsr; // 0x54
+	union{
+		struct{
+			uint8_t ivce:1;
+			uint8_t ivsel:1;
+			uint8_t sm2:1;
+			uint8_t sm0:1;
+			uint8_t sm1:1;
+			uint8_t se:1;
+			uint8_t srw10:1;
+			uint8_t sre:1;
+		}par;
+		uint8_t reg;
+	}mcucr; // 0x55
 	uint8_t fill1[5]; // (5B - 55) - 1
-	volatile uint8_t rampz; // 0x5B
-	volatile uint8_t xdiv; // 0x5C
-	volatile HighLowByte sp; // 0x5D 0x5E
-	volatile uint8_t sreg; // 0x5F
+	union{
+		struct{
+			uint8_t rampz0:1;
+			uint8_t reserved:7;
+		}par;
+		uint8_t reg;
+	}rampz; // 0x5B
+	union{
+		struct{
+			uint8_t xdiv:7;
+			uint8_t xdiven:1;
+		}par;
+		uint8_t reg;
+	}xdiv; // 0x5C
+	HighLowByte sp; // 0x5D 0x5E
+	union{
+		struct{
+			uint8_t C:1;
+			uint8_t Z:1;
+			uint8_t N:1;
+			uint8_t V:1;
+			uint8_t S:1;
+			uint8_t H:1;
+			uint8_t T:1;
+			uint8_t I:1;
+		}par;
+		uint8_t reg;
+	}sreg; // 0x5F
 	uint8_t fill2[12]; // (6C - 5F) - 1
-	volatile uint8_t xmcrb; // 0x6C
-	volatile uint8_t xmcra; // 0x6D
-	uint8_t fill3[1]; // (6F - 6D) - 1
-	volatile uint8_t osccal; // 0x6F
+	union{
+		struct{
+			uint8_t xmm0:1;
+			uint8_t xmm1:1;
+			uint8_t xmm2:1;
+			uint8_t reserved:4;
+			uint8_t xmbk:1;
+		}par;
+		uint8_t reg;
+	}xmcrb; // 0x6C
+	union{
+		struct{
+			uint8_t reserved1:1;
+			uint8_t srw11:1;
+			uint8_t srw00:1;
+			uint8_t srw01:1;
+			uint8_t srl0:1;
+			uint8_t srl1:1;
+			uint8_t srl2:1;
+			uint8_t reserved2:1;
+		}par;
+		uint8_t reg;
+	}xmcra; // 0x6D
+	uint8_t fill3; // (6F - 6D) - 1
+	union{
+		struct{
+			uint8_t b0:1;
+			uint8_t b1:1;
+			uint8_t b2:1;
+			uint8_t b3:1;
+			uint8_t b4:1;
+			uint8_t b5:1;
+			uint8_t b6:1;
+			uint8_t b7:1;
+		}par;
+		uint8_t reg;
+	}osccal; // 0x6F
 } Atmega128CPURegister_TypeDef;
 
 // EEPROM (EEPROM)
-typedef struct {
-	volatile uint8_t eecr; // 0x3C
-	volatile uint8_t eedr; // 0x3D
-	volatile HighLowByte eear; // 0x3E 0x3F
+typedef volatile struct {
+	union{
+		struct{
+			uint8_t eere:1;
+			uint8_t eewe:1;
+			uint8_t eemwe:1;
+			uint8_t eerie:1;
+			uint8_t reserved:4;
+		}par;
+		uint8_t reg;
+	}eecr; // 0x3C
+	union{
+		struct{
+			uint8_t bit0:1;
+			uint8_t bit1:1;
+			uint8_t bit2:1;
+			uint8_t bit3:1;
+			uint8_t bit4:1;
+			uint8_t bit5:1;
+			uint8_t bit6:1;
+			uint8_t bit7:1;
+		}par;
+		uint8_t reg;
+	}eedr; // 0x3D
+	HighLowByte eear; // 0x3E 0x3F
 } Atmega128Eeprom_TypeDef;
 
 // External Interrupts (EXINT)
-typedef struct {
-	volatile uint8_t eifr; // 0x58
-	volatile uint8_t eimsk; // 0x59
-	volatile uint8_t eicrb; // 0x5A
+typedef volatile struct {
+	union{
+		struct{
+			uint8_t intf0:1;
+			uint8_t intf1:1;
+			uint8_t intf2:1;
+			uint8_t intf3:1;
+			uint8_t intf4:1;
+			uint8_t intf5:1;
+			uint8_t intf6:1;
+			uint8_t intf7:1;
+		}par;
+		uint8_t reg;
+	}eifr; // 0x58
+	union{
+		struct{
+			uint8_t int0:1;
+			uint8_t int1:1;
+			uint8_t int2:1;
+			uint8_t int3:1;
+			uint8_t int4:1;
+			uint8_t int5:1;
+			uint8_t int6:1;
+			uint8_t int7:1;
+		}par;
+		uint8_t reg;
+	}eimsk; // 0x59
+	union{
+		struct{
+			uint8_t isc40:1;
+			uint8_t isc41:1;
+			uint8_t isc50:1;
+			uint8_t isc51:1;
+			uint8_t isc60:1;
+			uint8_t isc61:1;
+			uint8_t isc70:1;
+			uint8_t isc71:1;
+		}par;
+		uint8_t reg;
+	}eicrb; // 0x5A
 	uint8_t fill[15]; // (6A - 5A) - 1
-	volatile uint8_t eicra; // 0x6A
+	union{
+		struct{
+			uint8_t isc00:1;
+			uint8_t isc01:1;
+			uint8_t isc10:1;
+			uint8_t isc11:1;
+			uint8_t isc20:1;
+			uint8_t isc21:1;
+			uint8_t isc30:1;
+			uint8_t isc31:1;
+		}par;
+		uint8_t reg;
+	}eicra; // 0x6A
 } Atmega128ExternalInterrupts_TypeDef;
 
 // I/O Port (PORTA)
@@ -308,12 +480,61 @@ typedef struct {
 } Atmega128TimerInterruptMask_TypeDef;
 
 // Two Wire Serial Interface (TWI)
-typedef struct {
-	volatile uint8_t twbr; // 0x70
-	volatile uint8_t twsr; // 0x71
-	volatile uint8_t twar; // 0x72
-	volatile uint8_t twdr; // 0x73
-	volatile uint8_t twcr; // 0x74
+typedef volatile struct {
+	union{
+		struct{
+			uint8_t bit0:1;
+			uint8_t bit1:1;
+			uint8_t bit2:1;
+			uint8_t bit3:1;
+			uint8_t bit4:1;
+			uint8_t bit5:1;
+			uint8_t bit6:1;
+			uint8_t bit7:1;
+		}par;
+		uint8_t reg;
+	}twbr; // 0x70
+	union{
+		struct{
+			uint8_t twps:2;
+			uint8_t reserved:1;
+			uint8_t tws:5;
+		}par;
+		uint8_t reg;
+	}twsr; // 0x71
+	union{
+		struct{
+			uint8_t twgce:1;
+			uint8_t twa:7;
+		}par;
+		uint8_t reg;
+	}twar; // 0x72
+	union{
+		struct{
+			uint8_t bit0:1;
+			uint8_t bit1:1;
+			uint8_t bit2:1;
+			uint8_t bit3:1;
+			uint8_t bit4:1;
+			uint8_t bit5:1;
+			uint8_t bit6:1;
+			uint8_t bit7:1;
+		}par;
+		uint8_t reg;
+	}twdr; // 0x73
+	union{
+		struct{
+			uint8_t twie:1;
+			uint8_t reserved:1;
+			uint8_t twen:1;
+			uint8_t twwc:1;
+			uint8_t twsto:1;
+			uint8_t twsta:1;
+			uint8_t twea:1;
+			uint8_t twint:1;
+		}par;
+		uint8_t reg;
+	}twcr; // 0x74
 } Atmega128TwoWireSerialInterface_TypeDef;
 
 // USART (USART0)
@@ -388,5 +609,19 @@ typedef struct { // IVSEL = 0
 
 /***
 MASK FLAG CONTROL STATUS
+*** BIT FIELD CONFIG ***
+union{
+	struct{
+		uint8_t bit0:1;
+		uint8_t bit1:1;
+		uint8_t bit2:1;
+		uint8_t bit3:1;
+		uint8_t bit4:1;
+		uint8_t bit5:1;
+		uint8_t bit6:1;
+		uint8_t bit7:1;
+	}par;
+	uint8_t reg;
+}<regname>;
 ***/
 

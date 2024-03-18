@@ -54,15 +54,15 @@ TC0 tc0_enable(unsigned char wavegenmode, unsigned char interrupt)
 		break;
 		case 1:
 			atmega128()->tc0_reg->timsk |= (1 << TOIE0);
-			atmega128()->cpu_reg->sreg |= 1 << GLOBAL_INTERRUPT_ENABLE;
+			atmega128()->cpu_reg->sreg.reg |= 1 << GLOBAL_INTERRUPT_ENABLE;
 		break;
 		case 2:
 			atmega128()->tc0_reg->timsk |= (1 << OCIE0);
-			atmega128()->cpu_reg->sreg |= 1 << GLOBAL_INTERRUPT_ENABLE;
+			atmega128()->cpu_reg->sreg.reg |= 1 << GLOBAL_INTERRUPT_ENABLE;
 		break;
 		case 3:
 			atmega128()->tc0_reg->timsk |= ((1 << TOIE0) | (1 << OCIE0));
-			atmega128()->cpu_reg->sreg |= 1 << GLOBAL_INTERRUPT_ENABLE;
+			atmega128()->cpu_reg->sreg.reg |= 1 << GLOBAL_INTERRUPT_ENABLE;
 		break;
 		default:
 		break;

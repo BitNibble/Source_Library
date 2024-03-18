@@ -135,24 +135,24 @@ void ClockPrescalerSelect(volatile uint8_t prescaler)
 	volatile uint8_t sreg;
 	volatile uint8_t* clkpr = &XDIV;
 	prescaler &= 0x7F;
-	sreg = atmega.cpu_reg->sreg;
-	atmega.cpu_reg->sreg &= ~(1 << 7);
+	sreg = atmega.cpu_reg->sreg.reg;
+	atmega.cpu_reg->sreg.reg &= ~(1 << 7);
 	
 	*clkpr = prescaler;
 	*clkpr = (1 << XDIVEN) | prescaler;
 	
-	atmega.cpu_reg->sreg = sreg;
+	atmega.cpu_reg->sreg.reg = sreg;
 }
 void MoveInterruptsToBoot(void)
 {
 	volatile uint8_t sreg;
-	sreg = atmega.cpu_reg->sreg;
-	atmega.cpu_reg->sreg &= ~(1 << 7);
+	sreg = atmega.cpu_reg->sreg.reg;
+	atmega.cpu_reg->sreg.reg &= ~(1 << 7);
 	
 	MCUCR = (1<<IVCE);
 	MCUCR = (1<<IVSEL);
 	
-	atmega.cpu_reg->sreg = sreg;
+	atmega.cpu_reg->sreg.reg = sreg;
 }
 
 /***EOF***/

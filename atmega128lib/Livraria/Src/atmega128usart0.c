@@ -146,7 +146,7 @@ USART0 usart0_enable(uint32_t baud, unsigned int FDbits, unsigned int Stopbits, 
 			break;
 		}
 	#endif
-	atmega128()->cpu_reg->sreg |= (1 << GLOBAL_INTERRUPT_ENABLE);
+	atmega128()->cpu_reg->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
 	
 	return atmega128_usart0;
 }

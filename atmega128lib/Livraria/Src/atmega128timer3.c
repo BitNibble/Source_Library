@@ -107,51 +107,51 @@ TC3 tc3_enable(unsigned char wavegenmode, unsigned char interrupt)
 		break;
 		case 1:
 			atmega128()->tc3_reg->etimsk |= (1 << TOIE3);
-			atmega128()->cpu_reg->sreg |= 1 << GLOBAL_INTERRUPT_ENABLE;
+			atmega128()->cpu_reg->sreg.reg |= 1 << GLOBAL_INTERRUPT_ENABLE;
 		break;
 		case 2:
 			atmega128()->tc3_reg->etimsk |= (1 << OCIE3A);
-			atmega128()->cpu_reg->sreg |= 1 << GLOBAL_INTERRUPT_ENABLE;
+			atmega128()->cpu_reg->sreg.reg |= 1 << GLOBAL_INTERRUPT_ENABLE;
 		break;
 		case 3:
 			atmega128()->tc3_reg->etimsk |= (1 << OCIE3B);
-			atmega128()->cpu_reg->sreg |= 1 << GLOBAL_INTERRUPT_ENABLE;
+			atmega128()->cpu_reg->sreg.reg |= 1 << GLOBAL_INTERRUPT_ENABLE;
 		break;
 		case 4:
 			atmega128()->tc3_reg->etimsk |= (1 << OCIE3C);
-			atmega128()->cpu_reg->sreg |= 1 << GLOBAL_INTERRUPT_ENABLE;
+			atmega128()->cpu_reg->sreg.reg |= 1 << GLOBAL_INTERRUPT_ENABLE;
 		break;
 		case 5:
 			atmega128()->tc3_reg->etimsk |= (1 << TICIE3);
-			atmega128()->cpu_reg->sreg |= 1 << GLOBAL_INTERRUPT_ENABLE;
+			atmega128()->cpu_reg->sreg.reg |= 1 << GLOBAL_INTERRUPT_ENABLE;
 		break;
 		case 6:
 			atmega128()->tc3_reg->etimsk |= (1 << OCIE3A) | (1 << TOIE3);
-			atmega128()->cpu_reg->sreg |= 1 << GLOBAL_INTERRUPT_ENABLE;
+			atmega128()->cpu_reg->sreg.reg |= 1 << GLOBAL_INTERRUPT_ENABLE;
 		break;
 		case 7:
 			atmega128()->tc3_reg->etimsk |= (1 << OCIE3B) | (1 << TOIE3);
-			atmega128()->cpu_reg->sreg |= 1 << GLOBAL_INTERRUPT_ENABLE;
+			atmega128()->cpu_reg->sreg.reg |= 1 << GLOBAL_INTERRUPT_ENABLE;
 		break;
 		case 8:
 			atmega128()->tc3_reg->etimsk |= (1 << TOIE3) | (1 << OCIE3C);
-			atmega128()->cpu_reg->sreg |= 1 << GLOBAL_INTERRUPT_ENABLE;
+			atmega128()->cpu_reg->sreg.reg |= 1 << GLOBAL_INTERRUPT_ENABLE;
 		break;
 		case 9:
 			atmega128()->tc3_reg->etimsk |= (1 << TICIE3) | (1 << TOIE3);
-			atmega128()->cpu_reg->sreg |= 1 << GLOBAL_INTERRUPT_ENABLE;
+			atmega128()->cpu_reg->sreg.reg |= 1 << GLOBAL_INTERRUPT_ENABLE;
 		break;
 		case 10:
 			atmega128()->tc3_reg->etimsk |= (1 << OCIE3A) | (1 << OCIE3B) | (1 << TOIE3);
-			atmega128()->cpu_reg->sreg |= 1 << GLOBAL_INTERRUPT_ENABLE;
+			atmega128()->cpu_reg->sreg.reg |= 1 << GLOBAL_INTERRUPT_ENABLE;
 		break;
 		case 11:
 			atmega128()->tc3_reg->etimsk |= (1 << OCIE3A) | (1 << OCIE3B) | (1 << TOIE3) | (1 << OCIE3C);
-			atmega128()->cpu_reg->sreg |= 1 << GLOBAL_INTERRUPT_ENABLE;
+			atmega128()->cpu_reg->sreg.reg |= 1 << GLOBAL_INTERRUPT_ENABLE;
 		break;
 		case 12:
 			atmega128()->tc3_reg->etimsk |= (1 << OCIE3A) | (1 << OCIE3B) | (1 << OCIE3C);
-			atmega128()->cpu_reg->sreg |= 1 << GLOBAL_INTERRUPT_ENABLE;
+			atmega128()->cpu_reg->sreg.reg |= 1 << GLOBAL_INTERRUPT_ENABLE;
 		break;
 		default:
 		break;
