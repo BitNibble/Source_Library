@@ -67,10 +67,10 @@ USART1 usart1_enable(uint32_t baud, unsigned int FDbits, unsigned int Stopbits, 
 		ubrr = BAUDRATEdouble(baud);
 		atmega128_usart1.par.ubrr = ubrr;
 	}
-	atmega128()->usart1_reg->ubrr1h = writehlbyte(ubrr).H;
-	atmega128()->usart1_reg->ubrr1l = writehlbyte(ubrr).L;
+	atmega128()->usart1_reg->ubrr1h.reg = writehlbyte(ubrr).H;
+	atmega128()->usart1_reg->ubrr1l.reg = writehlbyte(ubrr).L;
 	// Enable USART receiver and transmitter and receive complete interrupt
-	atmega128()->usart1_reg->ucsr1b = (1 << RXCIE1) | (1 << RXEN1)|(1 << TXEN1);
+	atmega128()->usart1_reg->ucsr1b.reg = (1 << RXCIE1) | (1 << RXEN1)|(1 << TXEN1);
 	
 	#ifdef URSEL1 // Set frame format: asynchronous, 8data, no parity, 1stop bit
 		UCSR1C = (1 << UMSEL1) | (3 << UCSZ10);
@@ -81,68 +81,68 @@ USART1 usart1_enable(uint32_t baud, unsigned int FDbits, unsigned int Stopbits, 
 		// Parameters
 		switch(FDbits){
 			case 9:
-				atmega128()->usart1_reg->ucsr1b |= (1 << UCSZ12);
-				atmega128()->usart1_reg->ucsr1c |= (3 << UCSZ10);
+				atmega128()->usart1_reg->ucsr1b.reg |= (1 << UCSZ12);
+				atmega128()->usart1_reg->ucsr1c.reg |= (3 << UCSZ10);
 				atmega128_usart1.par.FDbits = 9;
 			break;
 			case 8:
-				atmega128()->usart1_reg->ucsr1b &= ~(1 << UCSZ12);
-				atmega128()->usart1_reg->ucsr1c |= (3 << UCSZ10);
+				atmega128()->usart1_reg->ucsr1b.reg &= ~(1 << UCSZ12);
+				atmega128()->usart1_reg->ucsr1c.reg |= (3 << UCSZ10);
 				atmega128_usart1.par.FDbits = 8;
 			break;
 			case 7:
-				atmega128()->usart1_reg->ucsr1b &= ~(1 << UCSZ12);
-				atmega128()->usart1_reg->ucsr1c |= (1 << UCSZ11);
-				atmega128()->usart1_reg->ucsr1c &= ~(1 << UCSZ10);
+				atmega128()->usart1_reg->ucsr1b.reg &= ~(1 << UCSZ12);
+				atmega128()->usart1_reg->ucsr1c.reg |= (1 << UCSZ11);
+				atmega128()->usart1_reg->ucsr1c.reg &= ~(1 << UCSZ10);
 				atmega128_usart1.par.FDbits = 7;
 			break;
 			case 6:
-				atmega128()->usart1_reg->ucsr1b &= ~(1 << UCSZ12);
-				atmega128()->usart1_reg->ucsr1c &= ~(1 << UCSZ11);
-				atmega128()->usart1_reg->ucsr1c |= (1 << UCSZ10);
+				atmega128()->usart1_reg->ucsr1b.reg &= ~(1 << UCSZ12);
+				atmega128()->usart1_reg->ucsr1c.reg &= ~(1 << UCSZ11);
+				atmega128()->usart1_reg->ucsr1c.reg |= (1 << UCSZ10);
 				atmega128_usart1.par.FDbits = 6;
 			break;
 			case 5:
-				atmega128()->usart1_reg->ucsr1b &= ~(1 << UCSZ12);
-				atmega128()->usart1_reg->ucsr1c &= ~(3 << UCSZ10);
+				atmega128()->usart1_reg->ucsr1b.reg &= ~(1 << UCSZ12);
+				atmega128()->usart1_reg->ucsr1c.reg &= ~(3 << UCSZ10);
 				atmega128_usart1.par.FDbits = 5;
 			break;
 			default:
-				atmega128()->usart1_reg->ucsr1b &= ~(1 << UCSZ12);
-				atmega128()->usart1_reg->ucsr1c |= (3 << UCSZ10);
+				atmega128()->usart1_reg->ucsr1b.reg &= ~(1 << UCSZ12);
+				atmega128()->usart1_reg->ucsr1c.reg |= (3 << UCSZ10);
 				atmega128_usart1.par.FDbits = 8;
 			break;
 		}
 		switch(Stopbits){
 			case 1:
-				atmega128()->usart1_reg->ucsr1c &= ~(1 << USBS1);
+				atmega128()->usart1_reg->ucsr1c.reg &= ~(1 << USBS1);
 				atmega128_usart1.par.Stopbits = 1;
 			break;
 			case 2:
-				atmega128()->usart1_reg->ucsr1c |= (1 << USBS1);
+				atmega128()->usart1_reg->ucsr1c.reg |= (1 << USBS1);
 				atmega128_usart1.par.Stopbits = 2;
 			break;
 			default:
-				atmega128()->usart1_reg->ucsr1c &= ~(1 << USBS1);
+				atmega128()->usart1_reg->ucsr1c.reg &= ~(1 << USBS1);
 				atmega128_usart1.par.Stopbits = 1;
 			break;
 		}
 		switch(Parity){
 			case 0: // NONE
-				atmega128()->usart1_reg->ucsr1c &= ~(3 << UPM10);
+				atmega128()->usart1_reg->ucsr1c.reg &= ~(3 << UPM10);
 				atmega128_usart1.par.Parity = 0;
 			break;
 			case 2: // EVEN
-				atmega128()->usart1_reg->ucsr1c |= (1 << UPM11);
-				atmega128()->usart1_reg->ucsr1c &= ~(1 << UPM10);
+				atmega128()->usart1_reg->ucsr1c.reg |= (1 << UPM11);
+				atmega128()->usart1_reg->ucsr1c.reg &= ~(1 << UPM10);
 				atmega128_usart1.par.Parity = 2;
 			break;
 			case 3: // ODD
-				atmega128()->usart1_reg->ucsr1c |= (3 << UPM10);
+				atmega128()->usart1_reg->ucsr1c.reg |= (3 << UPM10);
 				atmega128_usart1.par.Parity = 3;
 			break;
 			default:
-				atmega128()->usart1_reg->ucsr1c &= ~(3 << UPM10);
+				atmega128()->usart1_reg->ucsr1c.reg &= ~(3 << UPM10);
 				atmega128_usart1.par.Parity = 0;
 			break;
 		}
@@ -177,8 +177,8 @@ void uart1_rxflush(void)
 void uart1_write(UARTvar data)
 {
 	uint16_t timeout;
-	atmega128()->usart1_reg->ucsr1b |= 1 << UDRIE1;
-	atmega128()->usart1_reg->udr1 = data;
+	atmega128()->usart1_reg->ucsr1b.reg |= 1 << UDRIE1;
+	atmega128()->usart1_reg->udr1.reg = data;
 	for( timeout = 600; !USART1DataRegisterEmpty() && timeout; timeout-- ); // minimum -> +/- 450
 	//for( ; !USART1DataRegisterEmpty(); ); // without timeout
 }
@@ -202,18 +202,18 @@ SIGNAL(UART1_RECEIVE_INTERRUPT)
 	unsigned char usr;
 	
 	usr  = USART1ReadErrors();
-	bit9 = atmega128()->usart1_reg->ucsr1b;
+	bit9 = atmega128()->usart1_reg->ucsr1b.reg;
 	bit9 = 0x01 & (bit9 >> 1);
  	   
 	if(usr){ UART1_LastRxError = usr; }
 	
-	UART1_Rx = atmega128()->usart1_reg->udr1;
+	UART1_Rx = atmega128()->usart1_reg->udr1.reg;
 	rx1buff.push(&rx1buff.par, UART1_Rx);
 }
 
 SIGNAL(UART1_TRANSMIT_INTERRUPT)
 {
-	atmega128()->usart1_reg->ucsr1b &= ~(1 << UDRIE1);
+	atmega128()->usart1_reg->ucsr1b.reg &= ~(1 << UDRIE1);
 }
 
 /*** Complimentary functions ***/

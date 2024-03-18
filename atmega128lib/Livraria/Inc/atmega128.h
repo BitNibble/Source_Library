@@ -139,7 +139,7 @@ typedef volatile struct {
 				uint8_t spmem:1;
 				uint8_t pgers:1;
 				uint8_t pgwrt:1;
-				uint8_t blbset;
+				uint8_t blbset:1;
 				uint8_t rwwsre:1;
 				uint8_t reserved:1;
 				uint8_t rwwsb:1;
@@ -232,14 +232,14 @@ typedef volatile struct {
 	uint8_t fill3; // (6F - 6D) - 1
 	union{
 		struct{
-			uint8_t b0:1;
-			uint8_t b1:1;
-			uint8_t b2:1;
-			uint8_t b3:1;
-			uint8_t b4:1;
-			uint8_t b5:1;
-			uint8_t b6:1;
-			uint8_t b7:1;
+			uint8_t bit0:1;
+			uint8_t bit1:1;
+			uint8_t bit2:1;
+			uint8_t bit3:1;
+			uint8_t bit4:1;
+			uint8_t bit5:1;
+			uint8_t bit6:1;
+			uint8_t bit7:1;
 		}par;
 		uint8_t reg;
 	}osccal; // 0x6F
@@ -912,25 +912,163 @@ typedef volatile struct {
 } Atmega128TwoWireSerialInterface_TypeDef;
 
 // USART (USART0)
-typedef struct {
-	volatile uint8_t ubrr0l; // 0x29
-	volatile uint8_t ucsr0b; // 0x2A
-	volatile uint8_t ucsr0a; // 0x2B
-	volatile uint8_t udr0; // 0x2C
+typedef volatile struct {
+	union{
+		struct{
+			uint8_t bit0:1;
+			uint8_t bit1:1;
+			uint8_t bit2:1;
+			uint8_t bit3:1;
+			uint8_t bit4:1;
+			uint8_t bit5:1;
+			uint8_t bit6:1;
+			uint8_t bit7:1;
+		}par;
+		uint8_t reg;
+	}ubrr0l; // 0x29
+	union{
+		struct{
+			uint8_t txb80:1;
+			uint8_t rxb80:1;
+			uint8_t ucsz02:1;
+			uint8_t txen0:1;
+			uint8_t rxen0:1;
+			uint8_t udrie0:1;
+			uint8_t txcie0:1;
+			uint8_t rxcie0:1;
+		}par;
+		uint8_t reg;
+	}ucsr0b; // 0x2A
+	union{
+		struct{
+			uint8_t mpcm0:1;
+			uint8_t u2x0:1;
+			uint8_t upe0:1;
+			uint8_t dor0:1;
+			uint8_t fe0:1;
+			uint8_t udre0:1;
+			uint8_t txc0:1;
+			uint8_t rxc0:1;
+		}par;
+		uint8_t reg;
+	}ucsr0a; // 0x2B
+	union{
+		struct{
+			uint8_t bit0:1;
+			uint8_t bit1:1;
+			uint8_t bit2:1;
+			uint8_t bit3:1;
+			uint8_t bit4:1;
+			uint8_t bit5:1;
+			uint8_t bit6:1;
+			uint8_t bit7:1;
+		}par;
+		uint8_t reg;
+	}udr0; // 0x2C
 	uint8_t fill1[99]; // (90 - 2C) - 1
-	volatile uint8_t ubrr0h; // 0x90
+	union{
+		struct{
+			uint8_t bit0:1;
+			uint8_t bit1:1;
+			uint8_t bit2:1;
+			uint8_t bit3:1;
+			uint8_t reserved:4;
+		}par;
+		uint8_t reg;
+	}ubrr0h; // 0x90
 	uint8_t fill2[4]; // (95 - 90) - 1
-	volatile uint8_t ucsr0c; // 0x95
+	union{
+		struct{
+			uint8_t ucpol0:1;
+			uint8_t ucsz00:1;
+			uint8_t ucsz01:1;
+			uint8_t usbs0:1;
+			uint8_t upm00:1;
+			uint8_t upm01:1;
+			uint8_t umsel0:1;
+			uint8_t reserved:1;
+		}par;
+		uint8_t reg;
+	}ucsr0c; // 0x95
 } Atmega128Usart0_TypeDef;
 
 // USART (USART1)
-typedef struct {
-	volatile uint8_t ubrr1h; // 0x98
-	volatile uint8_t ubrr1l; // 0x99
-	volatile uint8_t ucsr1b; // 0x9A
-	volatile uint8_t ucsr1a; // 0x9B
-	volatile uint8_t udr1; // 0x9C
-	volatile uint8_t ucsr1c; // 0x9D
+typedef volatile struct {
+	union{
+		struct{
+			uint8_t bit0:1;
+			uint8_t bit1:1;
+			uint8_t bit2:1;
+			uint8_t bit3:1;
+			uint8_t reserved:4;
+		}par;
+		uint8_t reg;
+	}ubrr1h; // 0x98
+	union{
+		struct{
+			uint8_t bit0:1;
+			uint8_t bit1:1;
+			uint8_t bit2:1;
+			uint8_t bit3:1;
+			uint8_t bit4:1;
+			uint8_t bit5:1;
+			uint8_t bit6:1;
+			uint8_t bit7:1;
+		}par;
+		uint8_t reg;
+	}ubrr1l; // 0x99
+	union{
+		struct{
+			uint8_t txb81:1;
+			uint8_t rxb81:1;
+			uint8_t ucsz12:1;
+			uint8_t txen1:1;
+			uint8_t rxen1:1;
+			uint8_t udrie1:1;
+			uint8_t txcie1:1;
+			uint8_t rxcie1:1;
+		}par;
+		uint8_t reg;
+	}ucsr1b; // 0x9A
+	union{
+		struct{
+			uint8_t mpcm1:1;
+			uint8_t u2x1:1;
+			uint8_t upe1:1;
+			uint8_t dor1:1;
+			uint8_t fe1:1;
+			uint8_t udre1:1;
+			uint8_t txc1:1;
+			uint8_t rxc1:1;
+		}par;
+		uint8_t reg;
+	}ucsr1a; // 0x9B
+	union{
+		struct{
+			uint8_t bit0:1;
+			uint8_t bit1:1;
+			uint8_t bit2:1;
+			uint8_t bit3:1;
+			uint8_t bit4:1;
+			uint8_t bit5:1;
+			uint8_t bit6:1;
+			uint8_t bit7:1;
+		}par;
+		uint8_t reg;
+	}udr1; // 0x9C
+	union{
+		struct{
+			uint8_t ucpol1:1;
+			uint8_t ucsz10:1;
+			uint8_t ucsz11:1;
+			uint8_t usbs1:1;
+			uint8_t upm10:1;
+			uint8_t upm11:1;
+			uint8_t umsel1:1;
+			uint8_t reserved:1;
+		}par;
+		uint8_t reg;
+	}ucsr1c; // 0x9D
 } Atmega128Usart1_TypeDef;
 
 // Watchdog Timer (WDT)
