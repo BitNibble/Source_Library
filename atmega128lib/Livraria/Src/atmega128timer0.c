@@ -31,43 +31,43 @@ TC0 tc0_enable(unsigned char wavegenmode, unsigned char interrupt)
 	// ATMEGA128enable(); // Dependency
 	
 	timer0_state = 0;
-	atmega128()->tc0_reg->tccr0 &= ~((1 << WGM00) | (1 << WGM01));
+	atmega128()->tc0_reg->tccr0.reg &= ~((1 << WGM00) | (1 << WGM01));
 	switch(wavegenmode){ // TOP -- Update of OCR0 at -- TOV0 Flag Set on
 		case 0: // Normal, 0xFF -- Immediate -- MAX
 		break;
 		case 1: // PWM Phase Correct, 0xFF -- TOP -- BOTTOM
-			atmega128()->tc0_reg->tccr0 |= (1 << WGM00);
+			atmega128()->tc0_reg->tccr0.reg |= (1 << WGM00);
 		break;
 		case 2: // CTC, OCR0 -- Immediate -- MAX
-			atmega128()->tc0_reg->tccr0 |= (1 << WGM01);
+			atmega128()->tc0_reg->tccr0.reg |= (1 << WGM01);
 		break;
 		case 3: // Fast PWM, 0xFF -- BOTTOM -- MAX
-			atmega128()->tc0_reg->tccr0 |= (1 << WGM00) | (1 << WGM01);
+			atmega128()->tc0_reg->tccr0.reg |= (1 << WGM00) | (1 << WGM01);
 		break;
 		default:
 		break;
 	}
-	atmega128()->tc0_reg->timsk &= ~(1 << TOIE0);
-	atmega128()->tc0_reg->timsk &= ~(1 << OCIE0);
+	atmega128()->tc0_reg->timsk.reg &= ~(1 << TOIE0);
+	atmega128()->tc0_reg->timsk.reg &= ~(1 << OCIE0);
 	switch(interrupt){
 		case 0:
 		break;
 		case 1:
-			atmega128()->tc0_reg->timsk |= (1 << TOIE0);
+			atmega128()->tc0_reg->timsk.reg |= (1 << TOIE0);
 			atmega128()->cpu_reg->sreg.reg |= 1 << GLOBAL_INTERRUPT_ENABLE;
 		break;
 		case 2:
-			atmega128()->tc0_reg->timsk |= (1 << OCIE0);
+			atmega128()->tc0_reg->timsk.reg |= (1 << OCIE0);
 			atmega128()->cpu_reg->sreg.reg |= 1 << GLOBAL_INTERRUPT_ENABLE;
 		break;
 		case 3:
-			atmega128()->tc0_reg->timsk |= ((1 << TOIE0) | (1 << OCIE0));
+			atmega128()->tc0_reg->timsk.reg |= ((1 << TOIE0) | (1 << OCIE0));
 			atmega128()->cpu_reg->sreg.reg |= 1 << GLOBAL_INTERRUPT_ENABLE;
 		break;
 		default:
 		break;
 	}
-	atmega128()->tc0_reg->ocr0 = ~0;
+	atmega128()->tc0_reg->ocr0.reg = ~0;
 	
 	atmega128_tc0.compoutmode = TIMER_COUNTER0_compoutmode;
 	atmega128_tc0.compare = TIMER_COUNTER0_compare;
@@ -86,33 +86,33 @@ uint8_t TIMER_COUNTER0_start(unsigned int prescaler)
 // clk T 0 S /1024 (From prescaler); default - clk T 0 S /1024 (From prescaler).
 {
 	if(!timer0_state){ // one shot
-		atmega128()->tc0_reg->tccr0 &= ~(7 << CS00); // No clock source. (Timer/Counter stopped)
+		atmega128()->tc0_reg->tccr0.reg &= ~(7 << CS00); // No clock source. (Timer/Counter stopped)
 		switch(prescaler){
 			//case 0: // No clock source. (Timer/Counter stopped)
 			//break;
 			case 1: // clk T0S /(No prescaler)
-				atmega128()->tc0_reg->tccr0 |= (1 << CS00);
+				atmega128()->tc0_reg->tccr0.reg |= (1 << CS00);
 			break;
 			case 8: // clk T0S /8 (From prescaler)
-				atmega128()->tc0_reg->tccr0 |= (1 << CS01);
+				atmega128()->tc0_reg->tccr0.reg |= (1 << CS01);
 			break;
 			case 32: // clk T0S /32 (From prescaler)
-				atmega128()->tc0_reg->tccr0 |=(3 << CS00);
+				atmega128()->tc0_reg->tccr0.reg |=(3 << CS00);
 			break;
 			case 64: // clk T0S /64 (From prescaler)
-				atmega128()->tc0_reg->tccr0 |= (4 << CS00);
+				atmega128()->tc0_reg->tccr0.reg |= (4 << CS00);
 			break;
 			case 128: // clk T0S /128 (From prescaler)
-				atmega128()->tc0_reg->tccr0 |= (5 << CS00);
+				atmega128()->tc0_reg->tccr0.reg |= (5 << CS00);
 			break;
 			case 256: // clk T 0 S /256 (From prescaler)
-				atmega128()->tc0_reg->tccr0 |= (6 << CS00);
+				atmega128()->tc0_reg->tccr0.reg |= (6 << CS00);
 			break;
 			case 1024: // clk T 0 S /1024 (From prescaler)
-				atmega128()->tc0_reg->tccr0 |= (7 << CS00);
+				atmega128()->tc0_reg->tccr0.reg |= (7 << CS00);
 			break;
 			default:
-				atmega128()->tc0_reg->tccr0 |= (7 << CS00);
+				atmega128()->tc0_reg->tccr0.reg |= (7 << CS00);
 			break;
 		}
 		timer0_state = 85;
@@ -125,24 +125,24 @@ void TIMER_COUNTER0_compoutmode(unsigned char compoutmode)
 // Set OC0 on compare match when up-counting. Clear OC0 on compare match when downcounting. Set OC0 on compare match ;
 // default-Normal port operation, OC0 disconnected.
 {
-	atmega128()->tc0_reg->tccr0 &= ~((1 << COM00) | (1 << COM01));
+	atmega128()->tc0_reg->tccr0.reg &= ~((1 << COM00) | (1 << COM01));
 	switch(compoutmode){ // OC0  -->  PB4
 		case 0: // Normal port operation, OC0 disconnected.
 		break;
 		case 1: // Reserved
 			// Toggle OC0 on compare match
 			atmega128()->portb_reg->ddr.reg = 0x10;
-			atmega128()->tc0_reg->tccr0 |= (1 << COM00);
+			atmega128()->tc0_reg->tccr0.reg |= (1 << COM00);
 		break;
 		case 2: // Clear OC0 on compare match when up-counting. Set OC0 on compare
 			// match when down counting.
 			atmega128()->portb_reg->ddr.reg = 0x10;
-			atmega128()->tc0_reg->tccr0 |= (1 << COM01);
+			atmega128()->tc0_reg->tccr0.reg |= (1 << COM01);
 		break;
 		case 3: // Set OC0 on compare match when up-counting. Clear OC0 on compare
 			// match when down counting.
 			atmega128()->portb_reg->ddr.reg = 0x10;
-			atmega128()->tc0_reg->tccr0 |= (1 << COM00) | (1 << COM01);
+			atmega128()->tc0_reg->tccr0.reg |= (1 << COM00) | (1 << COM01);
 		break;
 		default:
 		break;
@@ -150,12 +150,12 @@ void TIMER_COUNTER0_compoutmode(unsigned char compoutmode)
 }
 void TIMER_COUNTER0_compare(unsigned char compare)
 {
-	atmega128()->tc0_reg->ocr0 = compare;
+	atmega128()->tc0_reg->ocr0.reg = compare;
 }
 uint8_t TIMER_COUNTER0_stop(void)
 // stops timer by setting prescaler to zero
 {
-	atmega128()->tc0_reg->tccr0 &= ~(7 << CS00); // No clock source. (Timer/Counter stopped)
+	atmega128()->tc0_reg->tccr0.reg &= ~(7 << CS00); // No clock source. (Timer/Counter stopped)
 	timer0_state = 0;
 	return timer0_state;
 }

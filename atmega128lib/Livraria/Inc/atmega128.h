@@ -733,37 +733,170 @@ typedef volatile struct {
 } Atmega128SerialPeripherialInterface_TypeDef;
 
 // Timer/Counter, 16-bit (TC1)
-typedef struct {
-	volatile HighLowByte icr1; // 0x46 0x47
-	volatile HighLowByte ocr1b; // 0x48 0x49
-	volatile HighLowByte ocr1a; // 0x4A 0x4B
-	volatile HighLowByte tcnt1; // 0x4C 0x4D
-	volatile uint8_t tccr1b; // 0x4E
-	volatile uint8_t tccr1a; // 0x4F
+typedef volatile struct {
+	HighLowByte icr1; // 0x46 0x47
+	HighLowByte ocr1b; // 0x48 0x49
+	HighLowByte ocr1a; // 0x4A 0x4B
+	HighLowByte tcnt1; // 0x4C 0x4D
+	union{
+		struct{
+			uint8_t cs10:1;
+			uint8_t cs11:1;
+			uint8_t cs12:1;
+			uint8_t wgm12:1;
+			uint8_t wgm13:1;
+			uint8_t reserved:1;
+			uint8_t ices1:1;
+			uint8_t icnc1:1;
+		}par;
+		uint8_t reg;
+	}tccr1b; // 0x4E
+	union{
+		struct{
+			uint8_t wgm10:1;
+			uint8_t wgm11:1;
+			uint8_t com1c0:1;
+			uint8_t com1c1:1;
+			uint8_t com1b0:1;
+			uint8_t com1b1:1;
+			uint8_t com1a0:1;
+			uint8_t com1a1:1;
+		}par;
+		uint8_t reg;
+	}tccr1a; // 0x4F
 	uint8_t fill1[6]; // (56 - 4F) - 1
-	volatile uint8_t tifr; // 0x56
-	volatile uint8_t timsk; // 0x57
+	union{
+		struct{
+			uint8_t tov0:1;
+			uint8_t ocf0:1;
+			uint8_t tov1:1;
+			uint8_t ocf1b:1;
+			uint8_t ocf1a:1;
+			uint8_t icf1:1;
+			uint8_t tov2:1;
+			uint8_t ocf2:1;
+		}par;
+		uint8_t reg;
+	}tifr; // 0x56
+	union{
+		struct{
+			uint8_t toie0:1;
+			uint8_t ocie0:1;
+			uint8_t toie1:1;
+			uint8_t ocie1b:1;
+			uint8_t ocie1a:1;
+			uint8_t ticie1:1;
+			uint8_t toie2:1;
+			uint8_t ocie2:1;
+		}par;
+		uint8_t reg;
+	}timsk; // 0x57
 	uint8_t fill2[32]; // (78 - 57) - 1
-	volatile HighLowByte ocr1c; // 0x78 0x79
-	volatile uint8_t tccr1c; // 0x7A
+	HighLowByte ocr1c; // 0x78 0x79
+	union{
+		struct{
+			uint8_t reserved:5;
+			uint8_t foc1c:1;
+			uint8_t foc1b:1;
+			uint8_t foc1a:1;
+		}par;
+		uint8_t reg;
+	}tccr1c; // 0x7A
 	uint8_t fill3; // (7C - 7A) - 1
-	volatile uint8_t etifr; // 0x7C
-	volatile uint8_t etimsk; // 0x7D
+	union{
+		struct{
+			uint8_t ocf1c:1;
+			uint8_t ocf3c:1;
+			uint8_t tov3:1;
+			uint8_t ocf3b:1;
+			uint8_t ocf3a:1;
+			uint8_t icf3:1;
+			uint8_t reserved:2;
+		}par;
+		uint8_t reg;
+	}etifr; // 0x7C
+	union{
+		struct{
+			uint8_t ocie1c:1;
+			uint8_t ocie3c:1;
+			uint8_t toie3:1;
+			uint8_t ocie3b:1;
+			uint8_t ocie3a:1;
+			uint8_t ticie3:1;
+			uint8_t reserved:2;
+		}par;
+		uint8_t reg;
+	}etimsk; // 0x7D
 } Atmega128TimerCounter1_TypeDef;
 
 // Timer/Counter, 16-bit (TC3)
-typedef struct {
-	volatile uint8_t etifr; // 0x7C
-	volatile uint8_t etimsk; // 0x7D
+typedef volatile struct {
+	union{
+		struct{
+			uint8_t ocf1c:1;
+			uint8_t ocf3c:1;
+			uint8_t tov3:1;
+			uint8_t ocf3b:1;
+			uint8_t ocf3a:1;
+			uint8_t icf3:1;
+			uint8_t reserved:2;
+		}par;
+		uint8_t reg;
+	}etifr; // 0x7C
+	union{
+		struct{
+			uint8_t ocie1c:1;
+			uint8_t ocie3c:1;
+			uint8_t toie3:1;
+			uint8_t ocie3b:1;
+			uint8_t ocie3a:1;
+			uint8_t ticie3:1;
+			uint8_t reserved:2;
+		}par;
+		uint8_t reg;
+	}etimsk; // 0x7D
 	uint8_t fill[2]; // (80 - 7D) - 1
-	volatile HighLowByte icr3; // 0x80 0x81
-	volatile HighLowByte ocr3c; // 0x82 0x83
-	volatile HighLowByte ocr3b; // 0x84 0x85
-	volatile HighLowByte ocr3a; // 0x86 0x87
-	volatile HighLowByte tcnt3; // 0x88 0x89
-	volatile uint8_t tccr3b; // 0x8A
-	volatile uint8_t tccr3a; // 0x8B
-	volatile uint8_t tccr3c; // 0x8C
+	HighLowByte icr3; // 0x80 0x81
+	HighLowByte ocr3c; // 0x82 0x83
+	HighLowByte ocr3b; // 0x84 0x85
+	HighLowByte ocr3a; // 0x86 0x87
+	HighLowByte tcnt3; // 0x88 0x89
+	union{
+		struct{
+			uint8_t cs30:1;
+			uint8_t cs31:1;
+			uint8_t cs32:1;
+			uint8_t wgm32:1;
+			uint8_t wgm33:1;
+			uint8_t reserved:1;
+			uint8_t ices3:1;
+			uint8_t icnc3:1;
+			
+		}par;
+		uint8_t reg;
+	}tccr3b; // 0x8A
+	union{
+		struct{
+			uint8_t wgm30:1;
+			uint8_t wgm31:1;
+			uint8_t com3c0:1;
+			uint8_t com3c1:1;
+			uint8_t com3b0:1;
+			uint8_t com3b1:1;
+			uint8_t com3a0:1;
+			uint8_t com3a1:1;
+		}par;
+		uint8_t reg;
+	}tccr3a; // 0x8B
+	union{
+		struct{
+			uint8_t reserved:5;
+			uint8_t foc3c:1;
+			uint8_t foc3b:1;
+			uint8_t foc3a:1;
+		}par;
+		uint8_t reg;
+	}tccr3c; // 0x8C
 } Atmega128TimerCounter3_TypeDef;
 
 // Timer/Counter 1 and 3
@@ -799,24 +932,153 @@ typedef volatile struct {
 } Atmega128TimerExternalInterruptMask_TypeDef;
 
 // Timer/Counter, 8-bit (TC2)
-typedef struct {
-	volatile uint8_t ocr2; // 0x43
-	volatile uint8_t tcnt2; // 0x44
-	volatile uint8_t tccr2; // 0x45
+typedef volatile struct {
+	union{
+		struct{
+			uint8_t bit0:1;
+			uint8_t bit1:1;
+			uint8_t bit2:1;
+			uint8_t bit3:1;
+			uint8_t bit4:1;
+			uint8_t bit5:1;
+			uint8_t bit6:1;
+			uint8_t bit7:1;
+		}par;
+		uint8_t reg;
+	}ocr2; // 0x43
+	union{
+		struct{
+			uint8_t bit0:1;
+			uint8_t bit1:1;
+			uint8_t bit2:1;
+			uint8_t bit3:1;
+			uint8_t bit4:1;
+			uint8_t bit5:1;
+			uint8_t bit6:1;
+			uint8_t bit7:1;
+		}par;
+		uint8_t reg;
+	}tcnt2; // 0x44
+	union{
+		struct{
+			uint8_t cs20:1;
+			uint8_t cs21:1;
+			uint8_t cs22:1;
+			uint8_t wgm21:1;
+			uint8_t com20:1;
+			uint8_t com21:1;
+			uint8_t wgm20:1;
+			uint8_t foc2:1;
+		}par;
+		uint8_t reg;
+	}tccr2; // 0x45
 	uint8_t fill[16]; // (56 - 45) - 1
-	volatile uint8_t tifr; // 0x56
-	volatile uint8_t timsk; // 0x57
+	union{
+		struct{
+			uint8_t tov0:1;
+			uint8_t ocf0:1;
+			uint8_t tov1:1;
+			uint8_t ocf1b:1;
+			uint8_t ocf1a:1;
+			uint8_t icf1:1;
+			uint8_t tov2:1;
+			uint8_t ocf2:1;
+		}par;
+		uint8_t reg;
+	}tifr; // 0x56
+	union{
+		struct{
+			uint8_t toie0:1;
+			uint8_t ocie0:1;
+			uint8_t toie1:1;
+			uint8_t ocie1b:1;
+			uint8_t ocie1a:1;
+			uint8_t ticie1:1;
+			uint8_t toie2:1;
+			uint8_t ocie2:1;
+		}par;
+		uint8_t reg;
+	}timsk; // 0x57
 } Atmega128TimerCounter2_TypeDef;
 
 // Timer/Counter, 8-bit A sync (TC0)
-typedef struct {
-	volatile uint8_t assr; // 0x50
-	volatile uint8_t ocr0; // 0x51
-	volatile uint8_t tcnt0; // 0x52
-	volatile uint8_t tccr0; // 0x53
+typedef volatile struct {
+	union{
+		struct{
+			uint8_t tcr0ub:1;
+			uint8_t ocr0ub:1;
+			uint8_t tcn0ub:1;
+			uint8_t as0:1;
+			uint8_t reserved:4;
+		}par;
+		uint8_t reg;
+	}assr; // 0x50
+	union{
+		struct{
+			uint8_t bit0:1;
+			uint8_t bit1:1;
+			uint8_t bit2:1;
+			uint8_t bit3:1;
+			uint8_t bit4:1;
+			uint8_t bit5:1;
+			uint8_t bit6:1;
+			uint8_t bit7:1;
+		}par;
+		uint8_t reg;
+	}ocr0; // 0x51
+	union{
+		struct{
+			uint8_t bit0:1;
+			uint8_t bit1:1;
+			uint8_t bit2:1;
+			uint8_t bit3:1;
+			uint8_t bit4:1;
+			uint8_t bit5:1;
+			uint8_t bit6:1;
+			uint8_t bit7:1;
+		}par;
+		uint8_t reg;
+	}tcnt0; // 0x52
+	union{
+		struct{
+			uint8_t cs00:1;
+			uint8_t cs01:1;
+			uint8_t cs02:1;
+			uint8_t wgm01:1;
+			uint8_t com00:1;
+			uint8_t com01:1;
+			uint8_t wgm00:1;
+			uint8_t foc0:1;
+		}par;
+		uint8_t reg;
+	}tccr0; // 0x53
 	uint8_t fill[2]; // (56 - 53) - 1
-	volatile uint8_t tifr; // 0x56
-	volatile uint8_t timsk; // 0x57
+	union{
+		struct{
+			uint8_t tov0:1;
+			uint8_t ocf0:1;
+			uint8_t tov1:1;
+			uint8_t ocf1b:1;
+			uint8_t ocf1a:1;
+			uint8_t icf1:1;
+			uint8_t tov2:1;
+			uint8_t ocf2:1;
+		}par;
+		uint8_t reg;
+	}tifr; // 0x56
+	union{
+		struct{
+			uint8_t toie0:1;
+			uint8_t ocie0:1;
+			uint8_t toie1:1;
+			uint8_t ocie1b:1;
+			uint8_t ocie1a:1;
+			uint8_t ticie1:1;
+			uint8_t toie2:1;
+			uint8_t ocie2:1;
+		}par;
+		uint8_t reg;
+	}timsk; // 0x57
 } Atmega128TimerCounter0_TypeDef;
 
 // Timer/Counter 0, 1 and 2
