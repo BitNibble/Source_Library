@@ -56,16 +56,8 @@ Comment:
 #endif
 
 /*** Global Variable ***/
-typedef struct {
-	// Parameters
-	uint16_t ubrr;
-	uint8_t FDbits;
-	uint8_t Stopbits;
-	uint8_t Parity;
-}uart0_parameter;
-
 typedef struct{
-	uart0_parameter par;
+	Atmega128Usart0_TypeDef* handle;
 	// prototype pointers
 	UARTvar (*read)(void);
 	UARTvar (*getch)(void);

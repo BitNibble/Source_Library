@@ -1387,23 +1387,14 @@ typedef struct { // IVSEL = 0
 
 #endif
 
+Atmega128Usart0_TypeDef* usart0_handle(void);
+Atmega128Usart1_TypeDef* usart1_handle(void);
+
 /***EOF***/
 
 /***
 MASK FLAG CONTROL STATUS
-*** BIT FIELD CONFIG ***
-union{
-	struct{
-		uint8_t bit0:1;
-		uint8_t bit1:1;
-		uint8_t bit2:1;
-		uint8_t bit3:1;
-		uint8_t bit4:1;
-		uint8_t bit5:1;
-		uint8_t bit6:1;
-		uint8_t bit7:1;
-	}par;
-	uint8_t reg;
-}<regname>;
+***
+Pointer only work if pointing at something that exists.
 ***/
 

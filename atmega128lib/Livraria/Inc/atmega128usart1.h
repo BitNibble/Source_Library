@@ -13,6 +13,7 @@ Comment:
 
 /*** Global Library ***/
 #include <inttypes.h>
+#include "query.h"
 
 /*** Global Constant & Macro ***/
 #ifndef ATMEGA_128_USART
@@ -57,16 +58,8 @@ Comment:
 #endif
 
 /*** Global Variable ***/
-typedef struct {
-	// Parameters
-	uint16_t ubrr;
-	uint8_t FDbits;
-	uint8_t Stopbits;
-	uint8_t Parity;
-}uart1_parameter;
-
 typedef struct{
-	uart1_parameter par;
+	Atmega128Usart1_TypeDef* handle;
 	// prototype pointers
 	UARTvar (*read)(void);
 	UARTvar (*getch)(void);
