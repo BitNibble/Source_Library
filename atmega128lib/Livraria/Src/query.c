@@ -10,7 +10,19 @@ Comment:
 **********************************************************/
 #include "query.h"
 
-/*** Procedure & Function Definition***/
+/*** Procedure & Function Handler***/
+Atmega128CPURegister_TypeDef* cpu_handle(void){
+	return (Atmega128CPURegister_TypeDef*) Atmega128CPURegister_Address;
+}
+Atmega128Usart0_TypeDef* usart0_handle(void)
+{
+	return (Atmega128Usart0_TypeDef*) Atmega128Usart0_Address;
+}
+Atmega128Usart1_TypeDef* usart1_handle(void)
+{
+	return (Atmega128Usart1_TypeDef*) Atmega128Usart1_Address;
+}
+/*** Procedure & Function ToolSet ***/
 uint8_t readreg(uint8_t reg, uint8_t size_block, uint8_t bit_n)
 {
 	if(bit_n > DATA_BITS){ bit_n = 0;} if(size_block > DATA_SIZE){ size_block = DATA_SIZE;}
@@ -56,20 +68,20 @@ void writereg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit_n, uint8_t 
 }
 uint16_t readhlbyte(HighLowByte reg)
 {
-	return (reg.H << 8) | reg.L;
+	return (reg.par.H << 8) | reg.par.L;
 }
 uint16_t readlhbyte(HighLowByte reg)
 {
-	return (reg.L << 8) | reg.H;
+	return (reg.par.L << 8) | reg.par.H;
 }
 HighLowByte writehlbyte(uint16_t val)
 {
-	HighLowByte reg; reg.H = (val >> 8); reg.L = val;
+	HighLowByte reg; reg.par.H = (val >> 8); reg.par.L = val;
 	return reg;
 }
 HighLowByte writelhbyte(uint16_t val)
 {
-	HighLowByte reg; reg.L = (val >> 8); reg.H = val;
+	HighLowByte reg; reg.par.L = (val >> 8); reg.par.H = val;
 	return reg;
 }
 uint16_t SwapByte(uint16_t num)

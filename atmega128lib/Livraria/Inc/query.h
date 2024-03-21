@@ -48,6 +48,10 @@ uint16_t swapbyte(uint16_t num);
 uint16_t BAUDRATEnormal(uint32_t BAUD);
 uint16_t BAUDRATEdouble(uint32_t BAUD);
 uint16_t BAUDRATEsynchronous(uint32_t BAUD);
+/*** Handlers ***/
+Atmega128CPURegister_TypeDef* cpu_handle(void);
+Atmega128Usart0_TypeDef* usart0_handle(void);
+Atmega128Usart1_TypeDef* usart1_handle(void);
 
 #endif
 

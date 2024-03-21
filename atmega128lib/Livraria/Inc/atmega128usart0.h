@@ -13,6 +13,7 @@ Comment:
 
 /*** Global Library ***/
 #include <inttypes.h>
+#include "query.h"
 
 /*** Global Constant & Macro ***/
 #ifndef ATMEGA_128_USART

@@ -48,10 +48,21 @@ Comment:
 
 /*** Global Variable ***/
 // Low Byte High Byte
-typedef struct {
-	uint8_t L; // Lower Address
-	uint8_t H; // Higher Address
+typedef union {
+	struct{
+		uint8_t L; // Lower Address
+		uint8_t H; // Higher Address
+	}par;
+	uint16_t reg;
 } HighLowByte;
+// Low Word High Word
+typedef union {
+	struct{
+		uint16_t L; // Lower Address
+		uint16_t H; // Higher Address
+	}par;
+	uint32_t reg;
+} HighLowWord;
 
 /***************************/
 /*** MAIN HARDWARE LAYER ***/
@@ -107,10 +118,7 @@ typedef volatile struct {
 
 // Analog to Digital Converter (ADC)
 typedef volatile struct {
-	union{
-		HighLowByte data;
-		uint16_t reg;
-	}adc; // 0x24 0x25
+	HighLowByte adc; // 0x24 0x25
 	union{
 		struct{
 			uint8_t adps:3;
@@ -1386,9 +1394,6 @@ typedef struct { // IVSEL = 0
 } Atmega128InterruptVectors_TypeDef;
 
 #endif
-
-Atmega128Usart0_TypeDef* usart0_handle(void);
-Atmega128Usart1_TypeDef* usart1_handle(void);
 
 /***EOF***/
 

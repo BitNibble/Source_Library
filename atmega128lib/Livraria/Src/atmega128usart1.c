@@ -9,7 +9,6 @@ Comment:
 	Stable
 *************************************************************************/
 /*** File Library ***/
-#include "atmega128mapping.h"
 #include "atmega128usart1.h"
 #include "buffer.h"
 #include <string.h>
@@ -66,8 +65,8 @@ USART1 usart1_enable( uint32_t baud, unsigned int FDbits, unsigned int Stopbits,
 		USART1DoubleTransmissionSpeed(); // Enable 2x speed
 		ubrr = BAUDRATEdouble(baud);
 	}
-	usart1_handle()->ubrr1h.reg = writehlbyte(ubrr).H;
-	usart1_handle()->ubrr1l.reg = writehlbyte(ubrr).L;
+	usart1_handle()->ubrr1h.reg = writehlbyte(ubrr).par.H;
+	usart1_handle()->ubrr1l.reg = writehlbyte(ubrr).par.L;
 	// Enable USART receiver and transmitter and receive complete interrupt
 	usart1_handle()->ucsr1b.reg = (1 << RXCIE1) | (1 << RXEN1)|(1 << TXEN1);
 	
@@ -130,7 +129,7 @@ USART1 usart1_enable( uint32_t baud, unsigned int FDbits, unsigned int Stopbits,
 			break;
 		}
 	#endif
-	atmega128()->cpu_reg->sreg.reg |= 1 << GLOBAL_INTERRUPT_ENABLE;
+	cpu_handle()->sreg.par.I = 1;
 	
 	return atmega128_usart1;
 }
@@ -218,10 +217,6 @@ char* usart1_messageprint(USART1* uart, char* oneshot, char* msg, const char* en
 }
 /***/
 /*** Auxiliar ***/
-Atmega128Usart1_TypeDef* usart1_handle(void)
-{
-	return (Atmega128Usart1_TypeDef*) Atmega128Usart1_Address;
-}
 uint8_t USART1ReceiveComplete(void)
 {
 	return (UCSR1A & (1 << RXC1));
