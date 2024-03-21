@@ -11,7 +11,12 @@ Comment:
 #include "query.h"
 
 /*** Procedure & Function Handler***/
-Atmega128CPURegister_TypeDef* cpu_handle(void){
+Atmega128GPWR_TypeDef* gpwr_handle(void)
+{
+	return (Atmega128GPWR_TypeDef*) Atmega128GPWR_Address;
+}
+Atmega128CPURegister_TypeDef* cpu_handle(void)
+{
 	return (Atmega128CPURegister_TypeDef*) Atmega128CPURegister_Address;
 }
 Atmega128Usart0_TypeDef* usart0_handle(void)

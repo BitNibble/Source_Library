@@ -40,30 +40,30 @@ EXINT0* exint(void){ return &atmega128_exint; }
 uint8_t INTERRUPT_reset_status(void)
 {
 	uint8_t reset, ret = 0;
-	reset = (atmega128()->cpu_reg->mcucsr.reg & 0x1F);
+	reset = (atmega128()->cpu_handle->mcucsr.reg & 0x1F);
 	switch(reset){
 		case 1: // Power-On Reset Flag
 			ret = 0;
-			atmega128()->cpu_reg->mcucsr.reg &= ~(1 << PORF);
+			atmega128()->cpu_handle->mcucsr.reg &= ~(1 << PORF);
 		break;
 		case 2: // External Reset Flag
-			atmega128()->cpu_reg->mcucsr.reg &= ~(1 << EXTRF);
+			atmega128()->cpu_handle->mcucsr.reg &= ~(1 << EXTRF);
 			ret = 1;
 		break;
 		case 4: // Brown-out Reset Flag
-			atmega128()->cpu_reg->mcucsr.reg &= ~(1 << BORF);
+			atmega128()->cpu_handle->mcucsr.reg &= ~(1 << BORF);
 			ret=2;
 		break;
 		case 8: // Watchdog Reset Flag
-			atmega128()->cpu_reg->mcucsr.reg &= ~(1 << WDRF);
+			atmega128()->cpu_handle->mcucsr.reg &= ~(1 << WDRF);
 			ret = 3;
 		break;
 		case 16: // JTAG Reset Flag
-			atmega128()->cpu_reg->mcucsr.reg &= ~(1 << JTRF);
+			atmega128()->cpu_handle->mcucsr.reg &= ~(1 << JTRF);
 			ret = 4;
 		break;
 		default: // clear all status
-			atmega128()->cpu_reg->mcucsr.reg &= ~(0x1F);
+			atmega128()->cpu_handle->mcucsr.reg &= ~(0x1F);
 		break;
 	}
 	return ret;
@@ -88,7 +88,7 @@ void INTERRUPT_set(uint8_t channel, uint8_t sense)
 				break;
 			}
 			atmega128()->exint_reg->eimsk.reg |= (1 << INT0);
-			atmega128()->cpu_reg->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
+			atmega128()->cpu_handle->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
 		break;
 		case 1: // PD1
 			atmega128()->exint_reg->eimsk.reg &= ~(1 << INT1);
@@ -107,7 +107,7 @@ void INTERRUPT_set(uint8_t channel, uint8_t sense)
 				break;
 			}
 			atmega128()->exint_reg->eimsk.reg |= (1 << INT1);
-			atmega128()->cpu_reg->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
+			atmega128()->cpu_handle->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
 		break;
 		case 2: // PD2
 			atmega128()->exint_reg->eimsk.reg &= ~(1 << INT2);
@@ -126,7 +126,7 @@ void INTERRUPT_set(uint8_t channel, uint8_t sense)
 				break;
 			}
 			atmega128()->exint_reg->eimsk.reg |= (1 << INT2);
-			atmega128()->cpu_reg->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
+			atmega128()->cpu_handle->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
 		break;
 		case 3: // PD3
 			atmega128()->exint_reg->eimsk.reg &= ~(1 << INT3);
@@ -145,7 +145,7 @@ void INTERRUPT_set(uint8_t channel, uint8_t sense)
 				break;
 			}
 			atmega128()->exint_reg->eimsk.reg |= (1 << INT3);
-			atmega128()->cpu_reg->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
+			atmega128()->cpu_handle->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
 		break;
 		case 4: // PE4
 			atmega128()->exint_reg->eimsk.reg &= ~(1 << INT4);
@@ -166,7 +166,7 @@ void INTERRUPT_set(uint8_t channel, uint8_t sense)
 				break;
 			}
 			atmega128()->exint_reg->eimsk.reg |= (1 << INT4);
-			atmega128()->cpu_reg->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
+			atmega128()->cpu_handle->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
 		break;
 		case 5: // PE5
 			atmega128()->exint_reg->eimsk.reg &= ~(1 << INT5);
@@ -187,7 +187,7 @@ void INTERRUPT_set(uint8_t channel, uint8_t sense)
 				break;
 			}
 			atmega128()->exint_reg->eimsk.reg |= (1 << INT5);
-			atmega128()->cpu_reg->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
+			atmega128()->cpu_handle->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
 		break;
 		case 6: // PE6
 			atmega128()->exint_reg->eimsk.reg &= ~(1 << INT6);
@@ -208,7 +208,7 @@ void INTERRUPT_set(uint8_t channel, uint8_t sense)
 				break;
 			}
 			atmega128()->exint_reg->eimsk.reg |= (1 << INT6);
-			atmega128()->cpu_reg->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
+			atmega128()->cpu_handle->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
 		break;
 		case 7: // PE7
 			atmega128()->exint_reg->eimsk.reg &= ~(1 << INT7);
@@ -229,7 +229,7 @@ void INTERRUPT_set(uint8_t channel, uint8_t sense)
 				break;
 			}
 			atmega128()->exint_reg->eimsk.reg |= (1 << INT7);
-			atmega128()->cpu_reg->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
+			atmega128()->cpu_handle->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
 		break;
 		default:
 			atmega128()->exint_reg->eimsk.reg = 0X00;
@@ -273,35 +273,35 @@ void INTERRUPT_on(uint8_t channel)
 	switch( channel ){
 		case 0:
 			atmega128()->exint_reg->eimsk.reg |= (1<<INT0);
-			atmega128()->cpu_reg->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
+			atmega128()->cpu_handle->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
 		break;
 		case 1:
 			atmega128()->exint_reg->eimsk.reg |= (1 << INT1);
-			atmega128()->cpu_reg->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
+			atmega128()->cpu_handle->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
 		break;
 		case 2:
 			atmega128()->exint_reg->eimsk.reg |= (1 << INT2);
-			atmega128()->cpu_reg->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
+			atmega128()->cpu_handle->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
 		break;
 		case 3:
 			atmega128()->exint_reg->eimsk.reg |= (1 << INT3);
-			atmega128()->cpu_reg->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
+			atmega128()->cpu_handle->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
 		break;
 		case 4:
 			atmega128()->exint_reg->eimsk.reg |= (1 << INT4);
-			atmega128()->cpu_reg->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
+			atmega128()->cpu_handle->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
 		break;
 		case 5:
 			atmega128()->exint_reg->eimsk.reg |= (1 << INT5);
-			atmega128()->cpu_reg->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
+			atmega128()->cpu_handle->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
 		break;
 		case 6:
 			atmega128()->exint_reg->eimsk.reg |= (1 << INT6);
-			atmega128()->cpu_reg->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
+			atmega128()->cpu_handle->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
 		break;
 		case 7:
 			atmega128()->exint_reg->eimsk.reg |= (1 << INT7);
-			atmega128()->cpu_reg->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
+			atmega128()->cpu_handle->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
 		break;
 		default:
 		break;

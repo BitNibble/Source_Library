@@ -21,7 +21,7 @@ void MoveInterruptsToBoot(void);
 /*** Procedure & Function ***/
 ATMEGA128 atmega128_enable(void){ 
 	
-	atmega.gpwr_reg = (Atmega128GPWR_TypeDef*) Atmega128GPWR_Address;
+	atmega.gpwr_handle = gpwr_handle();
 	atmega.ac_reg = (Atmega128AnalogComparator_TypeDef*) Atmega128AnalogComparator_Address;
 	atmega.ac_misc = (Atmega128OtherRegisters_TypeDef*) Atmega128OtherRegisters_Address;
 	#ifdef _ANALOG_MODULE_
@@ -32,7 +32,7 @@ ATMEGA128 atmega128_enable(void){
 		atmega.adc_reg = (Atmega128AnalogToDigitalConverter_TypeDef*) Atmega128AnalogToDigitalConverter_Address;
 	#endif
 	atmega.boot_load_reg = (Atmega128BootLoader_TypeDef*) Atmega128BootLoader_Address;
-	atmega.cpu_reg = (Atmega128CPURegister_TypeDef*) Atmega128CPURegister_Address;
+	atmega.cpu_handle = (Atmega128CPURegister_TypeDef*) Atmega128CPURegister_Address;
 	#ifdef _EEPROM_MODULE_
 		atmega.eeprom_reg = (Atmega128Eeprom_TypeDef*) Atmega128Eeprom_Address;
 		atmega.eeprom_enable = eeprom_enable;
@@ -105,19 +105,19 @@ ATMEGA128 atmega128_enable(void){
 		atmega.twi_reg = (Atmega128TwoWireSerialInterface_TypeDef*) Atmega128TwoWireSerialInterface_Address;
 	#endif
 	#ifdef _USART0_MODULE_
-		atmega.usart0_reg = (Atmega128Usart0_TypeDef*) Atmega128Usart0_Address;
+		atmega.usart0_handle = (Atmega128Usart0_TypeDef*) Atmega128Usart0_Address;
 		atmega.usart0_enable = usart0_enable;
 		atmega.usart0 = usart0();
 	#else
-		atmega.usart0_reg = (Atmega128Usart0_TypeDef*) Atmega128Usart0_Address;
+		atmega.usart0_handle = (Atmega128Usart0_TypeDef*) Atmega128Usart0_Address;
 	#endif
-		atmega.usart0_reg = (Atmega128Usart0_TypeDef*) Atmega128Usart0_Address;
+		atmega.usart0_handle = (Atmega128Usart0_TypeDef*) Atmega128Usart0_Address;
 	#ifdef _USART1_MODULE_
-		atmega.usart1_reg = (Atmega128Usart1_TypeDef*) Atmega128Usart1_Address;
+		atmega.usart1_handle = (Atmega128Usart1_TypeDef*) Atmega128Usart1_Address;
 		atmega.usart1_enable = usart1_enable;
 		atmega.usart1 = usart1();
 	#else
-		atmega.usart1_reg = (Atmega128Usart1_TypeDef*) Atmega128Usart1_Address;
+		atmega.usart1_handle = (Atmega128Usart1_TypeDef*) Atmega128Usart1_Address;
 	#endif
 	atmega.wdt_reg = (Atmega128WatchdogTimer_TypeDef*) Atmega128WatchdogTimer_Address;
 	/******/
@@ -135,24 +135,24 @@ void ClockPrescalerSelect(volatile uint8_t prescaler)
 	volatile uint8_t sreg;
 	volatile uint8_t* clkpr = &XDIV;
 	prescaler &= 0x7F;
-	sreg = atmega.cpu_reg->sreg.reg;
-	atmega.cpu_reg->sreg.reg &= ~(1 << 7);
+	sreg = atmega.cpu_handle->sreg.reg;
+	atmega.cpu_handle->sreg.reg &= ~(1 << 7);
 	
 	*clkpr = prescaler;
 	*clkpr = (1 << XDIVEN) | prescaler;
 	
-	atmega.cpu_reg->sreg.reg = sreg;
+	atmega.cpu_handle->sreg.reg = sreg;
 }
 void MoveInterruptsToBoot(void)
 {
 	volatile uint8_t sreg;
-	sreg = atmega.cpu_reg->sreg.reg;
-	atmega.cpu_reg->sreg.reg &= ~(1 << 7);
+	sreg = atmega.cpu_handle->sreg.reg;
+	atmega.cpu_handle->sreg.reg &= ~(1 << 7);
 	
 	MCUCR = (1<<IVCE);
 	MCUCR = (1<<IVSEL);
 	
-	atmega.cpu_reg->sreg.reg = sreg;
+	atmega.cpu_handle->sreg.reg = sreg;
 }
 
 /***EOF***/

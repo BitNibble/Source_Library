@@ -98,7 +98,7 @@ Comment:
 /*******************************************************************/
 typedef struct {
 	
-	Atmega128GPWR_TypeDef* gpwr_reg;
+	Atmega128GPWR_TypeDef* gpwr_handle;
 	Atmega128AnalogComparator_TypeDef* ac_reg;
 	Atmega128OtherRegisters_TypeDef* ac_misc;
 	#ifdef _ANALOG_MODULE_
@@ -109,7 +109,7 @@ typedef struct {
 		Atmega128AnalogToDigitalConverter_TypeDef* adc_reg;
 	#endif
 	Atmega128BootLoader_TypeDef* boot_load_reg;
-	Atmega128CPURegister_TypeDef* cpu_reg;
+	Atmega128CPURegister_TypeDef* cpu_handle;
 	#ifdef _EEPROM_MODULE_
 		Atmega128Eeprom_TypeDef* eeprom_reg;
 		EEPROM0 (*eeprom_enable)( void );
@@ -182,18 +182,18 @@ typedef struct {
 		Atmega128TwoWireSerialInterface_TypeDef* twi_reg;
 	#endif
 	#ifdef _USART0_MODULE_
-		Atmega128Usart0_TypeDef* usart0_reg;
+		Atmega128Usart0_TypeDef* usart0_handle;
 		USART0 (*usart0_enable)( uint32_t baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 		USART0* usart0;
 	#else
-		Atmega128Usart0_TypeDef* usart0_reg;
+		Atmega128Usart0_TypeDef* usart0_handle;
 	#endif
 	#ifdef _USART1_MODULE_
-		Atmega128Usart1_TypeDef* usart1_reg;
+		Atmega128Usart1_TypeDef* usart1_handle;
 		USART1 (*usart1_enable)( uint32_t baud, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 		USART1* usart1;
 	#else
-		Atmega128Usart1_TypeDef* usart1_reg;
+		Atmega128Usart1_TypeDef* usart1_handle;
 	#endif
 	Atmega128WatchdogTimer_TypeDef* wdt_reg;
 	//		Pointer Function

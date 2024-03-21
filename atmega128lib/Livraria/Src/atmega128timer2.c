@@ -53,16 +53,16 @@ TC2 tc2_enable(unsigned char wavegenmode, unsigned char interrupt)
 		break;
 		case 1:
 			atmega128()->tc2_reg->timsk.reg |= (1 << TOIE2);
-			atmega128()->cpu_reg->sreg.reg |= 1 << GLOBAL_INTERRUPT_ENABLE;
+			atmega128()->cpu_handle->sreg.reg |= 1 << GLOBAL_INTERRUPT_ENABLE;
 		break;
 		case 2:
 			atmega128()->tc2_reg->timsk.reg |= (1 << OCIE2);
-			atmega128()->cpu_reg->sreg.reg |= 1 << GLOBAL_INTERRUPT_ENABLE;
+			atmega128()->cpu_handle->sreg.reg |= 1 << GLOBAL_INTERRUPT_ENABLE;
 		break;
 		case 3:
 			atmega128()->tc2_reg->timsk.reg |= (1 << TOIE2);
 			atmega128()->tc2_reg->timsk.reg |= (1 << OCIE2);
-			atmega128()->cpu_reg->sreg.reg |= 1 << GLOBAL_INTERRUPT_ENABLE;
+			atmega128()->cpu_handle->sreg.reg |= 1 << GLOBAL_INTERRUPT_ENABLE;
 		break;
 		default:
 		break;

@@ -34,7 +34,12 @@ Comment:
 	#define DATA_BITS 7
 #endif
 
-/*** Procedure and Function Prototypes ***/
+/*** Procedure and Function Handler ***/
+Atmega128GPWR_TypeDef* gpwr_handle(void);
+Atmega128CPURegister_TypeDef* cpu_handle(void);
+Atmega128Usart0_TypeDef* usart0_handle(void);
+Atmega128Usart1_TypeDef* usart1_handle(void);
+/*** Procedure and Function ToolSet ***/
 uint8_t readreg(uint8_t reg, uint8_t size_block, uint8_t bit_n);
 uint8_t getsetbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit_n);
 void setreg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit_n, uint8_t data);
@@ -48,10 +53,6 @@ uint16_t swapbyte(uint16_t num);
 uint16_t BAUDRATEnormal(uint32_t BAUD);
 uint16_t BAUDRATEdouble(uint32_t BAUD);
 uint16_t BAUDRATEsynchronous(uint32_t BAUD);
-/*** Handlers ***/
-Atmega128CPURegister_TypeDef* cpu_handle(void);
-Atmega128Usart0_TypeDef* usart0_handle(void);
-Atmega128Usart1_TypeDef* usart1_handle(void);
 
 #endif
 

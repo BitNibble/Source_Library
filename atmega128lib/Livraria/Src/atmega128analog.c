@@ -132,7 +132,7 @@ ADC0 adc_enable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... )
 	atmega128()->adc_reg->adcsra.par.aden = 1;
 	
 	atmega128_adc.read = ANALOG_read;
-	atmega128()->cpu_reg->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
+	atmega128()->cpu_handle->sreg.reg |= (1 << GLOBAL_INTERRUPT_ENABLE);
 	
 	return atmega128_adc;
 }
