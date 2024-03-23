@@ -37,7 +37,7 @@ typedef volatile struct{
 		    uint32_t reserved3:2;
 	    }par;
 	    uint32_t reg;
-    }STM32FXXXRCC_CR_TypeDef;
+    }STM32FXXXRCC_CR_TypeDef; //0x00
     // PLLCFGR
     union{
 	    struct RCC_PLLCFGR_1{
@@ -53,7 +53,7 @@ typedef volatile struct{
 		    uint32_t reserved4:1;
 	    }par;
 	    uint32_t reg;
-    }STM32FXXXRCC_PLLCFGR_TypeDef;
+    }STM32FXXXRCC_PLLCFGR_TypeDef; //0x04
     // CFGR
     union{
 	    struct RCC_CFGR_1{
@@ -71,7 +71,7 @@ typedef volatile struct{
 		    uint32_t mco2:2;
 	    }par;
 	    uint32_t reg;
-    }STM32FXXXRCC_CFGR_TypeDef;
+    }STM32FXXXRCC_CFGR_TypeDef; //0x08
     // CIR
     union{
 	    struct RCC_CIR_1{
@@ -102,7 +102,7 @@ typedef volatile struct{
 		    uint32_t reserved2:8;
 	    }par;
 	    uint32_t reg;
-    }STM32FXXXRCC_CIR_TypeDef;
+    }STM32FXXXRCC_CIR_TypeDef; //0x0C
     // AHB1RSTR
     union{
 	    struct RCC_AHB1RSTR_1{
@@ -124,7 +124,7 @@ typedef volatile struct{
 		    uint32_t reserved4:2;
 	    }par;
 	    uint32_t reg;
-    }STM32FXXXRCC_AHB1RSTR_TypeDef;
+    }STM32FXXXRCC_AHB1RSTR_TypeDef; //0x10
     // AHB2RSTR
     union{
 	    struct RCC_AHB2RSTR_1{
@@ -134,7 +134,7 @@ typedef volatile struct{
 		    uint32_t reserved2:24;
 	    }par;
 	    uint32_t reg;
-    }STM32FXXXRCC_AHB2RSTR_TypeDef;
+    }STM32FXXXRCC_AHB2RSTR_TypeDef; //0x14
     // AHB3RSTR
     union{
 	    struct RCC_AHB3RSTR_1{
@@ -143,7 +143,9 @@ typedef volatile struct{
 		    uint32_t reserved2:30;
 	    }par;
 	    uint32_t reg;
-    }STM32FXXXRCC_AHB3RSTR_TypeDef;
+    }STM32FXXXRCC_AHB3RSTR_TypeDef; //0x18
+    //RESERVED
+    uint32_t reserved0; // 0x1C
     // APB1RSTR
     union{
 	    struct RCC_APB1RSTR_1{
@@ -178,7 +180,7 @@ typedef volatile struct{
 		    uint32_t reserved3:2;
 	    }par;
 	    uint32_t reg;
-    }STM32FXXXRCC_APB1RSTR_TypeDef;
+    }STM32FXXXRCC_APB1RSTR_TypeDef; // 0x20
     // APB2RSTR
     union{
 	    struct RCC_APB2RSTR_1{
@@ -204,7 +206,11 @@ typedef volatile struct{
 		    uint32_t reserved6:8;
 	    }par;
 	    uint32_t reg;
-    }STM32FXXXRCC_APB2RSTR_TypeDef;
+    }STM32FXXXRCC_APB2RSTR_TypeDef; //0x24
+    //RESERVED
+    uint32_t reserved1; //0x28
+    //RESERVED
+    uint32_t reserved2; //0x2C
     // AHB1ENR
     union{
 	    struct RCC_AHB1ENR_1{
@@ -229,7 +235,7 @@ typedef volatile struct{
 		    uint32_t reserved5:1;
 	    }par;
 	    uint32_t reg;
-    }STM32FXXXRCC_AHB1ENR_TypeDef;
+    }STM32FXXXRCC_AHB1ENR_TypeDef; //0x30
     // AHB2ENR
     union{
 	    struct RCC_AHB2ENR_1{
@@ -239,7 +245,7 @@ typedef volatile struct{
 		    uint32_t reserved2:24;
 	    }par;
 	    uint32_t reg;
-    }STM32FXXXRCC_AHB2ENR_TypeDef;
+    }STM32FXXXRCC_AHB2ENR_TypeDef; //0x34
     // AHB3ENR
     union{
 	    struct RCC_AHB3ENR_1{
@@ -248,7 +254,9 @@ typedef volatile struct{
 		    uint32_t reserved1:30;
 	    }par;
 	    uint32_t reg;
-    }STM32FXXXRCC_AHB3ENR_TypeDef;
+    }STM32FXXXRCC_AHB3ENR_TypeDef; //0x38
+    //RESERVED
+    uint32_t reserved3; //0x3C
     // APB1ENR
     union{
 	    struct RCC_APB1ENR_1{
@@ -283,7 +291,7 @@ typedef volatile struct{
 		    uint32_t reserved3:2;
 	    }par;
 	    uint32_t reg;
-    }STM32FXXXRCC_APB1ENR_TypeDef;
+    }STM32FXXXRCC_APB1ENR_TypeDef; // 0x40
     // APB2ENR
     union{
 	    struct RCC_APB2ENR_1{
@@ -310,7 +318,11 @@ typedef volatile struct{
 		    uint32_t reserved5:8;
 	    }par;
 	    uint32_t reg;
-    }STM32FXXXRCC_APB2ENR_TypeDef;
+    }STM32FXXXRCC_APB2ENR_TypeDef; //0x44
+    //RESERVED
+    uint32_t reserved4; //0x48
+    //RESERVED
+    uint32_t reserved5; //0x4C
     // AHB1LPENR
     union{
 	    struct RCC_AHB1LPENR_1{
@@ -338,7 +350,7 @@ typedef volatile struct{
 		    uint32_t reserved5:1;
 	    }par;
 	    uint32_t reg;
-    }STM32FXXXRCC_AHB1LPENR_TypeDef;
+    }STM32FXXXRCC_AHB1LPENR_TypeDef; //0x50
     // AHB2LPENR
     union{
 	    struct RCC_AHB2LPENR_1{
@@ -348,7 +360,7 @@ typedef volatile struct{
 		    uint32_t reserved2:24;
 	    }par;
 	    uint32_t reg;
-    }STM32FXXXRCC_AHB2LPENR_TypeDef;
+    }STM32FXXXRCC_AHB2LPENR_TypeDef; //0x54
     // AHB3LPENR
     union{
 	    struct RCC_AHB3LPENR_1{
@@ -357,7 +369,9 @@ typedef volatile struct{
 		    uint32_t reserved1:30;
 	    }par;
 	    uint32_t reg;
-    }STM32FXXXRCC_AHB3LPENR_TypeDef;
+    }STM32FXXXRCC_AHB3LPENR_TypeDef; //0x58
+    //RESERVED
+    uint32_t reserved6; //0x5C
     // APB1LPENR
     union{
 	    struct RCC_APB1LPENR_1{
@@ -392,7 +406,7 @@ typedef volatile struct{
 		    uint32_t reserved3:2;
 	    }par;
 	    uint32_t reg;
-    }STM32FXXXRCC_APB1LPENR_TypeDef;
+    }STM32FXXXRCC_APB1LPENR_TypeDef; //0x60
     // APB2LPENR
     union{
 	    struct RCC_APB2LPENR_1{
@@ -419,7 +433,11 @@ typedef volatile struct{
 		    uint32_t reserved5:8;
 	    }par;
 	    uint32_t reg;
-    }STM32FXXXRCC_APB2LPENR_TypeDef;
+    }STM32FXXXRCC_APB2LPENR_TypeDef; //0x64
+    //RESERVED
+    uint32_t reserved7; //0x68
+    //RESERVED
+    uint32_t reserved8; //0x6C
     // BDCR
     union{
 	    struct RCC_BDCR_1{
@@ -435,7 +453,7 @@ typedef volatile struct{
 		    uint32_t reserved3:15;
 	    }par;
 	    uint32_t reg;
-    }STM32FXXXRCC_BDCR_TypeDef;
+    }STM32FXXXRCC_BDCR_TypeDef; //0x70
     // CSR
     union{
 	    struct RCC_CSR_1{
@@ -452,7 +470,11 @@ typedef volatile struct{
 		    uint32_t lpwrrstf:1;
 	    }par;
 	    uint32_t reg;
-    }STM32FXXXRCC_CSR_TypeDef;
+    }STM32FXXXRCC_CSR_TypeDef; //0x74
+    //RESERVED
+    uint32_t reserved9; //0x78
+    //RESERVED
+    uint32_t reserved10; //0x7C
     // SSCGR
     union{
 	    struct RCC_SSCGR_1{
@@ -463,7 +485,7 @@ typedef volatile struct{
 		    uint32_t sscgen:1;
 	    }par;
 	    uint32_t reg;
-    }STM32FXXXRCC_SSCGR_TypeDef;
+    }STM32FXXXRCC_SSCGR_TypeDef; //0x80
     // PLLI2SCFGR
     union{
 	    struct RCC_PLLI2SCFGR_1{
@@ -477,7 +499,7 @@ typedef volatile struct{
 		    uint32_t reserved3:1;
 	    }par;
 	    uint32_t reg;
-    }STM32FXXXRCC_PLLI2SCFGR_TypeDef;
+    }STM32FXXXRCC_PLLI2SCFGR_TypeDef; //0x84
     // PLLSAICFGR
     union{
 	    struct RCC_PLLSAICFGR_1{
@@ -491,7 +513,7 @@ typedef volatile struct{
 		    uint32_t reserved3:1;
 	    }par;
 	    uint32_t reg;
-    }STM32FXXXRCC_PLLSAICFGR_TypeDef;
+    }STM32FXXXRCC_PLLSAICFGR_TypeDef; //0x88
     // DCKCFGR
     union{
 	    struct RCC_DCKCFGR_1{
@@ -507,7 +529,7 @@ typedef volatile struct{
 		    uint32_t reserved3:3;
 	    }par;
 	    uint32_t reg;
-    }STM32FXXXRCC_DCKCFGR_TypeDef;
+    }STM32FXXXRCC_DCKCFGR_TypeDef; // 0x8C
     // CKGATENR
     union{
 	    struct RCC_CKGATENR_1{
@@ -521,7 +543,7 @@ typedef volatile struct{
 		    uint32_t reserved1:25;
 	    }par;
 	    uint32_t reg;
-    }STM32FXXXRCC_CKGATENR_TypeDef;
+    }STM32FXXXRCC_CKGATENR_TypeDef; //0x90
     // DCKCFGR2
     union{
 	    struct RCC_DCKCFGR2_1{
@@ -535,7 +557,7 @@ typedef volatile struct{
 		    uint32_t reserved3:2;
 	    }par;
 	    uint32_t reg;
-    }STM32FXXXRCC_DCKCFGR2_TypeDef;
+    }STM32FXXXRCC_DCKCFGR2_TypeDef; //0x94
 }STM32FXXXRCC_RCC_TypeDef;
 
 #endif
