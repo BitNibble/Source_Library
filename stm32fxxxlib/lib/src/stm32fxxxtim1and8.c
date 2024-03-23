@@ -24,7 +24,7 @@ static STM32FXXXTIM1obj stm32fxxx_tim1;
 void STM32FXXXTim1Clock(uint8_t bool)
 {
 	//if(bool){RCC->APB2ENR |= (1 << 0);}else{RCC->APB2ENR &= ~(1 << 0);}
-	if(bool){rcc()->apb2enr->par.tim1en = 1;}else{rcc()->apb2enr->par.tim1en = 0;}
+	if(bool){rcc()->handle->apb2enr.par.tim1en = 1;}else{rcc()->handle->apb2enr.par.tim1en = 0;}
 }
 void STM32FXXXTim1Nvic(uint8_t value)
 { // 24, 25, 26, 27

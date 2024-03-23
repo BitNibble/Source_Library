@@ -325,47 +325,13 @@ STM32FXXXRCCobj* rcc_enable(void)
 {
 
 	/*** RCC Bit Mapping Link ***/
-	stm32fxxx_rcc.cr = (STM32FXXXRCC_CR_TypeDef*) &RCC->CR;
-	stm32fxxx_rcc.pllcfgr = (STM32FXXXRCC_PLLCFGR_TypeDef*) &RCC->PLLCFGR;
-	stm32fxxx_rcc.cfgr = (STM32FXXXRCC_CFGR_TypeDef*) &RCC->CFGR;
-	stm32fxxx_rcc.cir = (STM32FXXXRCC_CIR_TypeDef*) &RCC->CIR;
-	stm32fxxx_rcc.ahb1rstr = (STM32FXXXRCC_AHB1RSTR_TypeDef*) &RCC->AHB1RSTR;
-	stm32fxxx_rcc.ahb2rstr = (STM32FXXXRCC_AHB2RSTR_TypeDef*) &RCC->AHB2RSTR;
-	stm32fxxx_rcc.ahb3rstr = (STM32FXXXRCC_AHB3RSTR_TypeDef*) &RCC->AHB3RSTR;
-	stm32fxxx_rcc.apb1rstr = (STM32FXXXRCC_APB1RSTR_TypeDef*) &RCC->APB1RSTR;
-	stm32fxxx_rcc.apb2rstr = (STM32FXXXRCC_APB2RSTR_TypeDef*) &RCC->APB2RSTR;
-	stm32fxxx_rcc.ahb1enr = (STM32FXXXRCC_AHB1ENR_TypeDef*) &RCC->AHB1ENR;
-	stm32fxxx_rcc.ahb2enr = (STM32FXXXRCC_AHB2ENR_TypeDef*) &RCC->AHB2ENR;
-	stm32fxxx_rcc.ahb3enr = (STM32FXXXRCC_AHB3ENR_TypeDef*) &RCC->AHB3ENR;
-	stm32fxxx_rcc.apb1enr = (STM32FXXXRCC_APB1ENR_TypeDef*) &RCC->APB1ENR;
-	stm32fxxx_rcc.apb2enr = (STM32FXXXRCC_APB2ENR_TypeDef*) &RCC->APB2ENR;
-	stm32fxxx_rcc.ahb1lpenr = (STM32FXXXRCC_AHB1LPENR_TypeDef*) &RCC->AHB1LPENR;
-	stm32fxxx_rcc.ahb2lpenr = (STM32FXXXRCC_AHB2LPENR_TypeDef*) &RCC->AHB2LPENR;
-	stm32fxxx_rcc.ahb3lpenr = (STM32FXXXRCC_AHB3LPENR_TypeDef*) &RCC->AHB3LPENR;
-	stm32fxxx_rcc.apb1lpenr = (STM32FXXXRCC_APB1LPENR_TypeDef*) &RCC->APB1LPENR;
-	stm32fxxx_rcc.apb2lpenr = (STM32FXXXRCC_APB2LPENR_TypeDef*) &RCC->APB2LPENR;
-	stm32fxxx_rcc.bdcr = (STM32FXXXRCC_BDCR_TypeDef*) &RCC->BDCR;
-	stm32fxxx_rcc.csr = (STM32FXXXRCC_CSR_TypeDef*) &RCC->CSR;
-	stm32fxxx_rcc.sscgr = (STM32FXXXRCC_SSCGR_TypeDef*) &RCC->SSCGR;
-	stm32fxxx_rcc.plli2scfgr = (STM32FXXXRCC_PLLI2SCFGR_TypeDef*) &RCC->PLLI2SCFGR;
-	#ifdef STM32F446xx
-		stm32fxxx_rcc.pllsaicfgr = (STM32FXXXRCC_PLLSAICFGR_TypeDef*) &RCC->PLLSAICFGR;
-	#endif
-	stm32fxxx_rcc.dckcfgr = (STM32FXXXRCC_DCKCFGR_TypeDef*) &RCC->DCKCFGR;
-	#ifdef STM32F446xx
-		stm32fxxx_rcc.cgatenr = (STM32FXXXRCC_CGATENR_TypeDef*) &RCC->CGATENR;
-		stm32fxxx_rcc.dckcfgr2 = (STM32FXXXRCC_DCKCFGR2_TypeDef*) &RCC->DCKCFGR2;
-	#endif
+	stm32fxxx_rcc.handle = (STM32FXXXRCC_RCC_TypeDef*) RCC;
+	stm32fxxx_rcc.prescaler = STM32FXXXPrescaler;
 	/*** PLL ***/
 	stm32fxxx_rcc.pll = stm32fxxx_rcc_pll_inic();
 	stm32fxxx_rcc.plli2s = stm32fxxx_rcc_plli2s_inic();
 	stm32fxxx_rcc.pllsai = stm32fxxx_rcc_pllsai_inic();
-	stm32fxxx_rcc.prescaler = STM32FXXXPrescaler;
 	/*** Other ***/
-	stm32fxxx_rcc.pll_division = STM32FXXXPLLDivision;
-	stm32fxxx_rcc.pllclk_enable = STM32FXXXRccPLLCLKEnable;
-	stm32fxxx_rcc.plli2s_enable = STM32FXXXRccPLLI2SEnable;
-	stm32fxxx_rcc.pllsai_enable = STM32FXXXRccPLLSAIEnable;
 	stm32fxxx_rcc.inic = rcc_start;
 	stm32fxxx_rcc.henable = STM32FXXXRccHEnable;
 	stm32fxxx_rcc.hselect = STM32FXXXRccHSelect;
