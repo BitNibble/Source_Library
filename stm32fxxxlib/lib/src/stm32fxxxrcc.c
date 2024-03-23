@@ -391,3 +391,4 @@ STM32FXXXRCCobj* rcc(void){ return &stm32fxxx_rcc; };
 4º Casting
 ******/
 
+
