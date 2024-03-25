@@ -174,15 +174,7 @@ STM32FXXXGPIOA_HandleTypeDef* gpioa_enable(void)
 	/*** GPIOA RCC Clock Enable ***/
 	stm32fxxx_gpioa.clock = STM32FXXXGpioAclock;
 	/*** GPIOA Bit Mapping Link ***/
-	stm32fxxx_gpioa.moder = (GPIO_MODER_TypeDef*) &GPIOA->MODER;
-	stm32fxxx_gpioa.otyper = (GPIO_OTYPER_TypeDef*) &GPIOA->OTYPER;
-	stm32fxxx_gpioa.ospeedr = (GPIO_OSPEEDR_TypeDef*) &GPIOA->OSPEEDR;
-	stm32fxxx_gpioa.pupdr = (GPIO_PUPDR_TypeDef*) &GPIOA->PUPDR;
-	stm32fxxx_gpioa.idr = (GPIO_IDR_TypeDef*) &GPIOA->IDR;
-	stm32fxxx_gpioa.odr = (GPIO_ODR_TypeDef*) &GPIOA->ODR;
-	stm32fxxx_gpioa.bsrr = (GPIO_BSRR_TypeDef*) &GPIOA->BSRR;
-	stm32fxxx_gpioa.lckr = (GPIO_LCKR_TypeDef*) &GPIOA->LCKR;
-	stm32fxxx_gpioa.afr = STM32FXXXGpioAafr;
+	stm32fxxx_gpioa.handle = (GPIOX_TypeDef*) GPIOA;
 	/*** Other ***/
 	return &stm32fxxx_gpioa;
 }
@@ -197,15 +189,7 @@ STM32FXXXGPIOB_HandleTypeDef* gpiob_enable(void)
 	/*** GPIOB RCC Clock Enable ***/
 	stm32fxxx_gpiob.clock = STM32FXXXGpioBclock;
 	/*** GPIOB Bit Mapping Link ***/
-	stm32fxxx_gpiob.moder = (GPIO_MODER_TypeDef*) &GPIOB->MODER;
-	stm32fxxx_gpiob.otyper = (GPIO_OTYPER_TypeDef*) &GPIOB->OTYPER;
-	stm32fxxx_gpiob.ospeedr = (GPIO_OSPEEDR_TypeDef*) &GPIOB->OSPEEDR;
-	stm32fxxx_gpiob.pupdr = (GPIO_PUPDR_TypeDef*) &GPIOB->PUPDR;
-	stm32fxxx_gpiob.idr = (GPIO_IDR_TypeDef*) &GPIOB->IDR;
-	stm32fxxx_gpiob.odr = (GPIO_ODR_TypeDef*) &GPIOB->ODR;
-	stm32fxxx_gpiob.bsrr = (GPIO_BSRR_TypeDef*) &GPIOB->BSRR;
-	stm32fxxx_gpiob.lckr = (GPIO_LCKR_TypeDef*) &GPIOB->LCKR;
-	stm32fxxx_gpiob.afr = STM32FXXXGpioBafr;
+	stm32fxxx_gpiob.handle = (GPIOX_TypeDef*) GPIOB;
 	/*** Other ***/
 	return &stm32fxxx_gpiob;
 }
@@ -220,15 +204,7 @@ STM32FXXXGPIOC_HandleTypeDef* gpioc_enable(void)
 	/*** GPIOC RCC Clock Enable ***/
 	stm32fxxx_gpioc.clock = STM32FXXXGpioCclock;
 	/*** GPIOC Bit Mapping Link ***/
-	stm32fxxx_gpioc.moder = (GPIO_MODER_TypeDef*) &GPIOC->MODER;
-	stm32fxxx_gpioc.otyper = (GPIO_OTYPER_TypeDef*) &GPIOC->OTYPER;
-	stm32fxxx_gpioc.ospeedr = (GPIO_OSPEEDR_TypeDef*) &GPIOC->OSPEEDR;
-	stm32fxxx_gpioc.pupdr = (GPIO_PUPDR_TypeDef*) &GPIOC->PUPDR;
-	stm32fxxx_gpioc.idr = (GPIO_IDR_TypeDef*) &GPIOC->IDR;
-	stm32fxxx_gpioc.odr = (GPIO_ODR_TypeDef*) &GPIOC->ODR;
-	stm32fxxx_gpioc.bsrr = (GPIO_BSRR_TypeDef*) &GPIOC->BSRR;
-	stm32fxxx_gpioc.lckr = (GPIO_LCKR_TypeDef*) &GPIOC->LCKR;
-	stm32fxxx_gpioc.afr = STM32FXXXGpioCafr;
+	stm32fxxx_gpioc.handle = (GPIOX_TypeDef*) GPIOC;
 	/*** Other ***/
 	return &stm32fxxx_gpioc;
 }
@@ -243,15 +219,7 @@ STM32FXXXGPIOD_HandleTypeDef* gpiod_enable(void)
 	/*** GPIOD RCC Clock Enable ***/
 	stm32fxxx_gpiod.clock = STM32FXXXGpioDclock;
 	/*** GPIOD Bit Mapping Link ***/
-	stm32fxxx_gpiod.moder = (GPIO_MODER_TypeDef*) &GPIOD->MODER;
-	stm32fxxx_gpiod.otyper = (GPIO_OTYPER_TypeDef*) &GPIOD->OTYPER;
-	stm32fxxx_gpiod.ospeedr = (GPIO_OSPEEDR_TypeDef*) &GPIOD->OSPEEDR;
-	stm32fxxx_gpiod.pupdr = (GPIO_PUPDR_TypeDef*) &GPIOD->PUPDR;
-	stm32fxxx_gpiod.idr = (GPIO_IDR_TypeDef*) &GPIOD->IDR;
-	stm32fxxx_gpiod.odr = (GPIO_ODR_TypeDef*) &GPIOD->ODR;
-	stm32fxxx_gpiod.bsrr = (GPIO_BSRR_TypeDef*) &GPIOD->BSRR;
-	stm32fxxx_gpiod.lckr = (GPIO_LCKR_TypeDef*) &GPIOD->LCKR;
-	stm32fxxx_gpiod.afr = STM32FXXXGpioDafr;
+	stm32fxxx_gpiod.handle = (GPIOX_TypeDef*) GPIOD;
 	/*** Other ***/
 	return &stm32fxxx_gpiod;
 }
@@ -266,15 +234,7 @@ STM32FXXXGPIOE_HandleTypeDef* gpioe_enable(void)
 	/*** GPIOE RCC Clock Enable ***/
 	stm32fxxx_gpioe.clock = STM32FXXXGpioEclock;
 	/*** GPIOE Bit Mapping Link ***/
-	stm32fxxx_gpioe.moder = (GPIO_MODER_TypeDef*) &GPIOE->MODER;
-	stm32fxxx_gpioe.otyper = (GPIO_OTYPER_TypeDef*) &GPIOE->OTYPER;
-	stm32fxxx_gpioe.ospeedr = (GPIO_OSPEEDR_TypeDef*) &GPIOE->OSPEEDR;
-	stm32fxxx_gpioe.pupdr = (GPIO_PUPDR_TypeDef*) &GPIOE->PUPDR;
-	stm32fxxx_gpioe.idr = (GPIO_IDR_TypeDef*) &GPIOE->IDR;
-	stm32fxxx_gpioe.odr = (GPIO_ODR_TypeDef*) &GPIOE->ODR;
-	stm32fxxx_gpioe.bsrr = (GPIO_BSRR_TypeDef*) &GPIOE->BSRR;
-	stm32fxxx_gpioe.lckr = (GPIO_LCKR_TypeDef*) &GPIOE->LCKR;
-	stm32fxxx_gpioe.afr = STM32FXXXGpioEafr;
+	stm32fxxx_gpioe.handle = (GPIOX_TypeDef*) GPIOE;
 	/*** Other ***/
 	return &stm32fxxx_gpioe;
 }
@@ -290,15 +250,7 @@ STM32FXXXGPIOF_HandleTypeDef* gpiof_enable(void)
 	/*** GPIOF RCC Clock Enable ***/
 	stm32fxxx_gpiof.clock = STM32FXXXGpioFclock;
 	/*** GPIOF Bit Mapping Link ***/
-	stm32fxxx_gpiof.moder = (GPIO_MODER_TypeDef*) &GPIOF->MODER;
-	stm32fxxx_gpiof.otyper = (GPIO_OTYPER_TypeDef*) &GPIOF->OTYPER;
-	stm32fxxx_gpiof.ospeedr = (GPIO_OSPEEDR_TypeDef*) &GPIOF->OSPEEDR;
-	stm32fxxx_gpiof.pupdr = (GPIO_PUPDR_TypeDef*) &GPIOF->PUPDR;
-	stm32fxxx_gpiof.idr = (GPIO_IDR_TypeDef*) &GPIOF->IDR;
-	stm32fxxx_gpiof.odr = (GPIO_ODR_TypeDef*) &GPIOF->ODR;
-	stm32fxxx_gpiof.bsrr = (GPIO_BSRR_TypeDef*) &GPIOF->BSRR;
-	stm32fxxx_gpiof.lckr = (GPIO_LCKR_TypeDef*) &GPIOF->LCKR;
-	stm32fxxx_gpiof.afr = STM32FXXXGpioFafr;
+	stm32fxxx_gpiof.handle = (GPIOX_TypeDef*) GPIOF;
 	/*** Other ***/
 	return &stm32fxxx_gpiof;
 }
@@ -313,15 +265,7 @@ STM32FXXXGPIOG_HandleTypeDef* gpiog_enable(void)
 	/*** GPIOG RCC Clock Enable ***/
 	stm32fxxx_gpiog.clock = STM32FXXXGpioGclock;
 	/*** GPIOG Bit Mapping Link ***/
-	stm32fxxx_gpiog.moder = (GPIO_MODER_TypeDef*) &GPIOG->MODER;
-	stm32fxxx_gpiog.otyper = (GPIO_OTYPER_TypeDef*) &GPIOG->OTYPER;
-	stm32fxxx_gpiog.ospeedr = (GPIO_OSPEEDR_TypeDef*) &GPIOG->OSPEEDR;
-	stm32fxxx_gpiog.pupdr = (GPIO_PUPDR_TypeDef*) &GPIOG->PUPDR;
-	stm32fxxx_gpiog.idr = (GPIO_IDR_TypeDef*) &GPIOG->IDR;
-	stm32fxxx_gpiog.odr = (GPIO_ODR_TypeDef*) &GPIOG->ODR;
-	stm32fxxx_gpiog.bsrr = (GPIO_BSRR_TypeDef*) &GPIOG->BSRR;
-	stm32fxxx_gpiog.lckr = (GPIO_LCKR_TypeDef*) &GPIOG->LCKR;
-	stm32fxxx_gpiog.afr = STM32FXXXGpioGafr;
+	stm32fxxx_gpiog.handle = (GPIOX_TypeDef*) GPIOG;
 	/*** Other ***/
 	return &stm32fxxx_gpiog;
 }
@@ -337,15 +281,7 @@ STM32FXXXGPIOH_HandleTypeDef* gpioh_enable(void)
 	/*** GPIOH RCC Clock Enable ***/
 	stm32fxxx_gpioh.clock = STM32FXXXGpioHclock;
 	/*** GPIOH Bit Mapping Link ***/
-	stm32fxxx_gpioh.moder = (GPIO_MODER_TypeDef*) &GPIOH->MODER;
-	stm32fxxx_gpioh.otyper = (GPIO_OTYPER_TypeDef*) &GPIOH->OTYPER;
-	stm32fxxx_gpioh.ospeedr = (GPIO_OSPEEDR_TypeDef*) &GPIOH->OSPEEDR;
-	stm32fxxx_gpioh.pupdr = (GPIO_PUPDR_TypeDef*) &GPIOH->PUPDR;
-	stm32fxxx_gpioh.idr = (GPIO_IDR_TypeDef*) &GPIOH->IDR;
-	stm32fxxx_gpioh.odr = (GPIO_ODR_TypeDef*) &GPIOH->ODR;
-	stm32fxxx_gpioh.bsrr = (GPIO_BSRR_TypeDef*) &GPIOH->BSRR;
-	stm32fxxx_gpioh.lckr = (GPIO_LCKR_TypeDef*) &GPIOH->LCKR;
-	stm32fxxx_gpioh.afr = STM32FXXXGpioHafr;
+	stm32fxxx_gpioh.handle = (GPIOX_TypeDef*) GPIOH;
 	/*** Other ***/
 	return &stm32fxxx_gpioh;
 }
