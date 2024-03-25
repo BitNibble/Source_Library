@@ -19,25 +19,7 @@ typedef struct
 {
 
 	/*** Bit Mapping ***/
-	STM32FXXXTIM2to5_CR1_TypeDef* cr1;
-	STM32FXXXTIM2to5_CR2_TypeDef* cr2;
-	STM32FXXXTIM2to5_SMCR_TypeDef* smcr;
-	STM32FXXXTIM2to5_DIER_TypeDef* dier;
-	STM32FXXXTIM2to5_SR_TypeDef* sr;
-	STM32FXXXTIM2to5_EGR_TypeDef* egr;
-	STM32FXXXTIM2to5_CCMR1_TypeDef* ccmr1;
-	STM32FXXXTIM2to5_CCMR2_TypeDef* ccmr2;
-	STM32FXXXTIM2to5_CCER_TypeDef* ccer;
-	STM32FXXXTIM2to5_DCR_TypeDef* dcr;
-	STM32FXXXTIM2to5_CNT_TypeDef* cnt;
-	STM32FXXXTIM2to5_PSC_TypeDef* psc;
-	STM32FXXXTIM2to5_ARR_TypeDef* arr;
-	STM32FXXXTIM2to5_CCR1_TypeDef* ccr1;
-	STM32FXXXTIM2to5_CCR2_TypeDef* ccr2;
-	STM32FXXXTIM2to5_CCR3_TypeDef* ccr3;
-	STM32FXXXTIM2to5_CCR4_TypeDef* ccr4;
-	STM32FXXXTIM2to5_DMAR_TypeDef* dmar;
-	STM32FXXXTIM2and5_OR_TypeDef* or;
+	STM32FXXXTIMXX_TypeDef* handle;
 	/*** Other ***/
 	void (*clock)(uint8_t bool);
 	void (*nvic)(uint8_t bool);
@@ -47,24 +29,7 @@ typedef struct
 {
 
 	/*** Bit Mapping ***/
-	STM32FXXXTIM2to5_CR1_TypeDef* cr1;
-	STM32FXXXTIM2to5_CR2_TypeDef* cr2;
-	STM32FXXXTIM2to5_SMCR_TypeDef* smcr;
-	STM32FXXXTIM2to5_DIER_TypeDef* dier;
-	STM32FXXXTIM2to5_SR_TypeDef* sr;
-	STM32FXXXTIM2to5_EGR_TypeDef* egr;
-	STM32FXXXTIM2to5_CCMR1_TypeDef* ccmr1;
-	STM32FXXXTIM2to5_CCMR2_TypeDef* ccmr2;
-	STM32FXXXTIM2to5_CCER_TypeDef* ccer;
-	STM32FXXXTIM2to5_DCR_TypeDef* dcr;
-	STM32FXXXTIM2to5_CNT_TypeDef* cnt;
-	STM32FXXXTIM2to5_PSC_TypeDef* psc;
-	STM32FXXXTIM2to5_ARR_TypeDef* arr;
-	STM32FXXXTIM2to5_CCR1_TypeDef* ccr1;
-	STM32FXXXTIM2to5_CCR2_TypeDef* ccr2;
-	STM32FXXXTIM2to5_CCR3_TypeDef* ccr3;
-	STM32FXXXTIM2to5_CCR4_TypeDef* ccr4;
-	STM32FXXXTIM2to5_DMAR_TypeDef* dmar;
+	STM32FXXXTIMXX_TypeDef* handle;
 	/*** Other ***/
 	void (*clock)(uint8_t bool);
 	void (*nvic)(uint8_t bool);

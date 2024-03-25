@@ -381,5 +381,10 @@ void resetpin( GPIO_TypeDef* reg, uint8_t pin )
 	reg->BSRR = (uint32_t)((1 << pin) << 16);
 }
 
+STM32FXXXRCC_RCC_TypeDef* rcc_handle(void)
+{
+	return (STM32FXXXRCC_RCC_TypeDef*) RCC;
+}
+
 /***EOF***/
 

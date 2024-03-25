@@ -18,18 +18,7 @@ Comment:
 typedef struct
 {
 	/*** Bit Field ***/
-	STM32FXXXTIM9to14_CR1_TypeDef* cr1;
-	STM32FXXXTIM9and12_SMCR_TypeDef* smcr;
-	STM32FXXXTIM9and12_DIER_TypeDef* dier;
-	STM32FXXXTIM9and12_SR_TypeDef* sr;
-	STM32FXXXTIM9and12_EGR_TypeDef* egr;
-	STM32FXXXTIM9and12_CCMR1_TypeDef* ccmr1;
-	STM32FXXXTIM9and12_CCER_TypeDef* ccer;
-	STM32FXXXTIM9to14_CNT_TypeDef* cnt;
-	STM32FXXXTIM9to14_PSC_TypeDef* psc;
-	STM32FXXXTIM9to14_ARR_TypeDef* arr;
-	STM32FXXXTIM9to14_CCR1_TypeDef* ccr1;
-	STM32FXXXTIM9and12_CCR2_TypeDef* ccr2;
+	STM32FXXXTIMXX_TypeDef* handle;
 	/*** Other ***/
 	void (*clock)(uint8_t bool);
 	void (*nvic)(uint8_t bool);
@@ -38,17 +27,7 @@ typedef struct
 typedef struct
 {
 	/*** Bit Field ***/
-	STM32FXXXTIM9to14_CR1_TypeDef* cr1;
-	STM32FXXXTIM10and11_DIER_TypeDef* dier;
-	STM32FXXXTIM10and11_SR_TypeDef* sr;
-	STM32FXXXTIM10and11_EGR_TypeDef* egr;
-	STM32FXXXTIM10and11_CCMR1_TypeDef* ccmr1;
-	STM32FXXXTIM10and11_CCER_TypeDef* ccer;
-	STM32FXXXTIM9to14_CNT_TypeDef* cnt;
-	STM32FXXXTIM9to14_PSC_TypeDef* psc;
-	STM32FXXXTIM9to14_ARR_TypeDef* arr;
-	STM32FXXXTIM9to14_CCR1_TypeDef* ccr1;
-	STM32FXXXTIM10and11_OR_TypeDef* or;
+	STM32FXXXTIMXX_TypeDef* handle;
 	/*** Other ***/
 	void (*clock)(uint8_t bool);
 	void (*nvic)(uint8_t bool);

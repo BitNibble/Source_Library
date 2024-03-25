@@ -19,14 +19,7 @@ typedef struct
 {
 
 	/*** Bit Mapping ***/
-	STM32FXXXTIM6and7_CR1_TypeDef* cr1;
-	STM32FXXXTIM6and7_CR2_TypeDef* cr2;
-	STM32FXXXTIM6and7_DIER_TypeDef* dier;
-	STM32FXXXTIM6and7_SR_TypeDef* sr;
-	STM32FXXXTIM6and7_EGR_TypeDef* egr;
-	STM32FXXXTIM6and7_CNT_TypeDef* cnt;
-	STM32FXXXTIM6and7_PSC_TypeDef* psc;
-	STM32FXXXTIM6and7_ARR_TypeDef* arr;
+	STM32FXXXTIMXX_TypeDef* handle;
 	/*** Other ***/
 	void (*clock)(uint8_t bool);
 	void (*nvic)(uint8_t bool);

@@ -17,6 +17,10 @@ Comment:
 	#define STM32F411xE
 #endif
 #include "stm32f4xx.h"
+/*** wrapper ***/
+#include "stm32rccbf.h"
+#include "stm32timbf.h"
+/******/
 #include <inttypes.h>
 
 #ifndef HSI_RC
@@ -148,6 +152,7 @@ uint8_t getpllp(void);
 uint8_t getpllq(void);
 uint8_t getpllr(void);
 
+STM32FXXXRCC_RCC_TypeDef* rcc_handle(void);
 
 STM32FXXXQuery query_enable(void);
 STM32FXXXQuery* query(void);
