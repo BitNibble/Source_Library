@@ -325,7 +325,7 @@ STM32FXXXRCCobj* rcc_enable(void)
 {
 
 	/*** RCC Bit Mapping Link ***/
-	stm32fxxx_rcc.handle = (STM32FXXXRCC_RCC_TypeDef*) RCC;
+	stm32fxxx_rcc.handle = (STM32FXXXRCC_TypeDef*) RCC;
 	stm32fxxx_rcc.prescaler = STM32FXXXPrescaler;
 	/*** PLL ***/
 	stm32fxxx_rcc.pll = stm32fxxx_rcc_pll_inic();

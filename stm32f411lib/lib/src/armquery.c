@@ -381,9 +381,18 @@ void resetpin( GPIO_TypeDef* reg, uint8_t pin )
 	reg->BSRR = (uint32_t)((1 << pin) << 16);
 }
 
-STM32FXXXRCC_RCC_TypeDef* rcc_handle(void)
+
+STM32FXXXGPIOX_TypeDef* gpioa_handle(void)
 {
-	return (STM32FXXXRCC_RCC_TypeDef*) RCC;
+	return (STM32FXXXGPIOX_TypeDef*) GPIOA;
+}
+STM32FXXXRCC_TypeDef* rcc_handle(void)
+{
+	return (STM32FXXXRCC_TypeDef*) RCC;
+}
+STM32FXXXTIMXX_TypeDef* tim1_handle(void)
+{
+	return (STM32FXXXTIMXX_TypeDef*) TIM1;
 }
 
 /***EOF***/

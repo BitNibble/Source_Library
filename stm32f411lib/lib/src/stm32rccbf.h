@@ -562,7 +562,7 @@ typedef volatile struct{
 	    uint32_t reg;
     }dckcfgr2; //0x94
 	#endif
-}STM32FXXXRCC_RCC_TypeDef;
+}STM32FXXXRCC_TypeDef;
 
 #endif
 

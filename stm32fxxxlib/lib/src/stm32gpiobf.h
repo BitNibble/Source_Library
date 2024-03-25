@@ -11,7 +11,6 @@ Comment:
 #ifndef _STM32GPIOBF_H_
 	#define _STM32GPIOBF_H_
 
-/*** File Library ***/
 #include <inttypes.h>
 
 volatile typedef struct{
@@ -254,7 +253,7 @@ volatile typedef struct{
 		uint32_t regl; //0x20
 		uint32_t regh; //0x24
 	} afr;
-} GPIOX_TypeDef;
+} STM32FXXXGPIOX_TypeDef;
 
 #endif
 

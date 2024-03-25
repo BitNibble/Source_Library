@@ -21,7 +21,7 @@ typedef struct
 {
 
 	/*** BitField Mapping ***/
-	GPIOX_TypeDef* handle;
+	STM32FXXXGPIOX_TypeDef* handle;
 	/*** Other ***/
 	void (*clock)( uint8_t bool );
 

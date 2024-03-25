@@ -18,6 +18,7 @@ Comment:
 #endif
 #include "stm32f4xx.h"
 /*** wrapper ***/
+#include "stm32gpiobf.h"
 #include "stm32rccbf.h"
 #include "stm32timbf.h"
 /******/
@@ -152,7 +153,9 @@ uint8_t getpllp(void);
 uint8_t getpllq(void);
 uint8_t getpllr(void);
 
-STM32FXXXRCC_RCC_TypeDef* rcc_handle(void);
+STM32FXXXGPIOX_TypeDef* gpioa_handle(void);
+STM32FXXXRCC_TypeDef* rcc_handle(void);
+STM32FXXXTIMXX_TypeDef* tim1_handle(void);
 
 STM32FXXXQuery query_enable(void);
 STM32FXXXQuery* query(void);
