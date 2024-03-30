@@ -6,7 +6,7 @@ License: GNU General Public License
 Hardware: STM32-XXX
 Date: 05032024
 Comment:
-	RCC BIT FIELD TypeDef for STM32F411CEU6 and STM32F446RE
+	wrapper
 *******************************************************************************/
 #ifndef _STM32RCCBF_H_
 	#define _STM32RCCBF_H_

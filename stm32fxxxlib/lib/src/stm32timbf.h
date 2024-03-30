@@ -6,7 +6,7 @@ License: GNU General Public License
 Hardware: STM32-XXX
 Date: 23022024
 Comment:
-	TIMER BIT FIELD TypeDef for STM32F411CEU6 and STM32F446RE
+	wrapper
 *******************************************************************************/
 #ifndef _STM32TIMBF_H_
 	#define _STM32TIMBF_H_

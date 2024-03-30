@@ -353,13 +353,7 @@ STM32FXXX_USART1* usart1_enable(void)
 {
 
 	/*** USART1 Bit Mapping Link ***/
-	stm32fxxx_usart1.sr = (STM32FXXXUSART_SR_TypeDef*) &USART1->SR;
-	stm32fxxx_usart1.dr = (STM32FXXXUSART_DR_TypeDef*) &USART1->DR;
-	stm32fxxx_usart1.brr = (STM32FXXXUSART_BRR_TypeDef*) &USART1->BRR;
-	stm32fxxx_usart1.cr1 = (STM32FXXXUSART_CR1_TypeDef*) &USART1->CR1;
-	stm32fxxx_usart1.cr2 = (STM32FXXXUSART_CR2_TypeDef*) &USART1->CR2;
-	stm32fxxx_usart1.cr3 = (STM32FXXXUSART_CR3_TypeDef*) &USART1->CR3;
-	stm32fxxx_usart1.gtpr = (STM32FXXXUSART_GTPR_TypeDef*) &USART1->GTPR;
+	stm32fxxx_usart1.handle = (TM32FXXXUSART_USARTX_TypeDef*) USART1;
 	// Other
 	stm32fxxx_usart1.clock = STM32FXXXUsart1Clock;
 	stm32fxxx_usart1.nvic = STM32FXXXUsart1Nvic;
@@ -375,13 +369,7 @@ STM32FXXX_USART2* usart2_enable(void)
 {
 
 	/*** USART2 Bit Mapping Link ***/
-	stm32fxxx_usart2.sr = (STM32FXXXUSART_SR_TypeDef*) &USART2->SR;
-	stm32fxxx_usart2.dr = (STM32FXXXUSART_DR_TypeDef*) &USART2->DR;
-	stm32fxxx_usart2.brr = (STM32FXXXUSART_BRR_TypeDef*) &USART2->BRR;
-	stm32fxxx_usart2.cr1 = (STM32FXXXUSART_CR1_TypeDef*) &USART2->CR1;
-	stm32fxxx_usart2.cr2 = (STM32FXXXUSART_CR2_TypeDef*) &USART2->CR2;
-	stm32fxxx_usart2.cr3 = (STM32FXXXUSART_CR3_TypeDef*) &USART2->CR3;
-	stm32fxxx_usart2.gtpr = (STM32FXXXUSART_GTPR_TypeDef*) &USART2->GTPR;
+	stm32fxxx_usart2.handle = (TM32FXXXUSART_USARTX_TypeDef*) USART2;
 	// Other
 	stm32fxxx_usart2.clock = STM32FXXXUsart2Clock;
 	stm32fxxx_usart2.nvic = STM32FXXXUsart2Nvic;
@@ -397,13 +385,7 @@ STM32FXXX_USART3* usart3_enable(void)
 {
 
 	/*** USART3 Bit Mapping Link ***/
-	stm32fxxx_usart3.sr = (STM32FXXXUSART_SR_TypeDef*) &USART3->SR;
-	stm32fxxx_usart3.dr = (STM32FXXXUSART_DR_TypeDef*) &USART3->DR;
-	stm32fxxx_usart3.brr = (STM32FXXXUSART_BRR_TypeDef*) &USART3->BRR;
-	stm32fxxx_usart3.cr1 = (STM32FXXXUSART_CR1_TypeDef*) &USART3->CR1;
-	stm32fxxx_usart3.cr2 = (STM32FXXXUSART_CR2_TypeDef*) &USART3->CR2;
-	stm32fxxx_usart3.cr3 = (STM32FXXXUSART_CR3_TypeDef*) &USART3->CR3;
-	stm32fxxx_usart3.gtpr = (STM32FXXXUSART_GTPR_TypeDef*) &USART3->GTPR;
+	stm32fxxx_usart3.handle = (TM32FXXXUSART_USARTX_TypeDef*) USART3;
 	// Other
 	stm32fxxx_usart3.clock = STM32FXXXUsart3Clock;
 	stm32fxxx_usart3.nvic = STM32FXXXUsart3Nvic;
@@ -418,13 +400,7 @@ STM32FXXX_UART4* uart4_enable(void)
 {
 
 	/*** UART4 Bit Mapping Link ***/
-	stm32fxxx_uart4.sr = (STM32FXXXUSART_SR_TypeDef*) &UART4->SR;
-	stm32fxxx_uart4.dr = (STM32FXXXUSART_DR_TypeDef*) &UART4->DR;
-	stm32fxxx_uart4.brr = (STM32FXXXUSART_BRR_TypeDef*) &UART4->BRR;
-	stm32fxxx_uart4.cr1 = (STM32FXXXUSART_CR1_TypeDef*) &UART4->CR1;
-	stm32fxxx_uart4.cr2 = (STM32FXXXUSART_CR2_TypeDef*) &UART4->CR2;
-	stm32fxxx_uart4.cr3 = (STM32FXXXUSART_CR3_TypeDef*) &UART4->CR3;
-	stm32fxxx_uart4.gtpr = (STM32FXXXUSART_GTPR_TypeDef*) &UART4->GTPR;
+	stm32fxxx_uart4.handle = (TM32FXXXUSART_USARTX_TypeDef*) UART4;
 	// Other
 	stm32fxxx_uart4.clock = STM32FXXXUart4Clock;
 	stm32fxxx_uart4.nvic = STM32FXXXUart4Nvic;
@@ -439,13 +415,7 @@ STM32FXXX_UART5* uart5_enable(void)
 {
 
 	/*** UART5 Bit Mapping Link ***/
-	stm32fxxx_uart5.sr = (STM32FXXXUSART_SR_TypeDef*) &UART5->SR;
-	stm32fxxx_uart5.dr = (STM32FXXXUSART_DR_TypeDef*) &UART5->DR;
-	stm32fxxx_uart5.brr = (STM32FXXXUSART_BRR_TypeDef*) &UART5->BRR;
-	stm32fxxx_uart5.cr1 = (STM32FXXXUSART_CR1_TypeDef*) &UART5->CR1;
-	stm32fxxx_uart5.cr2 = (STM32FXXXUSART_CR2_TypeDef*) &UART5->CR2;
-	stm32fxxx_uart5.cr3 = (STM32FXXXUSART_CR3_TypeDef*) &UART5->CR3;
-	stm32fxxx_uart5.gtpr = (STM32FXXXUSART_GTPR_TypeDef*) &UART5->GTPR;
+	stm32fxxx_uart5.handle = (TM32FXXXUSART_USARTX_TypeDef*) UART5;
 	// Other
 	stm32fxxx_uart5.clock = STM32FXXXUart5Clock;
 	stm32fxxx_uart5.nvic = STM32FXXXUart5Nvic;
@@ -461,13 +431,7 @@ STM32FXXX_USART6* usart6_enable(void)
 {
 
 	/*** USART6 Bit Mapping Link ***/
-	stm32fxxx_usart6.sr = (STM32FXXXUSART_SR_TypeDef*) &USART6->SR;
-	stm32fxxx_usart6.dr = (STM32FXXXUSART_DR_TypeDef*) &USART6->DR;
-	stm32fxxx_usart6.brr = (STM32FXXXUSART_BRR_TypeDef*) &USART6->BRR;
-	stm32fxxx_usart6.cr1 = (STM32FXXXUSART_CR1_TypeDef*) &USART6->CR1;
-	stm32fxxx_usart6.cr2 = (STM32FXXXUSART_CR2_TypeDef*) &USART6->CR2;
-	stm32fxxx_usart6.cr3 = (STM32FXXXUSART_CR3_TypeDef*) &USART6->CR3;
-	stm32fxxx_usart6.gtpr = (STM32FXXXUSART_GTPR_TypeDef*) &USART6->GTPR;
+	stm32fxxx_usart6.handle = (TM32FXXXUSART_USARTX_TypeDef*) USART6;
 	// Other
 	stm32fxxx_usart6.clock = STM32FXXXUsart6Clock;
 	stm32fxxx_usart6.nvic = STM32FXXXUsart6Nvic;
