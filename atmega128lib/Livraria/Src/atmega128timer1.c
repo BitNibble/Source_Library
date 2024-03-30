@@ -38,6 +38,8 @@ TC1 tc1_enable(unsigned char wavegenmode, unsigned char interrupt)
 	// ATMEGA128enable(); // Dependency
 
 	timer1_state = 0;
+	atmega128_tc1.handle = (Atmega128TimerCounter1_TypeDef*) Atmega128TimerCounter1_Address;
+	
 	atmega128()->tc1_handle->tccr1a.reg &= ~((1 << WGM11) | (1 << WGM10));
 	atmega128()->tc1_handle->tccr1b.reg &= ~((1 << WGM13) | (1 << WGM12));
 	switch(wavegenmode){ // TOP -- Update of OCRnX at -- TOV Flag Set on
@@ -172,6 +174,8 @@ TC1 tc1_enable(unsigned char wavegenmode, unsigned char interrupt)
 	atmega128_tc1.compareC = TIMER_COUNTER1_compareC;
 	atmega128_tc1.start = TIMER_COUNTER1_start;
 	atmega128_tc1.stop = TIMER_COUNTER1_stop;
+	
+	
 	return atmega128_tc1;
 }
 

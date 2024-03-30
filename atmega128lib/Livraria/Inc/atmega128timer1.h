@@ -33,6 +33,7 @@ Comment:
 
 /*** Global Variable ***/
 typedef struct{
+	Atmega128TimerCounter1_TypeDef* handle;
 	// prototype pointers
 	void (*compoutmodeA)(unsigned char compoutmode);
 	void (*compoutmodeB)(unsigned char compoutmode);
