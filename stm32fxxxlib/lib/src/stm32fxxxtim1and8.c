@@ -110,12 +110,13 @@ void STM32FXXXTim8Nvic(uint8_t value)
 /*** TIM1 INIC Procedure & Function Definition ***/
 STM32FXXXTIM1obj* tim1_enable(void)
 {
+	/*** TIM1 Bit Field ***/
+	stm32fxxx_tim1.handle = (STM32FXXXTIMXX_TypeDef*) TIM1;
 	// CLOCK
 	stm32fxxx_tim1.clock = STM32FXXXTim1Clock;
 	// NVIC
 	stm32fxxx_tim1.nvic = STM32FXXXTim1Nvic;
-	/*** TIM1 Bit Field ***/
-	stm32fxxx_tim1.handle = (STM32FXXXTIMXX_TypeDef*) TIM1;
+
 	return &stm32fxxx_tim1;
 }
 
@@ -125,12 +126,13 @@ STM32FXXXTIM1obj* tim1(void){ return (STM32FXXXTIM1obj*) &stm32fxxx_tim1;}
 /*** TIM8 INIC Procedure & Function Definition ***/
 STM32FXXXTIM8obj* tim8_enable(void)
 {
+	/*** TIM8 Bit Field ***/
+	stm32fxxx_tim8.handle = (STM32FXXXTIMXX_TypeDef*) TIM8;
 	// CLOCK
 	stm32fxxx_tim8.clock = STM32FXXXTim8Clock;
 	// NVIC
 	stm32fxxx_tim8.nvic = STM32FXXXTim8Nvic;
-	/*** TIM8 Bit Field ***/
-	stm32fxxx_tim8.handle = (STM32FXXXTIMXX_TypeDef*) TIM8;
+
 	return &stm32fxxx_tim8;
 }
 

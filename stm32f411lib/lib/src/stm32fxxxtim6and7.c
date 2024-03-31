@@ -40,38 +40,26 @@ void STM32FXXXTim7Nvic(uint8_t bool)
 /*** TIM6 INIC Procedure & Function Definition ***/
 STM32FXXXTIM6obj* tim6_enable(void)
 {
+	/*** TIM6 Bit Mapping Link ***/
+	stm32fxxx_tim6.handle = (STM32FXXXTIMXX_TypeDef*) TIM6;
 	// CLOCK
 	stm32fxxx_tim6.clock = STM32FXXXTim6Clock;
 	// NVIC
 	stm32fxxx_tim6.nvic = STM32FXXXTim6Nvic;
-	/*** TIM6 Bit Mapping Link ***/
-	stm32fxxx_tim6.cr1 = (STM32FXXXTIM6and7_CR1_TypeDef*) &TIM6->CR1;
-	stm32fxxx_tim6.cr2 = (STM32FXXXTIM6and7_CR2_TypeDef*) &TIM6->CR2;
-	stm32fxxx_tim6.dier = (STM32FXXXTIM6and7_DIER_TypeDef*) &TIM6->DIER;
-	stm32fxxx_tim6.sr = (STM32FXXXTIM6and7_SR_TypeDef*) &TIM6->SR;
-	stm32fxxx_tim6.egr = (STM32FXXXTIM6and7_EGR_TypeDef*) &TIM6->EGR;
-	stm32fxxx_tim6.cnt = (STM32FXXXTIM6and7_CNT_TypeDef*) &TIM6->CNT;
-	stm32fxxx_tim6.psc = (STM32FXXXTIM6and7_PSC_TypeDef*) &TIM6->PSC;
-	stm32fxxx_tim6.arr = (STM32FXXXTIM6and7_ARR_TypeDef*) &TIM6->ARR;
+
 	return &stm32fxxx_tim6;
 }
 STM32FXXXTIM6obj* tim6(void){ return (STM32FXXXTIM6obj*) &stm32fxxx_tim6; }
 /*** TIM7 INIC Procedure & Function Definition ***/
 STM32FXXXTIM7obj* tim7_enable(void)
 {
+	/*** TIM7 Bit Mapping Link ***/
+	stm32fxxx_tim7.handle = (STM32FXXXTIMXX_TypeDef*) TIM7;
 	// CLOCK
 	stm32fxxx_tim7.clock = STM32FXXXTim7Clock;
 	// NVIC
 	stm32fxxx_tim7.nvic = STM32FXXXTim7Nvic;
-	/*** TIM7 Bit Mapping Link ***/
-	stm32fxxx_tim7.cr1 = (STM32FXXXTIM6and7_CR1_TypeDef*) &TIM7->CR1;
-	stm32fxxx_tim7.cr2 = (STM32FXXXTIM6and7_CR2_TypeDef*) &TIM7->CR2;
-	stm32fxxx_tim7.dier = (STM32FXXXTIM6and7_DIER_TypeDef*) &TIM7->DIER;
-	stm32fxxx_tim7.sr = (STM32FXXXTIM6and7_SR_TypeDef*) &TIM7->SR;
-	stm32fxxx_tim7.egr = (STM32FXXXTIM6and7_EGR_TypeDef*) &TIM7->EGR;
-	stm32fxxx_tim7.cnt = (STM32FXXXTIM6and7_CNT_TypeDef*) &TIM7->CNT;
-	stm32fxxx_tim7.psc = (STM32FXXXTIM6and7_PSC_TypeDef*) &TIM7->PSC;
-	stm32fxxx_tim7.arr = (STM32FXXXTIM6and7_ARR_TypeDef*) &TIM7->ARR;
+
 	return &stm32fxxx_tim7;
 }
 STM32FXXXTIM7obj* tim7(void) { return (STM32FXXXTIM7obj*) &stm32fxxx_tim7; }

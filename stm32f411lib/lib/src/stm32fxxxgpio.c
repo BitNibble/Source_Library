@@ -168,13 +168,10 @@ void STM32FXXXGpioHafr( uint8_t pin, uint8_t data )
 /*** INIC Procedure & Function Definition ***/
 STM32FXXXGPIOA_HandleTypeDef* gpioa_enable(void)
 {
-
-	// GPIOA
-
-	/*** GPIOA RCC Clock Enable ***/
-	stm32fxxx_gpioa.clock = STM32FXXXGpioAclock;
 	/*** GPIOA Bit Mapping Link ***/
 	stm32fxxx_gpioa.handle = (STM32FXXXGPIOX_TypeDef*) GPIOA;
+	/*** GPIOA RCC Clock Enable ***/
+	stm32fxxx_gpioa.clock = STM32FXXXGpioAclock;
 	/*** Other ***/
 	return &stm32fxxx_gpioa;
 }
@@ -183,13 +180,10 @@ STM32FXXXGPIOA_HandleTypeDef* gpioa(void){ return &stm32fxxx_gpioa; }
 
 STM32FXXXGPIOB_HandleTypeDef* gpiob_enable(void)
 {
-
-	// GPIOB
-
-	/*** GPIOB RCC Clock Enable ***/
-	stm32fxxx_gpiob.clock = STM32FXXXGpioBclock;
 	/*** GPIOB Bit Mapping Link ***/
 	stm32fxxx_gpiob.handle = (STM32FXXXGPIOX_TypeDef*) GPIOB;
+	/*** GPIOB RCC Clock Enable ***/
+	stm32fxxx_gpiob.clock = STM32FXXXGpioBclock;
 	/*** Other ***/
 	return &stm32fxxx_gpiob;
 }
@@ -198,13 +192,10 @@ STM32FXXXGPIOB_HandleTypeDef* gpiob(void){ return &stm32fxxx_gpiob; }
 
 STM32FXXXGPIOC_HandleTypeDef* gpioc_enable(void)
 {
-
-	// GPIOC
-
-	/*** GPIOC RCC Clock Enable ***/
-	stm32fxxx_gpioc.clock = STM32FXXXGpioCclock;
 	/*** GPIOC Bit Mapping Link ***/
 	stm32fxxx_gpioc.handle = (STM32FXXXGPIOX_TypeDef*) GPIOC;
+	/*** GPIOC RCC Clock Enable ***/
+	stm32fxxx_gpioc.clock = STM32FXXXGpioCclock;
 	/*** Other ***/
 	return &stm32fxxx_gpioc;
 }
@@ -213,13 +204,10 @@ STM32FXXXGPIOC_HandleTypeDef* gpioc(void){ return &stm32fxxx_gpioc; }
 
 STM32FXXXGPIOD_HandleTypeDef* gpiod_enable(void)
 {
-
-	// GPIOD
-
-	/*** GPIOD RCC Clock Enable ***/
-	stm32fxxx_gpiod.clock = STM32FXXXGpioDclock;
 	/*** GPIOD Bit Mapping Link ***/
 	stm32fxxx_gpiod.handle = (STM32FXXXGPIOX_TypeDef*) GPIOD;
+	/*** GPIOD RCC Clock Enable ***/
+	stm32fxxx_gpiod.clock = STM32FXXXGpioDclock;
 	/*** Other ***/
 	return &stm32fxxx_gpiod;
 }
@@ -228,13 +216,10 @@ STM32FXXXGPIOD_HandleTypeDef* gpiod(void){ return &stm32fxxx_gpiod; }
 
 STM32FXXXGPIOE_HandleTypeDef* gpioe_enable(void)
 {
-
-	// GPIOE
-
-	/*** GPIOE RCC Clock Enable ***/
-	stm32fxxx_gpioe.clock = STM32FXXXGpioEclock;
 	/*** GPIOE Bit Mapping Link ***/
 	stm32fxxx_gpioe.handle = (STM32FXXXGPIOX_TypeDef*) GPIOE;
+	/*** GPIOE RCC Clock Enable ***/
+	stm32fxxx_gpioe.clock = STM32FXXXGpioEclock;
 	/*** Other ***/
 	return &stm32fxxx_gpioe;
 }
@@ -244,13 +229,10 @@ STM32FXXXGPIOE_HandleTypeDef* gpioe(void){ return &stm32fxxx_gpioe; }
 #ifdef STM32F446xx
 STM32FXXXGPIOF_HandleTypeDef* gpiof_enable(void)
 {
-
-	// GPIOF
-
-	/*** GPIOF RCC Clock Enable ***/
-	stm32fxxx_gpiof.clock = STM32FXXXGpioFclock;
 	/*** GPIOF Bit Mapping Link ***/
 	stm32fxxx_gpiof.handle = (STM32FXXXGPIOX_TypeDef*) GPIOF;
+	/*** GPIOF RCC Clock Enable ***/
+	stm32fxxx_gpiof.clock = STM32FXXXGpioFclock;
 	/*** Other ***/
 	return &stm32fxxx_gpiof;
 }
@@ -259,13 +241,10 @@ STM32FXXXGPIOF_HandleTypeDef* gpiof(void){ return &stm32fxxx_gpiof; }
 
 STM32FXXXGPIOG_HandleTypeDef* gpiog_enable(void)
 {
-
-	// GPIOG
-
-	/*** GPIOG RCC Clock Enable ***/
-	stm32fxxx_gpiog.clock = STM32FXXXGpioGclock;
 	/*** GPIOG Bit Mapping Link ***/
 	stm32fxxx_gpiog.handle = (STM32FXXXGPIOX_TypeDef*) GPIOG;
+	/*** GPIOG RCC Clock Enable ***/
+	stm32fxxx_gpiog.clock = STM32FXXXGpioGclock;
 	/*** Other ***/
 	return &stm32fxxx_gpiog;
 }
@@ -275,13 +254,10 @@ STM32FXXXGPIOA_HandleTypeDef* gpiog(void){ return &stm32fxxx_gpiog; }
 
 STM32FXXXGPIOH_HandleTypeDef* gpioh_enable(void)
 {
-
-	// GPIOH
-
-	/*** GPIOH RCC Clock Enable ***/
-	stm32fxxx_gpioh.clock = STM32FXXXGpioHclock;
 	/*** GPIOH Bit Mapping Link ***/
 	stm32fxxx_gpioh.handle = (STM32FXXXGPIOX_TypeDef*) GPIOH;
+	/*** GPIOH RCC Clock Enable ***/
+	stm32fxxx_gpioh.clock = STM32FXXXGpioHclock;
 	/*** Other ***/
 	return &stm32fxxx_gpioh;
 }
