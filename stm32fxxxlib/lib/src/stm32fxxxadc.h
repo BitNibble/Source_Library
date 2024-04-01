@@ -195,6 +195,7 @@ volatile typedef union {
 	}par;
 	uint32_t reg;
 }STM32FXXXADC_DR_TypeDef;
+// COMMON
 // CSR
 volatile typedef union {
 	struct CSR_1{
@@ -290,4 +291,5 @@ void ADC_IRQHandler(void);
 #endif
 
 /***EOF***/
+
 
