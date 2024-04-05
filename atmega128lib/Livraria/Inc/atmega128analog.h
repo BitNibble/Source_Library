@@ -13,6 +13,7 @@ Comment:
 
 /*** Global Library ***/
 #include <inttypes.h>
+#include "query.h"
 
 /*** Global Constant & Macro ***/
 #if defined(__AVR_ATmega64__) || defined(__AVR_ATmega128__)
@@ -36,12 +37,13 @@ typedef struct{
 
 typedef struct{
 	analogparameter par;
+	Atmega128AnalogToDigitalConverter_TypeDef* handle;
 	int (*read)(int selection);
 }ADC0;
 
 /*** Global Header ***/
-ADC0* adc(void);
 ADC0 adc_enable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... );
+ADC0* adc(void);
 
 #endif
 
