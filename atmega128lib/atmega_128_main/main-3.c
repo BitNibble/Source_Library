@@ -352,8 +352,9 @@ ISR(TIMER1_COMPA_vect) // 1 second intervals
 }
 /***EOF***/
 /**** Comment:
-1บ Sequence
-2บ Scope
+1ยบ Sequence
+2ยบ Scope
 note: not defining interrupt function, or initializing an object will block the program.
 ****/
+
 

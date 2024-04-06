@@ -63,3 +63,4 @@ LFSM lfsm_enable(EEPROM0* eeprom, const uint16_t sizeeeprom);
 
 /***EOF***/
 
+

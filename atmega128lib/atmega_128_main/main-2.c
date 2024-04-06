@@ -617,15 +617,16 @@ ISR(TIMER2_COMP_vect)
 /***EOF***/
 
 /**************************** Comment: ******************************
-1บ Sequence
-2บ Scope
+1ยบ Sequence
+2ยบ Scope
 - Library Scope
 - File Scope
 - Function Scope
 - Precedence Scope
-3บ Pointers and Variables
-4บ Casting
+3ยบ Pointers and Variables
+4ยบ Casting
 A/(b*c*d*e*f) = A/b/c/d/e/f
 functions should never return to one of its own parameters, it leads to zero.
 ********************************************************************/
+
 
