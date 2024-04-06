@@ -64,4 +64,3 @@ LCD1 lcd1_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t 
 
 /***EOF***/
 
-

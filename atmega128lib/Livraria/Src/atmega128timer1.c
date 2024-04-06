@@ -319,4 +319,3 @@ uint8_t TIMER_COUNTER1_stop(void)
 
 /***EOF***/
 
-

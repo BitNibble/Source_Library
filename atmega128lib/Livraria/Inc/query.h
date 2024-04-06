@@ -39,12 +39,13 @@ Atmega128GPWR_TypeDef* gpwr_handle(void);
 Atmega128CPURegister_TypeDef* cpu_handle(void);
 Atmega128Usart0_TypeDef* usart0_handle(void);
 Atmega128Usart1_TypeDef* usart1_handle(void);
+Atmega128AnalogToDigitalConverter_TypeDef* adc_handle(void);
 /*** Procedure and Function ToolSet ***/
-uint8_t readreg(uint8_t reg, uint8_t size_block, uint8_t bit_n);
-uint8_t getsetbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit_n);
+uint8_t getreg(uint8_t reg, uint8_t size_block, uint8_t bit_n);
 void setreg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit_n, uint8_t data);
-void setbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit_n, uint8_t data);
 void writereg(volatile uint8_t* reg, uint8_t size_block, uint8_t bit_n, uint8_t data);
+uint8_t getbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit_n);
+void setbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit_n, uint8_t data);
 uint16_t readhlbyte(HighLowByte reg);
 uint16_t readlhbyte(HighLowByte reg);
 HighLowByte writehlbyte(uint16_t val);
@@ -57,5 +58,4 @@ uint16_t BAUDRATEsynchronous(uint32_t BAUD);
 #endif
 
 /*** EOF ***/
-
 

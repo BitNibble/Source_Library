@@ -63,4 +63,3 @@ HC595 hc595_enable(volatile IO_var *ddr, volatile IO_var *port, uint8_t datapin,
 4º Casting
 ******/
 
-

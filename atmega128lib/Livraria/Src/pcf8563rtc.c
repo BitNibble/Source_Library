@@ -218,4 +218,3 @@ uint8_t PCF8563RTC_bintobcd(uint8_t bin)
 
 /***EOF***/
 
-

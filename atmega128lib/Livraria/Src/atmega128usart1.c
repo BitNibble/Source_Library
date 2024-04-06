@@ -243,7 +243,7 @@ uint8_t USART1ParityError(void)
 }
 uint8_t USART1ReadErrors(void)
 {
-	return readreg(UCSR1A,3,2);
+	return getreg(UCSR1A,3,2);
 }
 void USART1ClearErrors(void)
 {
@@ -255,5 +255,4 @@ void USART1DoubleTransmissionSpeed(void)
 }
 
 /***EOF***/
-
 

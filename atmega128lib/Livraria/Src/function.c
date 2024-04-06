@@ -637,4 +637,3 @@ int FUNCreadint(int nmin, int nmax)
 
 /***EOF***/
 
-

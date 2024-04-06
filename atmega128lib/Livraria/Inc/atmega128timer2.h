@@ -47,4 +47,3 @@ TC2 tc2_enable(unsigned char wavegenmode, unsigned char interrupt);
 #endif
 /***EOF***/
 
-

@@ -200,4 +200,3 @@ void TWI_wait_twint( uint16_t nticks ) // hardware triggered
 
 /***EOF***/
 
-

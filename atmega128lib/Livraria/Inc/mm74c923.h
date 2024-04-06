@@ -41,4 +41,3 @@ MM74C923 mm74c923_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile 
 
 /***EOF***/
 
-

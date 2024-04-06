@@ -294,4 +294,3 @@ void LCD02P_ticks(uint16_t num)
 
 /***EOF***/
 
-

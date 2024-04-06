@@ -52,4 +52,3 @@ TC1 tc1_enable(unsigned char wavegenmode, unsigned char interrupt);
 #endif
 /***EOF***/
 
-

@@ -38,4 +38,3 @@ BUFF buff_enable(uint8_t size_buff, BUFFvar* buff);
 
 /***EOF***/
 
-

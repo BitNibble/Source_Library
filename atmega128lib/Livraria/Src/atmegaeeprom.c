@@ -41,4 +41,3 @@ EEPROM0* eeprom(void){ return &atmega128_eeprom; }
 
 /***EOF***/
 
-

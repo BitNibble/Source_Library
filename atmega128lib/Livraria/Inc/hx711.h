@@ -78,4 +78,3 @@ HX711 hx711_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_
 
 /***EOF***/
 
-

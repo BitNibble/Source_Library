@@ -122,4 +122,3 @@ void MM74C923_data_clear(void){
 
 /***EOF***/
 
-
