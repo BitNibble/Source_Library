@@ -71,5 +71,5 @@ char* usart0_messageprint(USART0* uart, char* oneshot, char* msg, const char* en
 
 #endif
 
-/***EOF***/
+/*** EOF ***/
 

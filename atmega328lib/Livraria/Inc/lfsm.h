@@ -16,8 +16,6 @@ Date: 25102020
 #include "atmegaeeprom.h"
 #include <inttypes.h>
 
-/*** Global Constant & Macro ***/
-
 /*** Global Variable ***/
 struct lfsmdata{
 	uint8_t page;
@@ -58,5 +56,5 @@ LFSM lfsm_enable(EEPROM0* eeprom, const uint16_t sizeeeprom);
 
 #endif
 
-/***EOF***/
+/*** EOF ***/
 

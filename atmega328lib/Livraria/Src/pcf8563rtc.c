@@ -5,12 +5,12 @@ Author: Sergio Santos
 License: GNU General Public License
 Hardware: PCF8563
 Date: 29112022
-***************************************************************************************************/
-/****** Comment:
+Comment:
 	Stable
- **************************************************************************************************/
+***************************************************************************************************/
 /*** File Library ***/
 #include "pcf8563rtc.h"
+
 #if defined(__AVR_ATmega64__) || defined(__AVR_Atmega328__)
 	#include "Atmega328mapping.h"
 #elif defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__)
@@ -219,5 +219,5 @@ uint8_t PCF8563RTC_bintobcd(uint8_t bin)
 
 /***File Interrupt***/
 
-/***EOF***/
+/*** EOF ***/
 

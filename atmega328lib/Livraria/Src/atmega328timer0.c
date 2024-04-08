@@ -12,8 +12,6 @@ Update: 01/01/2024
 /*** File library ***/
 #include "atmega328timer0.h"
 
-/*** File Constant & Macro ***/
-
 /*** File Variable ***/
 static TC0 setup_tc0;
 static unsigned char timer0_state;
@@ -227,5 +225,5 @@ void TIMER_COUNTER0_stop(void)
 	timer0_state = 0;
 }
 
-/***EOF***/
+/*** EOF ***/
 

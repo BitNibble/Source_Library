@@ -15,8 +15,6 @@ Date: 27112022
 #include <string.h>
 #include <stdarg.h>
 
-/*** File Constant & Macro ***/
-
 /*** File Variable ***/
 volatile uint8_t *keypad_DDR;
 volatile uint8_t *keypad_PIN;
@@ -245,5 +243,5 @@ uint8_t KEYPADhl(uint8_t xi, uint8_t xf)
 
 /***File Interrupt***/
 
-/***EOF***/
+/*** EOF ***/
 

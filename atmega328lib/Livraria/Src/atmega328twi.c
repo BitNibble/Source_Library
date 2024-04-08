@@ -15,6 +15,7 @@ Update: 01/01/2024
 
 /*** File Variable ***/
 static TWI0 setup_i2c;
+
 /*** File Header ***/
 void TWI_init(uint8_t device_id, uint8_t prescaler);
 void TWI_start(void);
@@ -200,5 +201,5 @@ void TWI_wait_twint( uint16_t nticks ) // hardware triggered
 /*** File Interrupt ***/
 // ISR(TWI_vect){}
 	
-/***EOF***/
+/*** EOF ***/
 

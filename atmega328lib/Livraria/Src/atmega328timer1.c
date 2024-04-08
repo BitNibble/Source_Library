@@ -275,5 +275,5 @@ void TIMER_COUNTER1_stop(void)
 	timer1_state = 0;
 }
 
-/***EOF***/
+/*** EOF ***/
 

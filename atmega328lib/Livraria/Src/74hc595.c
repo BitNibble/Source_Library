@@ -89,5 +89,5 @@ void HC595_shift_out(hc595_parameter* par)
 	*par->hc595_PORT &= ~(1 << par->HC595_outpin); // Output disable
 }
 
-/***EOF***/
+/*** EOF ***/
 

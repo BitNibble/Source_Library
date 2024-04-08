@@ -5,12 +5,12 @@ Author: Sergio Santos
 License: GNU General Public License
 Hardware: PCF8575
 Date: 24012024
-***************************************************************************************************/
-/****** Comment:
+Comment:
 	
- **************************************************************************************************/
+***************************************************************************************************/
 /*** File Library ***/
 #include "pcf8575.h"
+
 #if defined(__AVR_ATmega64__) || defined(__AVR_Atmega328__)
 	#include "Atmega328mapping.h"
 #elif defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__)
@@ -66,5 +66,5 @@ uint16_t PCF8575_readhbits(pcf8575_parameter *par, uint16_t hbits)
 
 /***File Interrupt***/
 
-/***EOF***/
+/*** EOF ***/
 

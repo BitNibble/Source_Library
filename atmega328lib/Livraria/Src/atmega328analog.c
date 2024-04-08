@@ -14,6 +14,7 @@ Update: 01/01/2024
 
 /*** File Variable ***/
 static ADC0 setup_analog;
+
 static volatile int ADC_VALUE[MAX_CHANNEL];
 static volatile int ADC_CHANNEL_GAIN[MAX_CHANNEL];
 static volatile int ADC_N_CHANNEL;
@@ -155,5 +156,5 @@ ISR(ANALOG_INTERRUPT)
 	}		
 }
 
-/***EOF***/
+/*** EOF ***/
 

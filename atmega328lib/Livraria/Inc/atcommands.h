@@ -14,10 +14,6 @@ Comment:
 /*** Global Library ***/
 #include <inttypes.h>
 
-/*** Global Constant & Macro ***/
-
-/*** Global Variable ***/
-
 /*** Global Header ***/
 char* bt05at_cmd(uint16_t num);
 char* hc42at_cmd(uint16_t num);
@@ -26,5 +22,5 @@ char* esp8266_cmd(uint16_t num);
 
 #endif
 
-/***EOF***/
+/*** EOF ***/
 

@@ -38,10 +38,9 @@ EXINT0* exint(void);
 
 #endif
 
-/***EOF***/
-
-
 /*** File Interrupt ***/
 // ISR(INT0_vect){}
 // ISR(INT1_vect){}
+	
+/*** EOF ***/
 

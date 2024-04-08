@@ -15,8 +15,6 @@ Date: 17022021_start
 /*** Global Library ***/
 #include <inttypes.h>
 
-/*** Global Constant & Macro ***/
-
 /*** Global Variable ***/
 typedef struct {
 	double kc; // constant p
@@ -48,5 +46,5 @@ ZNPID znpid_enable(void);
 
 #endif
 
-/***EOF***/
+/*** EOF ***/
 

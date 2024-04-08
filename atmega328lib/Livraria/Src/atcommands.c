@@ -18,13 +18,9 @@ Date: 24042023
 //#include <stdarg.h>
 //#include <math.h>
 
-/*** File Constant & Macro ***/
-
 /*** File Variable ***/
 char HC42ATstr[32];
 char ESP8266str[32];
-
-/*** File Header ***/
 
 /*** Procedure & Function ***/
 char* hc42at_cmd(uint16_t num){
@@ -249,5 +245,5 @@ char* esp8266_cmd(uint16_t num)
 
 /***File Interrupt***/
 
-/***EOF***/
+/*** EOF ***/
 

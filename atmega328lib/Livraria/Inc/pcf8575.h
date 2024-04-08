@@ -40,5 +40,5 @@ PCF8575 pcf8575_enable( uint8_t pcf8575_id, uint8_t twi_prescaler );
 
 #endif
 
-/***EOF***/
+/*** EOF ***/
 

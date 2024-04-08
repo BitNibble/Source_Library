@@ -16,8 +16,6 @@ Update: 01/01/2024
 #include "atmega328handler.h"
 #include "query.h"
 
-/*** Global Constant & Macro ***/
-
 /*** Global Variable ***/
 typedef struct{
 	// vtable
@@ -43,5 +41,5 @@ EEPROM0* eeprom(void);
 
 #endif
 
-/***EOF***/
+/*** EOF ***/
 

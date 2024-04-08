@@ -15,6 +15,7 @@ Update: 01/01/2024
 
 /*** File Variable ***/
 static USART0 setup_usart0;
+
 BUFF rxbuff;
 UARTvar UART_Rx;
 UARTvar UART_RxBuf[UART_RX_BUFFER_SIZE+1];
@@ -270,5 +271,5 @@ void USART0DoubleTransmissionSpeed(void)
 	setreg(&UCSR0A,4,1,1);
 }
 
-/***EOF***/
+/*** EOF ***/
 

@@ -12,10 +12,9 @@ Update: 01/01/2024
 /*** File Library ***/
 #include "atmega328interrupt.h"
 
-/*** File Constant & Macro ***/
-
 /*** File Variable ***/
 static EXINT0 setup_interrupt;
+
 /*** File Header ***/
 void INTERRUPT_set(uint8_t channel, uint8_t sense);
 void INTERRUPT_off(uint8_t channel);
@@ -124,5 +123,5 @@ void INTERRUPT_off(uint8_t channel)
 	}
 }
 
-/***EOF***/
+/*** EOF ***/
 

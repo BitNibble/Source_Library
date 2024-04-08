@@ -81,5 +81,5 @@ IO_var EXPLODEhl(explode_parameter* par)
 	return i;
 }
 
-/***EOF***/
+/*** EOF ***/
 

@@ -12,8 +12,6 @@ Date: 25102020
 /*** File Library ***/
 #include "clock.h"
 
-/*** File Constant & Macro ***/
-
 /*** File Variable ***/
 struct CLOCKTIME time;
 struct CLOCKTIME laptime;
@@ -206,5 +204,5 @@ char* CLOCK_show(void)
 
 /***File Interrupt***/
 
-/***EOF***/
+/*** EOF ***/
 

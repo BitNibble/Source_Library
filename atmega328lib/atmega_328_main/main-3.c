@@ -40,7 +40,6 @@ detail:
 #define TRUE 1
 #define ZERO 0
 
-LCD02P lcd;
 PCF8575 pcf8575;
 
 char* uart_receive = NULL; // pointing to Rx Buffer raw
@@ -52,6 +51,7 @@ uint16_t count;
 int main(void)
 {
 atmega328_enable();
+
 func_enable();
 lcd02p_enable(&DDRB, &PINB, &PORTB, &DDRC, &PINC, &PORTC);
 twi_enable(85,16);
@@ -233,12 +233,13 @@ for (menu = 1; TRUE; ) // Looping
 
 /*** File Interrupt ***/
 
-/***EOF***/
-
 /******
 1º Sequence
 2º Scope
 3º Pointer and Variable
 4º Casting
 ******/
+
+/*** EOF ***/
+
 

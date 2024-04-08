@@ -12,10 +12,6 @@ Date: 25102020
 /*** File Library ***/
 #include "rotenc.h"
 
-/*** File Constant & Macro ***/
-
-/*** File Variable ***/
-
 /*** File Header ***/
 rotaryencoderparameter RotEnc_rte(rotaryencoderparameter* par, uint8_t data);
 uint8_t ROTENClh(uint8_t xp, uint8_t xi);
@@ -70,5 +66,5 @@ uint8_t ROTENChl(uint8_t xp, uint8_t xi)
 
 /*** File Interrupt ***/
 
-/***EOF***/
+/*** EOF ***/
 

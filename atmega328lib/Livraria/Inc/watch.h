@@ -15,8 +15,6 @@ License:  GNU General Public License
 /*** Global library ***/
 #include <inttypes.h>
 
-/*** Global Constant & Macro ***/
-
 /*** Global Variable ***/
 struct WATCHTIME{
 	uint8_t hour;
@@ -38,5 +36,5 @@ WATCH watch_enable(void);
 
 #endif
 
-/***EOF***/
+/*** EOF ***/
 

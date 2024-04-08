@@ -10,9 +10,9 @@ Comment:
 **********************************************************/
 #include "Atmega328handler.h"
 
-/***************************/
-/*** HARDWARE HANDLER ***/
-/***************************/
+/**************************/
+/**** HARDWARE HANDLER ****/
+/**************************/
 // GPWR
 Atmega328GPWR_TypeDef* gpwr_handle(void)
 {
@@ -163,7 +163,6 @@ Atmega328Usart0_TypeDef* usart0_handle(void)
 {
 	return (Atmega328Usart0_TypeDef*) Atmega328Usart0_Address;
 }
-
 /*** Atmega 128 Procedure and Function ***/
 uint16_t readhlbyte(HighLowByte reg)
 {

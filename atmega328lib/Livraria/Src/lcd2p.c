@@ -290,5 +290,5 @@ void LCD02P_ticks(uint16_t num)
 	for(count = 0; count < num; count++) ;
 }
 
-/***EOF***/
+/*** EOF ***/
 

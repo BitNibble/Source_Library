@@ -15,14 +15,10 @@ Date: 24042023
 /*** Global Library ***/
 #include <inttypes.h>
 
-/*** Global Constant & Macro ***/
-
-/*** Global Variable ***/
-
 /*** Global Header ***/
 char* bt05at_cmd(uint16_t num);
 
 #endif
 
-/***EOF***/
+/*** EOF ***/
 

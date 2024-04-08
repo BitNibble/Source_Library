@@ -15,8 +15,6 @@ Date: 25102020
 /*** Global Library ***/
 #include <inttypes.h>
 
-/*** Global Constant & Macro ***/
-
 /*** Global Variable ***/
 typedef struct{
 	uint8_t PinChnA;
@@ -39,5 +37,5 @@ ROTENC rotenc_enable(uint8_t ChnApin, uint8_t ChnBpin);
 
 #endif
 
-/***EOF***/
+/*** EOF ***/
 

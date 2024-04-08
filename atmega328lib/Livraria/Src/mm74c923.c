@@ -124,5 +124,5 @@ void MM74C923_data_clear(void){
 
 /*** File Interrupt ***/
 
-/***EOF***/
+/*** EOF ***/
 

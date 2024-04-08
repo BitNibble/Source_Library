@@ -13,13 +13,8 @@ Date: 24042023
 #include "bt05atcommands.h"
 #include <string.h>
 
-/*** File Constant & Macro ***/
-
 /*** File Variable ***/
 char BT05ATstr[32];
-
-
-/*** File Header ***/
 
 /*** Procedure & Function ***/
 char* bt05at_cmd(uint16_t num){
@@ -214,5 +209,5 @@ char* bt05at_cmd(uint16_t num){
 
 /***File Interrupt***/
 
-/***EOF***/
+/*** EOF ***/
 

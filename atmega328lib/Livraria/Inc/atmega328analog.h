@@ -40,5 +40,5 @@ ADC0* adc(void);
 
 #endif
 
-/***EOF***/
+/*** EOF ***/
 

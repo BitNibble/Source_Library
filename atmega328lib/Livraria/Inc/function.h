@@ -78,5 +78,5 @@ FUNC func_enable(void);
 
 #endif
 
-/***EOF***/
+/*** EOF ***/
 

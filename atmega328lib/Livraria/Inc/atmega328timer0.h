@@ -36,9 +36,6 @@ TC0* tc0(void);
 
 #endif
 
-/***EOF***/
-
-
 // ISR(TIMER2_COMPA_vect){}
 // ISR(TIMER2_COMPB_vect){}
 // ISR(TIMER2_OVF_vect){}
@@ -49,4 +46,6 @@ TC0* tc0(void);
 // ISR(TIMER0_COMPA_vect){}
 // ISR(TIMER0_COMPB_vect){}
 // ISR(TIMER0_OVF_vect){}
+	
+/***EOF***/
 

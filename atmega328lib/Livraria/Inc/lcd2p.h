@@ -52,5 +52,5 @@ LCD02P* lcd02p(void);
 
 #endif
 
-/***EOF***/
+/*** EOF ***/
 

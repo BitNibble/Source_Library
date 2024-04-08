@@ -11,8 +11,6 @@ Comment:
 #ifndef _LCD_H_
 	#define _LCD_H_
 
-/***Compiler***/
-
 /***Working Frequency***/
 #ifndef F_CPU
 	#define F_CPU 16000000UL
@@ -55,5 +53,5 @@ LCD1 lcd1_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t 
 
 #endif
 
-/***EOF***/
+/*** EOF ***/
 

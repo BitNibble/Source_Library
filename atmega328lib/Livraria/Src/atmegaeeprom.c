@@ -14,7 +14,6 @@ Update: 01/01/2024
 
 /*** File Variable ***/
 static EEPROM0 setup_eeprom;
-/*** File Header ***/
 
 /*** Procedure & Function ***/
 EEPROM0 eeprom_enable(void){
@@ -39,5 +38,5 @@ EEPROM0 eeprom_enable(void){
 
 EEPROM0* eeprom(void){ return &setup_eeprom; };
 
-/***EOF***/
+/*** EOF ***/
 

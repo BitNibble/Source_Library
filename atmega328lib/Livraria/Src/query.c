@@ -57,4 +57,3 @@ void setbit(volatile uint8_t* reg, uint8_t size_block, uint8_t bit_n, uint8_t da
 
 /*** EOF ***/
 
-

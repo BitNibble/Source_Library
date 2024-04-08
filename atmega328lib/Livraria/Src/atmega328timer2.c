@@ -12,8 +12,6 @@ Update: 01/01/2024
 /*** File library ***/
 #include "atmega328timer2.h"
 
-/*** File Constant & Macro ***/
-
 /*** File Variable ***/
 TC2 setup_tc2;
 static unsigned char timer2_state;
@@ -222,5 +220,5 @@ void TIMER_COUNTER2_stop(void)
 	timer2_state = 0;
 }
 
-/***EOF***/
+/*** EOF ***/
 

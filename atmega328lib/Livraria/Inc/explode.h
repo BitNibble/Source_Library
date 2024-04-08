@@ -48,8 +48,6 @@ EXPLODE explode_enable(void);
 
 #endif
 
-/***EOF***/
-
 /******
 1º Sequence
 2º Scope
@@ -61,4 +59,5 @@ EXPLODE explode_enable(void);
 4º Casting
 ******/
 
+/*** EOF ***/
 

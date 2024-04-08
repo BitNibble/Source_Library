@@ -96,5 +96,5 @@ TWI0* twi(void);
 
 #endif
 
-/***EOF***/
+/*** EOF ***/
 

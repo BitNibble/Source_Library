@@ -51,8 +51,6 @@ HC595 hc595_enable(volatile IO_var *ddr, volatile IO_var *port, uint8_t datapin,
 
 #endif
 
-/***EOF***/
-
 /******
 1º Sequence
 2º Scope
@@ -63,4 +61,6 @@ HC595 hc595_enable(volatile IO_var *ddr, volatile IO_var *port, uint8_t datapin,
 3º Pointer and Variable
 4º Casting
 ******/
+
+/***EOF***/
 

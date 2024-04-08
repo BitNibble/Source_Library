@@ -14,10 +14,6 @@ Date: 17112022
 #include <stdio.h>
 #include <string.h>
 
-/*** File Constant & Macro ***/
-
-/*** File Variable ***/
-
 /*** File Header ***/
 void BUFF_push(bufferparameter* par, BUFFvar data);
 BUFFvar* BUFF_raw(bufferparameter* par);
@@ -69,5 +65,5 @@ void BUFF_flush( bufferparameter* par ){
 
 /*** File Interrupt ***/
 
-/***EOF***/
+/*** EOF ***/
 

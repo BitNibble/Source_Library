@@ -519,5 +519,5 @@ void LCD_ticks(uint16_t num)
 
 /***File Interrupt***/
 
-/***EOF***/
+/*** EOF ***/
 

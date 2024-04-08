@@ -455,5 +455,5 @@ uint16_t LFSMoutputcalc(uint16_t feedback, uint16_t hl, uint16_t lh, uint16_t ma
 
 /***File Interrupt***/
 
-/***EOF***/
+/*** EOF ***/
 
