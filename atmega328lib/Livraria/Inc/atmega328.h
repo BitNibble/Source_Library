@@ -31,7 +31,7 @@ Update: 01/01/2024
 #define Atmega328TimerCounter1_Address 0x0080
 #define Atmega328TimerCounter2_Address 0x00B0
 #define Atmega328TwoWireSerialInterface_Address 0x00B8
-#define Atmega328Usart_Address 0x00C0
+#define Atmega328Usart0_Address 0x00C0
 // AUXILIAR
 #define Atmega328TimerInterruptFlag_Address 0x0035
 #define Atmega328ExternalInterruptFlag_Address 0x003B
@@ -49,15 +49,26 @@ Update: 01/01/2024
 #define Atmega328TimerCompareRegister2_Address 0x00B3
 
 /*** Global Variable ***/
-// HLbyte
-typedef struct {
-	uint8_t L; // Lower address
-	uint8_t H; // Higher address
+// Low Byte High Byte
+typedef union {
+	struct{
+		uint8_t L; // Lower Address
+		uint8_t H; // Higher Address
+	}par;
+	uint16_t reg;
 } HighLowByte;
+// Low Word High Word
+typedef union {
+	struct{
+		uint16_t L; // Lower Address
+		uint16_t H; // Higher Address
+	}par;
+	uint32_t reg;
+} HighLowWord;
 
-/***************************/
-/*** MAIN HARDWARE LAYER ***/
-/***************************/
+/*****************************/
+/**** MAIN HARDWARE LAYER ****/
+/*****************************/
 // GPWR
 typedef struct {
 	volatile uint8_t r0; // 0x00
@@ -112,27 +123,27 @@ typedef struct {
 	volatile uint8_t port; // 0x2B
 } Atmega328PORTD_TypeDef;
 
-// TIMER
+// Timer/Counter 0, 1 and 2 Interrupt Flag
 typedef struct {
 	volatile uint8_t tifr0; // 0x35
 	volatile uint8_t tifr1; // 0x36
 	volatile uint8_t tifr2; // 0x37
 } Atmega328TimerInterruptFlag_TypeDef;
 
-// External Interrupts (EXINT)
+// External Interrupts Flag (EXINT)
 typedef struct {
 	volatile uint8_t pcifr; // 0x3B
 	volatile uint8_t eifr; // 0x3C
 } Atmega328ExternalInterruptFlag_TypeDef;
 
-// External Interrupts (EXINT)
+// External Interrupts Mask (EXINT)
 typedef struct {
 	volatile uint8_t eimsk; // 0x3D [eimsk]
 } Atmega328ExternalInterruptMask_TypeDef;
 
-// CPU Register (CPU)
+// CPU Register Gpio0 (CPU)
 typedef struct {
-	volatile uint8_t par; // 0x3E [gpior0]
+	volatile uint8_t r0; // 0x3E [gpior0]
 } Atmega328CpuGeneralPurposeIoRegister0_TypeDef;
 
 // EEPROM (EEPROM)
@@ -142,7 +153,7 @@ typedef struct {
 	volatile uint16_t eear; // 0x41
 } Atmega328Eeprom_TypeDef;
 
-// TIMER
+// TIMER General Control
 typedef struct {
 	volatile uint8_t gtccr; // 0x43 [gtccr]
 } Atmega328TimerGeneralControlRegister_TypeDef;
@@ -152,20 +163,22 @@ typedef struct {
 	volatile uint8_t tccr0a; // 0x44
 	volatile uint8_t tccr0b; // 0x45
 	volatile uint8_t tcnt0; // 0x46
+	volatile uint8_t ocr0a; // 0x47
+	volatile uint8_t ocr0b; // 0x48
 } Atmega328TimerCounter0_TypeDef;
 
-// Timer/Counter, 8-bit A sync (TC0)
+// Timer/Counter, 8-bit A sync Compare (TC0)
 typedef struct {
 	volatile uint8_t ocr0a; // 0x47
 	volatile uint8_t ocr0b; // 0x48
 } Atmega328TimerCompareRegister0_TypeDef;
 
-// CPU Register (CPU)
+// CPU Register Gpio1 (CPU)
 typedef struct {
-	volatile uint8_t par; // 0x4A [gpior1]
+	volatile uint8_t r1; // 0x4A [gpior1]
 } Atmega328CpuGeneralPurposeIoRegister1_TypeDef;
 
-// CPU Register (CPU)
+// CPU Register Gpio012 (CPU)
 typedef struct {
 	volatile uint8_t r0; // 0x3E
 	uint8_t fill[11]; // (0x4A - 0x3E) - 1
@@ -173,9 +186,9 @@ typedef struct {
 	volatile uint8_t r2; // 0x4B
 } Atmega328CpuGeneralPurposeIoRegister_TypeDef;
 
-// CPU Register (CPU)
+// CPU Register Gpio2 (CPU)
 typedef struct {
-	volatile uint8_t par; // 0x4B [gpior2]
+	volatile uint8_t r2; // 0x4B [gpior2]
 } Atmega328CpuGeneralPurposeIoRegister2_TypeDef;
 
 // Serial Peripheral Interface (SPI)
@@ -213,14 +226,7 @@ typedef struct {
 	volatile uint8_t osccal; // 0x66
 } Atmega328CPURegister_TypeDef;
 
-// External Interrupts (EXINT)
-typedef struct {
-	volatile uint8_t pcmsk0; // 0x6B
-	volatile uint8_t pcmsk1; // 0x6C
-	volatile uint8_t pcmsk2; // 0x6D
-} Atmega328ExternalInterruptPinChangeMask_TypeDef;
-
-// External Interrupts (EXINT)
+// External Interrupt (EXINT)
 typedef struct {
 	volatile uint8_t pcicr; // 0x68
 	volatile uint8_t eicra; // 0x69
@@ -228,9 +234,19 @@ typedef struct {
 	volatile uint8_t pcmsk0; // 0x6B
 	volatile uint8_t pcmsk1; // 0x6C
 	volatile uint8_t pcmsk2; // 0x6D
+	volatile uint8_t timsk0; // 0x6E
+	volatile uint8_t timsk1; // 0x6F
+	volatile uint8_t timsk2; // 0x70
 } Atmega328ExternalInterrupt_TypeDef;
 
-// TIMER
+// External Interrupt Pin Change Mask (EXINT)
+typedef struct {
+	volatile uint8_t pcmsk0; // 0x6B
+	volatile uint8_t pcmsk1; // 0x6C
+	volatile uint8_t pcmsk2; // 0x6D
+} Atmega328ExternalInterruptPinChangeMask_TypeDef;
+
+// Timer/Counter 0, 1 and 2 Interrupt Mask
 typedef struct {
 	volatile uint8_t timsk0; // 0x6E
 	volatile uint8_t timsk1; // 0x6F
@@ -245,11 +261,13 @@ typedef struct {
 	volatile uint8_t admux; // 0x7C
 	uint8_t fill; // (0x7E - 0x7C) - 1
 	volatile uint8_t didr0; // 0x7E
+	volatile uint8_t didr1; // 0x7F
 } Atmega328AnalogToDigitalConverter_TypeDef;
 
-// Analog Comparator (AC)
+// Analog Comparator Did (AC)
 typedef struct {
-	volatile uint8_t par; // 0x7F [didr1]
+	volatile uint8_t r0; // 0x7E [didr0]
+	volatile uint8_t r1; // 0x7F [didr1]
 } Atmega328AnalogComparatorDid_TypeDef;
 
 // Timer/Counter, 16-bit (TC1)
@@ -259,9 +277,12 @@ typedef struct {
 	volatile uint8_t tccr1c; // 0x82
 	uint8_t fill; // (0x84 - 0x82) - 1
 	volatile HighLowByte tcnt1; // 0x84 0x85
+	volatile HighLowByte icr1; // 0x86 0x87
+	volatile HighLowByte ocr1a; // 0x88 0x89
+	volatile HighLowByte ocr1b; // 0x8A 0x8B
 } Atmega328TimerCounter1_TypeDef;
 
-// Timer/Counter, 16-bit (TC1)
+// Timer/Counter, 16-bit Compare (TC1)
 typedef struct {
 	volatile HighLowByte icr1; // 0x86 0x87
 	volatile HighLowByte ocr1a; // 0x88 0x89
@@ -273,9 +294,13 @@ typedef struct {
 	volatile uint8_t tccr2a; // 0xB0
 	volatile uint8_t tccr2b; // 0xB1
 	volatile uint8_t tcnt2; // 0xB2
+	volatile uint8_t ocr2a; // 0xB3
+	volatile uint8_t ocr2b; // 0xB4
+	uint8_t fill; // (0xB6 - 0xB4) - 1
+	volatile uint8_t assr; // 0xB6
 } Atmega328TimerCounter2_TypeDef;
 
-// Timer/Counter, 8-bit (TC2)
+// Timer/Counter, 8-bit Compare (TC2)
 typedef struct {
 	volatile uint8_t ocr2a; // 0xB3
 	volatile uint8_t ocr2b; // 0xB4
@@ -301,7 +326,7 @@ typedef struct {
 	uint8_t fill; // (0xC4 - 0xC2) - 1
 	volatile HighLowByte ubrr0; // 0xC4 0xC5
 	volatile uint8_t udr0; // 0xC6
-} Atmega328Usart_TypeDef;
+} Atmega328Usart0_TypeDef;
 
 /*** FLASH ***/
 // Interrupt Vectors (ISR)
@@ -336,12 +361,9 @@ typedef struct { // SRAM START = 0x0100 END = 0x0877 atmega328
 
 #endif
 
-/***EOF***/
-
 /***
-Notes:
-The Reset button is an interrupt [address 0 rjump] that jumps to the main() location.
-
-MASK FLAG CONTROL STATUS
+CONTROL STATUS MASK FLAG
 ***/
+
+/*** EOF ***/
 

@@ -10,9 +10,7 @@ Update: 01/01/2024
 	Very Stable
 *************************************************************************/
 /*** File Library ***/
-#include "atmega328mapping.h"
 #include "atmega328analog.h"
-#include <stdarg.h>
 
 /*** File Variable ***/
 static ADC0 setup_analog;
@@ -36,8 +34,8 @@ ADC0 adc_enable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... )
 	va_list list;
 	int i;
 
-	tSREG = atmega328()->cpu_reg->sreg;
-	atmega328()->cpu_reg->sreg &= ~ (1 << GLOBAL_INTERRUPT_ENABLE);
+	tSREG = cpu_handle()->sreg;
+	cpu_handle()->sreg &= ~ (1 << GLOBAL_INTERRUPT_ENABLE);
 	
 	ADC_N_CHANNEL = n_channel;
 	ADC_SELECTOR = 0;
@@ -46,17 +44,17 @@ ADC0 adc_enable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... )
 	//V table
 	setup_analog.read = ANALOG_read;
 	
-	atmega328()->adc_reg->admux &= ~(3 << REFS0);
+	adc_handle()->admux &= ~(3 << REFS0);
 	switch( Vreff ){
 		case 0:
 			setup_analog.par.VREFF = 0;
 		break;
 		case 1:
-			atmega328()->adc_reg->admux |=	(1 << REFS0);
+			adc_handle()->admux |=	(1 << REFS0);
 			setup_analog.par.VREFF = 1;
 		break;
 		case 3:
-			atmega328()->adc_reg->admux |=	(3 << REFS0);
+			adc_handle()->admux |=	(3 << REFS0);
 			setup_analog.par.VREFF = 3;
 		break;
 		default:
@@ -64,58 +62,58 @@ ADC0 adc_enable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... )
 		break;
 	}
 	
-	atmega328()->adc_reg->admux &= ~(1 << ADLAR);
+	adc_handle()->admux &= ~(1 << ADLAR);
 	
 	va_start(list, n_channel);
 	for( i = 0; i < n_channel; i++ ){
 		ADC_CHANNEL_GAIN[i] = va_arg(list, int);
 	}
 	va_end(list);
-	atmega328()->adc_reg->admux &= ~MUX_MASK;
-	atmega328()->adc_reg->admux |= (MUX_MASK & ADC_CHANNEL_GAIN[ADC_SELECTOR]);
+	adc_handle()->admux &= ~MUX_MASK;
+	adc_handle()->admux |= (MUX_MASK & ADC_CHANNEL_GAIN[ADC_SELECTOR]);
 	
-	atmega328()->adc_reg->adcsra |= (1 << ADEN);
-	atmega328()->adc_reg->adcsra |= (1 << ADSC);
-	atmega328()->adc_reg->adcsra &= ~(1 << ADATE);
-	atmega328()->adc_reg->adcsrb &= ~(7 << ADTS0);
-	atmega328()->adc_reg->adcsra |= (1 << ADIE);
+	adc_handle()->adcsra |= (1 << ADEN);
+	adc_handle()->adcsra |= (1 << ADSC);
+	adc_handle()->adcsra &= ~(1 << ADATE);
+	adc_handle()->adcsrb &= ~(7 << ADTS0);
+	adc_handle()->adcsra |= (1 << ADIE);
 	
-	atmega328()->adc_reg->adcsra &= ~(7 << ADPS0);
+	adc_handle()->adcsra &= ~(7 << ADPS0);
 	switch( Divfactor ){
 		case 2: // 1
 			setup_analog.par.DIVISION_FACTOR = 2;
 		break;
 		case 4: // 2
-			atmega328()->adc_reg->adcsra |= (1 << ADPS1);
+			adc_handle()->adcsra |= (1 << ADPS1);
 			setup_analog.par.DIVISION_FACTOR = 4;
 		break;
 		case 8: // 3
-			atmega328()->adc_reg->adcsra |= (3 << ADPS0);
+			adc_handle()->adcsra |= (3 << ADPS0);
 			setup_analog.par.DIVISION_FACTOR = 8;
 		break;
 		case 16: // 4
-			atmega328()->adc_reg->adcsra |= (1 << ADPS2);
+			adc_handle()->adcsra |= (1 << ADPS2);
 			setup_analog.par.DIVISION_FACTOR	=	16;
 		break;
 		case 32: // 5
-			atmega328()->adc_reg->adcsra |= (5 << ADPS0);
+			adc_handle()->adcsra |= (5 << ADPS0);
 			setup_analog.par.DIVISION_FACTOR = 32;
 		break;
 		case 64: // 6
-			atmega328()->adc_reg->adcsra |= (6 << ADPS0);
+			adc_handle()->adcsra |= (6 << ADPS0);
 			setup_analog.par.DIVISION_FACTOR = 64;
 		break;
 		case 128: // 7
-			atmega328()->adc_reg->adcsra |= (7 << ADPS0);
+			adc_handle()->adcsra |= (7 << ADPS0);
 			setup_analog.par.DIVISION_FACTOR = 128;
 		break;
 		default: // 7
-			atmega328()->adc_reg->adcsra |= (7 << ADPS0);
+			adc_handle()->adcsra |= (7 << ADPS0);
 			setup_analog.par.DIVISION_FACTOR = 128;
 		break;
 	}
-	atmega328()->cpu_reg->sreg = tSREG;
-	atmega328()->cpu_reg->sreg |= (1 << GLOBAL_INTERRUPT_ENABLE);
+	cpu_handle()->sreg = tSREG;
+	cpu_handle()->sreg |= (1 << GLOBAL_INTERRUPT_ENABLE);
 
 	return setup_analog;
 }
@@ -127,9 +125,9 @@ int ANALOG_read(int selection)
 {
 	uint8_t ADSC_FLAG;
 	ADSC_FLAG = (1 << ADSC);
-	if( !(atmega328()->adc_reg->adcsra & ADSC_FLAG) ){
+	if( !(adc_handle()->adcsra & ADSC_FLAG) ){
 		//ADC_SELECT
-		atmega328()->adc_reg->adcsra |= (1 << ADSC);
+		adc_handle()->adcsra |= (1 << ADSC);
 	}	
 	return ADC_VALUE[selection];
 }
@@ -152,8 +150,8 @@ ISR(ANALOG_INTERRUPT)
 			ADC_SELECTOR++;
 		else
 			ADC_SELECTOR = 0;
-		atmega328()->adc_reg->admux &= ~MUX_MASK;
-		atmega328()->adc_reg->admux |= (ADC_CHANNEL_GAIN[ADC_SELECTOR] & MUX_MASK);
+		adc_handle()->admux &= ~MUX_MASK;
+		adc_handle()->admux |= (ADC_CHANNEL_GAIN[ADC_SELECTOR] & MUX_MASK);
 	}		
 }
 

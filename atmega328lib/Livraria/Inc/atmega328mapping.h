@@ -13,7 +13,9 @@ Update: 01/01/2024
 *********************************************************************/
 #ifndef _ATMEGA328MAPPING_H_
 	#define _ATMEGA328MAPPING_H_
-	
+
+/*** Global Library ***/
+#include "atmega328handler.h"	
 #include "query.h"
 
 /*********************************************************/
@@ -21,12 +23,12 @@ Update: 01/01/2024
 /*********************************************************/
 // User may Comment out if not in use
 // MODULES
-//#define _ANALOG_MODULE_
-//#define _EEPROM_MODULE_
-//#define _INTERRUPT_MODULE_
-//#define _TIMER0_MODULE_
-//#define _TIMER1_MODULE_
-//#define _TIMER2_MODULE_
+#define _ANALOG_MODULE_
+#define _EEPROM_MODULE_
+#define _INTERRUPT_MODULE_
+#define _TIMER0_MODULE_
+#define _TIMER1_MODULE_
+#define _TIMER2_MODULE_
 #define _TWI_MODULE_
 //#define _SPI_MODULE_
 #define _USART0_MODULE_
@@ -85,90 +87,91 @@ Update: 01/01/2024
 /*******************************************************************/
 typedef struct {
 	//		Second Layer
-	Atmega328GPWR_TypeDef* gpwr_reg;
+	Atmega328GPWR_TypeDef* gpwr_handle;
 	/************************************/
-	Atmega328AnalogComparator_TypeDef* ac_reg;
-	Atmega328AnalogComparatorDid_TypeDef* ac_didr1;
+	Atmega328PORTB_TypeDef* portb_handle;
 	/************************************/
-	Atmega328AnalogToDigitalConverter_TypeDef* adc_reg;
+	Atmega328PORTC_TypeDef* portc_handle;
+	/************************************/
+	Atmega328PORTD_TypeDef* portd_handle;
+	/************************************/
+	Atmega328Eeprom_TypeDef* eeprom_handle;
+	#ifdef _EEPROM_MODULE_
+	EEPROM0 (*eeprom_enable)(void);
+	EEPROM0* eeprom;
+	#endif
+	/************************************/
+	Atmega328TimerCounter0_TypeDef* tc0_handle;
+	Atmega328TimerGeneralControlRegister_TypeDef* tc0_gcontrol_handle;
+	Atmega328TimerInterruptFlag_TypeDef* tc0_iflag_handle;
+	Atmega328TimerInterruptMask_TypeDef* tc0_imask_handle;
+	Atmega328TimerCompareRegister0_TypeDef* tc0_compare_handle;
+	#ifdef _TIMER0_MODULE_
+	TC0 (*tc0_enable)( unsigned char wavegenmode, unsigned char interrupt );
+	TC0* tc0;
+	#endif
+	/***********************************/
+	Atmega328SerialPeripherialInterface_TypeDef* spi_handle;
+	#ifdef _SPI_MODULE_
+	SPI0 (*spi_enable)(uint8_t master_slave_select, uint8_t data_order,  uint8_t data_modes, uint8_t prescaler);
+	SPI0* spi;
+	#endif
+	/************************************/
+	Atmega328AnalogComparator_TypeDef* ac_handle;
+	Atmega328AnalogComparatorDid_TypeDef* ac_did_handle;
+	/************************************/
+	Atmega328WatchdogTimer_TypeDef* wdt_handle;
+	/************************************/
+	Atmega328CPURegister_TypeDef* cpu_handle;
+	Atmega328CpuGeneralPurposeIoRegister_TypeDef* cpu_gpio012_handle;
+	/************************************/
+	Atmega328ExternalInterrupt_TypeDef* exint_handle;
+	Atmega328ExternalInterruptFlag_TypeDef* exint_flag_handle;
+	Atmega328ExternalInterruptMask_TypeDef* exint_mask_handle;
+	Atmega328ExternalInterruptPinChangeMask_TypeDef* exint_pcmask_handle;
+	#ifdef _INTERRUPT_MODULE_
+	EXINT0 (*exint_enable)(void);
+	EXINT0* exint;
+	#endif
+	/************************************/
+	Atmega328AnalogToDigitalConverter_TypeDef* adc_handle;
 	#ifdef _ANALOG_MODULE_
 		ADC0 (*adc_enable)( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... );
 		ADC0* adc;
 	#endif
 	/************************************/
-	Atmega328CPURegister_TypeDef* cpu_reg;
-	Atmega328CpuGeneralPurposeIoRegister_TypeDef* cpu_gpio;
-	/************************************/
-	Atmega328Eeprom_TypeDef* eeprom_reg;
-	#ifdef _EEPROM_MODULE_
-		EEPROM0 (*eeprom_enable)(void);
-		EEPROM0* eeprom;
+	Atmega328TimerCounter1_TypeDef* tc1_handle;
+	Atmega328TimerGeneralControlRegister_TypeDef* tc1_gcontrol_handle;
+	Atmega328TimerInterruptFlag_TypeDef* tc1_iflag_handle;
+	Atmega328TimerInterruptMask_TypeDef* tc1_imask_handle;
+	Atmega328TimerCompareRegister1_TypeDef* tc1_compare_handle;
+	#ifdef _TIMER1_MODULE_
+	TC1 (*tc1_enable)(unsigned char wavegenmode, unsigned char interrupt);
+	TC1* tc1;
 	#endif
 	/************************************/
-	Atmega328ExternalInterrupt_TypeDef* exint_reg;
-	Atmega328ExternalInterruptFlag_TypeDef* exint_iflag;
-	Atmega328ExternalInterruptMask_TypeDef* exint_imask;
-	#ifdef _INTERRUPT_MODULE_
-		EXINT0 (*exint_enable)(void);
-		EXINT0* exint;
+	Atmega328TimerCounter2_TypeDef* tc2_handle;
+	Atmega328TimerGeneralControlRegister_TypeDef* tc2_gcontrol_handle;
+	Atmega328TimerInterruptFlag_TypeDef* tc2_iflag_handle;
+	Atmega328TimerInterruptMask_TypeDef* tc2_imask_handle;
+	Atmega328TimerCompareRegister2_TypeDef* tc2_compare_handle;
+	#ifdef _TIMER2_MODULE_
+	TC2 (*tc2_enable)(unsigned char wavegenmode, unsigned char interrupt);
+	TC2* tc2;
 	#endif
 	/************************************/
-	Atmega328PORTB_TypeDef* portb_reg;
-	/************************************/
-	Atmega328PORTC_TypeDef* portc_reg;
-	/************************************/
-	Atmega328PORTD_TypeDef* portd_reg;
-	/************************************/
-	Atmega328SerialPeripherialInterface_TypeDef* spi_reg;
-	#ifdef _SPI_MODULE_
-		SPI0 (*spi_enable)(uint8_t master_slave_select, uint8_t data_order,  uint8_t data_modes, uint8_t prescaler);
-		SPI0* spi;
-	#endif
-	/************************************/
-	Atmega328TwoWireSerialInterface_TypeDef* twi_reg;
+	Atmega328TwoWireSerialInterface_TypeDef* twi_handle;
 	#ifdef _TWI_MODULE_
 		TWI0 (*twi_enable)(uint8_t atmega_ID, uint8_t prescaler);
 		TWI0* twi;
 	#endif
 	/************************************/
-	Atmega328Usart_TypeDef* usart0_reg;
+	Atmega328Usart0_TypeDef* usart0_handle;
 	#ifdef _USART0_MODULE_
 		USART0 (*usart0_enable)(uint32_t baudrate, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 		USART0* usart0;
 	#endif
 	/************************************/
-	Atmega328WatchdogTimer_TypeDef* wdt_reg;
-	/************************************/
-	Atmega328TimerCounter2_TypeDef* tc2_reg;
-	Atmega328TimerGeneralControlRegister_TypeDef* tc2_gcr;
-	Atmega328TimerInterruptFlag_TypeDef* tc2_iflag;
-	Atmega328TimerInterruptMask_TypeDef* tc2_imask;
-	Atmega328TimerCompareRegister2_TypeDef* tc2_comp;
-	#ifdef _TIMER2_MODULE_
-		TC2 (*tc2_enable)(unsigned char wavegenmode, unsigned char interrupt);
-		TC2* tc2;
-	#endif
-	/************************************/
-	Atmega328TimerCounter1_TypeDef* tc1_reg;
-	Atmega328TimerGeneralControlRegister_TypeDef* tc1_gcr;
-	Atmega328TimerInterruptFlag_TypeDef* tc1_iflag;
-	Atmega328TimerInterruptMask_TypeDef* tc1_imask;
-	Atmega328TimerCompareRegister1_TypeDef* tc1_comp;
-	#ifdef _TIMER1_MODULE_
-		TC1 (*tc1_enable)(unsigned char wavegenmode, unsigned char interrupt);
-		TC1* tc1;
-	#endif
-	/************************************/
-	Atmega328TimerCounter0_TypeDef* tc0_reg;
-	Atmega328TimerGeneralControlRegister_TypeDef* tc0_gcr;
-	Atmega328TimerInterruptFlag_TypeDef* tc0_iflag;
-	Atmega328TimerInterruptMask_TypeDef* tc0_imask;
-	Atmega328TimerCompareRegister0_TypeDef* tc0_comp;
-	#ifdef _TIMER0_MODULE_
-		TC0 (*tc0_enable)( unsigned char wavegenmode, unsigned char interrupt );
-		TC0* tc0;
-	#endif
-	/***********************************/
 	void (*Clock_Prescaler_Select)(volatile uint8_t prescaler);
 	void (*Move_Interrupts_To_Boot)(void);
 }ATMEGA328;
@@ -178,37 +181,5 @@ ATMEGA328* atmega328(void);
 
 #endif
 
-/***EOF***/
-
-/*** Interrupt List ***/
-// ISR(RESET_vect){}
-// ISR(INT0_vect){}
-// ISR(INT1_vect){}
-// ISR(PCINT0_vect){}
-// ISR(PCINT1_vect){}
-// ISR(PCINT2_vect){}
-// ISR(WDT_vect){}
-// ISR(TIMER2_COMPA_vect){}
-// ISR(TIMER2_COMPB_vect){}
-// ISR(TIMER2_OVF_vect){}
-// ISR(TIMER1_CAPT_vect){}
-// ISR(TIMER1_COMPA_vect){}
-// ISR(TIMER1_COMPB_vect){}
-// ISR(TIMER1_OVF_vect){}
-// ISR(TIMER0_COMPA_vect){}
-// ISR(TIMER0_COMPB_vect){}
-// ISR(TIMER0_OVF_vect){}
-// ISR(SPI_STC_vect){}
-// ISR(USART_RX_vect){}
-// ISR(USART_UDRE_vect){}
-// ISR(USART_TX_vect){}
-// ISR(ADC_vect){}
-// ISR(EE_READY_vect){}
-// ISR(ADC_vect)
-// ISR(ANALOG_COMP_vect){}
-// ISR(TWI_vect){}
-// ISR(SPM_READY_vect){}
-// ISR(USART_RX_vect){}
-// ISR(USART_UDRE_vect){}
-// ISR(USART_TX_vect){}
+/*** EOF ***/
 

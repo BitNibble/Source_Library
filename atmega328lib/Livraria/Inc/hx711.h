@@ -16,8 +16,8 @@ Date: 08032021_start
 #include <inttypes.h>
 
 /*** Global Constant & Macro ***/
-#ifndef STATUS_REGISTER
-	#define STATUS_REGISTER SREG
+#ifndef STATUS_handleISTER
+	#define STATUS_handleISTER SREG
 #endif
 #ifndef GLOBAL_INTERRUPT_ENABLE
 	#define GLOBAL_INTERRUPT_ENABLE 7

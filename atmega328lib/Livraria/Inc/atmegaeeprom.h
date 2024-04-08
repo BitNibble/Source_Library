@@ -13,8 +13,8 @@ Update: 01/01/2024
 	#define _ATMEGAEEPROM_H_
 
 /*** Global Library ***/
-#include <avr/eeprom.h>
-#include <inttypes.h>
+#include "atmega328handler.h"
+#include "query.h"
 
 /*** Global Constant & Macro ***/
 

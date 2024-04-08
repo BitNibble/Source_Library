@@ -11,8 +11,8 @@ Date: 24012024
  **************************************************************************************************/
 /*** File Library ***/
 #include "pcf8575.h"
-#if defined(__AVR_ATmega64__) || defined(__AVR_ATmega128__)
-	#include "atmega128mapping.h"
+#if defined(__AVR_ATmega64__) || defined(__AVR_Atmega328__)
+	#include "Atmega328mapping.h"
 #elif defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__)
 	#include "atmega328mapping.h"
 #else
@@ -46,8 +46,8 @@ void PCF8575_writehbits(pcf8575_parameter *par, uint16_t hbits, uint8_t bool)
 	if(bool) par->state |= hbits; else par->state &= ~hbits;
 	twi()->start();
 	twi()->connect(par->pcf8575_id,TWI_WRITE);
-	twi()->master_write(writehlbyte(par->state).L);
-	twi()->master_write(writehlbyte(par->state).H);
+	twi()->master_write(writehlbyte(par->state).par.L);
+	twi()->master_write(writehlbyte(par->state).par.H);
 	twi()->stop();
 }
 
@@ -56,8 +56,8 @@ uint16_t PCF8575_readhbits(pcf8575_parameter *par, uint16_t hbits)
 	HighLowByte data;
 	twi()->start();
 	twi()->connect(par->pcf8575_id, TWI_READ);
-	data.L = twi()->master_read(TWI_ACK);
-	data.H = twi()->master_read(TWI_NACK);
+	data.par.L = twi()->master_read(TWI_ACK);
+	data.par.H = twi()->master_read(TWI_NACK);
 	twi()->stop();
 	return (readhlbyte(data) & hbits);
 }

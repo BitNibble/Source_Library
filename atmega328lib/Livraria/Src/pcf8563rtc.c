@@ -11,8 +11,8 @@ Date: 29112022
  **************************************************************************************************/
 /*** File Library ***/
 #include "pcf8563rtc.h"
-#if defined(__AVR_ATmega64__) || defined(__AVR_ATmega128__)
-	#include "atmega128mapping.h"
+#if defined(__AVR_ATmega64__) || defined(__AVR_Atmega328__)
+	#include "Atmega328mapping.h"
 #elif defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__)
 	#include "atmega328mapping.h"
 #else

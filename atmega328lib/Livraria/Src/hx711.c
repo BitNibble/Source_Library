@@ -56,8 +56,8 @@ HX711 hx711_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_
 {
 	//LOCAL VARIABLES
 	uint8_t tSREG;
-	tSREG = STATUS_REGISTER;
-	STATUS_REGISTER &= ~(1<<GLOBAL_INTERRUPT_ENABLE);
+	tSREG = STATUS_handleISTER;
+	STATUS_handleISTER &= ~(1<<GLOBAL_INTERRUPT_ENABLE);
 	//ALLOCAÇÂO MEMORIA PARA Estrutura
 	HX711 hx711;
 	//import parameters
@@ -102,7 +102,7 @@ HX711 hx711_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_
 	hx711.raw_average=HX711_raw_average;
 	hx711.get_readflag=HX711_get_readflag;
 	hx711.get_cal=HX711_get_cal;
-	STATUS_REGISTER = tSREG;
+	STATUS_handleISTER = tSREG;
 	
 	// returns a copy
 	return hx711;

@@ -13,7 +13,8 @@ Update: 01/01/2024
 	#define _ATMEGA328TIMER2_H_
 
 /*** Global Library ***/
-#include <inttypes.h>
+#include "atmega328handler.h"
+#include "query.h"
 
 /*** Global Constant & Macro ***/
 #if defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__)

@@ -13,7 +13,8 @@ Update: 01/01/2024
 	#define _ATMEGA328TWI_H_
 
 /*** Global Library ***/
-#include <inttypes.h>
+#include "atmega328handler.h"
+#include "query.h"
 
 /*** Global Constant & Macro ***/
 #ifndef _TWI_MODULE_
@@ -70,7 +71,7 @@ Update: 01/01/2024
 #define TWI_IO_MASK 0x30
 #define TWI_STATUS_MASK 0xF8
 #define TWI_PRESCALER_MASK 0x03
-#define TWI_ADDRESS_REGISTER_MASK 0xFE
+#define TWI_ADDRESS_handleISTER_MASK 0xFE
 #define Nticks 1023 //anti polling freeze.
 
 // devices

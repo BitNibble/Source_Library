@@ -13,17 +13,18 @@ Update: 01/01/2024
 	#define _ATMEGA328INTERRUPT_H_
 
 /*** Global Library ***/
-#include <inttypes.h>
+#include "atmega328handler.h"
+#include "query.h"
 
 /*** Global Constant & Macros ***/
-//#define External_Interrupt_Flag_Register EIFR
-//#define Pin_Change_Interrrupt_Control_Register PCICR
-//#define Pin_Change_Interrupt_Flag_Register PCIFR
-//#define Pin_Change_Mask_Register_2 PCMSK2
-//#define Pin_Change_Mask_Register_1 PCMSK1
-//#define Pin_Change_Mask_Register_0 PCMSK0
-//#define MCU_Control_Status_Register MCUSR
-#define MCU_Control_Status_Register_Mask 0X0F
+//#define External_Interrupt_Flag_handleister EIFR
+//#define Pin_Change_Interrrupt_Control_handleister PCICR
+//#define Pin_Change_Interrupt_Flag_handleister PCIFR
+//#define Pin_Change_Mask_handleister_2 PCMSK2
+//#define Pin_Change_Mask_handleister_1 PCMSK1
+//#define Pin_Change_Mask_handleister_0 PCMSK0
+//#define MCU_Control_Status_handleister MCUSR
+#define MCU_Control_Status_handleister_Mask 0X0F
 
 /*** Global Variable ***/
 typedef struct{

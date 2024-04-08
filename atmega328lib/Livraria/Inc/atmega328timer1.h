@@ -13,7 +13,8 @@ Update: 01/01/2024
 	#define _ATMEGA328TIMER1_H_
 
 /*** Global Library ***/
-#include <inttypes.h>
+#include "atmega328handler.h"
+#include "query.h"
 
 /*** Global Constant & Macro ***/
 #ifndef GLOBAL_INTERRUPT_ENABLE
