@@ -3431,8 +3431,6 @@ STM32FXXXDMA2obj* dma2_enable(void)
 
 STM32FXXXDMA2obj* dma2(void){ return &stm32fxxx_dma2; }
 
-/*** EOF ***/
-
 /******
 1º Sequence
 2º Scope
@@ -3443,4 +3441,8 @@ STM32FXXXDMA2obj* dma2(void){ return &stm32fxxx_dma2; }
 3º Pointer and Variable
 4º Casting
 ******/
+
+/*** EOF ***/
+
+
 

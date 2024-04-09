@@ -12,9 +12,9 @@ Comment:
 #include "stm32fxxxtim6and7.h"
 
 /*** File Variable ***/
-#ifdef STM32F446xx
-static STM32FXXXTIM6obj stm32fxxx_tim6;
-static STM32FXXXTIM7obj stm32fxxx_tim7;
+#ifdef __STM32F446xx_H
+static STM32FXXX_TIM6 stm32fxxx_tim6;
+static STM32FXXX_TIM7 stm32fxxx_tim7;
 /************/
 /*** TIM6 ***/
 /************/
@@ -38,10 +38,10 @@ void STM32FXXXTim7Nvic(uint8_t bool)
 	if(bool){setbit(NVIC->ISER, 1, TIM7_IRQn, 1);}else{setbit(NVIC->ICER, 1, TIM7_IRQn, 1);}
 }
 /*** TIM6 INIC Procedure & Function Definition ***/
-STM32FXXXTIM6obj* tim6_enable(void)
+STM32FXXX_TIM6* tim6_enable(void)
 {
 	/*** TIM6 Bit Mapping Link ***/
-	stm32fxxx_tim6.handle = (STM32FXXXTIMXX_TypeDef*) TIM6;
+	stm32fxxx_tim6.handle = tim6_handle();
 	// CLOCK
 	stm32fxxx_tim6.clock = STM32FXXXTim6Clock;
 	// NVIC
@@ -49,12 +49,12 @@ STM32FXXXTIM6obj* tim6_enable(void)
 
 	return &stm32fxxx_tim6;
 }
-STM32FXXXTIM6obj* tim6(void){ return (STM32FXXXTIM6obj*) &stm32fxxx_tim6; }
+STM32FXXX_TIM6* tim6(void){ return (STM32FXXX_TIM6*) &stm32fxxx_tim6; }
 /*** TIM7 INIC Procedure & Function Definition ***/
-STM32FXXXTIM7obj* tim7_enable(void)
+STM32FXXX_TIM7* tim7_enable(void)
 {
 	/*** TIM7 Bit Mapping Link ***/
-	stm32fxxx_tim7.handle = (STM32FXXXTIMXX_TypeDef*) TIM7;
+	stm32fxxx_tim7.handle = tim7_handle();
 	// CLOCK
 	stm32fxxx_tim7.clock = STM32FXXXTim7Clock;
 	// NVIC
@@ -62,7 +62,7 @@ STM32FXXXTIM7obj* tim7_enable(void)
 
 	return &stm32fxxx_tim7;
 }
-STM32FXXXTIM7obj* tim7(void) { return (STM32FXXXTIM7obj*) &stm32fxxx_tim7; }
+STM32FXXX_TIM7* tim7(void) { return (STM32FXXX_TIM7*) &stm32fxxx_tim7; }
 #endif
 /*** EOF ***/
 

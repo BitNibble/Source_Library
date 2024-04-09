@@ -23,14 +23,14 @@ typedef struct
 	/*** Other ***/
 	void (*clock)(uint8_t bool);
 	void (*nvic)(uint8_t bool);
-}STM32FXXXTIM6obj, STM32FXXXTIM7obj;
+}STM32FXXX_TIM6, STM32FXXX_TIM7;
 /************************/
 /*** INIC TIM 6 AND 7 ***/
 /***********************/
-STM32FXXXTIM6obj* tim6_enable(void);
-STM32FXXXTIM6obj* tim6(void);
-STM32FXXXTIM7obj* tim7_enable(void);
-STM32FXXXTIM7obj* tim7(void);
+STM32FXXX_TIM6* tim6_enable(void);
+STM32FXXX_TIM6* tim6(void);
+STM32FXXX_TIM7* tim7_enable(void);
+STM32FXXX_TIM7* tim7(void);
 /****************************************/
 /*** TIM6 Procedure & Function Header ***/
 /****************************************/

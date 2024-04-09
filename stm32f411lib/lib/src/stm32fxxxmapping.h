@@ -51,104 +51,75 @@ Comment:
 #include "stm32fxxxtim2to5.h"
 #include "stm32fxxxtim6and7.h"
 #include "stm32fxxxtim9to14.h"
-/***************** STM32F446 TypeDef *****************/
+/***************** STM32FXXX TypeDef *****************/
 typedef struct
 {
 	// SCB
-	SCB_Type* scb_reg;
+	SCB_Type* scb_handle;
 	// SysTick
-	SysTick_Type* systick_reg;
+	SysTick_Type* systick_handle;
 	// NVIC
-	NVIC_Type* nvic_reg;
+	NVIC_Type* nvic_handle;
 	#if defined(_STM32FXXXNVIC_H_)
 		STM32FXXXNVICobj* nvic;
 	#endif
 	// ADC
-	ADC_TypeDef* adc1_reg;
-	ADC_Common_TypeDef* adc1_common_reg;
 	#if defined(_STM32FXXXADC1_H_)
 		STM32FXXXADC1obj* adc1;
 	#endif
-	ADC_TypeDef* adc2_reg;
-	ADC_Common_TypeDef* adc2_common_reg;
+	ADC_TypeDef* adc2_handle;
+	ADC_Common_TypeDef* adc2_common_handle;
 	#if defined(_STM32FXXXADC2_H_)
 		STM32FXXXADC2obj* adc2;
 	#endif
-	ADC_TypeDef* adc3_reg;
-	ADC_Common_TypeDef* adc3_common_reg;
+	ADC_TypeDef* adc3_handle;
+	ADC_Common_TypeDef* adc3_common_handle;
 	#if defined(_STM32FXXXADC3_H_)
 		STM32FXXXADC3obj* adc3;
 	#endif
 	// CRC
-	CRC_TypeDef* crc_reg;
+	CRC_TypeDef* crc_handle;
 	#if defined(_STM32FXXXCRC_H_)
 		STM32FXXXCRCobj* crc;
 	#endif
 	// DMA
-	DMA_TypeDef* dma1_reg;
-	DMA_Stream_TypeDef* dma1_stream0_reg;
-	DMA_Stream_TypeDef* dma1_stream1_reg;
-	DMA_Stream_TypeDef* dma1_stream2_reg;
-	DMA_Stream_TypeDef* dma1_stream3_reg;
-	DMA_Stream_TypeDef* dma1_stream4_reg;
-	DMA_Stream_TypeDef* dma1_stream5_reg;
-	DMA_Stream_TypeDef* dma1_stream6_reg;
-	DMA_Stream_TypeDef* dma1_stream7_reg;
-	DMA_TypeDef* dma2_reg;
-	DMA_Stream_TypeDef* dma2_stream0_reg;
-	DMA_Stream_TypeDef* dma2_stream1_reg;
-	DMA_Stream_TypeDef* dma2_stream2_reg;
-	DMA_Stream_TypeDef* dma2_stream3_reg;
-	DMA_Stream_TypeDef* dma2_stream4_reg;
-	DMA_Stream_TypeDef* dma2_stream5_reg;
-	DMA_Stream_TypeDef* dma2_stream6_reg;
-	DMA_Stream_TypeDef* dma2_stream7_reg;
-	DMA_Stream_TypeDef* dma2_stream8_reg;
 	#if defined(_STM32FXXXDMA_H_)
 		STM32FXXXDMA1obj* dma1;
 		STM32FXXXDMA2obj* dma2;
 	#endif
 	// FLASH
-	FLASH_TypeDef* flash_reg;
+	FLASH_TypeDef* flash_handle;
 	#if defined(_STM32FXXXFLASH_H_)
 		STM32FXXXFLASHobj* flash;
 	#endif
 	// GPIO
-	GPIO_TypeDef* gpioa_reg;
-	GPIO_TypeDef* gpiob_reg;
-	GPIO_TypeDef* gpioc_reg;
-	GPIO_TypeDef* gpiod_reg;
-	GPIO_TypeDef* gpioe_reg;
-	GPIO_TypeDef* gpiof_reg;
-	GPIO_TypeDef* gpiog_reg;
-	GPIO_TypeDef* gpioh_reg;
 	#if defined(_STM32FXXXGPIO_H_)
-		STM32FXXXGPIOA_HandleTypeDef* gpioa;
-		STM32FXXXGPIOB_HandleTypeDef* gpiob;
-		STM32FXXXGPIOC_HandleTypeDef* gpioc;
-		STM32FXXXGPIOD_HandleTypeDef* gpiod;
-		STM32FXXXGPIOE_HandleTypeDef* gpioe;
-		STM32FXXXGPIOF_HandleTypeDef* gpiof;
-		STM32FXXXGPIOG_HandleTypeDef* gpiog;
-		STM32FXXXGPIOH_HandleTypeDef* gpioh;
+		STM32FXXX_GPIOA* gpioa;
+		STM32FXXX_GPIOB* gpiob;
+		STM32FXXX_GPIOC* gpioc;
+		STM32FXXX_GPIOD* gpiod;
+		STM32FXXX_GPIOE* gpioe;
+		STM32FXXX_GPIOF* gpiof;
+		STM32FXXX_GPIOG* gpiog;
+		STM32FXXX_GPIOH* gpioh;
 	#endif
 	// SYSCFG
-	SYSCFG_TypeDef* syscfg_reg;
+	SYSCFG_TypeDef* syscfg_handle;
 	#if defined(_STM32FXXXSYSCFG_H_)
 		STM32FXXXSYSCFGobj* syscfg;
 	#endif
 	// PWR
-	PWR_TypeDef* pwr_reg;
+	PWR_TypeDef* pwr_handle;
 	#if defined(_STM32FXXXPWR_H_)
-		STM32FXXXPWRobj* pwr;
+		STM32FXXX_PWR* pwr;
 	#endif
 	// RCC
-	RCC_TypeDef* rcc_reg;
+	STM32FXXXRCC_TypeDef* rcc_handle;
 	#if defined(_STM32FXXXRCC_H_)
-		STM32FXXXRCCobj* rcc;
+		STM32FXXX_RCC* rcc;
 	#endif
 	// RTC
-	RTC_TypeDef* rtc_reg;
+	RTC_TypeDef* rtc_handle;
 	#if defined(_STM32FXXXRTC_H_)
 		STM32FXXX_RTC* rtc;
 	#endif
@@ -157,49 +128,29 @@ typedef struct
 		STM32FXXXSRAMobj* sram;
 	#endif
 	// TIM
-	TIM_TypeDef* tim1_reg;
-	TIM_TypeDef* tim8_reg;
 	#if defined(_STM32FXXXTIM1AND8_H_)
-		STM32FXXXTIM1obj* tim1;
-		STM32FXXXTIM8obj* tim8;
+		STM32FXXX_TIM1* tim1;
+		STM32FXXX_TIM8* tim8;
 	#endif
-	TIM_TypeDef* tim2_reg;
-	TIM_TypeDef* tim3_reg;
-	TIM_TypeDef* tim4_reg;
-	TIM_TypeDef* tim5_reg;
 	#if defined(_STM32FXXXTIM2TO5_H_)
-		STM32FXXXTIM2obj* tim2;
-		STM32FXXXTIM3obj* tim3;
-		STM32FXXXTIM4obj* tim4;
-		STM32FXXXTIM5obj* tim5;
+		STM32FXXX_TIM2* tim2;
+		STM32FXXX_TIM3* tim3;
+		STM32FXXX_TIM4* tim4;
+		STM32FXXX_TIM5* tim5;
 	#endif
-	TIM_TypeDef* tim6_reg;
-	TIM_TypeDef* tim7_reg;
 	#if defined(_STM32FXXXTIM6AND7_H_)
-		STM32FXXXTIM6obj* tim6;
-		STM32FXXXTIM7obj* tim7;
+		STM32FXXX_TIM6* tim6;
+		STM32FXXX_TIM7* tim7;
 	#endif
-	TIM_TypeDef* tim9_reg;
-	TIM_TypeDef* tim10_reg;
-	TIM_TypeDef* tim11_reg;
-	TIM_TypeDef* tim12_reg;
-	TIM_TypeDef* tim13_reg;
-	TIM_TypeDef* tim14_reg;
 	#if defined(_STM32FXXXTIM9TO14_H_)
-		STM32FXXXTIM9obj* tim9;
-		STM32FXXXTIM10obj* tim10;
-		STM32FXXXTIM11obj* tim11;
-		STM32FXXXTIM12obj* tim12;
-		STM32FXXXTIM13obj* tim13;
-		STM32FXXXTIM14obj* tim14;
+		STM32FXXX_TIM9* tim9;
+		STM32FXXX_TIM10* tim10;
+		STM32FXXX_TIM11* tim11;
+		STM32FXXX_TIM12* tim12;
+		STM32FXXX_TIM13* tim13;
+		STM32FXXX_TIM14* tim14;
 	#endif
 	// USART
-	USART_TypeDef* usart1_reg;
-	USART_TypeDef* usart2_reg;
-	USART_TypeDef* usart3_reg;
-	USART_TypeDef* uart4_reg;
-	USART_TypeDef* uart5_reg;
-	USART_TypeDef* usart6_reg;
 	#if defined(_STM32FXXXUSART_H_)
 		STM32FXXX_USART1* usart1;
 		STM32FXXX_USART2* usart2;

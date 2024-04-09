@@ -15,7 +15,7 @@ Comment:
 static STM32FXXXRCCPLL stm32fxxx_rcc_pll;
 static STM32FXXXRCCPLLI2S stm32fxxx_rcc_plli2s;
 static STM32FXXXRCCPLLSAI stm32fxxx_rcc_pllsai;
-static STM32FXXXRCCobj stm32fxxx_rcc;
+static STM32FXXX_RCC stm32fxxx_rcc;
 
 /*** File Procedure & Function Header ***/
 /*** Extended ***/
@@ -92,7 +92,7 @@ uint8_t STM32FXXXRccHSelect(uint8_t hclock)
 			setreg(&RCC->CFGR, 2, 0, 2);
 		break;
 		case 3: // PLL_R selected as system clock
-			#ifdef STM32F446xx
+			#ifdef __STM32F446xx_H
 				STM32FXXXRccWriteEnable();
 				setreg(&RCC->CFGR, 2, 0, 3);
 				STM32FXXXRccWriteDisable();
@@ -321,7 +321,7 @@ STM32FXXXRCCPLLSAI* stm32fxxx_rcc_pllsai_inic(void)
 	return &stm32fxxx_rcc_pllsai;
 }
 /*** INIC Procedure & Function Definition ***/
-STM32FXXXRCCobj* rcc_enable(void)
+STM32FXXX_RCC* rcc_enable(void)
 {
 
 	/*** RCC Bit Mapping Link ***/
@@ -342,7 +342,7 @@ STM32FXXXRCCobj* rcc_enable(void)
 	return &stm32fxxx_rcc;
 }
 
-STM32FXXXRCCobj* rcc(void){ return &stm32fxxx_rcc; };
+STM32FXXX_RCC* rcc(void){ return &stm32fxxx_rcc; };
 
 /*** EOF ***/
 

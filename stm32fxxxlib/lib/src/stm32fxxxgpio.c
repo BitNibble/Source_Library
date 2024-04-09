@@ -15,16 +15,16 @@ Comment:
 #include <math.h>
 
 /*** File Variables ***/
-static STM32FXXXGPIOA_HandleTypeDef stm32fxxx_gpioa;
-static STM32FXXXGPIOB_HandleTypeDef stm32fxxx_gpiob;
-static STM32FXXXGPIOC_HandleTypeDef stm32fxxx_gpioc;
-static STM32FXXXGPIOD_HandleTypeDef stm32fxxx_gpiod;
-static STM32FXXXGPIOE_HandleTypeDef stm32fxxx_gpioe;
-#ifdef STM32F446xx
-	static STM32FXXXGPIOF_HandleTypeDef stm32fxxx_gpiof;
-	static STM32FXXXGPIOG_HandleTypeDef stm32fxxx_gpiog;
+static STM32FXXX_GPIOA stm32fxxx_gpioa;
+static STM32FXXX_GPIOB stm32fxxx_gpiob;
+static STM32FXXX_GPIOC stm32fxxx_gpioc;
+static STM32FXXX_GPIOD stm32fxxx_gpiod;
+static STM32FXXX_GPIOE stm32fxxx_gpioe;
+#ifdef __STM32F446xx_H
+	static STM32FXXX_GPIOF stm32fxxx_gpiof;
+	static STM32FXXX_GPIOG stm32fxxx_gpiog;
 #endif
-static STM32FXXXGPIOH_HandleTypeDef stm32fxxx_gpioh;
+static STM32FXXX_GPIOH stm32fxxx_gpioh;
 
 /*** GPIO Procedure & Function Definition ***/
 /*** GPIOA ***/
@@ -112,7 +112,7 @@ void STM32FXXXGpioEafr( uint8_t pin, uint8_t data )
 		GPIOE->AFR[index] |= ( data << ((pin * blocksize) - (index * n_bits)) );
 	}
 }
-#ifdef STM32F446xx
+#ifdef __STM32F446xx_H
 /*** GPIOF ***/
 void STM32FXXXGpioFclock( uint8_t bool )
 {
@@ -166,7 +166,7 @@ void STM32FXXXGpioHafr( uint8_t pin, uint8_t data )
 	}
 }
 /*** INIC Procedure & Function Definition ***/
-STM32FXXXGPIOA_HandleTypeDef* gpioa_enable(void)
+STM32FXXX_GPIOA* gpioa_enable(void)
 {
 	/*** GPIOA Bit Mapping Link ***/
 	stm32fxxx_gpioa.handle = (STM32FXXXGPIOX_TypeDef*) GPIOA;
@@ -176,9 +176,9 @@ STM32FXXXGPIOA_HandleTypeDef* gpioa_enable(void)
 	return &stm32fxxx_gpioa;
 }
 
-STM32FXXXGPIOA_HandleTypeDef* gpioa(void){ return &stm32fxxx_gpioa; }
+STM32FXXX_GPIOA* gpioa(void){ return &stm32fxxx_gpioa; }
 
-STM32FXXXGPIOB_HandleTypeDef* gpiob_enable(void)
+STM32FXXX_GPIOB* gpiob_enable(void)
 {
 	/*** GPIOB Bit Mapping Link ***/
 	stm32fxxx_gpiob.handle = (STM32FXXXGPIOX_TypeDef*) GPIOB;
@@ -188,9 +188,9 @@ STM32FXXXGPIOB_HandleTypeDef* gpiob_enable(void)
 	return &stm32fxxx_gpiob;
 }
 
-STM32FXXXGPIOB_HandleTypeDef* gpiob(void){ return &stm32fxxx_gpiob; }
+STM32FXXX_GPIOB* gpiob(void){ return &stm32fxxx_gpiob; }
 
-STM32FXXXGPIOC_HandleTypeDef* gpioc_enable(void)
+STM32FXXX_GPIOC* gpioc_enable(void)
 {
 	/*** GPIOC Bit Mapping Link ***/
 	stm32fxxx_gpioc.handle = (STM32FXXXGPIOX_TypeDef*) GPIOC;
@@ -200,9 +200,9 @@ STM32FXXXGPIOC_HandleTypeDef* gpioc_enable(void)
 	return &stm32fxxx_gpioc;
 }
 
-STM32FXXXGPIOC_HandleTypeDef* gpioc(void){ return &stm32fxxx_gpioc; }
+STM32FXXX_GPIOC* gpioc(void){ return &stm32fxxx_gpioc; }
 
-STM32FXXXGPIOD_HandleTypeDef* gpiod_enable(void)
+STM32FXXX_GPIOD* gpiod_enable(void)
 {
 	/*** GPIOD Bit Mapping Link ***/
 	stm32fxxx_gpiod.handle = (STM32FXXXGPIOX_TypeDef*) GPIOD;
@@ -212,9 +212,9 @@ STM32FXXXGPIOD_HandleTypeDef* gpiod_enable(void)
 	return &stm32fxxx_gpiod;
 }
 
-STM32FXXXGPIOD_HandleTypeDef* gpiod(void){ return &stm32fxxx_gpiod; }
+STM32FXXX_GPIOD* gpiod(void){ return &stm32fxxx_gpiod; }
 
-STM32FXXXGPIOE_HandleTypeDef* gpioe_enable(void)
+STM32FXXX_GPIOE* gpioe_enable(void)
 {
 	/*** GPIOE Bit Mapping Link ***/
 	stm32fxxx_gpioe.handle = (STM32FXXXGPIOX_TypeDef*) GPIOE;
@@ -224,10 +224,10 @@ STM32FXXXGPIOE_HandleTypeDef* gpioe_enable(void)
 	return &stm32fxxx_gpioe;
 }
 
-STM32FXXXGPIOE_HandleTypeDef* gpioe(void){ return &stm32fxxx_gpioe; }
+STM32FXXX_GPIOE* gpioe(void){ return &stm32fxxx_gpioe; }
 
-#ifdef STM32F446xx
-STM32FXXXGPIOF_HandleTypeDef* gpiof_enable(void)
+#ifdef __STM32F446xx_H
+STM32FXXX_GPIOF* gpiof_enable(void)
 {
 	/*** GPIOF Bit Mapping Link ***/
 	stm32fxxx_gpiof.handle = (STM32FXXXGPIOX_TypeDef*) GPIOF;
@@ -237,9 +237,9 @@ STM32FXXXGPIOF_HandleTypeDef* gpiof_enable(void)
 	return &stm32fxxx_gpiof;
 }
 
-STM32FXXXGPIOF_HandleTypeDef* gpiof(void){ return &stm32fxxx_gpiof; }
+STM32FXXX_GPIOF* gpiof(void){ return &stm32fxxx_gpiof; }
 
-STM32FXXXGPIOG_HandleTypeDef* gpiog_enable(void)
+STM32FXXX_GPIOG* gpiog_enable(void)
 {
 	/*** GPIOG Bit Mapping Link ***/
 	stm32fxxx_gpiog.handle = (STM32FXXXGPIOX_TypeDef*) GPIOG;
@@ -249,10 +249,10 @@ STM32FXXXGPIOG_HandleTypeDef* gpiog_enable(void)
 	return &stm32fxxx_gpiog;
 }
 
-STM32FXXXGPIOA_HandleTypeDef* gpiog(void){ return &stm32fxxx_gpiog; }
+STM32FXXX_GPIOG* gpiog(void){ return &stm32fxxx_gpiog; }
 #endif
 
-STM32FXXXGPIOH_HandleTypeDef* gpioh_enable(void)
+STM32FXXX_GPIOH* gpioh_enable(void)
 {
 	/*** GPIOH Bit Mapping Link ***/
 	stm32fxxx_gpioh.handle = (STM32FXXXGPIOX_TypeDef*) GPIOH;
@@ -262,10 +262,7 @@ STM32FXXXGPIOH_HandleTypeDef* gpioh_enable(void)
 	return &stm32fxxx_gpioh;
 }
 
-STM32FXXXGPIOH_HandleTypeDef* gpioh(void){ return &stm32fxxx_gpioh; }
-
-
-/**** EOF ****/
+STM32FXXX_GPIOH* gpioh(void){ return &stm32fxxx_gpioh; }
 
 /*
  * More Interested in finding the best work flow, then coding itself. Because that will become redundant after
@@ -283,4 +280,8 @@ STM32FXXXGPIOH_HandleTypeDef* gpioh(void){ return &stm32fxxx_gpioh; }
 3º Pointer and Variable
 4º Casting
 ******/
+
+/**** EOF ****/
+
+
 

@@ -14,9 +14,9 @@ Comment:
 #include "stm32fxxxrcc.h"
 
 /*** File Variables ***/
-static STM32FXXXTIM1obj stm32fxxx_tim1;
-#ifdef STM32F446xx
-	static STM32FXXXTIM8obj stm32fxxx_tim8;
+static STM32FXXX_TIM1 stm32fxxx_tim1;
+#ifdef __STM32F446xx_H
+	static STM32FXXX_TIM8 stm32fxxx_tim8;
 #endif
 /************/
 /*** TIM1 ***/
@@ -65,7 +65,7 @@ void STM32FXXXTim1Nvic(uint8_t value)
 	break;
 	}
 }
-#ifdef STM32F446xx
+#ifdef __STM32F446xx_H
 /************/
 /*** TIM8 ***/
 /************/
@@ -108,10 +108,10 @@ void STM32FXXXTim8Nvic(uint8_t value)
 #endif
 
 /*** TIM1 INIC Procedure & Function Definition ***/
-STM32FXXXTIM1obj* tim1_enable(void)
+STM32FXXX_TIM1* tim1_enable(void)
 {
 	/*** TIM1 Bit Field ***/
-	stm32fxxx_tim1.handle = (STM32FXXXTIMXX_TypeDef*) TIM1;
+	stm32fxxx_tim1.handle = tim1_handle();
 	// CLOCK
 	stm32fxxx_tim1.clock = STM32FXXXTim1Clock;
 	// NVIC
@@ -120,14 +120,14 @@ STM32FXXXTIM1obj* tim1_enable(void)
 	return &stm32fxxx_tim1;
 }
 
-STM32FXXXTIM1obj* tim1(void){ return (STM32FXXXTIM1obj*) &stm32fxxx_tim1;}
+STM32FXXX_TIM1* tim1(void){ return (STM32FXXX_TIM1*) &stm32fxxx_tim1;}
 
-#ifdef STM32F446xx
+#ifdef __STM32F446xx_H
 /*** TIM8 INIC Procedure & Function Definition ***/
-STM32FXXXTIM8obj* tim8_enable(void)
+STM32FXXX_TIM8* tim8_enable(void)
 {
 	/*** TIM8 Bit Field ***/
-	stm32fxxx_tim8.handle = (STM32FXXXTIMXX_TypeDef*) TIM8;
+	stm32fxxx_tim8.handle = tim8_handle();
 	// CLOCK
 	stm32fxxx_tim8.clock = STM32FXXXTim8Clock;
 	// NVIC
@@ -136,7 +136,7 @@ STM32FXXXTIM8obj* tim8_enable(void)
 	return &stm32fxxx_tim8;
 }
 
-STM32FXXXTIM8obj* tim8(void){ return (STM32FXXXTIM8obj*) &stm32fxxx_tim8; }
+STM32FXXX_TIM8* tim8(void){ return (STM32FXXX_TIM8*) &stm32fxxx_tim8; }
 
 #endif
 

@@ -11,6 +11,7 @@ Comment:
 #ifndef _STM32FXXXNVIC_H_
 	#define _STM32FXXXNVIC_H_
 /*** Library ***/
+#include "stm32fxxxhandler.h"
 #include "armquery.h"
 /*** NVIC TypeDef ***/
 typedef struct

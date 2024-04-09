@@ -62,10 +62,10 @@ typedef struct
 	void (*lselect)(uint8_t lclock);
 
 	void (*nvic)(uint8_t bool);
-}STM32FXXXRCCobj;
+}STM32FXXX_RCC;
 
-STM32FXXXRCCobj* rcc_enable(void);
-STM32FXXXRCCobj* rcc(void);
+STM32FXXX_RCC* rcc_enable(void);
+STM32FXXX_RCC* rcc(void);
 
 /*** Procedure & Function Header ***/
 void STM32FXXXRCC_nvic(uint8_t bool);

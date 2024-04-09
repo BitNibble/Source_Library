@@ -12,10 +12,10 @@ Comment:
 #include "stm32fxxxtim2to5.h"
 
 /*** File Variables ***/
-static STM32FXXXTIM2obj stm32fxxx_tim2;
-static STM32FXXXTIM3obj stm32fxxx_tim3;
-static STM32FXXXTIM4obj stm32fxxx_tim4;
-static STM32FXXXTIM5obj stm32fxxx_tim5;
+static STM32FXXX_TIM2 stm32fxxx_tim2;
+static STM32FXXX_TIM3 stm32fxxx_tim3;
+static STM32FXXX_TIM4 stm32fxxx_tim4;
+static STM32FXXX_TIM5 stm32fxxx_tim5;
 /*** TIMER Procedure & Function Definition ***/
 /************/
 /*** TIM2 ***/
@@ -62,10 +62,10 @@ void STM32FXXXTim5Nvic(uint8_t bool)
 	if(bool){setbit(NVIC->ISER, 1, TIM5_IRQn, 1);} else{setbit(NVIC->ICER, 1, TIM5_IRQn, 1);}
 }
 /*** TIM2 INIC Procedure & Function Definition ***/
-STM32FXXXTIM2obj* tim2_enable(void)
+STM32FXXX_TIM2* tim2_enable(void)
 {
 	/*** TIM2 Bit Mapping Link ***/
-	stm32fxxx_tim2.handle = (STM32FXXXTIMXX_TypeDef*) TIM2;
+	stm32fxxx_tim2.handle = tim2_handle();
 	// CLOCK
 	stm32fxxx_tim2.clock = STM32FXXXTim2Clock;
 	// NVIC
@@ -74,13 +74,13 @@ STM32FXXXTIM2obj* tim2_enable(void)
 	return &stm32fxxx_tim2;
 }
 
-STM32FXXXTIM2obj* tim2(void){ return (STM32FXXXTIM2obj*) &stm32fxxx_tim2; }
+STM32FXXX_TIM2* tim2(void){ return (STM32FXXX_TIM2*) &stm32fxxx_tim2; }
 
 /*** TIM3 INIC Procedure & Function Definition ***/
-STM32FXXXTIM3obj* tim3_enable(void)
+STM32FXXX_TIM3* tim3_enable(void)
 {
 	/*** TIM3 Bit Mapping Link ***/
-	stm32fxxx_tim3.handle = (STM32FXXXTIMXX_TypeDef*) TIM3;
+	stm32fxxx_tim3.handle = tim3_handle();
 	// CLOCK
 	stm32fxxx_tim3.clock = STM32FXXXTim3Clock;
 	// NVIC
@@ -89,13 +89,13 @@ STM32FXXXTIM3obj* tim3_enable(void)
 	return &stm32fxxx_tim3;
 }
 
-STM32FXXXTIM3obj* tim3(void){ return (STM32FXXXTIM3obj*) &stm32fxxx_tim3; }
+STM32FXXX_TIM3* tim3(void){ return (STM32FXXX_TIM3*) &stm32fxxx_tim3; }
 
 /*** TIM4 INIC Procedure & Function Definition ***/
-STM32FXXXTIM4obj* tim4_enable(void)
+STM32FXXX_TIM4* tim4_enable(void)
 {
 	/*** TIM4 Bit Mapping Link ***/
-	stm32fxxx_tim4.handle = (STM32FXXXTIMXX_TypeDef*) TIM4;
+	stm32fxxx_tim4.handle = tim4_handle();
 	// CLOCK
 	stm32fxxx_tim4.clock = STM32FXXXTim4Clock;
 	// NVIC
@@ -104,13 +104,13 @@ STM32FXXXTIM4obj* tim4_enable(void)
 	return &stm32fxxx_tim4;
 }
 
-STM32FXXXTIM4obj* tim4(void){ return (STM32FXXXTIM4obj*) &stm32fxxx_tim4; }
+STM32FXXX_TIM4* tim4(void){ return (STM32FXXX_TIM4*) &stm32fxxx_tim4; }
 
 /*** TIM5 INIC Procedure & Function Definition ***/
-STM32FXXXTIM5obj* tim5_enable(void)
+STM32FXXX_TIM5* tim5_enable(void)
 {
 	/*** TIM5 Bit Mapping Link ***/
-	stm32fxxx_tim5.handle = (STM32FXXXTIMXX_TypeDef*) TIM5;
+	stm32fxxx_tim5.handle = tim5_handle();
 	// CLOCK
 	stm32fxxx_tim5.clock = STM32FXXXTim5Clock;
 	// NVIC
@@ -119,7 +119,7 @@ STM32FXXXTIM5obj* tim5_enable(void)
 	return &stm32fxxx_tim5;
 }
 
-STM32FXXXTIM5obj* tim5(void){ return (STM32FXXXTIM5obj*) &stm32fxxx_tim5; }
+STM32FXXX_TIM5* tim5(void){ return (STM32FXXX_TIM5*) &stm32fxxx_tim5; }
 
 /*** EOF ***/
 

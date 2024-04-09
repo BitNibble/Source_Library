@@ -142,7 +142,7 @@ volatile typedef struct{
 	    }par;
 	    uint32_t reg;
     }gtpr; //0x18
-}TM32FXXXUSART_USARTX_TypeDef;
+}TM32FXXXUSARTX_TypeDef;
 
 #endif
 

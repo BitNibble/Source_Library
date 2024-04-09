@@ -12,6 +12,7 @@ Comment:
 	#define _STM32FXXXSYSCFG_H_
 
 /*** File Library ***/
+#include "stm32fxxxhandler.h"
 #include "armquery.h"
 /***************************************/
 /***** SYSCFG Bit Mapping TypeDef ****/

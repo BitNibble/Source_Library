@@ -23,7 +23,7 @@ typedef struct
 	/*** Other ***/
 	void (*clock)(uint8_t bool);
 	void (*nvic)(uint8_t bool);
-}STM32FXXXTIM2obj, STM32FXXXTIM5obj;
+}STM32FXXX_TIM2, STM32FXXX_TIM5;
 // ( 3 and 4 ) TIM
 typedef struct
 {
@@ -33,18 +33,18 @@ typedef struct
 	/*** Other ***/
 	void (*clock)(uint8_t bool);
 	void (*nvic)(uint8_t bool);
-}STM32FXXXTIM3obj, STM32FXXXTIM4obj;
+}STM32FXXX_TIM3, STM32FXXX_TIM4;
 /***********************/
 /*** INIC TIM 2 to 5 ***/
 /***********************/
-STM32FXXXTIM2obj* tim2_enable(void);
-STM32FXXXTIM2obj* tim2(void);
-STM32FXXXTIM3obj* tim3_enable(void);
-STM32FXXXTIM3obj* tim3(void);
-STM32FXXXTIM4obj* tim4_enable(void);
-STM32FXXXTIM4obj* tim4(void);
-STM32FXXXTIM5obj* tim5_enable(void);
-STM32FXXXTIM5obj* tim5(void);
+STM32FXXX_TIM2* tim2_enable(void);
+STM32FXXX_TIM2* tim2(void);
+STM32FXXX_TIM3* tim3_enable(void);
+STM32FXXX_TIM3* tim3(void);
+STM32FXXX_TIM4* tim4_enable(void);
+STM32FXXX_TIM4* tim4(void);
+STM32FXXX_TIM5* tim5_enable(void);
+STM32FXXX_TIM5* tim5(void);
 /****************************************/
 /*** TIM2 Procedure & Function Header ***/
 /****************************************/

@@ -11,6 +11,7 @@ Comment:
 #ifndef _STM32FXXXDMA_H_
 	#define _STM32FXXXDMA_H_
 /*** Library ***/
+#include "stm32fxxxhandler.h"
 #include "armquery.h"
 /*** DMA Bit Mapping TypeDef ***/
 // SR

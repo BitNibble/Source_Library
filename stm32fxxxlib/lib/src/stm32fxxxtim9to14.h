@@ -22,7 +22,7 @@ typedef struct
 	/*** Other ***/
 	void (*clock)(uint8_t bool);
 	void (*nvic)(uint8_t bool);
-}STM32FXXXTIM9obj, STM32FXXXTIM12obj;
+}STM32FXXX_TIM9, STM32FXXX_TIM12;
 // ( 10/11/13/14 ) TIM
 typedef struct
 {
@@ -31,22 +31,22 @@ typedef struct
 	/*** Other ***/
 	void (*clock)(uint8_t bool);
 	void (*nvic)(uint8_t bool);
-}STM32FXXXTIM10obj, STM32FXXXTIM11obj, STM32FXXXTIM13obj, STM32FXXXTIM14obj;
+}STM32FXXX_TIM10, STM32FXXX_TIM11, STM32FXXX_TIM13, STM32FXXX_TIM14;
 /************************/
 /*** INIC TIM 9 to 14 ***/
 /************************/
-STM32FXXXTIM9obj* tim9_enable(void);
-STM32FXXXTIM9obj* tim9(void);
-STM32FXXXTIM10obj* tim10_enable(void);
-STM32FXXXTIM10obj* tim10(void);
-STM32FXXXTIM11obj* tim11_enable(void);
-STM32FXXXTIM11obj* tim11(void);
-STM32FXXXTIM12obj* tim12_enable(void);
-STM32FXXXTIM12obj* tim12(void);
-STM32FXXXTIM13obj* tim13_enable(void);
-STM32FXXXTIM13obj* tim13(void);
-STM32FXXXTIM14obj* tim14_enable(void);
-STM32FXXXTIM14obj* tim14(void);
+STM32FXXX_TIM9* tim9_enable(void);
+STM32FXXX_TIM9* tim9(void);
+STM32FXXX_TIM10* tim10_enable(void);
+STM32FXXX_TIM10* tim10(void);
+STM32FXXX_TIM11* tim11_enable(void);
+STM32FXXX_TIM11* tim11(void);
+STM32FXXX_TIM12* tim12_enable(void);
+STM32FXXX_TIM12* tim12(void);
+STM32FXXX_TIM13* tim13_enable(void);
+STM32FXXX_TIM13* tim13(void);
+STM32FXXX_TIM14* tim14_enable(void);
+STM32FXXX_TIM14* tim14(void);
 /****************************************/
 /*** TIM9 Procedure & Function Header ***/
 /****************************************/

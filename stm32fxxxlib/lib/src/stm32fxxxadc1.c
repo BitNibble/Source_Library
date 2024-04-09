@@ -119,8 +119,6 @@ STM32FXXXADC1obj* adc1_enable(void)
 
 STM32FXXXADC1obj* adc1(void){ return (STM32FXXXADC1obj*) &stm32fxxx_adc1; }
 
-/*** EOF ***/
-
 /******
 1º Sequence
 2º Scope
@@ -131,4 +129,8 @@ STM32FXXXADC1obj* adc1(void){ return (STM32FXXXADC1obj*) &stm32fxxx_adc1; }
 3º Pointer and Variable
 4º Casting
 ******/
+
+/*** EOF ***/
+
+
 

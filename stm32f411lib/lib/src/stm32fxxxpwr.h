@@ -11,6 +11,7 @@ Comment:
 #ifndef _STM32FXXXPWR_H_
 	#define _STM32FXXXPWR_H_
 /*** Library ***/
+#include "stm32fxxxhandler.h"
 #include "armquery.h"
 /*** PWR Bit Mapping TypeDef ***/
 // CR
@@ -61,10 +62,10 @@ typedef struct
 	STM32FXXXPWR_csr* csr;
 	/*** Other ***/
 	void (*clock)(uint8_t bool);
-}STM32FXXXPWRobj;
+}STM32FXXX_PWR;
 
-STM32FXXXPWRobj* pwr_enable(void);
-STM32FXXXPWRobj* pwr(void);
+STM32FXXX_PWR* pwr_enable(void);
+STM32FXXX_PWR* pwr(void);
 
 /*** PWR Bit Mapping Header ***/
 void STM32FXXXPWR_clock(uint8_t bool);

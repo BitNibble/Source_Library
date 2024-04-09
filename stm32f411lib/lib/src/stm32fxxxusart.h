@@ -20,7 +20,7 @@ typedef struct
 {
 
 	/*** Bit Mapping ***/
-	TM32FXXXUSART_USARTX_TypeDef* handle;
+	TM32FXXXUSARTX_TypeDef* handle;
 	/*** Other ***/
 	void (*clock)(uint8_t bool);
 	void (*nvic)(uint8_t bool);
@@ -31,7 +31,7 @@ typedef struct
 {
 
 	/*** Bit Mapping ***/
-	TM32FXXXUSART_USARTX_TypeDef* handle;
+	TM32FXXXUSARTX_TypeDef* handle;
 	/*** Other ***/
 	void (*clock)(uint8_t bool);
 	void (*nvic)(uint8_t bool);

@@ -13,15 +13,14 @@ Comment:
 
 /************ CMSIS BASE *************/
 // SELECTION OF CHIP (CMSIS Access to its libraries)
-#ifndef STM32F411xE
-	#define STM32F411xE
-#endif
+// Options: __STM32F446xx_H    __STM32F411xE_H
 #include "stm32f4xx.h"
 /*** Alternative CMSIS replacement ***/
 #include "stm32gpiobf.h"
 #include "stm32rccbf.h"
 #include "stm32timbf.h"
 #include "stm32usartbf.h"
+#include "stm32adcbf.h"
 /*** General Purpose Bit field ***/
 typedef union{
 	struct UN32nibble{
@@ -90,14 +89,14 @@ typedef union{
 /*************************************/
 /********* HARDWARE HANDLER **********/
 /*************************************/
-/*** IRQ ***/
-IRQn_Type irq(void);
 /*** ADC ***/
-ADC_TypeDef* adc1_handle(void);
+//ADC_TypeDef* adc1_handle(void);
+STM32FXXXADC_TypeDef* adc1_handle(void);
 ADC_TypeDef* adc2_handle(void);
 ADC_TypeDef* adc3_handle(void);
-ADC_Common_TypeDef* adc_common_handle(void);
-#ifdef _STM32F446XX_H_
+//ADC_Common_TypeDef* adc_common_handle(void);
+STM32FXXXADC_COMMON_TypeDef* adc_common_handle(void);
+#ifdef __STM32F446xx_H
 /*** CAN ***/
 CAN_TypeDef* can1_handle(void);
 CAN_TypeDef* can2_handle(void);
@@ -106,13 +105,13 @@ CEC_TypeDef* cec_handle(void);
 #endif
 /*** CRC ***/
 CRC_TypeDef* crc_handle(void);
-#ifdef _STM32F446XX_H_
+#ifdef __STM32F446xx_H_H
 /*** DAC ***/
 DAC_TypeDef* dac_handle(void);
 #endif
 /*** DBGMCU ***/
 DBGMCU_TypeDef* dbgmcu_handle(void);
-#ifdef _STM32F446XX_H_
+#ifdef __STM32F446xx_H_H
 /*** DCMI ***/
 DCMI_TypeDef* dcmi_handle(void);
 #endif
@@ -139,7 +138,7 @@ DMA_Stream_TypeDef* dma2_stream7_handle(void);
 EXTI_TypeDef* exti_handle(void);
 /*** FLASH ***/
 FLASH_TypeDef* flash_handle(void);
-#ifdef _STM32F446XX_H_
+#ifdef __STM32F446xx_H_H
 /*** FMC ***/
 FMC_Bank1_TypeDef* fmc_bank1_handle(void);
 FMC_Bank1E_TypeDef* fmc_bank1e_handle(void);
@@ -169,7 +168,7 @@ SYSCFG_TypeDef* syscfg_handle(void);
 I2C_TypeDef* i2c1_handle(void);
 I2C_TypeDef* i2c2_handle(void);
 I2C_TypeDef* i2c3_handle(void);
-#ifdef _STM32F446XX_H_
+#ifdef __STM32F446xx_H_H
 /*** FMPI2C ***/
 FMPI2C_TypeDef* fmpi2c1_handle(void);
 #endif
@@ -183,7 +182,7 @@ STM32FXXXRCC_TypeDef* rcc_handle(void);
 /*** RTC ***/
 RTC_TypeDef* rtc_handle(void);
 /*** SAI ***/
-#ifdef _STM32F446XX_H_
+#ifdef __STM32F446xx_H_H
 SAI_TypeDef* sai1_handle(void){return (SAI_TypeDef*) SAI1_BASE;}
 SAI_Block_TypeDef* sai1_block_a_handle(void);
 SAI_Block_TypeDef* sai1_block_b_handle(void);
@@ -198,7 +197,7 @@ SPI_TypeDef* spi1_handle(void);
 SPI_TypeDef* spi2_handle(void);
 SPI_TypeDef* spi3_handle(void);
 SPI_TypeDef* spi4_handle(void);
-#ifdef _STM32F446XX_H_
+#ifdef __STM32F446xx_H_H
 /*** QUADSPI ***/
 QUADSPI_TypeDef* quadspi_handle(void);
 /*** SPDIFRX ***/
@@ -240,12 +239,12 @@ STM32FXXXTIMXX_TypeDef* tim14_handle(void);
 //USART_TypeDef* uart4_handle(void);
 //USART_TypeDef* uart5_handle(void);
 //USART_TypeDef* usart6_handle(void);
-TM32FXXXUSART_USARTX_TypeDef* usart1_handle(void);
-TM32FXXXUSART_USARTX_TypeDef* usart2_handle(void);
-TM32FXXXUSART_USARTX_TypeDef* usart3_handle(void);
-TM32FXXXUSART_USARTX_TypeDef* uart4_handle(void);
-TM32FXXXUSART_USARTX_TypeDef* uart5_handle(void);
-TM32FXXXUSART_USARTX_TypeDef* usart6_handle(void);
+TM32FXXXUSARTX_TypeDef* usart1_handle(void);
+TM32FXXXUSARTX_TypeDef* usart2_handle(void);
+TM32FXXXUSARTX_TypeDef* usart3_handle(void);
+TM32FXXXUSARTX_TypeDef* uart4_handle(void);
+TM32FXXXUSARTX_TypeDef* uart5_handle(void);
+TM32FXXXUSARTX_TypeDef* usart6_handle(void);
 /*** WWDG ***/
 WWDG_TypeDef* wwdg_handle(void);
 /*** USB ***/

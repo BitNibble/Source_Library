@@ -56,8 +56,6 @@ STM32FXXXCRCobj* crc_enable(void)
 
 STM32FXXXCRCobj* crc(void){ return (STM32FXXXCRCobj*) &stm32fxxx_crc; }
 
-/*** EOF ***/
-
 /******
 1º Sequence
 2º Scope
@@ -68,4 +66,8 @@ STM32FXXXCRCobj* crc(void){ return (STM32FXXXCRCobj*) &stm32fxxx_crc; }
 3º Pointer and Variable
 4º Casting
 ******/
+
+/*** EOF ***/
+
+
 

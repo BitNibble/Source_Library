@@ -14,7 +14,7 @@ Comment:
 /*** File Variable ***/
 static STM32FXXXPWR_cr stm32fxxx_pwr_cr;
 static STM32FXXXPWR_csr stm32fxxx_pwr_csr;
-static STM32FXXXPWRobj stm32fxxx_pwr;
+static STM32FXXX_PWR stm32fxxx_pwr;
 
 /*** File Procedure & Function Header ***/
 STM32FXXXPWR_cr* stm32fxxx_pwr_cr_inic(void);
@@ -192,7 +192,7 @@ STM32FXXXPWR_csr* stm32fxxx_pwr_csr_inic(void)
 	return &stm32fxxx_pwr_csr;
 }
 /*** INIC Procedure & Function Definition ***/
-STM32FXXXPWRobj* pwr_enable(void)
+STM32FXXX_PWR* pwr_enable(void)
 {
 
 
@@ -203,7 +203,7 @@ STM32FXXXPWRobj* pwr_enable(void)
 	return &stm32fxxx_pwr;
 }
 
-STM32FXXXPWRobj* pwr(void){ return (STM32FXXXPWRobj*) &stm32fxxx_pwr; }
+STM32FXXX_PWR* pwr(void){ return (STM32FXXX_PWR*) &stm32fxxx_pwr; }
 
 /*** EOF ***/
 

@@ -11,19 +11,19 @@ Comment:
 #include "stm32fxxxhandler.h"
 
 /*** HARDWARE HANDLER ***/
-/*** IRQ ***/
-//IRQn_Type irq(void){IRQn_Type n; return n;}
 /*** ADC ***/
-ADC_TypeDef* adc1_handle(void){return (ADC_TypeDef*) ADC1_BASE;}
-#ifdef _STM32F446XX_H_
+//ADC_TypeDef* adc1_handle(void){return (ADC_TypeDef*) ADC1_BASE;}
+STM32FXXXADC_TypeDef* adc1_handle(void){return (STM32FXXXADC_TypeDef*) ADC1_BASE;}
+#ifdef __STM32F446xx_H
 ADC_TypeDef* adc2_handle(void){return (ADC_TypeDef*) ADC2_BASE;}
 ADC_TypeDef* adc3_handle(void){return (ADC_TypeDef*) ADC3_BASE;}
 ADC_Common_TypeDef* adc_common_handle(void){return (ADC_Common_TypeDef*) ADC123_COMMON_BASE;}
 #endif
-#ifdef _STM32F411XE_H_
-ADC_Common_TypeDef* adc_common_handle(void){return (ADC_Common_TypeDef*) ADC1_COMMON_BASE;}
+#ifdef __STM32F411xE_H
+//ADC_Common_TypeDef* adc_common_handle(void){return (ADC_Common_TypeDef*) ADC1_COMMON_BASE;}
+STM32FXXXADC_COMMON_TypeDef* adc_common_handle(void){return (STM32FXXXADC_COMMON_TypeDef*) ADC1_COMMON_BASE;}
 #endif
-#ifdef _STM32F446XX_H_
+#ifdef __STM32F446xx_H
 /*** CAN ***/
 CAN_TypeDef* can1_handle(void){return (CAN_TypeDef*) CAN1_BASE;}
 CAN_TypeDef* can2_handle(void){return (CAN_TypeDef*) CAN2_BASE;}
@@ -32,13 +32,13 @@ CEC_TypeDef* cec_handle(void){return (CEC_TypeDef*) CEC_BASE;}
 #endif
 /*** CRC ***/
 CRC_TypeDef* crc_handle(void){return (CRC_TypeDef*) CRC_BASE;}
-#ifdef _STM32F446XX_H_
+#ifdef __STM32F446xx_H
 /*** DAC ***/
 DAC_TypeDef* dac_handle(void){return (DAC_TypeDef*) DAC_BASE;}
 #endif
 /*** DBGMCU ***/
 DBGMCU_TypeDef* dbgmcu_handle(void){return (DBGMCU_TypeDef*) DBGMCU_BASE;}
-#ifdef _STM32F446XX_H_
+#ifdef __STM32F446xx_H
 /*** DCMI ***/
 DCMI_TypeDef* dcmi_handle(void){return (DCMI_TypeDef*) DCMI_BASE;}
 #endif
@@ -65,7 +65,7 @@ DMA_Stream_TypeDef* dma2_stream7_handle(void){return (DMA_Stream_TypeDef*) DMA2_
 EXTI_TypeDef* exti_handle(void){return (EXTI_TypeDef*) EXTI_BASE;}
 /*** FLASH ***/
 FLASH_TypeDef* flash_handle(void){return (FLASH_TypeDef*) FLASH_R_BASE;}
-#ifdef _STM32F446XX_H_
+#ifdef __STM32F446xx_H
 /*** FMC ***/
 FMC_Bank1_TypeDef* fmc_bank1_handle(void){return (FMC_Bank1_TypeDef*) FMC_Bank1_R_BASE;}
 FMC_Bank1E_TypeDef* fmc_bank1e_handle(void){return (FMC_Bank1E_TypeDef*) FMC_Bank1E_R_BASE;}
@@ -83,7 +83,7 @@ STM32FXXXGPIOX_TypeDef* gpiob_handle(void){return (STM32FXXXGPIOX_TypeDef*) GPIO
 STM32FXXXGPIOX_TypeDef* gpioc_handle(void){return (STM32FXXXGPIOX_TypeDef*) GPIOC_BASE;}
 STM32FXXXGPIOX_TypeDef* gpiod_handle(void){return (STM32FXXXGPIOX_TypeDef*) GPIOD_BASE;}
 STM32FXXXGPIOX_TypeDef* gpioe_handle(void){return (STM32FXXXGPIOX_TypeDef*) GPIOE_BASE;}
-#ifdef _STM32F446XX_H_
+#ifdef __STM32F446xx_H
 //GPIO_TypeDef* gpiof_handle(void){return (GPIO_TypeDef*) GPIOF_BASE;}
 //GPIO_TypeDef* gpiog_handle(void){return (GPIO_TypeDef*) GPIOG_BASE;}
 STM32FXXXGPIOX_TypeDef* gpiof_handle(void){return (STM32FXXXGPIOX_TypeDef*) GPIOF_BASE;}
@@ -97,7 +97,7 @@ SYSCFG_TypeDef* syscfg_handle(void){return (SYSCFG_TypeDef*) SYSCFG_BASE;}
 I2C_TypeDef* i2c1_handle(void){return (I2C_TypeDef*) I2C1_BASE;}
 I2C_TypeDef* i2c2_handle(void){return (I2C_TypeDef*) I2C2_BASE;}
 I2C_TypeDef* i2c3_handle(void){return (I2C_TypeDef*) I2C3_BASE;}
-#ifdef _STM32F446XX_H_
+#ifdef __STM32F446xx_H
 /*** FMPI2C ***/
 FMPI2C_TypeDef* fmpi2c1_handle(void){return (FMPI2C_TypeDef*) FMPI2C1_BASE;}
 #endif
@@ -111,7 +111,7 @@ STM32FXXXRCC_TypeDef* rcc_handle(void){return (STM32FXXXRCC_TypeDef*) RCC_BASE;}
 /*** RTC ***/
 RTC_TypeDef* rtc_handle(void){return (RTC_TypeDef*) RTC_BASE;}
 /*** SAI ***/
-#ifdef _STM32F446XX_H_
+#ifdef __STM32F446xx_H
 SAI_TypeDef* sai1_handle(void){return (SAI_TypeDef*) SAI1_BASE;}
 SAI_Block_TypeDef* sai1_block_a_handle(void){return (SAI_Block_TypeDef*) SAI1_Block_A_BASE;}
 SAI_Block_TypeDef* sai1_block_b_handle(void){return (SAI_Block_TypeDef*) SAI1_Block_B_BASE;}
@@ -126,7 +126,7 @@ SPI_TypeDef* spi1_handle(void){return (SPI_TypeDef*) SPI1_BASE;}
 SPI_TypeDef* spi2_handle(void){return (SPI_TypeDef*) SPI2_BASE;}
 SPI_TypeDef* spi3_handle(void){return (SPI_TypeDef*) SPI3_BASE;}
 SPI_TypeDef* spi4_handle(void){return (SPI_TypeDef*) SPI4_BASE;}
-#ifdef _STM32F446XX_H_
+#ifdef __STM32F446xx_H
 /*** QUADSPI ***/
 QUADSPI_TypeDef* quadspi_handle(void){return (QUADSPI_TypeDef*) QSPI_R_BASE;}
 /*** SPDIFRX ***/
@@ -143,13 +143,13 @@ STM32FXXXTIMXX_TypeDef* tim2_handle(void){return (STM32FXXXTIMXX_TypeDef*) TIM2_
 STM32FXXXTIMXX_TypeDef* tim3_handle(void){return (STM32FXXXTIMXX_TypeDef*) TIM3_BASE;}
 STM32FXXXTIMXX_TypeDef* tim4_handle(void){return (STM32FXXXTIMXX_TypeDef*) TIM4_BASE;}
 STM32FXXXTIMXX_TypeDef* tim5_handle(void){return (STM32FXXXTIMXX_TypeDef*) TIM5_BASE;}
-#ifdef _STM32F446XX_H_
+#ifdef __STM32F446xx_H
 //TIM_TypeDef* tim6_handle(void){return (TIM_TypeDef*) TIM6_BASE;}
 //TIM_TypeDef* tim7_handle(void){return (TIM_TypeDef*) TIM7_BASE;}
 STM32FXXXTIMXX_TypeDef* tim6_handle(void){return (STM32FXXXTIMXX_TypeDef*) TIM6_BASE;}
 STM32FXXXTIMXX_TypeDef* tim7_handle(void){return (STM32FXXXTIMXX_TypeDef*) TIM7_BASE;}
 #endif
-#ifdef _STM32F446XX_H_
+#ifdef __STM32F446xx_H
 //TIM_TypeDef* tim8_handle(void){return (TIM_TypeDef*) TIM8_BASE;}
 STM32FXXXTIMXX_TypeDef* tim8_handle(void){return (STM32FXXXTIMXX_TypeDef*) TIM8_BASE;}
 #endif
@@ -160,7 +160,7 @@ STM32FXXXTIMXX_TypeDef* tim8_handle(void){return (STM32FXXXTIMXX_TypeDef*) TIM8_
 STM32FXXXTIMXX_TypeDef* tim9_handle(void){return (STM32FXXXTIMXX_TypeDef*) TIM9_BASE;}
 STM32FXXXTIMXX_TypeDef* tim10_handle(void){return (STM32FXXXTIMXX_TypeDef*) TIM10_BASE;}
 STM32FXXXTIMXX_TypeDef* tim11_handle(void){return (STM32FXXXTIMXX_TypeDef*) TIM11_BASE;}
-#ifdef _STM32F446XX_H_
+#ifdef __STM32F446xx_H
 //TIM_TypeDef* tim12_handle(void){return (TIM_TypeDef*) TIM12_BASE;}
 //TIM_TypeDef* tim13_handle(void){return (TIM_TypeDef*) TIM13_BASE;}
 //TIM_TypeDef* tim14_handle(void){return (TIM_TypeDef*) TIM14_BASE;}
@@ -171,18 +171,18 @@ STM32FXXXTIMXX_TypeDef* tim14_handle(void){return (STM32FXXXTIMXX_TypeDef*) TIM1
 /*** USART ***/
 //USART_TypeDef* usart1_handle(void){return (USART_TypeDef*) USART1_BASE;}
 //USART_TypeDef* usart2_handle(void){return (USART_TypeDef*) USART2_BASE;}
-TM32FXXXUSART_USARTX_TypeDef* usart1_handle(void){return (TM32FXXXUSART_USARTX_TypeDef*) USART1_BASE;}
-TM32FXXXUSART_USARTX_TypeDef* usart2_handle(void){return (TM32FXXXUSART_USARTX_TypeDef*) USART2_BASE;}
-#ifdef _STM32F446XX_H_
-USART_TypeDef* usart3_handle(void){return (USART_TypeDef*) USART3_BASE;}
-USART_TypeDef* uart4_handle(void){return (USART_TypeDef*) UART4_BASE;}
-USART_TypeDef* uart5_handle(void){return (USART_TypeDef*) UART5_BASE;}
-TM32FXXXUSART_USARTX_TypeDef* usart3_handle(void){return (TM32FXXXUSART_USARTX_TypeDef*) USART3_BASE;}
-TM32FXXXUSART_USARTX_TypeDef* uart4_handle(void){return (TM32FXXXUSART_USARTX_TypeDef*) UART4_BASE;}
-TM32FXXXUSART_USARTX_TypeDef* uart5_handle(void){return (TM32FXXXUSART_USARTX_TypeDef*) UART5_BASE;}
+TM32FXXXUSARTX_TypeDef* usart1_handle(void){return (TM32FXXXUSARTX_TypeDef*) USART1_BASE;}
+TM32FXXXUSARTX_TypeDef* usart2_handle(void){return (TM32FXXXUSARTX_TypeDef*) USART2_BASE;}
+#ifdef __STM32F446xx_H
+//USART_TypeDef* usart3_handle(void){return (USART_TypeDef*) USART3_BASE;}
+//USART_TypeDef* uart4_handle(void){return (USART_TypeDef*) UART4_BASE;}
+//USART_TypeDef* uart5_handle(void){return (USART_TypeDef*) UART5_BASE;}
+TM32FXXXUSARTX_TypeDef* usart3_handle(void){return (TM32FXXXUSARTX_TypeDef*) USART3_BASE;}
+TM32FXXXUSARTX_TypeDef* uart4_handle(void){return (TM32FXXXUSARTX_TypeDef*) UART4_BASE;}
+TM32FXXXUSARTX_TypeDef* uart5_handle(void){return (TM32FXXXUSARTX_TypeDef*) UART5_BASE;}
 #endif
 //USART_TypeDef* usart6_handle(void){return (USART_TypeDef*) USART6_BASE;}
-TM32FXXXUSART_USARTX_TypeDef* usart6_handle(void){return (TM32FXXXUSART_USARTX_TypeDef*) USART6_BASE;}
+TM32FXXXUSARTX_TypeDef* usart6_handle(void){return (TM32FXXXUSARTX_TypeDef*) USART6_BASE;}
 /*** WWDG ***/
 WWDG_TypeDef* wwdg_handle(void){return (WWDG_TypeDef*) WWDG_BASE;}
 /*** USB ***/

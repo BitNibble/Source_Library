@@ -11,6 +11,7 @@ Comment:
 #ifndef _STM32FXXXSRAM_H_
 	#define _STM32FXXXSRAM_H_
 /*** Library ***/
+#include "stm32fxxxhandler.h"
 #include "armquery.h"
 /*** SRAM TypeDef ***/
 typedef struct

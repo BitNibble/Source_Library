@@ -12,7 +12,7 @@ Comment:
 #include "stm32fxxxadc3.h"
 
 /*** File Variables ***/
-#ifdef STM32F446xx
+#ifdef __STM32F446xx_H
 // ADC3
 static STM32FXXXADC3obj stm32fxxx_adc3;
 static STM32FXXXADC3single stm32fxxx_adc3_single;
