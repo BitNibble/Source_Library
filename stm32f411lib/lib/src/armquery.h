@@ -12,16 +12,7 @@ Comment:
 #ifndef _ARMQUERY_H_
 	#define _ARMQUERY_H_
 
-// SELECTION OF CHIP (CMSIS Access to its libraries)
-#ifndef STM32F411xE
-	#define STM32F411xE
-#endif
-#include "stm32f4xx.h"
-/*** wrapper ***/
-#include "stm32gpiobf.h"
-#include "stm32rccbf.h"
-#include "stm32timbf.h"
-/******/
+#include "stm32fxxxhandler.h"
 #include <inttypes.h>
 
 #ifndef HSI_RC
@@ -37,70 +28,6 @@ Comment:
 /****   PLL ON -> 1    PLL OFF = 0   ****/
 #define PLL_ON_OFF 0
 /****************************************/
-volatile typedef union{
-	struct UN32nibble{
-		uint32_t n0:4;
-		uint32_t n1:4;
-		uint32_t n2:4;
-		uint32_t n3:4;
-		uint32_t n4:4;
-		uint32_t n5:4;
-		uint32_t n6:4;
-		uint32_t n7:4;
-		}nibble;
-	struct UN32byte{
-		uint8_t b0;
-		uint8_t b1;
-		uint8_t b2;
-		uint8_t b3;
-	}byte;
-	struct UN32word{
-		uint16_t w0;
-		uint16_t w1;
-	}word;
-	uint32_t n;
-}_UN32var;
-volatile typedef union{
-	struct UN64nibble{
-		uint32_t n0:4;
-		uint32_t n1:4;
-		uint32_t n2:4;
-		uint32_t n3:4;
-		uint32_t n4:4;
-		uint32_t n5:4;
-		uint32_t n6:4;
-		uint32_t n7:4;
-		uint32_t n8:4;
-		uint32_t n9:4;
-		uint32_t n10:4;
-		uint32_t n11:4;
-		uint32_t n12:4;
-		uint32_t n13:4;
-		uint32_t n14:4;
-		uint32_t n15:4;
-	}nibble;
-	struct UN64byte{
-		uint8_t b0;
-		uint8_t b1;
-		uint8_t b2;
-		uint8_t b3;
-		uint8_t b4;
-		uint8_t b5;
-		uint8_t b6;
-		uint8_t b7;
-	}byte;
-	struct UN64word{
-		uint16_t w0;
-		uint16_t w1;
-		uint16_t w2;
-		uint16_t w3;
-	}word;
-	struct UN64dword{
-		uint32_t d0;
-		uint32_t d1;
-	}dword;
-	uint64_t n;
-}_UN64var;
 
 typedef struct{
 uint16_t (*AHB)(void);
@@ -152,10 +79,6 @@ uint16_t getplln(void);
 uint8_t getpllp(void);
 uint8_t getpllq(void);
 uint8_t getpllr(void);
-
-STM32FXXXGPIOX_TypeDef* gpioa_handle(void);
-STM32FXXXRCC_TypeDef* rcc_handle(void);
-STM32FXXXTIMXX_TypeDef* tim1_handle(void);
 
 STM32FXXXQuery query_enable(void);
 STM32FXXXQuery* query(void);

@@ -15,6 +15,7 @@ Comment:
 #ifndef _STM32FXXXMAPPING_H_
 	#define _STM32FXXXMAPPING_H_
 /***** Global Libraries *****/
+#include "stm32fxxxhandler.h"
 #include "armquery.h"
 #include "armsystick.h"
 /****** Define & Macros******/

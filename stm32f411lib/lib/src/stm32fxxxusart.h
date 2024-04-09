@@ -11,8 +11,8 @@ Comment:
 #ifndef _STM32FXXXUSART_H_
 	#define _STM32FXXXUSART_H_
 /*** Library ***/
+#include "stm32fxxxhandler.h"
 #include "armquery.h"
-#include "stm32usartbf.h"
 
 /*** USART 1..6 Handler TypeDef ***/
 // USART -> USART1,2,3,6

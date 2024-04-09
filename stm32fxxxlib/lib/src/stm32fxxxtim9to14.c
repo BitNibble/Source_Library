@@ -192,8 +192,6 @@ STM32FXXXTIM14obj* tim14(void){ return (STM32FXXXTIM14obj*) &stm32fxxx_tim14; }
 
 #endif
 
-/*** EOF ***/
-
 /******
 1º Sequence
 2º Scope
@@ -204,4 +202,6 @@ STM32FXXXTIM14obj* tim14(void){ return (STM32FXXXTIM14obj*) &stm32fxxx_tim14; }
 3º Pointer and Variable
 4º Casting
 ******/
+
+/*** EOF ***/
 

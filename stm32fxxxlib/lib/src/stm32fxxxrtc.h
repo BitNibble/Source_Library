@@ -79,8 +79,6 @@ void RTC_Alarm_IRQHandler(void);
 
 #endif
 
-/*** EOF ***/
-
 /******
 1º Sequence
 2º Scope
@@ -91,4 +89,7 @@ void RTC_Alarm_IRQHandler(void);
 3º Pointer and Variable
 4º Casting
 ******/
+
+/*** EOF ***/
+
 

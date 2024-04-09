@@ -566,8 +566,6 @@ typedef volatile struct{
 
 #endif
 
-/*** EOF ***/
-
 /******
 1º Sequence
 2º Scope
@@ -579,4 +577,5 @@ typedef volatile struct{
 4º Casting
 ******/
 
+/*** EOF ***/
 

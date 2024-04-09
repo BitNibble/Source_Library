@@ -11,8 +11,8 @@ Comment:
 #ifndef _STM32FXXXTIM2TO5_H_
 	#define _STM32FXXXTIM2TO5_H_
 /*** Library ***/
+#include "stm32fxxxhandler.h"
 #include "armquery.h"
-#include "stm32timbf.h"
 /*** TIMER 2 to 5 TypeDef ***/
 // ( 2 and 5 ) TIM
 typedef struct
