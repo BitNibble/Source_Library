@@ -15,10 +15,10 @@ Date: 24012024
 /*** Global Library ***/
 #include <inttypes.h>
 
-#if defined(__AVR_ATmega64__) || defined(__AVR_Atmega328__)
+#if defined __AVR_Atmega328__ || defined __AVR_ATmega328P__
 	#include "Atmega328twi.h"
-#elif defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__)
-	#include "atmega328twi.h"
+#elif defined __AVR_ATmega64__ || defined __AVR_ATmega128__ || defined __AVR_ATmega128A__
+	#include "atmega128twi.h"
 #else
 	#error "MCU Lib not available"
 #endif
@@ -30,7 +30,7 @@ Date: 24012024
 #ifndef LOW
 	#define LOW 0x00
 #endif
-#define N_Instance_PCF8575 4
+
 #define PCF8575_BASE_ADDRESS 32
 
 typedef struct{
