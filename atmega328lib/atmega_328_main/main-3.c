@@ -45,6 +45,7 @@ PCF8575 pcf8575;
 char* uart_receive = NULL; // pointing to Rx Buffer raw
 char uart_oneshot[UART_RX_BUFFER_SIZE];
 char uart_msg[UART_RX_BUFFER_SIZE];
+const char* term = ".";
 
 uint16_t count;
 
@@ -54,7 +55,7 @@ atmega328_enable();
 
 func_enable();
 lcd02p_enable(&DDRB, &PINB, &PORTB, &DDRC, &PINC, &PORTC);
-twi_enable(85,16);
+//twi_enable(85,16);
 usart0_enable(38400,8,1,NONE);
 pcf8575 = pcf8575_enable(32, 16);
 pcf8575.writehbits( &pcf8575.par, 65535, 1 );
@@ -62,7 +63,7 @@ uint8_t menu;
 for (menu = 1; TRUE; ) // Looping
 {
 	lcd02p()->reboot();
-	uart_receive = usart0_messageprint( usart0(), uart_oneshot, uart_msg, ".");
+	uart_receive = usart0_messageprint( usart0(), uart_oneshot, uart_msg, term);
 	
 	switch(menu){ // MENU
 		case 1: // Main Program Menu 1
@@ -241,5 +242,4 @@ for (menu = 1; TRUE; ) // Looping
 ******/
 
 /*** EOF ***/
-
 
