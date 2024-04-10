@@ -36,6 +36,7 @@ timer testing. At 25Mhz and STM32FXXXPrescaler(1, 1, 1, 0);
 - uie is always enabled wonder why the option exists.
 - dimmer
 - testing race conditions
+- Callback function for timer 1 CC
 ********************************************************************************/
 #include "main.h"
 #include "stm32fxxxmapping.h"
@@ -53,44 +54,76 @@ uint16_t count7 = 0;
 uint16_t count8 = 0;
 int8_t cdir;
 
+/** TIM1 CC IRQn CallBack ***/
+/**
+void tim1_u_callback(void){
+	count1++;
+}
+**/
+void tim1_cc1_callback(void){
+	//count2++;
+	//count8=tim1()->cnt->par.w0;
+	gpioc()->handle->bsrr.bit.r13 = 1;
+}
+/**/
+/**/
+void tim1_cc2_callback(void){
+	//count3++;
+	tim1()->handle->ccr1.par.w0 += (cdir * 295);
+	if(tim1()->handle->ccr1.par.w0 > (tim1()->handle->ccr2.par.w0 - 100)){ cdir = -1; }
+	if(tim1()->handle->ccr1.par.w0 < (1000 + 100)){ cdir = 1; }
+	//count8=tim1()->cnt->par.w0;
+	gpioc()->handle->bsrr.bit.s13 = 1;
+}
+/**/
+
 int main(void)
 {
   STM32FXXX_enable();
 
   gpiob()->clock(on); // lcd0
   gpioc()->clock(on); // gpio13
+  gpioa()->clock(on); // timer 1 pwm af channel 1
   rtc()->inic(0); // 1 - LSE 0 - LSI
 
-  ARMLCD0_enable(stm()->gpiob_reg);
+  ARMLCD0_enable((GPIO_TypeDef*)gpiob()->handle);
   FUNC_enable();
 
-  gpioc()->moder->par.m13 = 1;
+  gpioc()->handle->moder.par.m13 = 1;
 
-  stm()->tim1->nvic(on);
+  stm()->tim1->nvic(1);
+  //stm()->tim1->nvic(17);
   stm()->tim1->clock(on);
-  //tim1()->ccmr1->tim1an8_ocm_par.oc1m = 6;
-  tim1()->arr->par.w0 = 0xFFFF;
-  //tim1()->rcr->par.byte = 0;
+  gpioa()->handle->afr.par.pin7 = 1; // pin 7 af tim1ch1n
+  gpioa()->handle->afr.par.pin8 = 1; // pin 8 af tim1ch1
+  gpioa()->handle->moder.par.m7 = 2; // AF enable
+  gpioa()->handle->moder.par.m8 = 2; // AF enable
+  tim1()->handle->ccmr1.tim1and8_ocm_par.oc1m = 6;
+  //tim1()->handle->ccmr1.ocm_par.oc1m = 6;
+  tim1()->handle->ccer.tim1and8_par.cc1ne = 1;
+  tim1()->handle->ccer.tim1and8_par.cc1e = 1;
+  tim1()->handle->bdtr.tim1and8_par.moe = 1;
+  tim1()->handle->arr.par.w0 = 0xFFFF;
   // Compare
-  tim1()->ccr1->par.w0 = 1000;
-  tim1()->ccr2->par.w0 = 60000;
+  tim1()->handle->ccr1.par.w0 = 1000;
+  tim1()->handle->ccr2.par.w0 = 60000;
   // pre-scaler
-  tim1()->psc->par.w0 = 1;
+  tim1()->handle->psc.par.w0 = 1;
   // interrupt
-  //tim1()->dier->tim1and8_par.uie = 0;
-  tim1()->dier->tim1and8_par.cc1ie = 1;
-  tim1()->dier->tim1and8_par.cc2ie = 1;
+  tim1()->handle->dier.tim1and8_par.cc1ie = 1;
+  tim1()->handle->dier.tim1and8_par.cc2ie = 1;
   // other
-  //tim1()->dier->tim1and8_par.comie = 0;
-  //tim1()->dier->tim1and8_par.tie = 0;
-  //tim1()->dier->tim1and8_par.bie = 0;
+  //tim1()->handle->dier.tim1and8_par.comie = 1;
+  //tim1()->handle->dier.tim1and8_par.tie = 0;
+  //tim1()->handle->dier.tim1and8_par.bie = 0;
   //
-  //tim1()->dier->tim1and8_par.ude = 0;
-  //tim1()->dier->tim1and8_par.cc1de = 0;
+  //tim1()->handle->dier.tim1and8_par.ude = 1;
+  //tim1()->handle->dier.tim1and8_par.cc1de = 1;
 
   // Enable (Start/Stop)
-  tim1()->cr1->tim1and8_par.arpe = 1;
-  tim1()->cr1->tim1and8_par.cen = 1;
+  tim1()->handle->cr1.tim1and8_par.arpe = 1;
+  tim1()->handle->cr1.tim1and8_par.cen = 1;
+  //((STM32FXXXTIMXX_TypeDef*) tim1_handle())->cr1.tim1and8_par.cen = 1;
 
   char vecT[8]; // for calendar
   //char vecD[8]; // for calendar
@@ -105,74 +138,22 @@ int main(void)
   while (1)
   {
 	  lcd0()->gotoxy(0,0);
-	  lcd0()->string_size(func()->ui32toa(TIM1->ARR),6); lcd0()->string_size(func()->ui32toa(tim1()->ccr1->par.w0),6); lcd0()->string_size(func()->ui32toa(TIM1->CCR2),6);
+	  lcd0()->string_size(func()->ui32toa(TIM1->ARR),6); lcd0()->string_size(func()->ui32toa(tim1()->handle->ccr1.par.w0),6); lcd0()->string_size(func()->ui32toa(TIM1->CCR2),6);
 
-	  lcd0()->gotoxy(1,0);
-	  lcd0()->string_size(func()->ui32toa(count1),6); lcd0()->string_size(func()->i32toa(count2),6); lcd0()->string_size(func()->i32toa(count3),6);
+	  //lcd0()->gotoxy(1,0);
+	  //lcd0()->string_size(func()->ui32toa(count1),6); lcd0()->string_size(func()->i32toa(count2),6); lcd0()->string_size(func()->i32toa(count3),6);
 
 	  lcd0()->gotoxy(2,0);
 	  //lcd0()->string_size(func()->ui32toa(count4),6); lcd0()->string_size(func()->i32toa(count5),6); lcd0()->string_size(func()->i32toa(count6),6);
-	  //lcd0()->string_size(func()->print_binary(16,tim1()->dier->reg),17);
+	  //lcd0()->string_size(func()->print_binary(16,tim1()->cr1->reg),17);
 	  rtc()->tr2vec(vecT);
 	  lcd0()->string_size(func()->print_v2("hora: %d%d:%d%d:%d%d", vecT[0],vecT[1],vecT[2],vecT[3],vecT[4],vecT[5]),14);
 
-	  lcd0()->gotoxy(3,0);
-	  lcd0()->string_size(func()->ui32toa(count7),6); lcd0()->string_size(func()->ui32toa(count0),6); lcd0()->string_size(func()->ui32toa(count8),6);
+	  //lcd0()->gotoxy(3,0);
+	  //lcd0()->string_size(func()->ui32toa(count4),6); lcd0()->string_size(func()->ui32toa(count5),6); lcd0()->string_size(func()->ui32toa(count7),6);
   }
 }
 /*** END MAIN ***/
-void tim1_cc1f_callback(void){
-	count2++;
-	//count8=tim1()->cnt->par.w0;
-	gpioc()->bsrr->bit.r13 = 1;
-}
-void tim1_cc2f_callback(void){
-	count3++;
-	tim1()->ccr1->par.w0 += (cdir * 295);
-	if(tim1()->ccr1->par.w0 > (tim1()->ccr2->par.w0 - 100)){ cdir = -1; }
-	if(tim1()->ccr1->par.w0 < (1000 + 100)){ cdir = 1; }
-	//count8=tim1()->cnt->par.w0;
-	gpioc()->bsrr->bit.s13 = 1;
-}
-/*** IRQ Request ***/
-void TIM1_CC_IRQHandler(void){
-
-	count0++;
-	if(tim1()->sr->tim1and8_par.uif){
-		count1++;
-		//count8=tim1()->cnt->par.w0;
-		//gpioc()->odr->bit.o13 = 0;
-		tim1()->sr->tim1and8_par.uif = 0;
-	}
-	if(tim1()->sr->tim1and8_par.cc1if){
-		tim1_cc1f_callback();
-		tim1()->sr->tim1and8_par.cc1if = 0;
-	}
-	if(tim1()->sr->tim1and8_par.cc2if){
-		tim1_cc2f_callback();
-		tim1()->sr->tim1and8_par.cc2if = 0;
-	}
-	if(tim1()->sr->tim1and8_par.tif){
-		count4++;
-		//count8=tim1()->cnt->par.w0;
-		tim1()->sr->tim1and8_par.tif = 0;
-	}
-	if(tim1()->sr->tim1and8_par.comif){
-		count5++;
-		//count8=tim1()->cnt->par.w0;
-		tim1()->sr->tim1and8_par.comif = 0;
-	}
-	if(tim1()->sr->tim1and8_par.bif){
-		count6++;
-		//count8=tim1()->cnt->par.w0;
-		tim1()->sr->tim1and8_par.bif = 0;
-	}
-	if(tim1()->sr->tim1and8_par.cc1of){
-		count7++;
-		//count8=tim1()->cnt->par.w0;
-		tim1()->sr->tim1and8_par.cc1of = 0;
-	}
-}
 
 void Error_Handler(void)
 {
