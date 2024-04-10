@@ -271,7 +271,7 @@ typedef struct
 	STM32FXXXADC_CSR_TypeDef* csr;
 	STM32FXXXADC_CCR_TypeDef* ccr;
 	uint32_t (*cdr)(void);
-}STM32FXXXADCCOMMONobj;
+}STM32FXXXADC_COMMON;
 /*** ADC1 ADC2 ADC3 Auxiliary TypeDef ***/
 typedef struct
 {
@@ -281,7 +281,7 @@ typedef struct
 	void (*start)(void);
 }STM32FXXXADC1single, STM32FXXXADC2single, STM32FXXXADC3single;
 
-STM32FXXXADCCOMMONobj* stm32fxxx_adc_common_inic(void);
+STM32FXXXADC_COMMON* stm32fxxx_adc_common_inic(void);
 /*** ADC Common Header ***/
 // CDR
 uint32_t STM32FXXXADC_cdr(void);

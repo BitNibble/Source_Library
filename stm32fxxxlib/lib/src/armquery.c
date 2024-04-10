@@ -13,7 +13,7 @@ Comment:
 #include <stdarg.h>
 #include <math.h>
 
-static STM32FXXXQuery stm32fxxx_query;
+static STM32FXXX_Query stm32fxxx_query;
 static STM32FXXXSYSTEM_prescaler stm32fxxx_System_prescaler;
 static STM32FXXXPLL_prescaler stm32fxxx_Pll_prescaler;
 
@@ -243,7 +243,7 @@ STM32FXXXPLL_prescaler* Pll_prescaler_inic(void)
 	stm32fxxx_Pll_prescaler.R = getpllr;
 	return &stm32fxxx_Pll_prescaler;
 }
-STM32FXXXQuery query_enable(void)
+STM32FXXX_Query query_enable(void)
 {
 	stm32fxxx_query.System_prescaler = System_prescaler_inic();
 	stm32fxxx_query.Pll_prescaler = Pll_prescaler_inic();
@@ -252,7 +252,7 @@ STM32FXXXQuery query_enable(void)
 	return stm32fxxx_query;
 }
 
-STM32FXXXQuery* query(void){ return &stm32fxxx_query; }
+STM32FXXX_Query* query(void){ return (STM32FXXX_Query*) &stm32fxxx_query; }
 
 uint32_t readreg(uint32_t reg, uint8_t size_block, uint8_t bit_n)
 {

@@ -65,17 +65,17 @@ typedef struct
 	#endif
 	// ADC
 	#if defined(_STM32FXXXADC1_H_)
-		STM32FXXXADC1obj* adc1;
+		STM32FXXX_ADC1* adc1;
 	#endif
 	ADC_TypeDef* adc2_handle;
 	ADC_Common_TypeDef* adc2_common_handle;
 	#if defined(_STM32FXXXADC2_H_)
-		STM32FXXXADC2obj* adc2;
+		STM32FXXX_ADC2* adc2;
 	#endif
 	ADC_TypeDef* adc3_handle;
 	ADC_Common_TypeDef* adc3_common_handle;
 	#if defined(_STM32FXXXADC3_H_)
-		STM32FXXXADC3obj* adc3;
+		STM32FXXX_ADC3* adc3;
 	#endif
 	// CRC
 	CRC_TypeDef* crc_handle;

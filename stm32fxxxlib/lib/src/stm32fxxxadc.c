@@ -12,7 +12,7 @@ Comment:
 #include "stm32fxxxadc.h"
 
 /*** ADC Common Header ***/
-static STM32FXXXADCCOMMONobj stm32fxxx_adc_common;
+static STM32FXXXADC_COMMON stm32fxxx_adc_common;
 
 /*** COMMON ***/
 // CDR
@@ -21,7 +21,7 @@ uint32_t STM32FXXXADC_cdr(void)
 	return readreg(ADC->CDR, 32, 0);
 }
 /*** Auxiliary ***/
-STM32FXXXADCCOMMONobj* stm32fxxx_adc_common_inic(void)
+STM32FXXXADC_COMMON* stm32fxxx_adc_common_inic(void)
 {
 
 	// CSR

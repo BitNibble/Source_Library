@@ -49,7 +49,7 @@ STM32FXXXSYSTEM_prescaler* System_prescaler;
 STM32FXXXPLL_prescaler* Pll_prescaler;
 uint32_t (*PllClock)(void);
 uint32_t (*SystemClock)(void);
-}STM32FXXXQuery;
+}STM32FXXX_Query;
 
 uint32_t readreg(uint32_t reg, uint8_t size_block, uint8_t bit_n);
 void writereg(volatile uint32_t* reg, uint8_t size_block, uint8_t bit_n, uint32_t data);
@@ -80,8 +80,8 @@ uint8_t getpllp(void);
 uint8_t getpllq(void);
 uint8_t getpllr(void);
 
-STM32FXXXQuery query_enable(void);
-STM32FXXXQuery* query(void);
+STM32FXXX_Query query_enable(void);
+STM32FXXX_Query* query(void);
 
 #endif
 

@@ -25,7 +25,7 @@ volatile typedef struct {
 			uint32_t fill:26;
 		}par;
 		uint32_t reg;
-	}STM32FXXXADC_SR_TypeDef;
+	}sr;
 	// CR1
 	union {
 		struct {
@@ -47,7 +47,7 @@ volatile typedef struct {
 			uint32_t reserved2:5;
 		}par;
 		uint32_t reg;
-	}STM32FXXXADC_CR1_TypeDef;
+	}cr1;
 	// CR2
 	union {
 		struct {
@@ -69,7 +69,7 @@ volatile typedef struct {
 			uint32_t reserved4:1;
 		}par;
 		uint32_t reg;
-	}STM32FXXXADC_CR2_TypeDef;
+	}cr2;
 	// SMPR1
 	union {
 		struct {
@@ -85,7 +85,7 @@ volatile typedef struct {
 			uint32_t reserved:5;
 		}par;
 		uint32_t reg;
-	}STM32FXXXADC_SMPR1_TypeDef;
+	}smpr1;
 	// SMPR2
 	union {
 		struct {
@@ -102,7 +102,7 @@ volatile typedef struct {
 			uint32_t reserved:2;
 		}par;
 		uint32_t reg;
-	}STM32FXXXADC_SMPR2_TypeDef;
+	}smpr2;
 	// JOFR1..4
 	union {
 		struct {
@@ -110,28 +110,28 @@ volatile typedef struct {
 			uint32_t reserved:20;
 		}par;
 		uint32_t reg;
-	}STM32FXXXADC_JOFR1_TypeDef;
+	}jofr1;
 	union {
 		struct {
 			uint32_t joffset:12;
 			uint32_t reserved:20;
 		}par;
 		uint32_t reg;
-	}STM32FXXXADC_JOFR2_TypeDef;
+	}jofr2;
 	union {
 		struct {
 			uint32_t joffset:12;
 			uint32_t reserved:20;
 		}par;
 		uint32_t reg;
-	}STM32FXXXADC_JOFR3_TypeDef;
+	}jofr3;
 	union {
 		struct {
 			uint32_t joffset:12;
 			uint32_t reserved:20;
 		}par;
 		uint32_t reg;
-	}STM32FXXXADC_JOFR4_TypeDef;
+	}jofr4;
 	// HTR
 	union {
 		struct {
@@ -139,7 +139,7 @@ volatile typedef struct {
 			uint32_t reserved:20;
 		}par;
 		uint32_t reg;
-	}STM32FXXXADC_HTR_TypeDef;
+	}htr;
 	// LTR
 	union {
 		struct {
@@ -147,7 +147,7 @@ volatile typedef struct {
 			uint32_t reserved:20;
 		}par;
 		uint32_t reg;
-	}STM32FXXXADC_LTR_TypeDef;
+	}ltr;
 	// SQR1
 	union {
 		struct {
@@ -159,7 +159,7 @@ volatile typedef struct {
 			uint32_t reserved:8;
 		}par;
 		uint32_t reg;
-	}STM32FXXXADC_SQR1_TypeDef;
+	}sqr1;
 	// SQR2
 	union {
 		struct {
@@ -172,7 +172,7 @@ volatile typedef struct {
 			uint32_t reserved:2;
 		}par;
 		uint32_t reg;
-	}STM32FXXXADC_SQR2_TypeDef;
+	}sqr2;
 	// SQR3
 	union {
 		struct {
@@ -185,7 +185,7 @@ volatile typedef struct {
 			uint32_t reserved:2;
 		}par;
 		uint32_t reg;
-	}STM32FXXXADC_SQR3_TypeDef;
+	}sqr3;
 	// JSQR
 	union {
 		struct {
@@ -197,7 +197,7 @@ volatile typedef struct {
 			uint32_t reserved:10;
 		}par;
 		uint32_t reg;
-	}STM32FXXXADC_JSQR_TypeDef;
+	}jsqr;
 	// JDR1..4
 	union {
 		struct {
@@ -205,28 +205,28 @@ volatile typedef struct {
 			uint16_t reserved;
 		}par;
 		uint32_t reg;
-	}STM32FXXXADC_JDR1_TypeDef;
+	}jdr1;
 	union {
 		struct {
 			uint16_t jdata;
 			uint16_t reserved;
 		}par;
 		uint32_t reg;
-	}STM32FXXXADC_JDR2_TypeDef;
+	}jdr2;
 	union {
 		struct {
 			uint16_t jdata;
 			uint16_t reserved;
 		}par;
 		uint32_t reg;
-	}STM32FXXXADC_JDR3_TypeDef;
+	}jdr3;
 	union {
 		struct {
 			uint16_t jdata;
 			uint16_t reserved;
 		}par;
 		uint32_t reg;
-	}STM32FXXXADC_JDR4_TypeDef;
+	}jdr4;
 	// DR
 	union {
 		struct {
@@ -234,7 +234,7 @@ volatile typedef struct {
 			uint16_t reserved;
 		}par;
 		uint32_t reg;
-	}STM32FXXXADC_DR_TypeDef;
+	}dr;
 }STM32FXXXADC_TypeDef;
 /*** ADC_Common ***/
 volatile typedef struct {
@@ -293,7 +293,7 @@ volatile typedef struct {
 			uint32_t reserved2:10;
 		}adc3_par;
 		uint32_t reg;
-	}STM32FXXXADC_COMMON_CSR_TypeDef;
+	}csr;
 	// CCR
 	union {
 		struct {
@@ -305,7 +305,7 @@ volatile typedef struct {
 			uint16_t reserved3:8;
 		}par;
 		uint32_t reg;
-	}STM32FXXXADC_COMMON_CCR_TypeDef;
+	}ccr;
 	// CDR
 	union {
 		struct {
@@ -313,7 +313,7 @@ volatile typedef struct {
 			uint16_t data2;
 		}par;
 		uint32_t reg;
-	}STM32FXXXADC_COMMON_CDR_TypeDef;
+	}cdr;
 }STM32FXXXADC_COMMON_TypeDef;
 
 #endif

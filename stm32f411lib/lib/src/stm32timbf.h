@@ -16,7 +16,7 @@ Comment:
 /*** TIMER Bit Field TypeDef ***/
 volatile typedef struct{
 	/*** TIM -> CR1 ***/
-	union{
+	union {
 		struct TIM_CR1_1{
 			uint32_t cen:1;
 			uint32_t udis:1;
@@ -50,7 +50,7 @@ volatile typedef struct{
 		uint32_t reg;
 	}cr1;
 	/*** TIM -> CR2 ***/
-	union{
+	union {
 		struct TIM_CR2_1{
 			uint32_t ccpc:1;
 			uint32_t fill1:1;
@@ -82,7 +82,7 @@ volatile typedef struct{
 		uint32_t reg;
 	}cr2;
 	/*** TIM -> SMCR ***/
-	union{
+	union {
 		struct TIM_SMCR_1{
 			uint32_t sms:3;
 			uint32_t fill1:1;
@@ -104,7 +104,7 @@ volatile typedef struct{
 		uint32_t reg;
 	}smcr;
 	/*** TIM -> DIER ***/
-	union{
+	union {
 		struct TIM_DIER_1{
 			uint32_t uie:1;
 			uint32_t cc1ie:1;
@@ -163,7 +163,7 @@ volatile typedef struct{
 		uint32_t reg;
 	}dier;
 	/*** TIM -> SR ***/
-	union{
+	union {
 		struct TIM_SR_1{
 			uint32_t uif:1;
 			uint32_t cc1if:1;
@@ -272,7 +272,7 @@ volatile typedef struct{
 		uint32_t reg;
 	}sr;
 	/*** TIM -> EGR ***/
-	union{
+	union {
 		struct TIM_EGR_1{
 			uint32_t ug:1;
 			uint32_t cc1g:1;
@@ -314,7 +314,7 @@ volatile typedef struct{
 		uint32_t reg;
 	}egr;
 	/*** TIM -> CCMR1 ***/
-	union{
+	union {
 		struct TIM_CCMR1_1{
 			uint32_t cc1s:2;
 			uint32_t oc1fe:1;
@@ -374,7 +374,7 @@ volatile typedef struct{
 		uint32_t reg;
 	}ccmr1;
 	/*** TIM -> CCMR2 ***/
-	union{
+	union {
 		struct TIM_CCMR2_1{
 			uint32_t cc3s:2;
 			uint32_t oc3fe:1;
@@ -400,7 +400,7 @@ volatile typedef struct{
 		uint32_t reg;
 	}ccmr2;
 	/*** TIM -> CCER ***/
-	union{
+	union {
 		struct TIM_CCER_1{
 			uint32_t cc1e:1;
 			uint32_t cc1p:1;
@@ -477,7 +477,7 @@ volatile typedef struct{
 		uint32_t reg;
 	}ccer;
 	/*** TIM -> CNT ***/
-	union{
+	union {
 		struct TIM_CNT_1{
 			uint16_t w0;
 			uint16_t w1;
@@ -485,7 +485,7 @@ volatile typedef struct{
 		uint32_t reg;
 	}cnt;
 	/*** TIM -> PSC ***/
-	union{
+	union {
 		struct TIM_PSC_1{
 			uint16_t w0;
 			uint16_t w1;
@@ -493,7 +493,7 @@ volatile typedef struct{
 		uint32_t reg;
 	}psc;
 	/*** TIM -> ARR ***/
-	union{
+	union {
 		struct TIM_ARR_1{
 			uint16_t w0;
 			uint16_t w1;
@@ -509,7 +509,7 @@ volatile typedef struct{
 		uint32_t reg;
 	}rcr;
 	/*** TIM -> CCR1 ***/
-	union{
+	union {
 		struct TIM_CCR1_1{
 			uint16_t w0;
 			uint16_t w1;
@@ -525,7 +525,7 @@ volatile typedef struct{
 		uint32_t reg;
 	}ccr2;
 	/*** TIM -> CCR3 ***/
-	union{
+	union {
 		struct TIM_CCR3_1{
 			uint16_t w0;
 			uint16_t w1;
@@ -541,7 +541,7 @@ volatile typedef struct{
 		uint32_t reg;
 	}ccr4;
 	/*** TIM -> BDTR ***/
-	union{
+	union {
 		struct TIM_BDTR_1{
 			uint32_t dt:8;
 			uint32_t lock:2;
@@ -556,7 +556,7 @@ volatile typedef struct{
 		uint32_t reg;
 	}bdtr;
 	/*** TIM -> DCR ***/
-	union{
+	union {
 		struct TIM_DCR_1{
 			uint32_t dba:5;
 			uint32_t fill1:3;
@@ -566,7 +566,7 @@ volatile typedef struct{
 		uint32_t reg;
 	}dcr;
 	/*** TIM -> DMAR ***/
-	union{
+	union {
 		struct TIM_DMAR_1{
 			uint16_t dmab;
 			uint16_t fill;
@@ -577,7 +577,7 @@ volatile typedef struct{
 		uint32_t reg;
 	}dmar;
 	/*** TIM -> OR ***/
-	union{
+	union {
 		struct TIM_OR_6{
 			uint32_t fill1:10;
 			uint32_t itr1_rmp:2;
@@ -598,8 +598,6 @@ volatile typedef struct{
 
 #endif
 
-/*** EOF ***/
-
 /******
 1º Sequence
 2º Scope
@@ -610,4 +608,6 @@ volatile typedef struct{
 3º Pointer and Variable
 4º Casting
 ******/
+
+/*** EOF ***/
 

@@ -91,11 +91,15 @@ typedef union{
 /*************************************/
 /*** ADC ***/
 //ADC_TypeDef* adc1_handle(void);
-STM32FXXXADC_TypeDef* adc1_handle(void);
-ADC_TypeDef* adc2_handle(void);
-ADC_TypeDef* adc3_handle(void);
+//STM32FXXXADC_TypeDef* adc1_handle(void);
+volatile void* adc1_handle(void);
+//ADC_TypeDef* adc2_handle(void);
+//ADC_TypeDef* adc3_handle(void);
+volatile void* adc2_handle(void);
+volatile void* adc3_handle(void);
 //ADC_Common_TypeDef* adc_common_handle(void);
-STM32FXXXADC_COMMON_TypeDef* adc_common_handle(void);
+//STM32FXXXADC_COMMON_TypeDef* adc_common_handle(void);
+volatile void* adc_common_handle(void);
 #ifdef __STM32F446xx_H
 /*** CAN ***/
 CAN_TypeDef* can1_handle(void);
@@ -154,14 +158,22 @@ FMC_Bank5_6_TypeDef* fmc_bank5_6_handle(void);
 //GPIO_TypeDef* gpiof_handle(void);
 //GPIO_TypeDef* gpiog_handle(void);
 //GPIO_TypeDef* gpioh_handle(void);
-STM32FXXXGPIOX_TypeDef* gpioa_handle(void);
-STM32FXXXGPIOX_TypeDef* gpiob_handle(void);
-STM32FXXXGPIOX_TypeDef* gpioc_handle(void);
-STM32FXXXGPIOX_TypeDef* gpiod_handle(void);
-STM32FXXXGPIOX_TypeDef* gpioe_handle(void);
-STM32FXXXGPIOX_TypeDef* gpiof_handle(void);
-STM32FXXXGPIOX_TypeDef* gpiog_handle(void);
-STM32FXXXGPIOX_TypeDef* gpioh_handle(void);
+//STM32FXXXGPIOX_TypeDef* gpioa_handle(void);
+//STM32FXXXGPIOX_TypeDef* gpiob_handle(void);
+//STM32FXXXGPIOX_TypeDef* gpioc_handle(void);
+//STM32FXXXGPIOX_TypeDef* gpiod_handle(void);
+//STM32FXXXGPIOX_TypeDef* gpioe_handle(void);
+//STM32FXXXGPIOX_TypeDef* gpiof_handle(void);
+//STM32FXXXGPIOX_TypeDef* gpiog_handle(void);
+//STM32FXXXGPIOX_TypeDef* gpioh_handle(void);
+volatile void* gpioa_handle(void);
+volatile void* gpiob_handle(void);
+volatile void* gpioc_handle(void);
+volatile void* gpiod_handle(void);
+volatile void* gpioe_handle(void);
+volatile void* gpiof_handle(void);
+volatile void* gpiog_handle(void);
+volatile void* gpioh_handle(void);
 /*** SYSCFG ***/
 SYSCFG_TypeDef* syscfg_handle(void);
 /*** I2C ***/
@@ -178,7 +190,8 @@ IWDG_TypeDef* iwdg_handle(void);
 PWR_TypeDef* pwr_handle(void);
 /*** RCC ***/
 //RCC_TypeDef* rcc_handle(void);
-STM32FXXXRCC_TypeDef* rcc_handle(void);
+//STM32FXXXRCC_TypeDef* rcc_handle(void);
+volatile void* rcc_handle(void);
 /*** RTC ***/
 RTC_TypeDef* rtc_handle(void);
 /*** SAI ***/
@@ -218,20 +231,34 @@ SPDIFRX_TypeDef* spdifrx_handle(void);
 //TIM_TypeDef* tim12_handle(void);
 //TIM_TypeDef* tim13_handle(void);
 //TIM_TypeDef* tim14_handle(void);
-STM32FXXXTIMXX_TypeDef* tim1_handle(void);
-STM32FXXXTIMXX_TypeDef* tim2_handle(void);
-STM32FXXXTIMXX_TypeDef* tim3_handle(void);
-STM32FXXXTIMXX_TypeDef* tim4_handle(void);
-STM32FXXXTIMXX_TypeDef* tim5_handle(void);
-STM32FXXXTIMXX_TypeDef* tim6_handle(void);
-STM32FXXXTIMXX_TypeDef* tim7_handle(void);
-STM32FXXXTIMXX_TypeDef* tim8_handle(void);
-STM32FXXXTIMXX_TypeDef* tim9_handle(void);
-STM32FXXXTIMXX_TypeDef* tim10_handle(void);
-STM32FXXXTIMXX_TypeDef* tim11_handle(void);
-STM32FXXXTIMXX_TypeDef* tim12_handle(void);
-STM32FXXXTIMXX_TypeDef* tim13_handle(void);
-STM32FXXXTIMXX_TypeDef* tim14_handle(void);
+//STM32FXXXTIMXX_TypeDef* tim1_handle(void);
+//STM32FXXXTIMXX_TypeDef* tim2_handle(void);
+//STM32FXXXTIMXX_TypeDef* tim3_handle(void);
+//STM32FXXXTIMXX_TypeDef* tim4_handle(void);
+//STM32FXXXTIMXX_TypeDef* tim5_handle(void);
+//STM32FXXXTIMXX_TypeDef* tim6_handle(void);
+//STM32FXXXTIMXX_TypeDef* tim7_handle(void);
+//STM32FXXXTIMXX_TypeDef* tim8_handle(void);
+//STM32FXXXTIMXX_TypeDef* tim9_handle(void);
+//STM32FXXXTIMXX_TypeDef* tim10_handle(void);
+//STM32FXXXTIMXX_TypeDef* tim11_handle(void);
+//STM32FXXXTIMXX_TypeDef* tim12_handle(void);
+//STM32FXXXTIMXX_TypeDef* tim13_handle(void);
+//STM32FXXXTIMXX_TypeDef* tim14_handle(void);
+volatile void* tim1_handle(void);
+volatile void* tim2_handle(void);
+volatile void* tim3_handle(void);
+volatile void* tim4_handle(void);
+volatile void* tim5_handle(void);
+volatile void* tim6_handle(void);
+volatile void* tim7_handle(void);
+volatile void* tim8_handle(void);
+volatile void* tim9_handle(void);
+volatile void* tim10_handle(void);
+volatile void* tim11_handle(void);
+volatile void* tim12_handle(void);
+volatile void* tim13_handle(void);
+volatile void* tim14_handle(void);
 /*** USART ***/
 //USART_TypeDef* usart1_handle(void);
 //USART_TypeDef* usart2_handle(void);
@@ -239,12 +266,18 @@ STM32FXXXTIMXX_TypeDef* tim14_handle(void);
 //USART_TypeDef* uart4_handle(void);
 //USART_TypeDef* uart5_handle(void);
 //USART_TypeDef* usart6_handle(void);
-TM32FXXXUSARTX_TypeDef* usart1_handle(void);
-TM32FXXXUSARTX_TypeDef* usart2_handle(void);
-TM32FXXXUSARTX_TypeDef* usart3_handle(void);
-TM32FXXXUSARTX_TypeDef* uart4_handle(void);
-TM32FXXXUSARTX_TypeDef* uart5_handle(void);
-TM32FXXXUSARTX_TypeDef* usart6_handle(void);
+//TM32FXXXUSARTX_TypeDef* usart1_handle(void);
+//TM32FXXXUSARTX_TypeDef* usart2_handle(void);
+//TM32FXXXUSARTX_TypeDef* usart3_handle(void);
+//TM32FXXXUSARTX_TypeDef* uart4_handle(void);
+//TM32FXXXUSARTX_TypeDef* uart5_handle(void);
+//TM32FXXXUSARTX_TypeDef* usart6_handle(void);
+volatile void* usart1_handle(void);
+volatile void* usart2_handle(void);
+volatile void* usart3_handle(void);
+volatile void* uart4_handle(void);
+volatile void* uart5_handle(void);
+volatile void* usart6_handle(void);
 /*** WWDG ***/
 WWDG_TypeDef* wwdg_handle(void);
 /*** USB ***/
@@ -256,6 +289,10 @@ USB_OTG_HostTypeDef* usb_otg_host_handle(void);
 USB_OTG_HostChannelTypeDef* usb_otg_hotchannel_handle(void);
 
 #endif
+
+/***
+Use volatile void*, so it will be copied to its type or needs to be casted to a type.
+***/
 
 /*** EOF ***/
 

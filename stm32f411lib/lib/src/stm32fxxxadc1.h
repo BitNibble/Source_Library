@@ -19,39 +19,20 @@ Comment:
 typedef struct
 {
 
-	STM32FXXXADCCOMMONobj* common;
-	/*** Bit Mapping ***/
-	STM32FXXXADC_SR_TypeDef* sr;
-	STM32FXXXADC_CR1_TypeDef* cr1;
-	STM32FXXXADC_CR2_TypeDef* cr2;
-	STM32FXXXADC_SMPR1_TypeDef* smpr1;
-	STM32FXXXADC_SMPR2_TypeDef* smpr2;
-	STM32FXXXADC_JOFRx_TypeDef* jofr1;
-	STM32FXXXADC_JOFRx_TypeDef* jofr2;
-	STM32FXXXADC_JOFRx_TypeDef* jofr3;
-	STM32FXXXADC_JOFRx_TypeDef* jofr4;
-	STM32FXXXADC_HTR_TypeDef* htr;
-	STM32FXXXADC_LTR_TypeDef* ltr;
-	STM32FXXXADC_SQR1_TypeDef* sqr1;
-	STM32FXXXADC_SQR2_TypeDef* sqr2;
-	STM32FXXXADC_SQR3_TypeDef* sqr3;
-	STM32FXXXADC_JSQR_TypeDef* jsqr;
-	STM32FXXXADC_JDRx_TypeDef* jdr1;
-	STM32FXXXADC_JDRx_TypeDef* jdr2;
-	STM32FXXXADC_JDRx_TypeDef* jdr3;
-	STM32FXXXADC_JDRx_TypeDef* jdr4;
-	STM32FXXXADC_DR_TypeDef* dr;
+	/*** BitField Mapping ***/
+	STM32FXXXADC_TypeDef* handle;
+	STM32FXXXADC_COMMON_TypeDef* common_handle;
 	/*** Other ***/
 	STM32FXXXADC1single* single;
 	void (*start)(void);
 	void (*iclock)(uint8_t bool);
 	void (*clock)(uint8_t bool);
 	void (*nvic)(uint8_t bool);
-}STM32FXXXADC1obj;
+}STM32FXXX_ADC1;
 
 // INIC
-STM32FXXXADC1obj* adc1_enable(void);
-STM32FXXXADC1obj* adc1(void);
+STM32FXXX_ADC1* adc1_enable(void);
+STM32FXXX_ADC1* adc1(void);
 
 /***** ADC1 Procedure & Function Header ******/
 void STM32FXXXAdc1IClock(uint8_t bool);

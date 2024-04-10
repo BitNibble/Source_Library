@@ -14,7 +14,7 @@ Comment:
 /*** File Variables ***/
 #ifdef __STM32F446xx_H
 // ADC2
-static STM32FXXXADC2obj stm32fxxx_adc2;
+static STM32FXXX_ADC2 stm32fxxx_adc2;
 static STM32FXXXADC2single stm32fxxx_adc2_single;
 /*** File Procedure & Function Header ***/
 STM32FXXXADC2single* stm32fxxx_adc2_single_inic(void);
@@ -33,7 +33,7 @@ void STM32FXXXAdc2Nvic(uint8_t bool)
 }
 void STM32FXXXAdc2Inic(void)
 {
-	STM32FXXXADC2obj* adc2_config = adc2_enable();
+	STM32FXXX_ADC2* adc2_config = adc2_enable();
 	// ADC Clock
 	// void STM32FXXXAdc2IClock(1); // DACEN: DAC interface clock enable
 	// STM32FXXXAdc2Clock(1) // ADC2EN: ADC2 clock enable
@@ -59,31 +59,12 @@ STM32FXXXADC2single* stm32fxxx_adc2_single_inic(void)
 	return &stm32fxxx_adc2_single;
 }
 /*** ADC2 INIC Procedure & Function Definition ***/
-STM32FXXXADC2obj* adc2_enable(void)
+STM32FXXX_ADC2* adc2_enable(void)
 {
 
 	/*** ADC2 Bit Mapping Link ***/
-	stm32fxxx_adc2.sr = (STM32FXXXADC_SR_TypeDef*) &ADC2->SR;
-	stm32fxxx_adc2.cr1 = (STM32FXXXADC_CR1_TypeDef*) &ADC2->CR1;
-	stm32fxxx_adc2.cr2 = (STM32FXXXADC_CR2_TypeDef*) &ADC2->CR2;
-	stm32fxxx_adc2.smpr1 = (STM32FXXXADC_SMPR1_TypeDef*) &ADC2->SMPR1;
-	stm32fxxx_adc2.smpr2 = (STM32FXXXADC_SMPR2_TypeDef*) &ADC2->SMPR2;
-	stm32fxxx_adc2.jofr1 = (STM32FXXXADC_JOFRx_TypeDef*) &ADC2->JOFR1;
-	stm32fxxx_adc2.jofr2 = (STM32FXXXADC_JOFRx_TypeDef*) &ADC2->JOFR2;
-	stm32fxxx_adc2.jofr3 = (STM32FXXXADC_JOFRx_TypeDef*) &ADC2->JOFR3;
-	stm32fxxx_adc2.jofr4 = (STM32FXXXADC_JOFRx_TypeDef*) &ADC2->JOFR4;
-	stm32fxxx_adc2.htr = (STM32FXXXADC_HTR_TypeDef*) &ADC2->HTR;
-	stm32fxxx_adc2.ltr = (STM32FXXXADC_LTR_TypeDef*) &ADC2->LTR;
-	stm32fxxx_adc2.sqr1 = (STM32FXXXADC_SQR1_TypeDef*) &ADC2->SQR1;
-	stm32fxxx_adc2.sqr2 = (STM32FXXXADC_SQR2_TypeDef*) &ADC2->SQR2;
-	stm32fxxx_adc2.sqr3 = (STM32FXXXADC_SQR3_TypeDef*) &ADC2->SQR3;
-	stm32fxxx_adc2.jsqr = (STM32FXXXADC_JSQR_TypeDef*) &ADC2->JSQR;
-	stm32fxxx_adc2.jdr1 = (STM32FXXXADC_JDRx_TypeDef*) &ADC2->JDR1;
-	stm32fxxx_adc2.jdr2 = (STM32FXXXADC_JDRx_TypeDef*) &ADC2->JDR2;
-	stm32fxxx_adc2.jdr3 = (STM32FXXXADC_JDRx_TypeDef*) &ADC2->JDR3;
-	stm32fxxx_adc2.jdr4 = (STM32FXXXADC_JDRx_TypeDef*) &ADC2->JDR4;
-	stm32fxxx_adc2.dr = (STM32FXXXADC_DR_TypeDef*) &ADC2->DR;
-	stm32fxxx_adc2.common = stm32fxxx_adc_common_inic();
+	stm32fxxx_adc2.handle = adc2_handle();
+	stm32fxxx_adc2.common_handle = adc_common_handle();
 	// Other
 	stm32fxxx_adc2.single = stm32fxxx_adc2_single_inic();
 	stm32fxxx_adc2.iclock = STM32FXXXAdc2IClock;
@@ -92,11 +73,9 @@ STM32FXXXADC2obj* adc2_enable(void)
 	return &stm32fxxx_adc2;
 }
 
-STM32FXXXADC2obj* adc2(void){ return (STM32FXXXADC2obj*) &stm32fxxx_adc2; }
+STM32FXXX_ADC2* adc2(void){ return (STM32FXXX_ADC2*) &stm32fxxx_adc2; }
 
 #endif
-
-/*** EOF ***/
 
 /******
 1º Sequence
@@ -108,4 +87,6 @@ STM32FXXXADC2obj* adc2(void){ return (STM32FXXXADC2obj*) &stm32fxxx_adc2; }
 3º Pointer and Variable
 4º Casting
 ******/
+
+/*** EOF ***/
 
