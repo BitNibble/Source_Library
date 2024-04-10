@@ -15,6 +15,14 @@ Date: 24012024
 /*** Global Library ***/
 #include <inttypes.h>
 
+#if defined(__AVR_ATmega64__) || defined(__AVR_Atmega328__)
+	#include "Atmega328twi.h"
+#elif defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__)
+	#include "atmega328twi.h"
+#else
+	#error "MCU Lib not available"
+#endif
+
 /*** Global Constant & Macro ***/
 #ifndef HIGH
 	#define HIGH 0xFF
@@ -25,6 +33,7 @@ Date: 24012024
 #define N_Instance_PCF8575 4
 
 typedef struct{
+	TWI0 twi;
 	uint8_t pcf8575_id;
 	uint16_t state;
 }pcf8575_parameter;
