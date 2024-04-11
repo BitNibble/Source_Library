@@ -5,7 +5,7 @@ Author: Sergio Manuel Santos
 License: GNU General Public License
 File: $Id: MAIN,v 1.8.2.1 21/10/2020 Exp $
 Software: Atmel Studio 7 (ver 7.0.129)
-Hardware: Atmega128 by ETT ET-BASE
+Hardware: atmega128 by ETT ET-BASE
 	-PORTA LCD 16X2
 	-PORTE Keyboard 4X4
 	-PF0 Sensor LDR
@@ -30,6 +30,7 @@ Comment:
 #include "function.h"
 #include "lcd.h"
 #include "pcf8563rtc.h"
+#include "pcf8575.h"
 #include "keypad.h"
 #include "74hc595.h"
 #include "hc05atcommands.h"
@@ -49,6 +50,7 @@ struct date dt; // date struct RTC
 
 HC595 shift;
 PCF8563RTC rtc;
+PCF8575 pcf8575;
 
 uint8_t count=0; // 1Hz
 uint8_t increment=0; // 1Hz
@@ -68,17 +70,18 @@ int main(void)
 atmega128_enable();
 PORTINIT();
 
-atmega128()->adc_enable(1, 128, 1, 0); // Channel 0 for Position
-atmega128()->tc0_enable(2,2); // 1Hz to HC595
-atmega128()->tc1_enable(9,0); // PWM Positioning
-atmega128()->tc2_enable(2,2);
-atmega128()->usart1_enable(38400,8,1,NONE); // UART 103 para 9600 (ESP01), 68 para 14400, 25 para 38400 (HC05), 8 para 115200
+adc_enable(1, 128, 1, 0); // Channel 0 for Position
+tc0_enable(2,2); // 1Hz to HC595
+tc1_enable(9,0); // PWM Positioning
+tc2_enable(2,2);
+usart1_enable(38400,8,1,NONE); // UART 103 para 9600 (ESP01), 68 para 14400, 25 para 38400 (HC05), 8 para 115200
 
 func_enable(); // Function Library
 lcd0_enable(&DDRA,&PINA,&PORTA); // LCD Display 4X20
 keypad_enable(&DDRE,&PINE,&PORTE); // Keyboard
-rtc = pcf8563rtc_enable(16); // RTC with I2C
+rtc = pcf8563rtc_enable( 16 ); // RTC with I2C
 shift = hc595_enable(&DDRG,&PORTG,2,0,1);
+pcf8575 = pcf8575_enable( PCF8575_BASE_ADDRESS, 16 );
 
 // local var
 char Menu = '1'; // Main menu selector
@@ -97,7 +100,7 @@ long mapping = 0;
 signal = 0;
 counter1 = 0;
 char* ATmsg = NULL;
-char uartmsg[UART1_RX_BUFFER_SIZE]; // Oneshot
+char uartmsg[UART1_RX_BUFFER_SIZE]; // One shot
 char uartmsgprint[UART1_RX_BUFFER_SIZE]; // triggered
 uint32_t number1 = 0;
 uint8_t tnum = 170;
@@ -122,7 +125,7 @@ while(TRUE){
 	lcd0()->reboot();
 	keypad()->read();
 		
-	uartreceive = usart1_messageprint( atmega128()->usart1, uartmsg, uartmsgprint, "\n");
+	uartreceive = usart1_messageprint( atmega128()->usart1, uartmsg, uartmsgprint, "\r\n");
 	// RTC
 	tm=rtc.GetTime();
 	dt=rtc.GetDate();
@@ -389,7 +392,7 @@ while(TRUE){
 				mvalue=func()->strToInt(mstr);
 				if(mvalue >=0 && mvalue <16){
 					// PORTC = mvalue;
-					atmega128()->portc_reg->port = mvalue;
+					atmega128()->portc_handle->port.reg = mvalue;
 					lcd0()->gotoxy(0,12);
 					lcd0()->hspace(4);
 				}else{
@@ -434,37 +437,37 @@ while(TRUE){
 				usart1()->rxflush();
 			}
 			if(!strcmp(uartmsg,"s00.\r\n")){
-				if(atmega128()->portc_reg->port & 1)
-					atmega128()->portc_reg->port &= ~1;
+				if(atmega128()->portc_handle->port.reg & 1)
+					atmega128()->portc_handle->port.reg &= ~1;
 				else
-					atmega128()->portc_reg->port |= 1;
+					atmega128()->portc_handle->port.reg |= 1;
 			}
 			if(!strcmp(uartmsg,"s00 off.\r\n")){
-				atmega128()->portc_reg->port &= ~1;
+				atmega128()->portc_handle->port.reg &= ~1;
 			}
 			if(!strcmp(uartmsg,"s01.\r\n")){
-				if(atmega128()->portc_reg->port & 2)
-					atmega128()->portc_reg->port &= ~2;
+				if(atmega128()->portc_handle->port.reg & 2)
+					atmega128()->portc_handle->port.reg &= ~2;
 				else
-					atmega128()->portc_reg->port |= 2;
+					atmega128()->portc_handle->port.reg |= 2;
 			}
 			if(!strcmp(uartmsg,"s02.\r\n")){
-				if(atmega128()->portc_reg->port & 4)
-					atmega128()->portc_reg->port &= ~4;
+				if(atmega128()->portc_handle->port.reg & 4)
+					atmega128()->portc_handle->port.reg &= ~4;
 				else
-					atmega128()->portc_reg->port |= 4;
+					atmega128()->portc_handle->port.reg |= 4;
 			}
 			if(!strcmp(uartmsg,"s03.\r\n")){
-				if(atmega128()->portc_reg->port & 8)
-					atmega128()->portc_reg->port &= ~8;
+				if(atmega128()->portc_handle->port.reg & 8)
+					atmega128()->portc_handle->port.reg &= ~8;
 				else
-					atmega128()->portc_reg->port |= 8;
+					atmega128()->portc_handle->port.reg |= 8;
 			}
 			if(!strcmp(uartmsg,"all on.\r\n")){
-				atmega128()->portc_reg->port |= 15;
+				atmega128()->portc_handle->port.reg |= 15;
 			}
 			if(!strcmp(uartmsg,"all off.\r\n")){
-				atmega128()->portc_reg->port &= ~15;
+				atmega128()->portc_handle->port.reg &= ~15;
 			}
 			if(!strcmp(uartmsg,"Disconnect\r\n")){
 				Menu = '1';
@@ -536,10 +539,6 @@ while(TRUE){
 		number1 -= 1;
 		lcd0()->string_size(func()->ui32toa(number1),4);
 		
-		
-		
-		
-		
 		/******/
 		// Reading input
 		lcd0()->gotoxy(1,9);
@@ -569,21 +568,21 @@ while(TRUE){
 void PORTINIT(void)
 {
 	// INPUT
-	atmega128()->portf_reg->ddr = 0x00;
-	atmega128()->portf_reg->port = 0x0F;
+	atmega128()->portf_handle->ddr.reg = 0x00;
+	atmega128()->portf_handle->port.reg = 0x0F;
 	// OUTPUT
-	atmega128()->portb_reg->ddr |= (1<<5) | (1<<6) | (1<<7);
+	portb_handle()->ddr.reg |= (1<<5) | (1<<6) | (1<<7);
 	// OUTPUT PULLUP
-	atmega128()->portc_reg->ddr = 0xFF;
-	atmega128()->portc_reg->port = 0x00;
+	atmega128()->portc_handle->ddr.reg = 0xFF;
+	atmega128()->portc_handle->port.reg = 0x00;
 }
 
 /*** File Interrupt ***/
 ISR(TIMER0_COMP_vect) // 1Hz and usart Tx
 {
 	uint8_t Sreg;
-	Sreg = atmega128()->cpu_reg->sreg;
-	atmega128()->cpu_reg->sreg &= ~(1<<7);
+	Sreg = cpu_handle()->sreg.reg;
+	cpu_handle()->sreg.par.I = 1;
 	if(count>59){ //59 -> 1Hz
 		increment++;
 		if((increment & 0x0F) < 8){
@@ -596,14 +595,14 @@ ISR(TIMER0_COMP_vect) // 1Hz and usart Tx
 		count=0;
 	}else
 		count++;
-	atmega128()->cpu_reg->sreg = Sreg;
+	cpu_handle()->sreg.reg = Sreg;
 }
 
 ISR(TIMER2_COMP_vect)
 {
 	uint8_t Sreg;
-	Sreg = atmega128()->cpu_reg->sreg;
-	atmega128()->cpu_reg->sreg &= ~(1<<7);
+	Sreg = cpu_handle()->sreg.reg;
+	cpu_handle()->sreg.par.I = 1;
 	
 	if(counter1 > 1000){
 		// signal = 1;
@@ -611,10 +610,8 @@ ISR(TIMER2_COMP_vect)
 	}
 	counter1++;
 	
-	atmega128()->cpu_reg->sreg = Sreg;
+	cpu_handle()->sreg.reg = Sreg;
 }
-
-/***EOF***/
 
 /**************************** Comment: ******************************
 1º Sequence
@@ -629,4 +626,5 @@ A/(b*c*d*e*f) = A/b/c/d/e/f
 functions should never return to one of its own parameters, it leads to zero.
 ********************************************************************/
 
+/***EOF***/
 
