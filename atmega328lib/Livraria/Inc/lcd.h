@@ -11,6 +11,8 @@ Comment:
 #ifndef _LCD_H_
 	#define _LCD_H_
 
+/***Compiler***/
+
 /***Working Frequency***/
 #ifndef F_CPU
 	#define F_CPU 16000000UL
@@ -29,9 +31,16 @@ Comment:
 #define DB5 5
 #define DB6 6
 #define DB7 7
+/***************/
+// CMD RS
+#define INST 0
+#define DATA 1
+// ticks depends on CPU frequency 16Mhz -> 0 8Mhz -> 0
+#define LCD_W_N_TICKS 0
+#define LCD_R_N_TICKS 0
 
 /***Global Variable***/
-struct dspl {
+typedef struct{
 	void (*write)(char c, unsigned short D_I);
 	char (*read)(unsigned short D_I);
 	void (*BF)(void);
@@ -43,15 +52,15 @@ struct dspl {
 	void (*clear)(void);
 	void (*gotoxy)(unsigned int y, unsigned int x);
 	void (*reboot)(void);
-};
-typedef struct dspl LCD0;
-typedef struct dspl LCD1;
+}LCD0, LCD1;
 
 /***Global Header***/
+LCD0* lcd0(void);
+LCD1* lcd1(void);
 LCD0 lcd0_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port);
 LCD1 lcd1_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port);
 
 #endif
 
-/*** EOF ***/
+/***EOF***/
 
