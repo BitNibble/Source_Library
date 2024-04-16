@@ -49,6 +49,9 @@ STM32FXXXSYSTEM_prescaler* System_prescaler;
 STM32FXXXPLL_prescaler* Pll_prescaler;
 uint32_t (*PllClock)(void);
 uint32_t (*SystemClock)(void);
+uint32_t (*hclk)(void);
+uint32_t (*pclk1)(void);
+uint32_t (*pclk2)(void);
 }STM32FXXX_Query;
 
 uint32_t readreg(uint32_t reg, uint8_t size_block, uint8_t bit_n);

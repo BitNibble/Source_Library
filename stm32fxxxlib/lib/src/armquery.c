@@ -224,6 +224,21 @@ uint32_t getsysclk(void)
 	}
 	return (uint32_t)value;
 }
+
+uint32_t gethclk(void){
+	return getsysclk()/gethpre();
+}
+
+uint32_t getpclk1(void){
+	uint32_t freq = getsysclk()/gethpre();
+	return freq/gethppre1();
+}
+
+uint32_t getpclk2(void){
+	uint32_t freq = getsysclk()/gethpre();
+	return freq/gethppre2();
+}
+
 STM32FXXXSYSTEM_prescaler* System_prescaler_inic(void)
 {
 	stm32fxxx_System_prescaler.AHB = gethpre;
@@ -249,6 +264,9 @@ STM32FXXX_Query query_enable(void)
 	stm32fxxx_query.Pll_prescaler = Pll_prescaler_inic();
 	stm32fxxx_query.PllClock = getpllclk;
 	stm32fxxx_query.SystemClock = getsysclk;
+	stm32fxxx_query.hclk = gethclk;
+	stm32fxxx_query.pclk1 = getpclk1;
+	stm32fxxx_query.pclk2 = getpclk2;
 	return stm32fxxx_query;
 }
 

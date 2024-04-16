@@ -193,6 +193,6 @@ void SysTick_Handler(void);
 3º Pointer and Variable
 4º Casting
 
-Instance->Register->Par
+TypeDef->Instance->Handle
 ******/
 

@@ -21,6 +21,7 @@ Comment:
 #include "stm32timbf.h"
 #include "stm32usartbf.h"
 #include "stm32adcbf.h"
+#include "stm32i2cbf.h"
 /*** General Purpose Bit field ***/
 typedef union{
 	struct UN32nibble{
@@ -178,8 +179,11 @@ volatile void* gpioh_handle(void);
 SYSCFG_TypeDef* syscfg_handle(void);
 /*** I2C ***/
 I2C_TypeDef* i2c1_handle(void);
-I2C_TypeDef* i2c2_handle(void);
-I2C_TypeDef* i2c3_handle(void);
+//I2C_TypeDef* i2c2_handle(void);
+//I2C_TypeDef* i2c3_handle(void);
+//volatile void* i2c1_handle(void);
+volatile void* i2c2_handle(void);
+volatile void* i2c3_handle(void);
 #ifdef __STM32F446xx_H_H
 /*** FMPI2C ***/
 FMPI2C_TypeDef* fmpi2c1_handle(void);
