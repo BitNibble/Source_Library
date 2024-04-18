@@ -54,6 +54,8 @@ uint16_t count7 = 0;
 uint16_t count8 = 0;
 int8_t cdir;
 
+I2C_HandleTypeDef i2c;
+
 /** TIM1 CC IRQn CallBack ***/
 /**
 void tim1_u_callback(void){
@@ -63,7 +65,7 @@ void tim1_u_callback(void){
 void tim1_cc1_callback(void){
 	//count2++;
 	//count8=tim1()->cnt->par.w0;
-	gpioc()->handle->bsrr.bit.r13 = 1;
+	gpioc()->handle->bsrr.par.resetpin_13 = 1;
 }
 /**/
 /**/
@@ -73,7 +75,7 @@ void tim1_cc2_callback(void){
 	if(tim1()->handle->ccr1.par.w0 > (tim1()->handle->ccr2.par.w0 - 100)){ cdir = -1; }
 	if(tim1()->handle->ccr1.par.w0 < (1000 + 100)){ cdir = 1; }
 	//count8=tim1()->cnt->par.w0;
-	gpioc()->handle->bsrr.bit.s13 = 1;
+	gpioc()->handle->bsrr.par.setpin_13 = 1;
 }
 /**/
 
@@ -86,18 +88,42 @@ int main(void)
   gpioa()->clock(on); // timer 1 pwm af channel 1
   rtc()->inic(0); // 1 - LSE 0 - LSI
 
+  i2c.Instance = i2c1_handle();
+
+  //setup i2c io
+  //gpioc()->handle->afr.par.pin_7 = 4; // pin 7 AF4 (I2C1..3)
+  //gpioc()->handle->afr.par.pin_8 = 4; // pin 8 AF4 (I2C1..3)
+  //gpioc()->handle->moder.par.pin_7 = 1;
+  //gpioc()->handle->moder.par.pin_8 = 1;
+
+  //setup i2c parameters
+  i2c.Init.ClockSpeed = query()->pclk1();
+  i2c.Init.DutyCycle = (query()->pclk1() / 1000000) + 1;
+  i2c.Init.OwnAddress1 = 'A';
+  i2c.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+  i2c.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+  i2c.Init.OwnAddress2 = 'A';
+  i2c.Init.GeneralCallMode = I2C_GENERALCALL_ENABLE;
+  i2c.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+
+  //Initialise parameters
+  HAL_I2C_Init(&i2c);
+
   ARMLCD0_enable((GPIO_TypeDef*)gpiob()->handle);
   FUNC_enable();
 
-  gpioc()->handle->moder.par.m13 = 1;
+  //gpioc()->handle->moder.par.pin_1 = 1;
+  gpioc()->handle->moder.par.pin_13 = 1;
 
   stm()->tim1->nvic(1);
   //stm()->tim1->nvic(17);
   stm()->tim1->clock(on);
-  gpioa()->handle->afr.par.pin7 = 1; // pin 7 af tim1ch1n
-  gpioa()->handle->afr.par.pin8 = 1; // pin 8 af tim1ch1
-  gpioa()->handle->moder.par.m7 = 2; // AF enable
-  gpioa()->handle->moder.par.m8 = 2; // AF enable
+
+  gpioa()->handle->afr.par.pin_7 = 1; // pin 7 af tim1ch1n
+  gpioa()->handle->afr.par.pin_8 = 1; // pin 8 af tim1ch1
+  gpioa()->handle->moder.par.pin_7 = 2; // AF enable
+  gpioa()->handle->moder.par.pin_8 = 2; // AF enable
+
   tim1()->handle->ccmr1.tim1and8_ocm_par.oc1m = 6;
   //tim1()->handle->ccmr1.ocm_par.oc1m = 6;
   tim1()->handle->ccer.tim1and8_par.cc1ne = 1;
@@ -151,6 +177,8 @@ int main(void)
 
 	  //lcd0()->gotoxy(3,0);
 	  //lcd0()->string_size(func()->ui32toa(count4),6); lcd0()->string_size(func()->ui32toa(count5),6); lcd0()->string_size(func()->ui32toa(count7),6);
+	  //lcd0()->string_size(func()->print_v2("pclk1: %d", query()->pclk1()),14);
+
   }
 }
 /*** END MAIN ***/
@@ -171,7 +199,8 @@ void assert_failed(uint8_t *file, uint32_t line)
 
 /*** EOF ***/
 /*** Comment
-struct->register->par
+struct->x_union->register
+               ->parameter
 
 ***/
 
