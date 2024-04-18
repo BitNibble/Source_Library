@@ -12,7 +12,6 @@ Comment:
 	#define _STM32FXXXRTC_H_
 
 /*** Library ***/
-#include "stm32fxxxhandler.h"
 #include "armquery.h"
 
 /*** Define & Macro ***/

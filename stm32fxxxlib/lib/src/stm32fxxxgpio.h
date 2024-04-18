@@ -13,7 +13,6 @@ Comment:
 	#define _STM32FXXXGPIO_H_
 
 /*** File Library ***/
-#include "stm32fxxxhandler.h"
 #include "armquery.h"
 
 /*** GPIO -> GPIO ***/

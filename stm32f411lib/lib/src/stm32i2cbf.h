@@ -11,6 +11,8 @@ Comment:
 #ifndef _STM32FXXXI2CBF_H_
 	#define _STM32FXXXI2CBF_H_
 
+#include <inttypes.h>
+
 /*** I2C BitField TypeDef ***/
 volatile typedef struct {
 	// CR1

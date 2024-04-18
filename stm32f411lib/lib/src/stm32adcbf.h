@@ -11,6 +11,8 @@ Comment:
 #ifndef _STM32FXXXADCBF_H_
 	#define _STM32FXXXADCBF_H_
 
+#include <inttypes.h>
+
 /*** ADC 1..3 BitField TypeDef ***/
 volatile typedef struct {
 	// SR

@@ -12,7 +12,6 @@ Comment:
 	#define _STM32FXXXADC_H_
 
 /*** Library ***/
-#include "stm32fxxxhandler.h"
 #include "armquery.h"
 
 /*** ADC 1..3 BitField TypeDef ***/

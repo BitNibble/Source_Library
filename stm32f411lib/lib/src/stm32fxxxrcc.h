@@ -11,7 +11,6 @@ Comment:
 #ifndef _STM32FXXXRCC_H_
 	#define _STM32FXXXRCC_H_
 /*** Library ***/
-#include "stm32fxxxhandler.h"
 #include "armquery.h"
 /*** Define & Macros***/
 #ifndef on
