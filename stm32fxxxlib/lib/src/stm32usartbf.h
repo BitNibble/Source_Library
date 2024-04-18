@@ -16,8 +16,8 @@ Comment:
 /*** USART BitField Mapping TypeDef ***/
 volatile typedef struct{
     /*** USART -> SR ***/
-    union{
-	    struct USART_SR_1{
+    union {
+	    struct {
 		    uint32_t pe:1;
 		    uint32_t fe:1;
 		    uint32_t nf:1;
@@ -30,40 +30,40 @@ volatile typedef struct{
 		    uint32_t cts:1;
 		    uint32_t fill:22;
 	    }par;
-	    struct USART_SR_2{
+	    struct {
 		    uint32_t d:10;
 		    uint32_t fill:22;
 	    }data;
 	    uint32_t reg;
     }sr; //0x00
     /*** USART -> DR ***/
-    union{
-	    struct USART_DR_1{
+    union {
+	    struct {
 		    uint32_t d:9;
 		    uint32_t fill:23;
 	    }data;
-	    struct USART_DR_2{
+	    struct {
 		    uint32_t b:8;
 		    uint32_t fill:24;
 	    }byte;
 	    uint32_t reg;
     }dr; //0x04
     /*** USART -> BRR ***/
-    union{
-	    struct USART_BRR_1{
+    union {
+	    struct {
 		    uint32_t div_fraction:4;
 		    uint32_t div_mantissa:12;
 		    uint32_t fill:16;
 	    }par;
-	    struct USART_BRR_2{
+	    struct {
 		    uint32_t d:16;
 		    uint32_t fill:16;
 	    }data;
 	    uint32_t reg;
     }brr; //0x08
     /*** USART -> CR1 ***/
-    union{
-	    struct USART_CR1_1{
+    union {
+	    struct {
 		    uint32_t sbk:1;
 		    uint32_t rwu:1;
 		    uint32_t re:1;
@@ -82,15 +82,15 @@ volatile typedef struct{
 		    uint32_t over8:1;
 		    uint32_t fill2:16;
 	    }par;
-	    struct USART_CR1_2{
+	    struct {
 		    uint32_t w:16;
 		    uint32_t fill:16;
 	    }data;
 	    uint32_t reg;
     }cr1; //0x0C
     /*** USART -> CR2 ***/
-    union{
-	    struct USART_CR2_1{
+    union {
+	    struct {
 		    uint32_t add:4;
 		    uint32_t fill1:1;
 		    uint32_t lbdl:1;
@@ -104,15 +104,15 @@ volatile typedef struct{
 		    uint32_t linen:1;
 		    uint32_t fill3:17;
 	    }par;
-	    struct USART_CR2_2{
+	    struct {
 		    uint32_t d:15;
 		    uint32_t fill:17;
 	    }data;
 	    uint32_t reg;
     }cr2; //0x10
     /*** USART -> CR3 ***/
-    union{
-	    struct USART_CR3_1{
+    union {
+	    struct {
 		    uint32_t eie:1;
 		    uint32_t iren:1;
 		    uint32_t irlp:1;
@@ -127,15 +127,15 @@ volatile typedef struct{
 		    uint32_t onebit:1;
 		    uint32_t fill:20;
 	    }par;
-    struct USART_CR3_2{
+    struct {
 		    uint32_t d:12;
 		    uint32_t fill:20;
 	    }data;
 	    uint32_t reg;
     }cr3; //0x14
     /*** USART -> GTPR ***/
-    union{
-	    struct USART_GTPR_1{
+    union {
+	    struct {
 		    uint32_t psc:8;
 		    uint32_t gt:8;
 		    uint32_t fill:16;
@@ -147,5 +147,4 @@ volatile typedef struct{
 #endif
 
 /*** EOF ***/
-
 
