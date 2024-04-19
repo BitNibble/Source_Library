@@ -94,7 +94,7 @@ int main(void)
   //PB5 I2C1_SMBA
   //gpiob()->handle->afr.par.pin_6 = 4; // PB6 AF4 (I2C1..3) I2C1_SCL
   //gpiob()->handle->afr.par.pin_7 = 4; // PB7 AF4 (I2C1..3) I2C1_SDA
-  //gpiob()->handle->moder.par.pin_7 = 1;
+  //gpiob()->handle->moder.par.pin_6 = 1;
   //gpiob()->handle->moder.par.pin_7 = 1;
   //gpiob()->handle->pupdr.par.pin_6 = 1;
   //gpiob()->handle->pupdr.par.pin_7 = 1;
