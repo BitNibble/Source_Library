@@ -91,10 +91,13 @@ int main(void)
   i2c.Instance = i2c1_handle();
 
   //setup i2c io
-  //gpioc()->handle->afr.par.pin_7 = 4; // pin 7 AF4 (I2C1..3)
-  //gpioc()->handle->afr.par.pin_8 = 4; // pin 8 AF4 (I2C1..3)
-  //gpioc()->handle->moder.par.pin_7 = 1;
-  //gpioc()->handle->moder.par.pin_8 = 1;
+  //PB5 I2C1_SMBA
+  //gpiob()->handle->afr.par.pin_6 = 4; // PB6 AF4 (I2C1..3) I2C1_SCL
+  //gpiob()->handle->afr.par.pin_7 = 4; // PB7 AF4 (I2C1..3) I2C1_SDA
+  //gpiob()->handle->moder.par.pin_7 = 1;
+  //gpiob()->handle->moder.par.pin_7 = 1;
+  //gpiob()->handle->pupdr.par.pin_6 = 1;
+  //gpiob()->handle->pupdr.par.pin_7 = 1;
 
   //setup i2c parameters
   i2c.Init.ClockSpeed = query()->pclk1();
