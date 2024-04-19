@@ -15,13 +15,7 @@ Comment:
 // SELECTION OF CHIP (CMSIS Access to its libraries)
 // Options: __STM32F446xx_H    __STM32F411xE_H
 #include "stm32f4xx.h"
-/*** Alternative CMSIS replacement ***/
-#include "stm32gpiobf.h"
-#include "stm32rccbf.h"
-#include "stm32timbf.h"
-#include "stm32usartbf.h"
-#include "stm32adcbf.h"
-#include "stm32i2cbf.h"
+#include <inttypes.h>
 /*** General Purpose Bit field ***/
 typedef union{
 	struct UN32nibble{
@@ -87,6 +81,13 @@ typedef union{
 	}dword;
 	uint64_t n;
 }_UN64var;
+/*** Alternative CMSIS replacement ***/
+#include "stm32gpiobf.h"
+#include "stm32rccbf.h"
+#include "stm32timbf.h"
+#include "stm32usartbf.h"
+#include "stm32adcbf.h"
+#include "stm32i2cbf.h"
 /*************************************/
 /********* HARDWARE HANDLER **********/
 /*************************************/

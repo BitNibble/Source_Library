@@ -13,7 +13,6 @@ Comment:
 	#define _ARMQUERY_H_
 
 #include "stm32fxxxhandler.h"
-#include <inttypes.h>
 
 #ifndef HSI_RC
 	#define HSI_RC 16000000UL
