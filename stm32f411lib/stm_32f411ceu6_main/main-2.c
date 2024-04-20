@@ -91,6 +91,8 @@ int main(void)
   i2c.Instance = i2c1_handle();
 
   //setup i2c io
+  //rcc()->handle->apb1enr.par.i2c1en = 1;
+  rcc_handle()->apb1enr.par.i2c1en = 1;
   //PB5 I2C1_SMBA
   //gpiob()->handle->afr.par.pin_6 = 4; // PB6 AF4 (I2C1..3) I2C1_SCL
   //gpiob()->handle->afr.par.pin_7 = 4; // PB7 AF4 (I2C1..3) I2C1_SDA
@@ -100,8 +102,8 @@ int main(void)
   //gpiob()->handle->pupdr.par.pin_7 = 1;
 
   //setup i2c parameters
-  i2c.Init.ClockSpeed = query()->pclk1();
-  i2c.Init.DutyCycle = (query()->pclk1() / 1000000) + 1;
+  i2c.Init.ClockSpeed = 100000;
+  i2c.Init.DutyCycle = I2C_DUTYCYCLE_2;
   i2c.Init.OwnAddress1 = 'A';
   i2c.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
   i2c.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
@@ -110,7 +112,10 @@ int main(void)
   i2c.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
 
   //Initialise parameters
-  HAL_I2C_Init(&i2c);
+  if (HAL_I2C_Init(&i2c) != HAL_OK)
+  {
+	  Error_Handler();
+  }
 
   ARMLCD0_enable((GPIO_TypeDef*)gpiob()->handle);
   FUNC_enable();
@@ -163,6 +168,8 @@ int main(void)
   rtc()->Minute(0);
   rtc()->Second(0);
   cdir = 1;
+
+  //HAL_I2C_Master_Transmit( &i2c, devaddr, pdata, size, timeout );
 
   while (1)
   {
