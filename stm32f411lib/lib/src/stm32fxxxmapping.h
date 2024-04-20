@@ -180,8 +180,6 @@ void SysTick_Handler(void);
 
 #endif
 
-/***EOF***/
-
 /******
 1º Sequence
 2º Scope
@@ -194,4 +192,6 @@ void SysTick_Handler(void);
 
 TypeDef->Instance->Handle
 ******/
+
+/***EOF***/
 

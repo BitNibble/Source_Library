@@ -344,8 +344,6 @@ STM32FXXX_RCC* rcc_enable(void)
 
 STM32FXXX_RCC* rcc(void){ return &stm32fxxx_rcc; };
 
-/*** EOF ***/
-
 /******
 1º Sequence
 2º Scope
@@ -356,4 +354,6 @@ STM32FXXX_RCC* rcc(void){ return &stm32fxxx_rcc; };
 3º Pointer and Variable
 4º Casting
 ******/
+
+/*** EOF ***/
 

@@ -45,8 +45,6 @@ void STM32FXXXAdc1Start(void);
 
 #endif
 
-/*** EOF ***/
-
 /******
 1º Sequence
 2º Scope
@@ -57,4 +55,6 @@ void STM32FXXXAdc1Start(void);
 3º Pointer and Variable
 4º Casting
 ******/
+
+/*** EOF ***/
 
