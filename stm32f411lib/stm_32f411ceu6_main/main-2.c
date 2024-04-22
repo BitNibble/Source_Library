@@ -214,5 +214,11 @@ void assert_failed(uint8_t *file, uint32_t line)
 struct->x_union->register
                ->parameter
 
+STM32 seems to be the only brand that gives a most complete working set and environment,
+the style could be improved, but as is, is easy to work with.
+Why do not other brands give a CMSIS and HAL layer for the user to work with do not know.
+Maybe they are lazy, but also STM could take a step further and give driver library for all
+external components. But that may be asking to much for then anybody could play around.
+
 ***/
 
