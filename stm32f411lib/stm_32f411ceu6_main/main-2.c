@@ -88,7 +88,7 @@ int main(void)
   gpioa()->clock(on); // timer 1 pwm af channel 1
   rtc()->inic(0); // 1 - LSE 0 - LSI
 
-  i2c.Instance = i2c1_handle();
+  i2c.Instance = (I2C_TypeDef*) i2c1_handle();
 
   //setup i2c io
   //rcc()->handle->apb1enr.par.i2c1en = 1;
@@ -102,6 +102,8 @@ int main(void)
   //gpiob()->handle->pupdr.par.pin_7 = 1;
 
   //setup i2c parameters
+  //i2c1_handle()->cr2.par.freq = query()->pclk1 / 1000000;
+  //i2c1_handle()->trise.par.trise = (query()->pclk1 / 1000000) + 1;
   i2c.Init.ClockSpeed = 100000;
   i2c.Init.DutyCycle = I2C_DUTYCYCLE_2;
   i2c.Init.OwnAddress1 = 'A';

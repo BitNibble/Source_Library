@@ -94,9 +94,12 @@ STM32FXXXGPIOX_TypeDef* gpioh_handle(void){return (STM32FXXXGPIOX_TypeDef*) GPIO
 /*** SYSCFG ***/
 SYSCFG_TypeDef* syscfg_handle(void){return (SYSCFG_TypeDef*) SYSCFG_BASE;}
 /*** I2C ***/
-I2C_TypeDef* i2c1_handle(void){return (I2C_TypeDef*) I2C1_BASE;}
-I2C_TypeDef* i2c2_handle(void){return (I2C_TypeDef*) I2C2_BASE;}
-I2C_TypeDef* i2c3_handle(void){return (I2C_TypeDef*) I2C3_BASE;}
+//I2C_TypeDef* i2c1_handle(void){return (I2C_TypeDef*) I2C1_BASE;}
+//I2C_TypeDef* i2c2_handle(void){return (I2C_TypeDef*) I2C2_BASE;}
+//I2C_TypeDef* i2c3_handle(void){return (I2C_TypeDef*) I2C3_BASE;}
+STM32FXXXI2C_TypeDef* i2c1_handle(void){return (STM32FXXXI2C_TypeDef*) I2C1_BASE;}
+STM32FXXXI2C_TypeDef* i2c2_handle(void){return (STM32FXXXI2C_TypeDef*) I2C2_BASE;}
+STM32FXXXI2C_TypeDef* i2c3_handle(void){return (STM32FXXXI2C_TypeDef*) I2C3_BASE;}
 #ifdef __STM32F446xx_H
 /*** FMPI2C ***/
 FMPI2C_TypeDef* fmpi2c1_handle(void){return (FMPI2C_TypeDef*) FMPI2C1_BASE;}

@@ -66,8 +66,6 @@ STM32FXXXNVICobj* nvic_enable(void)
 
 STM32FXXXNVICobj* nvic(void){ return (STM32FXXXNVICobj*) &stm32fxxx_nvic; }
 
-/*** EOF ***/
-
 /******
 1º Sequence
 2º Scope
@@ -78,4 +76,6 @@ STM32FXXXNVICobj* nvic(void){ return (STM32FXXXNVICobj*) &stm32fxxx_nvic; }
 3º Pointer and Variable
 4º Casting
 ******/
+
+/*** EOF ***/
 

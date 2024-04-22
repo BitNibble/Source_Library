@@ -167,9 +167,12 @@ STM32FXXXGPIOX_TypeDef* gpioh_handle(void);
 /*** SYSCFG ***/
 SYSCFG_TypeDef* syscfg_handle(void);
 /*** I2C ***/
-I2C_TypeDef* i2c1_handle(void);
-I2C_TypeDef* i2c2_handle(void);
-I2C_TypeDef* i2c3_handle(void);
+//I2C_TypeDef* i2c1_handle(void);
+//I2C_TypeDef* i2c2_handle(void);
+//I2C_TypeDef* i2c3_handle(void);
+STM32FXXXI2C_TypeDef* i2c1_handle(void);
+STM32FXXXI2C_TypeDef* i2c2_handle(void);
+STM32FXXXI2C_TypeDef* i2c3_handle(void);
 #ifdef __STM32F446xx_H_H
 /*** FMPI2C ***/
 FMPI2C_TypeDef* fmpi2c1_handle(void);
