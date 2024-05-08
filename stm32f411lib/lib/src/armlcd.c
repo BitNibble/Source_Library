@@ -35,8 +35,6 @@ void ARMLCD0_hspace(uint32_t n);
 void ARMLCD0_clear(void);
 void ARMLCD0_gotoxy(unsigned int y, unsigned int x);
 void ARMLCD0_reboot(void);
-// Common
-void ARMLCD0_strobe(void);
 
 /*** LCD0 Procedure & Function Definition ***/
 ARMLCD0 ARMLCD0_enable(GPIO_TypeDef* reg)
@@ -70,18 +68,18 @@ void ARMLCD0_inic(void)
 {
 	//uint8_t repeat;
 	// LCD INIC
-	ireg->MODER &= (uint32_t) ~((3 << (ARMLCD0_RS * 2)) | (3 << (ARMLCD0_RW * 2)) | (3 << (ARMLCD0_EN * 2))); // control pins as output
+	ireg->MODER &= (uint32_t) ~((3 << (ARMLCD0_RS * 2)) | (3 << (ARMLCD0_RW * 2)) | (3 << (ARMLCD0_EN * 2))); // reset control pins
 	ireg->MODER |= ((1 << (ARMLCD0_RS * 2)) | (1 << (ARMLCD0_RW * 2)) | (1 << (ARMLCD0_EN * 2))); // control pins as output
 	
-	ireg->PUPDR &= (uint32_t) ~((3 << (ARMLCD0_DB4 * 2)) | (3 << (ARMLCD0_DB5 * 2)) | (3 << (ARMLCD0_DB6 * 2)) | (3 << (ARMLCD0_DB7 * 2))); // enable pull up resistors
+	ireg->PUPDR &= (uint32_t) ~((3 << (ARMLCD0_DB4 * 2)) | (3 << (ARMLCD0_DB5 * 2)) | (3 << (ARMLCD0_DB6 * 2)) | (3 << (ARMLCD0_DB7 * 2))); // reset pull up resistors
 	ireg->PUPDR |= ((1 << (ARMLCD0_DB4 * 2)) | (1 << (ARMLCD0_DB5 * 2)) | (1 << (ARMLCD0_DB6 * 2)) | (1 << (ARMLCD0_DB7 * 2))); // enable pull up resistors
 
 	ireg->MODER &= (uint32_t) ~(3 << (ARMLCD0_NC * 2)); // reboot detect input
 	
-	ireg->PUPDR &= (uint32_t) ~(3 << (ARMLCD0_NC * 2)); // pull up resistors
+	ireg->PUPDR &= (uint32_t) ~(3 << (ARMLCD0_NC * 2)); // reset pull up resistors
 	ireg->PUPDR |= (1 << (ARMLCD0_NC * 2)); // pull up resistors
 
-	ireg->OSPEEDR &= (uint32_t) ~( (3 << (ARMLCD0_RS * 2)) | (3 << (ARMLCD0_RW * 2)) | (3 << (ARMLCD0_EN * 2)) | (3 << (ARMLCD0_DB4 * 2)) | (3 << (ARMLCD0_DB5 * 2)) | (3 << (ARMLCD0_DB6 * 2)) | (3 << (ARMLCD0_DB7 * 2)) ); // set speed
+	ireg->OSPEEDR &= (uint32_t) ~( (3 << (ARMLCD0_RS * 2)) | (3 << (ARMLCD0_RW * 2)) | (3 << (ARMLCD0_EN * 2)) | (3 << (ARMLCD0_DB4 * 2)) | (3 << (ARMLCD0_DB5 * 2)) | (3 << (ARMLCD0_DB6 * 2)) | (3 << (ARMLCD0_DB7 * 2)) ); // reset speed
 	//ireg->OSPEEDR |= ( (3 << (ARMLCD0_RS * 2)) | (3 << (ARMLCD0_RW * 2)) | (3 << (ARMLCD0_EN * 2)) | (3 << (ARMLCD0_DB4 * 2)) | (3 << (ARMLCD0_DB5 * 2)) | (3 << (ARMLCD0_DB6 * 2)) | (3 << (ARMLCD0_DB7 * 2)) ); // set speed
 	 
 	armlcd0_detect = ireg->IDR & (1 << ARMLCD0_NC);
@@ -135,21 +133,21 @@ void ARMLCD0_write(char c, unsigned short D_I)
 	ireg->MODER |= ((1 << (ARMLCD0_DB4 *2)) | (1 << (ARMLCD0_DB5* 2)) | (1 << (ARMLCD0_DB6* 2)) | (1 << (ARMLCD0_DB7 * 2))); // mcu as output
 	
 	if(D_I) setpin(ireg, ARMLCD0_RS); else resetpin(ireg, ARMLCD0_RS);
-	ARMLCD0_strobe( );
 	
+	setpin(ireg, ARMLCD0_EN);
 	if(c & 0x80) setpin(ireg,ARMLCD0_DB7); else resetpin(ireg,ARMLCD0_DB7);
 	if(c & 0x40) setpin(ireg,ARMLCD0_DB6); else resetpin(ireg,ARMLCD0_DB6);
 	if(c & 0x20) setpin(ireg,ARMLCD0_DB5); else resetpin(ireg,ARMLCD0_DB5);
 	if(c & 0x10) setpin(ireg,ARMLCD0_DB4); else resetpin(ireg,ARMLCD0_DB4);
+	resetpin(ireg, ARMLCD0_EN);
 	
 	if(D_I) setpin(ireg, ARMLCD0_RS); else resetpin(ireg, ARMLCD0_RS);
-	ARMLCD0_strobe( );
 	
+	setpin(ireg, ARMLCD0_EN);
 	if(c & 0x08) setpin(ireg,ARMLCD0_DB7); else resetpin(ireg,ARMLCD0_DB7);
 	if(c & 0x04) setpin(ireg,ARMLCD0_DB6); else resetpin(ireg,ARMLCD0_DB6);
 	if(c & 0x02) setpin(ireg,ARMLCD0_DB5); else resetpin(ireg,ARMLCD0_DB5);
 	if(c & 0x01) setpin(ireg,ARMLCD0_DB4); else resetpin(ireg,ARMLCD0_DB4);
-	
 	resetpin(ireg, ARMLCD0_EN);
 }
 
@@ -161,8 +159,10 @@ char ARMLCD0_read(unsigned short D_I)
 	setpin(ireg, ARMLCD0_RW); // lcd as output
 	
 	if(D_I) setpin(ireg, ARMLCD0_RS); else resetpin(ireg, ARMLCD0_RS);
-	ARMLCD0_strobe( );
+	
+	setpin(ireg, ARMLCD0_EN);
 	data = ireg->IDR; // read data
+	resetpin(ireg, ARMLCD0_EN);
 	
 	if(data & (1 << ARMLCD0_DB7)) c |= 1 << 7; else c &= ~(1 << 7);
 	if(data & (1 << ARMLCD0_DB6)) c |= 1 << 6; else c &= ~(1 << 6);
@@ -170,15 +170,15 @@ char ARMLCD0_read(unsigned short D_I)
 	if(data & (1 << ARMLCD0_DB4)) c |= 1 << 4; else c &= ~(1 << 4);
 	
 	if(D_I) setpin(ireg, ARMLCD0_RS); else resetpin(ireg, ARMLCD0_RS);
-	ARMLCD0_strobe( );
+	
+	setpin(ireg, ARMLCD0_EN);
 	data = ireg->IDR; // read data
+	resetpin(ireg, ARMLCD0_EN);
 
 	if(data & (1 << ARMLCD0_DB7)) c |= 1 << 3; else c &= ~(1 << 3);
 	if(data & (1 << ARMLCD0_DB6)) c |= 1 << 2; else c &= ~(1 << 2);
 	if(data & (1 << ARMLCD0_DB5)) c |= 1 << 1; else c &= ~(1 << 1);
 	if(data & (1 << ARMLCD0_DB4)) c |= 1 << 0; else c &= ~(1 << 0);
-	
-	resetpin(ireg, ARMLCD0_EN);
 
 	return c;
 }
@@ -271,12 +271,6 @@ void ARMLCD0_gotoxy(unsigned int y, unsigned int x)
 		default:
 		break;
 	}
-}
-
-void ARMLCD0_strobe(void)
-{
-	resetpin(ireg, ARMLCD0_EN);
-	setpin(ireg, ARMLCD0_EN);
 }
 
 void ARMLCD0_reboot(void)
