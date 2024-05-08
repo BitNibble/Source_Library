@@ -129,8 +129,8 @@ void ARMLCD0_inic(void)
 void ARMLCD0_write(char c, unsigned short D_I)
 { // write to LCD
 	resetpin(ireg,ARMLCD0_RW); // lcd as input
-	ireg->MODER &= (uint32_t) ~((3 << (ARMLCD0_DB4 *2)) | (3 << (ARMLCD0_DB5* 2)) | (3 << (ARMLCD0_DB6* 2)) | (3 << (ARMLCD0_DB7 * 2))); // mcu as output
-	ireg->MODER |= ((1 << (ARMLCD0_DB4 *2)) | (1 << (ARMLCD0_DB5* 2)) | (1 << (ARMLCD0_DB6* 2)) | (1 << (ARMLCD0_DB7 * 2))); // mcu as output
+	ireg->MODER &= (uint32_t) ~((3 << (ARMLCD0_DB4 * 2)) | (3 << (ARMLCD0_DB5 * 2)) | (3 << (ARMLCD0_DB6 * 2)) | (3 << (ARMLCD0_DB7 * 2))); // reset mcu output
+	ireg->MODER |= ((1 << (ARMLCD0_DB4 * 2)) | (1 << (ARMLCD0_DB5 * 2)) | (1 << (ARMLCD0_DB6 * 2)) | (1 << (ARMLCD0_DB7 * 2))); // mcu as output
 	
 	if(D_I) setpin(ireg, ARMLCD0_RS); else resetpin(ireg, ARMLCD0_RS);
 	
@@ -155,7 +155,7 @@ char ARMLCD0_read(unsigned short D_I)
 { // Read from LCD
 	uint32_t data = 0;
 	uint8_t c = 0;
-	ireg->MODER &= (uint32_t) ~((3 << (ARMLCD0_DB4 * 2)) | (3 << (ARMLCD0_DB5 * 2)) | (3 << (ARMLCD0_DB6 * 2)) | (3 << (ARMLCD0_DB7 * 2))); // mcu as input
+	ireg->MODER &= (uint32_t) ~((3 << (ARMLCD0_DB4 * 2)) | (3 << (ARMLCD0_DB5 * 2)) | (3 << (ARMLCD0_DB6 * 2)) | (3 << (ARMLCD0_DB7 * 2))); // reset mcu input
 	setpin(ireg, ARMLCD0_RW); // lcd as output
 	
 	if(D_I) setpin(ireg, ARMLCD0_RS); else resetpin(ireg, ARMLCD0_RS);
@@ -191,7 +191,7 @@ void ARMLCD0_BF(void)
 	char inst = 0x80;
 	for(i=0; 0x80 & inst; i++){
 		inst = ARMLCD0_read(ARMLCD0_INST);
-		if(i > 20) // 1
+		if(i > 10) // 1
 			break;
 	}
 }

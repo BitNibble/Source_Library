@@ -72,4 +72,3 @@ void BUFF_flush( bufferparameter* par ){
 
 /***EOF***/
 
-
