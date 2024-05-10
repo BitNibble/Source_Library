@@ -91,7 +91,8 @@ int main(void)
   i2c.Instance = (I2C_TypeDef*) i2c1_handle();
 
   //setup i2c io
-  rcc()->handle->apb1enr.par.i2c1en = 1;
+  //rcc()->handle->apb1enr.par.i2c1en = 1;
+  rcc_handle()->apb1enr.par.i2c1en = 1;
   //PB5 I2C1_SMBA
   //gpiob()->handle->afr.par.pin_6 = 4; // PB6 AF4 (I2C1..3) I2C1_SCL
   //gpiob()->handle->afr.par.pin_7 = 4; // PB7 AF4 (I2C1..3) I2C1_SDA

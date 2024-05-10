@@ -29,7 +29,7 @@ LCD
 	PB8 - D6
 	PB9 - D7
 note:
-test rcc and systick if working properly threw out.
+test bit access
 ********************************************************************************/
 #include "main.h"
 #include "stm32fxxxmapping.h"
@@ -41,18 +41,18 @@ char time[12];
 
 int main(void)
 {
-  STM32FXXX_enable();
+	STM32FXXX_enable();
 
-  gpiob()->clock(on);
-  rtc()->inic(0); // 0 - LSI, 1 - LSE, 2 - LSECLK
+	gpiob()->clock(on);
+	rtc()->inic(0); // 0 - LSI, 1 - LSE, 2 - LSECLK
 
-  ARMLCD0_enable(stm()->gpiob_reg);
-  FUNC_enable();
+	ARMLCD0_enable((GPIO_TypeDef*)stm()->gpiob->handle);
+	FUNC_enable();
 
-  while (1)
-  {
-	  func()->arm->dispar4x20(lcd0());
-  }
+	while (1)
+	{
+		func()->arm->dispar4x20(lcd0());
+	}
 }
 /*******************************************************************************/
 /*******************************************************************************/

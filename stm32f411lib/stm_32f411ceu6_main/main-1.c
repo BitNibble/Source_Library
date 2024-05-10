@@ -46,10 +46,10 @@ int main(void)
 
   gpiob()->clock(on);
 
-  ARMLCD0_enable(stm()->gpiob_reg);
+  ARMLCD0_enable((GPIO_TypeDef*)stm()->gpiob->handle);
   FUNC_enable();
 
-  gpiob()->moder->par.m13 = 1;
+  gpiob()->handle->moder.par.pin_13 = 1;
 
   while (1)
   {
